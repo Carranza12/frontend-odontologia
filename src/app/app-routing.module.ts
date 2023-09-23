@@ -5,17 +5,20 @@ import { RegisterComponent } from './auth/register/register.component';
 import { MenuAuthComponent } from './auth/menu-auth/menu-auth.component';
 
 const routes: Routes = [
+  { path: '', redirectTo: 'auth/login', pathMatch:'full'},
   {
     path: 'auth',
     loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
   },
   {
-    path: 'historiaClinica',
+    path: 'historia-clinica',
     loadChildren: () =>
       import('./historia-clinica/historia-clinica.module').then(
         (m) => m.HistoriaClinicaModule
       ),
   },
+  { path: '404', loadChildren: () => import('./not-found/not-found.module').then(m => m.NotFoundModule) },
+  { path: '**', redirectTo: '404', pathMatch:'prefix'}
 ];
 
 @NgModule({
