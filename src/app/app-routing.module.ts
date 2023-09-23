@@ -5,13 +5,21 @@ import { RegisterComponent } from './auth/register/register.component';
 import { MenuAuthComponent } from './auth/menu-auth/menu-auth.component';
 
 const routes: Routes = [
-  { path: 'auth', 
-  loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
-}
+  {
+    path: 'auth',
+    loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
+  },
+  {
+    path: 'historiaClinica',
+    loadChildren: () =>
+      import('./historia-clinica/historia-clinica.module').then(
+        (m) => m.HistoriaClinicaModule
+      ),
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
