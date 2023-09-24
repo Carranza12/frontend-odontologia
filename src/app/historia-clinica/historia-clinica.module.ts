@@ -15,7 +15,9 @@ import { AppModule } from '../app.module';
   imports: [
     CommonModule,
     HistoriaClinicaRoutingModule,
-    
+  ],
+  exports: [
+    SidebarComponent
   ]
 })
 export class HistoriaClinicaModule { }
