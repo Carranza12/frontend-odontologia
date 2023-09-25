@@ -5,7 +5,7 @@ import { RegisterComponent } from './auth/register/register.component';
 import { MenuAuthComponent } from './auth/menu-auth/menu-auth.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
+  { path: '', redirectTo: 'auth/menu', pathMatch: 'full' },
   {
     path: 'auth',
     loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
