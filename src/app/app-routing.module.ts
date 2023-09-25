@@ -10,22 +10,17 @@ const routes: Routes = [
     path: 'auth',
     loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
   },
-  {
-    path: 'historia-clinica',
-    loadChildren: () =>
-      import('./historia-clinica/historia-clinica.module').then(
-        (m) => m.HistoriaClinicaModule
-      ),
-  },
+  
   {
     path: '404',
     loadChildren: () =>
       import('./not-found/not-found.module').then((m) => m.NotFoundModule),
   },
-  {
-    path: 'inicio',
-    loadChildren: () => import('./home/home.module').then((m) => m.HomeModule),
-  },
+  
+  { path: 'superAdmin', loadChildren: () => import('./super-admin/super-admin.module').then(m => m.SuperAdminModule) },
+  { path: 'empleado', loadChildren: () => import('./empleado/empleado.module').then(m => m.EmpleadoModule) },
+  { path: 'estudiante', loadChildren: () => import('./estudiante/estudiante.module').then(m => m.EstudianteModule) },
+  { path: 'maestro', loadChildren: () => import('./maestro/maestro.module').then(m => m.MaestroModule) },
   { path: '**', redirectTo: '404', pathMatch: 'prefix' },
 ];
 
