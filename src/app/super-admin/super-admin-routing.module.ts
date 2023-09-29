@@ -2,10 +2,12 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { SuperAdminComponent } from './super-admin.component';
 import { UsuariosComponent } from './pages/usuarios/usuarios.component';
+import { EstadisticasComponent } from './pages/estadisticas/estadisticas.component';
 
 const routes: Routes = [
   { path: '', component: SuperAdminComponent },
   { path: 'usuarios', component: UsuariosComponent },
+  { path: 'estadisticas', component: EstadisticasComponent },
 ];
 
 @NgModule({
