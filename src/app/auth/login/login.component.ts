@@ -21,16 +21,15 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-   this.getSuperAdminUrl()
+    const userString = localStorage.getItem('user');
+    this.redirectToDashboard(userString);
   }
 
-  getSuperAdminUrl(){
-    const userString = localStorage.getItem('user');
+  public redirectToDashboard(userString: any) {
     if (userString) {
       const user = JSON.parse(userString);
-      if (user.role === 'superAdmin') {
-        console.log("si es super admin")
-        this.router.navigateByUrl('/superAdmin')
+      if (user.role) {
+        this.router.navigateByUrl('/' + user.role);
       } else {
         this.router.navigate(['/auth/login']);
       }
@@ -42,7 +41,8 @@ export class LoginComponent implements OnInit {
       const formData: any = this.loginForm.value;
       this.authService.login(formData).subscribe(
         (token) => {
-          this.getSuperAdminUrl()
+          const userString = localStorage.getItem('user');
+          this.redirectToDashboard(userString);
         },
         (error) => {
           console.error('Error:', error);

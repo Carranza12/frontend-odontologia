@@ -18,7 +18,7 @@ const routes: Routes = [
   },
   
   { path: 'superAdmin', loadChildren: () => import('./super-admin/super-admin.module').then(m => m.SuperAdminModule) },
-  { path: 'empleado', loadChildren: () => import('./empleado/empleado.module').then(m => m.EmpleadoModule) },
+  { path: 'trabajador', loadChildren: () => import('./empleado/empleado.module').then(m => m.EmpleadoModule) },
   { path: 'estudiante', loadChildren: () => import('./estudiante/estudiante.module').then(m => m.EstudianteModule) },
   { path: 'maestro', loadChildren: () => import('./maestro/maestro.module').then(m => m.MaestroModule) },
   { path: '**', redirectTo: '404', pathMatch: 'prefix' },

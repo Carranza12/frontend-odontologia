@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable, map } from 'rxjs';
 
 @Injectable({
@@ -8,7 +9,7 @@ import { Observable, map } from 'rxjs';
 export class AuthService {
   private apiUrl = 'http://localhost:3000/api/auth/login';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private _router:Router) {}
 
   login(credentials: { email: string; password: string }): Observable<any> {
     return this.http
@@ -40,5 +41,11 @@ export class AuthService {
     const tokenPayload = JSON.parse(atob(token.split('.')[1]));
     console.log("tokenPayload:", tokenPayload)
     return tokenPayload.role;
+  }
+
+  public logout(): void {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    this._router.navigateByUrl("/auth/login")
   }
 }

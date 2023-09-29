@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { EmpleadoRoutingModule } from './empleado-routing.module';
 import { EmpleadoComponent } from './empleado.component';
+import { SharedModule } from '../shared.module';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { EmpleadoComponent } from './empleado.component';
   ],
   imports: [
     CommonModule,
-    EmpleadoRoutingModule
+    EmpleadoRoutingModule,
+    SharedModule
   ]
 })
 export class EmpleadoModule { }
