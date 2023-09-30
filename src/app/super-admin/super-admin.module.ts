@@ -5,18 +5,25 @@ import { SuperAdminComponent } from './super-admin.component';
 import { SharedModule } from '../shared.module';
 import { UsuariosComponent } from './pages/usuarios/usuarios.component';
 import { EstadisticasComponent } from './pages/estadisticas/estadisticas.component';
+import { UsuarioNewComponent } from './pages/usuarios/usuario-new/usuario-new.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UsuarioEditComponent } from './pages/usuarios/usuario-edit/usuario-edit.component';
 
 
 @NgModule({
   declarations: [
     SuperAdminComponent,
     UsuariosComponent,
-    EstadisticasComponent
+    EstadisticasComponent,
+    UsuarioNewComponent,
+    UsuarioEditComponent
   ],
   imports: [
     CommonModule,
     SuperAdminRoutingModule,
-    SharedModule
+    SharedModule,
+    ReactiveFormsModule,
+    FormsModule
   ]
 })
 export class SuperAdminModule { }

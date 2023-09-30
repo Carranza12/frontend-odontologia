@@ -4,11 +4,16 @@ import { SuperAdminComponent } from './super-admin.component';
 import { UsuariosComponent } from './pages/usuarios/usuarios.component';
 import { EstadisticasComponent } from './pages/estadisticas/estadisticas.component';
 import { AuthGuard } from '../auth/auth.guard';
+import { UsuarioNewComponent } from './pages/usuarios/usuario-new/usuario-new.component';
+import { SuperAdminGuard } from './superAdmin.guard';
+import { UsuarioEditComponent } from './pages/usuarios/usuario-edit/usuario-edit.component';
 
 const routes: Routes = [
-  { path: '',  canActivate: [AuthGuard],component: SuperAdminComponent },
-  { path: 'usuarios', canActivate: [AuthGuard], component: UsuariosComponent },
-  { path: 'estadisticas', canActivate: [AuthGuard], component: EstadisticasComponent },
+  { path: '',  canActivate: [SuperAdminGuard],component: SuperAdminComponent },
+  { path: 'usuarios', canActivate: [SuperAdminGuard], component: UsuariosComponent },
+  { path: 'usuarios/nuevo', canActivate: [SuperAdminGuard], component: UsuarioNewComponent },
+  { path: 'usuarios/edicion/:id', canActivate: [SuperAdminGuard], component: UsuarioEditComponent },
+  { path: 'estadisticas', canActivate: [SuperAdminGuard], component: EstadisticasComponent },
 ];
 
 @NgModule({

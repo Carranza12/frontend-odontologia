@@ -1,0 +1,160 @@
+<app-sidebar></app-sidebar>
+<main class="main_container">
+  <app-page-title [title]="'Edicion de usuario'"></app-page-title>
+  <div>
+    <form class="login-form" [formGroup]="userForm" (ngSubmit)="onSubmit()">
+      <div>
+        <input
+        class="form_input"
+        type="text"
+        placeholder="Nombre"
+        formControlName="name"
+        name="uniqueFieldName1"
+
+        autocomplete="off"
+      />
+      <div
+        *ngIf="
+          userForm.get('name')?.hasError('required') &&
+          userForm.get('name')?.touched
+        "
+        class="error-message"
+      >
+        El nombre es requerido.
+      </div>
+      </div>
+      <div>
+        <input
+        class="form_input"
+        type="text"
+        placeholder="Apellido"
+        formControlName="last_name"
+        name="uniqueFieldName2"
+
+        autocomplete="off"
+      />
+      <div
+        *ngIf="
+          userForm.get('last_name')?.hasError('required') &&
+          userForm.get('last_name')?.touched
+        "
+        class="error-message"
+      >
+        El apellido es requerido.
+      </div>
+      </div>
+      <div>
+        <input
+        class="form_input"
+        type="email"
+        placeholder="Correo electronico"
+        formControlName="email"
+        name="uniqueFieldName2"
+
+        autocomplete="off"
+      />
+      <div
+        *ngIf="
+          userForm.get('email')?.hasError('required') &&
+          userForm.get('email')?.touched
+        "
+        class="error-message"
+      >
+        El correo electronico es requerido.
+      </div>
+      <div
+      *ngIf="
+        userForm.get('email')?.hasError('email') &&
+        userForm.get('email')?.touched
+      "
+      class="error-message"
+    >
+      El correo electrónico no es válido.
+    </div>
+      </div>
+      <div>
+        <input
+        class="form_input"
+        type="password"
+        placeholder="Contrasena"
+        formControlName="password"
+        name="uniqueFieldName4"
+
+        autocomplete="off"
+      />
+      <div
+        *ngIf="
+          userForm.get('password')?.hasError('required') &&
+          userForm.get('password')?.touched
+        "
+        class="error-message"
+      >
+        La contrasena es requerida.
+      </div>
+     
+      </div>
+      <div>
+        <select
+          class="form_input"
+          formControlName="role"
+          name="role"
+        >
+        <option value="">Selecciona el rol</option>
+          <option value="trabajador">Trabajador</option>
+          <option value="superAdmin">Super Admin</option>
+        </select>
+        <div
+          *ngIf="
+            userForm.get('role')?.hasError('required') &&
+            userForm.get('role')?.touched
+          "
+          class="error-message"
+        >
+          El rol es requerido.
+        </div>
+      </div>
+      
+      <div class="role_trabajador" *ngIf="showTrabajadorInputs">
+        <div>
+            <input
+            class="form_input"
+            type="text"
+            placeholder="Departamento"
+            [formControl]="departamento"
+            name="uniqueFieldName1"
+    
+            autocomplete="off"
+          />
+          <div
+            *ngIf="
+            departamento?.errors?.['required'] && departamento.touched
+            "
+            class="error-message"
+          >
+            El Departamento es requerido.
+          </div>
+        </div>
+        <div>
+            <input
+            class="form_input"
+            type="text"
+            placeholder="Puesto"
+            [formControl]="puesto"
+            name="uniqueFieldName1"
+    
+            autocomplete="off"
+          />
+          <div
+            *ngIf="
+            puesto?.errors?.['required'] && puesto.touched
+            "
+            class="error-message"
+          >
+            El Puesto es requerido.
+          </div>
+        </div>
+      </div>
+      <button type="button" (click)="onSubmit()" class="btn_primary">Crear</button>
+    </form>
+  </div>
+</main>

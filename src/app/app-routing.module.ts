@@ -4,6 +4,8 @@ import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { MenuAuthComponent } from './auth/menu-auth/menu-auth.component';
 import { AuthGuard } from './auth/auth.guard';
+import { SuperAdminGuard } from './super-admin/superAdmin.guard';
+import { EmpleadoGuard } from './empleado/empleado.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
@@ -20,7 +22,7 @@ const routes: Routes = [
 
   {
     path: 'superAdmin',
-    canActivate: [AuthGuard],
+    canActivate: [SuperAdminGuard],
     loadChildren: () =>
       import('./super-admin/super-admin.module').then(
         (m) => m.SuperAdminModule
@@ -28,7 +30,7 @@ const routes: Routes = [
   },
   {
     path: 'trabajador',
-    canActivate: [AuthGuard],
+    canActivate: [EmpleadoGuard],
     loadChildren: () =>
       import('./empleado/empleado.module').then((m) => m.EmpleadoModule),
   },
@@ -44,6 +46,7 @@ const routes: Routes = [
     loadChildren: () =>
       import('./maestro/maestro.module').then((m) => m.MaestroModule),
   },
+  { path: '403', loadChildren: () => import('./not-permise/not-permise.module').then(m => m.NotPermiseModule) },
   { path: '**', redirectTo: '404', pathMatch: 'prefix' },
 ];
 

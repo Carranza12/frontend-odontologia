@@ -1,24 +1,36 @@
 <app-sidebar></app-sidebar>
 <main class="main_container">
-    <app-page-title [title]="'Usuarios'" ></app-page-title>
-    <div>
-        <table class="table_grid">
-            <thead>
-                <tr>
-                    <th>Nombres</th>
-                    <th>Apellidos</th>
-                    <th>Email</th>
-                    <th>Role</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let user of usuariosList">
-                    <td>{{ user.name }}</td>
-                    <td>{{ user.last_name }}</td>
-                    <td>{{ user.email }}</td>
-                    <td>{{ user.role }}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+  <app-page-title [title]="'Usuarios'"></app-page-title>
+  <div>
+    <button
+      type="button"
+      class="btn_primary"
+      (click)="_general.navigateBy('/superAdmin/usuarios/nuevo')"
+    >
+      Nuevo usuario
+    </button>
+    <table class="table_grid">
+      <thead>
+        <tr>
+          <th>Nombres</th>
+          <th>Apellidos</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Opciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of usuariosList">
+          <td>{{ user.name }}</td>
+          <td>{{ user.last_name }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.role }}</td>
+          <td class="icon_container">
+            <button type="button" class="btn_icon" (click)="_general.navigateBy('/superAdmin/usuarios/edicion/'+user._id)">✎</button>
+            <button type="button" class="btn_icon">✘</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </main>

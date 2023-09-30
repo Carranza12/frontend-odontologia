@@ -5,17 +5,27 @@ import jwtDecode from 'jwt-decode';
 @Injectable({
   providedIn: 'root',
 })
-export class AuthGuard implements CanActivate {
+export class SuperAdminGuard implements CanActivate {
   constructor(private router: Router) {}
 
   canActivate(): boolean {
     const token = localStorage.getItem('token');
+    const user_string = localStorage.getItem('user');
+    let user:any;
+    if(user_string){
+        user = JSON.parse(user_string);
+    }
+
     if (token) {
       try {
         const decodedToken: any = jwtDecode(token);
 
         const currentTimestamp = Math.floor(Date.now() / 1000);
         if (decodedToken.exp && decodedToken.exp > currentTimestamp) {
+            if(user.role !== "superAdmin"){
+                this.router.navigate(['/403']);
+                return false;
+            }
           return true;
         }
       } catch (error) {
