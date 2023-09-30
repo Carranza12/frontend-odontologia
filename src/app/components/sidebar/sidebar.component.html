@@ -4,6 +4,9 @@
     <div class="sidebar">
         <h2>Hola, {{ userData.fullName}}</h2>
         <p>{{userData.role}}</p>
+        <div class="session-expiration">
+            Tu sesión expirará a las {{ sessionExpirationTime }}
+          </div>
         <ul>
             <li *ngIf="userData.role === 'superAdmin'" (click)="navigateBy('/superAdmin/estadisticas')"><a><i class="fas fa-home"></i>Estadisticas</a></li>
             <li *ngIf="userData.role === 'superAdmin'" (click)="navigateBy('/superAdmin/usuarios')" ><a ><i class="fas fa-home"></i>Usuarios</a></li>

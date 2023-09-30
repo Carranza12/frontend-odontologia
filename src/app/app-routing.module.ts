@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { MenuAuthComponent } from './auth/menu-auth/menu-auth.component';
+import { AuthGuard } from './auth/auth.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
@@ -10,17 +11,39 @@ const routes: Routes = [
     path: 'auth',
     loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
   },
-  
+
   {
     path: '404',
     loadChildren: () =>
       import('./not-found/not-found.module').then((m) => m.NotFoundModule),
   },
-  
-  { path: 'superAdmin', loadChildren: () => import('./super-admin/super-admin.module').then(m => m.SuperAdminModule) },
-  { path: 'trabajador', loadChildren: () => import('./empleado/empleado.module').then(m => m.EmpleadoModule) },
-  { path: 'estudiante', loadChildren: () => import('./estudiante/estudiante.module').then(m => m.EstudianteModule) },
-  { path: 'maestro', loadChildren: () => import('./maestro/maestro.module').then(m => m.MaestroModule) },
+
+  {
+    path: 'superAdmin',
+    canActivate: [AuthGuard],
+    loadChildren: () =>
+      import('./super-admin/super-admin.module').then(
+        (m) => m.SuperAdminModule
+      ),
+  },
+  {
+    path: 'trabajador',
+    canActivate: [AuthGuard],
+    loadChildren: () =>
+      import('./empleado/empleado.module').then((m) => m.EmpleadoModule),
+  },
+  {
+    path: 'estudiante',
+    canActivate: [AuthGuard],
+    loadChildren: () =>
+      import('./estudiante/estudiante.module').then((m) => m.EstudianteModule),
+  },
+  {
+    path: 'maestro',
+    canActivate: [AuthGuard],
+    loadChildren: () =>
+      import('./maestro/maestro.module').then((m) => m.MaestroModule),
+  },
   { path: '**', redirectTo: '404', pathMatch: 'prefix' },
 ];
 

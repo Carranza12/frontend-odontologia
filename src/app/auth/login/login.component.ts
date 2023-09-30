@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
@@ -14,6 +13,7 @@ export class LoginComponent implements OnInit {
     password: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
   });
+
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
