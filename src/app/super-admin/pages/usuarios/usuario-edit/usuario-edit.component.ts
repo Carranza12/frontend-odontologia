@@ -40,8 +40,30 @@ export class UsuarioEditComponent {
     });
     this.route.params.subscribe((params) => {
       const id = params['id'];
-      console.log('Valor del parámetro "id":', id);
+      this.apiService.getUser(id).subscribe(
+        (data:any) => {
+          if(data){
+            this.completeInput(data);
+          }
+        },
+        (error:any) => {
+          console.error(error);
+        }
+      );
     });
+  }
+
+  public completeInput(user:any){
+    console.log("user:", user)
+    this.userForm.get("name")?.setValue(user.name);
+    this.userForm.get("last_name")?.setValue(user.last_name);
+    this.userForm.get("role")?.setValue(user.role);
+    this.userForm.get("email")?.setValue(user.email);
+    this.userForm.get("password")?.setValue(user.password);
+    if(user.role === "trabajador"){
+      this.departamento.setValue(user.departamento)
+      this.puesto.setValue(user.puesto)
+    }
   }
 
   onSubmit() {

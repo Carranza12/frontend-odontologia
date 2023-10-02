@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class ApiService {
   private USERS_URL_API = 'http://localhost:3000/api/auth/users';
+  private USER_URL_API = 'http://localhost:3000/api/auth/user';
   private REGSITER_USER_URL_API = 'http://localhost:3000/api/auth/register';
 
   constructor(private http: HttpClient) {}
@@ -32,4 +33,16 @@ export class ApiService {
     }
     return false;
   }
+
+  getUser(id:string): any {
+    const token = localStorage.getItem('token');
+    if (token) {
+      const headers = new HttpHeaders({
+        Authorization: `Bearer ${token}`,
+      });
+      return this.http.get(`${this.USER_URL_API}/${id}`, { headers });
+    }
+    return false;
+  }
+
 }
