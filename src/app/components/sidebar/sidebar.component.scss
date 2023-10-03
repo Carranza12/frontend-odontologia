@@ -11,6 +11,53 @@ body{
    background-color: #f3f5f9;
 }
 
+
+.contenedor_avatar{
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  justify-content: center;
+  gap: 7px;
+  h2{
+  
+    margin: 0!important;
+  }
+  .avatar{
+    width: 50px;
+    border-radius: 50%;
+    height: 50px;
+    object-fit: cover;
+  }
+}
+
+.active_session{
+  background-color: #0b0b0b;
+}
+
+.contenedor_rol{
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  color: #fff;
+  padding: 0px;
+  p{
+    font-family: "Roboto", sans-serif;
+    font-weight: bold;
+  }
+
+  .session-expiration{
+    padding: 10px;
+    background-color: #d8dedd40;
+    margin-top: 20px;
+    font-size: small;
+    width: 100%;
+    text-align: center;
+  }
+}
+
+
 .wrapper{
   display: flex;
   position: relative;

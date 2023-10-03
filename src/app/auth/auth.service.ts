@@ -17,11 +17,14 @@ export class AuthService {
       .pipe(
         map((response) => {
           const token = response.token;
+          console.log("response:", response)
           const user = {
             fullName: response.full_name,
             role: response.role,
             email: response.email,
+            img: response.profileImage
           };
+          console.log("user auth:", user)
           localStorage.setItem('token', token);
           localStorage.setItem('user', JSON.stringify(user));
           return token;

@@ -2,6 +2,7 @@
 <main class="main_container">
   <app-page-title [title]="'Edicion de usuario'"></app-page-title>
   <div>
+    <img class="img_path" [src]="img_path" alt="">
     <form class="login-form" [formGroup]="userForm" (ngSubmit)="onSubmit()">
       <div>
         <input

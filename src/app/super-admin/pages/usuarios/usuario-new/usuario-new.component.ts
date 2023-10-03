@@ -17,6 +17,7 @@ export class UsuarioNewComponent implements OnInit {
     password: ['', Validators.required],
     role: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
+    profileImage: [''],
   });
 
   public departamento: FormControl = new FormControl('', Validators.required);
@@ -41,16 +42,36 @@ export class UsuarioNewComponent implements OnInit {
   })
   }
 
+  onFileSelected(event: any) {
+    const file = event.target.files[0];
+    this.userForm?.get('profileImage')?.setValue(file);
+  }
+
   
   
   onSubmit() {
     if (this.userForm.valid) {
-      let formData: any = this.userForm.value;
+      let formUser: any = this.userForm.value;
 
-      if(formData.role === "trabajador" && this.departamento.valid && this.puesto.valid){
-        formData.departamento = this.departamento.value;
-        formData.puesto = this.puesto.value
+      const formData = new FormData();
+
+    formData.append('name', formUser.name);
+    formData.append('last_name', formUser.last_name);
+    formData.append('password', formUser.password);
+    formData.append('role', formUser.role);
+    formData.append('email', formUser.email);
+
+    const profileImage = this.userForm.get('profileImage')?.value;
+    if (profileImage) {
+      formData.append('profileImage', profileImage);
+    }
+      if(formUser.role === "trabajador" && this.departamento.valid && this.puesto.valid){
+        formUser.departamento = this.departamento.value;
+        formUser.puesto = this.puesto.value
+        formData.append('departamento', formUser.departamento);
+        formData.append('puesto', formUser.puesto);
       }
+      console.log("form data:", formData)
 
       this.apiService.registerUser(formData).subscribe(
         (response:any) => {

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import jwtDecode from 'jwt-decode';
 import { AuthService } from 'src/app/auth/auth.service';
 
@@ -10,24 +10,34 @@ import { AuthService } from 'src/app/auth/auth.service';
 })
 export class SidebarComponent implements OnInit {
   public userData!: any;
-  public sessionExpirationTime: string = ''; // Nueva propiedad
+  public sessionExpirationTime: string = '';
+  public profile_picture!:string;
+  public actual_path!:string;
 
-  constructor(private authService: AuthService, private _router: Router) {}
+  constructor(private authService: AuthService, private _router: Router, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     const user_json = localStorage.getItem('user');
     if (user_json) {
       this.userData = JSON.parse(user_json);
+      this.profile_picture = "http://localhost:3000/" + this.userData.img
+      console.log("imagen:,", this.userData.img)
     }
 
-    // Decodificar y formatear el tiempo de expiración
+    this.route.url.subscribe(urlSegments => {
+      if(urlSegments[0]){
+        this.actual_path = urlSegments[0].path;
+      }
+      
+    });
+
     const token = localStorage.getItem('token');
     if (token) {
       try {
         const decodedToken: any = jwtDecode(token);
         const expirationTimestamp = decodedToken.exp;
         const expirationDate = new Date(expirationTimestamp * 1000);
-        this.sessionExpirationTime = expirationDate.toLocaleTimeString(); // Formatea la hora legible
+        this.sessionExpirationTime = expirationDate.toLocaleTimeString();
       } catch (error) {
         console.error('Error al decodificar el token:', error);
       }

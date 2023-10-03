@@ -18,6 +18,7 @@ export class UsuarioEditComponent {
     role: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
   });
+  public img_path! :string;
   public departamento: FormControl = new FormControl('', Validators.required);
   public puesto: FormControl = new FormControl('', Validators.required);
   public showTrabajadorInputs: boolean = false;
@@ -60,6 +61,7 @@ export class UsuarioEditComponent {
     this.userForm.get("role")?.setValue(user.role);
     this.userForm.get("email")?.setValue(user.email);
     this.userForm.get("password")?.setValue(user.password);
+    this.img_path = "http://localhost:3000/" + user.profileImage;
     if(user.role === "trabajador"){
       this.departamento.setValue(user.departamento)
       this.puesto.setValue(user.puesto)
