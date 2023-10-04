@@ -5,6 +5,7 @@
     <img class="img_path" [src]="img_path" alt="">
     <form class="login-form" [formGroup]="userForm" (ngSubmit)="onSubmit()">
       <div>
+        <p>Nombre del usuario</p>
         <input
         class="form_input"
         type="text"
@@ -14,7 +15,9 @@
 
         autocomplete="off"
       />
+      
       <div
+      
         *ngIf="
           userForm.get('name')?.hasError('required') &&
           userForm.get('name')?.touched
@@ -45,6 +48,7 @@
       </div>
       </div>
       <div>
+        <p>Correo electronico del usuario</p>
         <input
         class="form_input"
         type="email"
@@ -74,15 +78,22 @@
     </div>
       </div>
       <div>
+        <label for="cbxPass">
+          Modificar Contraseña
+        </label>  
+        <input type="checkbox" id="cbxPass" formControlName="changePass">
+      </div>
+      <div>    
         <input
         class="form_input"
         type="password"
+        
         placeholder="Contrasena"
         formControlName="password"
         name="uniqueFieldName4"
 
         autocomplete="off"
-      />
+        />
       <div
         *ngIf="
           userForm.get('password')?.hasError('required') &&

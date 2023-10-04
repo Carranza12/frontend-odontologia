@@ -5,18 +5,21 @@ import { ApiService } from 'src/app/api.service';
 import { AuthService } from 'src/app/auth/auth.service';
 import { GeneralService } from 'src/app/general.service';
 
+
 @Component({
   selector: 'app-usuario-edit',
   templateUrl: './usuario-edit.component.html',
-  styleUrls: ['./usuario-edit.component.scss'],
+  styleUrls: ['./usuario-edit.component.scss'],  
 })
+
 export class UsuarioEditComponent {
   public userForm = this.formBuilder.group({
     name: ['', Validators.required],
     last_name: ['', Validators.required],
-    password: ['', Validators.required],
+    password: [''],
     role: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
+    changePass: [false]
   });
   public img_path! :string;
   public departamento: FormControl = new FormControl('', Validators.required);
@@ -52,6 +55,17 @@ export class UsuarioEditComponent {
         }
       );
     });
+    this.userForm.get("changePass")?.valueChanges.subscribe((valor:any)=>{
+      console.log(valor)
+      if(valor){
+        this.userForm.get("password")?.enable();
+        
+      }
+      else{
+        this.userForm.get("password")?.disable();
+        this.userForm.get("password")?.setValue("");
+      }
+    })
   }
 
   public completeInput(user:any){
@@ -60,8 +74,8 @@ export class UsuarioEditComponent {
     this.userForm.get("last_name")?.setValue(user.last_name);
     this.userForm.get("role")?.setValue(user.role);
     this.userForm.get("email")?.setValue(user.email);
-    this.userForm.get("password")?.setValue(user.password);
     this.img_path = "http://localhost:3000/" + user.profileImage;
+    this.userForm.get("password")?.disable();
     if(user.role === "trabajador"){
       this.departamento.setValue(user.departamento)
       this.puesto.setValue(user.puesto)
