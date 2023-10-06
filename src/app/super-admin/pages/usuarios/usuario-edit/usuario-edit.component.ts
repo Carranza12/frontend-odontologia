@@ -74,7 +74,7 @@ export class UsuarioEditComponent {
     this.userForm.get("last_name")?.setValue(user.last_name);
     this.userForm.get("role")?.setValue(user.role);
     this.userForm.get("email")?.setValue(user.email);
-    this.img_path = "http://localhost:3000/" + user.profileImage;
+    this.img_path = user.profileImage;
     this.userForm.get("password")?.disable();
     if(user.role === "trabajador"){
       this.departamento.setValue(user.departamento)

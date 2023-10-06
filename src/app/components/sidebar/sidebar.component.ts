@@ -20,8 +20,7 @@ export class SidebarComponent implements OnInit {
     const user_json = localStorage.getItem('user');
     if (user_json) {
       this.userData = JSON.parse(user_json);
-      this.profile_picture = "http://localhost:3000/" + this.userData.img
-      console.log("imagen:,", this.userData.img)
+      this.profile_picture = this.userData.img
     }
 
     this.route.url.subscribe(urlSegments => {
