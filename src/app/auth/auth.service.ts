@@ -20,7 +20,8 @@ export class AuthService {
           console.log("response:", response)
           const user = {
             fullName: response.full_name,
-            role: response.role,
+            roles: response.roles,
+            role_default: response.role_default,
             email: response.email,
             img: response.profileImage
           };

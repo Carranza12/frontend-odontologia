@@ -28,8 +28,9 @@ export class LoginComponent implements OnInit {
   public redirectToDashboard(userString: any) {
     if (userString) {
       const user = JSON.parse(userString);
-      if (user.role) {
-        this.router.navigateByUrl('/' + user.role);
+      console.log("user:", user)
+      if (user.role_default) {
+        this.router.navigateByUrl('/' + user.role_default);
       } else {
         this.router.navigate(['/auth/login']);
       }
