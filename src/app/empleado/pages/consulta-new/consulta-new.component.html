@@ -2,11 +2,66 @@
 <main class="main_container">
   <app-page-title [title]="'Nueva consulta'"></app-page-title>
   <div>
-
-        <input id="inputTxt" class="form_input" type="text" placeholder="Search ...">
-    
-      <div class="list-group">
+    <form>
+      <div class="autocomplete" *ngIf="showAutocomplete">
+        <input
+          class="form_input"
+          [formControl]="nombre_paciente_autocomplete"
+          type="text"
+          placeholder="Busca el nombre del paciente..."
+        />
+        <div class="list-group">
+          <div
+            class="item"
+            *ngFor="let paciente of list_pacientes"
+            (click)="selectPatient(paciente)"
+          >
+            <p>{{ paciente.nombre_completo }}</p>
+          </div>
+          <div class="item" *ngIf="list_pacientes.length === 0">
+            <p>
+              No se encontro al paciente
+              <span>Dar de alta a un nuevo paciente</span>
+            </p>
+          </div>
+        </div>
       </div>
-   
+      <div *ngIf="showPatientDetail" class="patient_container" id="htmlData">
+        <div class="patient_header">
+          <img src="../../../../assets/logos/logo.jpeg" alt="logo_facultad">
+          <div class="header_childs">
+            <p><strong>Facultad de odontologia Unidad Torreon</strong></p>
+            <p>844 434 0030 | 844 434 0061| 844 434 1287</p>
+            <p class="direccion">Dra. Cuquita Cepeda de Dávila.
+              Col. Adolfo López Mateos.
+              C.P. 25125. Saltillo, Coahuila.</p>
+          </div>
+        </div>
+        <div class="patient_section" >
+          <div class="patient_section_child">
+            <p><strong>Nombre del paciente:</strong></p>
+            <p>{{ patient.nombre_completo }}</p>
+          </div>
+          <div class="patient_section_child">
+            <p><strong>Fecha de consulta:</strong></p>
+            <p>{{ patient.fecha_consulta }}</p>
+          </div>
+          <div class="patient_section_child">
+            <p><strong>Consulta generada por:</strong></p>
+            <p>{{ patient.consulta_generada }}</p>
+          </div>
+          
+        </div>
+        <qrcode
+          [qrdata]="myAngularxQrCode"
+          [width]="256"
+          [errorCorrectionLevel]="'M'"
+        ></qrcode>
+       
+      </div>
+      <div *ngIf="showPatientDetail" style="margin-top: 15px;">
+        <button type="button" class="btn_primary" (click)="openPDF()" >Imprimir consulta</button>
+      </div>
+    </form>
   </div>
 </main>
