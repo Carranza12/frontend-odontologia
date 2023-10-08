@@ -23,7 +23,8 @@ export class SuperAdminGuard implements CanActivate {
         const currentTimestamp = Math.floor(Date.now() / 1000);
         if (decodedToken.exp && decodedToken.exp > currentTimestamp) {
             if(user.role_default !== "superAdmin"){
-                this.router.navigate(['/403']);
+              user.role_default
+                this.router.navigateByUrl('/' + user.role_default);
                 return false;
             }
           return true;

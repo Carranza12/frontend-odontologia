@@ -28,7 +28,6 @@ export class LoginComponent implements OnInit {
   public redirectToDashboard(userString: any) {
     if (userString) {
       const user = JSON.parse(userString);
-      console.log("user:", user)
       if (user.role_default) {
         this.router.navigateByUrl('/' + user.role_default);
       } else {

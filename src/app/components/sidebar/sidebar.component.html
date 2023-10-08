@@ -7,16 +7,17 @@
         <h2>{{ userData.fullName}}</h2>
       </div>
       <div class="contenedor_rol">
-        <p>{{userData.role}}</p>
+        <p>{{userData.role_default}}</p>
         <div class="session-expiration">
             Tu sesión expirará a las {{ sessionExpirationTime }}
           </div>
       </div>
        
         <ul>
-            <li [ngClass]="{'active_session': actual_path === 'estadisticas'}"  *ngIf="userData.role === 'superAdmin'" (click)="navigateBy('/superAdmin/estadisticas')"><a><i class="fas fa-home"></i>Estadisticas</a></li>
-            <li  [ngClass]="{'active_session': actual_path === 'usuarios'}"  *ngIf="userData.role === 'superAdmin'" (click)="navigateBy('/superAdmin/usuarios')" ><a ><i class="fas fa-home"></i>Usuarios</a></li>
-            <li  [ngClass]="{'active_session': !actual_path}" *ngIf="userData.role === 'trabajador'" ><a routerLink="/consulta"><i class="fas fa-home"></i>Consulta</a></li>
+            <li [ngClass]="{'active_session': actual_path === 'estadisticas'}"  *ngIf="userData.role_default === 'superAdmin'" (click)="navigateBy('/superAdmin/estadisticas')"><a><i class="fas fa-home"></i>Estadisticas</a></li>
+            <li  [ngClass]="{'active_session': actual_path === 'usuarios'}"  *ngIf="userData.role_default === 'superAdmin'" (click)="navigateBy('/superAdmin/usuarios')" ><a ><i class="fas fa-home"></i>Usuarios</a></li>
+            <li  [ngClass]="{'active_session': actual_path === 'asignaturas'}"  *ngIf="userData.role_default === 'superAdmin'" (click)="navigateBy('/superAdmin/asignaturas')" ><a ><i class="fas fa-home"></i>Asignaturas</a></li>
+            <li  [ngClass]="{'active_session': actual_path === 'consultas'}" *ngIf="userData.role_default === 'trabajador'" (click)="navigateBy('/trabajador/consultas')" ><a><i class="fas fa-home"></i>Consultas</a></li>
         </ul> 
         <div class="social_media">
           <a (click)="logout()">Cerrar sesion</a>

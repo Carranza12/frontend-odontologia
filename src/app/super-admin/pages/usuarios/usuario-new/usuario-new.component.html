@@ -95,20 +95,34 @@
       </div>
      
       </div>
+      <p>Selecciona los roles:</p>
+      <table class="table_grid">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let role of rolesAvailableList">
+            <td   [ngClass]="{'user_selected': role.selected}" (click)="selectRole(role)">{{ role.text }}</td>
+          </tr>
+         
+        </tbody>
+      </table>
+
       <div>
         <select
           class="form_input"
-          formControlName="role"
-          name="role"
+          formControlName="role_default"
+          name="role_default"
         >
-        <option value="">Selecciona el rol</option>
-          <option value="trabajador">Trabajador</option>
-          <option value="superAdmin">Super Admin</option>
+        <option value="">Selecciona el rol por defecto</option>
+          <option [value]="role.value" *ngFor="let role of rolesSelectedList">{{role.text}}</option>
         </select>
         <div
           *ngIf="
-            userForm.get('role')?.hasError('required') &&
-            userForm.get('role')?.touched
+            userForm.get('role_default')?.hasError('required') &&
+            userForm.get('role_default')?.touched
           "
           class="error-message"
         >

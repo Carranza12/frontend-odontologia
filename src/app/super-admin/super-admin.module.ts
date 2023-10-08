@@ -8,6 +8,7 @@ import { EstadisticasComponent } from './pages/estadisticas/estadisticas.compone
 import { UsuarioNewComponent } from './pages/usuarios/usuario-new/usuario-new.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UsuarioEditComponent } from './pages/usuarios/usuario-edit/usuario-edit.component';
+import { AsignaturasComponent } from './pages/asignaturas/asignaturas.component';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { UsuarioEditComponent } from './pages/usuarios/usuario-edit/usuario-edit
     UsuariosComponent,
     EstadisticasComponent,
     UsuarioNewComponent,
-    UsuarioEditComponent
+    UsuarioEditComponent,
+    AsignaturasComponent
   ],
   imports: [
     CommonModule,
