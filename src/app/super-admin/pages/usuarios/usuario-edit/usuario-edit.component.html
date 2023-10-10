@@ -1,11 +1,15 @@
 <app-sidebar></app-sidebar>
 <main class="main_container">
   <app-page-title [title]="'Edicion de usuario'"></app-page-title>
-  <div>
-    <img class="img_path" [src]="img_path" alt="">
-    <form class="login-form" [formGroup]="userForm" (ngSubmit)="onSubmit()">
+  <div class="container">
+   
+      <form class="responsive-form" [formGroup]="userForm" (ngSubmit)="onSubmit()">
 
-      <input type="file" (change)="onFileSelected($event)" name="profileImage" class="btn_files">
+        <div class="top-container">
+          <img class="img_path" [src]="img_path" alt="">
+          <input type="file" id="fileInput" class="input-file" (change)="onFileSelected($event)" name="profileImage" />
+          <label for="fileInput" class="custom-file-button">Seleccionar archivo</label>
+        </div>
 
       <div>
         <p>Nombre del usuario</p>
@@ -80,7 +84,7 @@
       El correo electrónico no es válido.
     </div>
       </div>
-      <div>
+      <div class="cbx-container">
         <label for="cbxPass">
           Modificar Contraseña
         </label>  
@@ -109,11 +113,11 @@
      
       </div>
 
-      <p>Selecciona los roles:</p>
+
       <table class="table_grid">
         <thead>
           <tr>
-            <th>Nombre</th>
+            <th>Selecciona los roles</th>
           </tr>
         </thead>
         <tbody>
@@ -187,4 +191,5 @@
       <button type="button" (click)="onSubmit()" class="btn_primary">Actualizar</button>
     </form>
   </div>
+  
 </main>

@@ -1,3 +1,17 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  .container {
+    text-align: center;
+    margin-left: 15%;
+  }
 .img_path{
     width: 200px;
 }
@@ -5,3 +19,61 @@
     background-color:#21ada2;
     color: white;
 }
+
+.responsive-form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    max-width: 800px;
+    width: 100%;
+  }
+  
+  .responsive-form h2 {
+    margin-top: 0;
+  }
+  
+  .responsive-form label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .responsive-form input[type="text"],
+  .responsive-form input[type="email"],
+  .responsive-form input[type="checkbox"],
+  .responsive-form input[type="password"],
+  .responsive-form table,
+  .responsive-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .responsive-form button {
+    margin: auto;
+    background-color: #21ada2;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .responsive-form button:hover {
+    background-color: #1f8077;
+  }
+
+  .top-container{
+    text-align: center;
+  }
+  .top-container img{
+    display: block; /* Asegura que la imagen ocupe todo el ancho disponible */
+  margin: 0 auto; /* Para centrar horizontalmente la imagen en el contenedor */
+  }
+
+  .top-container label{
+    display: block; /* Coloca el botón en su propia línea (debajo de la imagen) */
+     margin: 10px auto; /* Agrega un margen y centra horizontalmente el botón */
+  }
