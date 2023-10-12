@@ -1,0 +1,89 @@
+<app-sidebar></app-sidebar>
+<main class="main_container">
+  <app-page-title [title]="'Perfil Maestro'"></app-page-title>
+  <div>
+    <form class="login-form" [formGroup]="perfilForm" (ngSubmit)="onSubmit()">
+      <div>
+        <input
+          class="form_input"
+          type="text"
+          placeholder="Expediente"
+          formControlName="expediente"
+          name="uniqueFieldName1"
+          autocomplete="off"
+        />
+        <div
+          *ngIf="
+            perfilForm.get('expediente')?.hasError('required') &&
+            perfilForm.get('expediente')?.touched
+          "
+          class="error-message"
+        >
+          El expediente es requerido.
+        </div>
+      </div>
+      <div>
+        <input
+          class="form_input"
+          type="text"
+          placeholder="Cedula profesional"
+          formControlName="cedula_profesional"
+          name="uniqueFieldName2"
+          autocomplete="off"
+        />
+        <div
+          *ngIf="
+            perfilForm.get('cedula_profesional')?.hasError('required') &&
+            perfilForm.get('cedula_profesional')?.touched
+          "
+          class="error-message"
+        >
+          La cedula profesional es requerida.
+        </div>
+      </div>
+      <div>
+        <input
+          class="form_input"
+          type="text"
+          placeholder="Universidad"
+          formControlName="universidad"
+          name="uniqueFieldName2"
+          autocomplete="off"
+        />
+        <div
+          *ngIf="
+            perfilForm.get('universidad')?.hasError('required') &&
+            perfilForm.get('universidad')?.touched
+          "
+          class="error-message"
+        >
+          La universidad es requerida.
+        </div>
+
+        <div>
+          <input
+            class="form_input"
+            type="text"
+            placeholder="Especialidad"
+            formControlName="especialidad"
+            name="uniqueFieldName1"
+            autocomplete="off"
+          />
+          <div
+            *ngIf="
+              perfilForm.get('especialidad')?.hasError('required') &&
+              perfilForm.get('especialidad')?.touched
+            "
+            class="error-message"
+          >
+            La especialidad es requerida.
+          </div>
+        </div>
+      </div>
+
+      <button type="button" (click)="onSubmit()" class="btn_primary">
+        Crear
+      </button>
+    </form>
+  </div>
+</main>

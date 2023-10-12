@@ -20,7 +20,7 @@
           <td>{{ maestro.email }}</td>
           <td><p *ngFor="let role of maestro.roles">{{role}}</p></td>
           <td class="icon_container">
-            <button type="button" class="btn_icon" (click)="_general.navigateBy('/superAdmin/usuarios/edicion/'+maestro._id)">✎</button>
+            <button type="button" class="btn_icon" (click)="_general.navigateBy('/superAdmin/maestros/perfil-maestro/'+maestro._id)">✎</button>
             <button type="button" class="btn_icon" (click)="deleteUser(maestro._id)">✘</button>
           </td>
         </tr>

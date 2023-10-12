@@ -10,6 +10,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UsuarioEditComponent } from './pages/usuarios/usuario-edit/usuario-edit.component';
 import { AsignaturasComponent } from './pages/asignaturas/asignaturas.component';
 import { MaestrosComponent } from './pages/maestros/maestros.component';
+import { PerfilComponent } from './pages/maestros/perfil/perfil.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { MaestrosComponent } from './pages/maestros/maestros.component';
     UsuarioNewComponent,
     UsuarioEditComponent,
     AsignaturasComponent,
-    MaestrosComponent
+    MaestrosComponent,
+    PerfilComponent
   ],
   imports: [
     CommonModule,
