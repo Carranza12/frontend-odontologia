@@ -16,6 +16,7 @@
         <ul>
             <li [ngClass]="{'active_session': actual_path === 'estadisticas'}"  *ngIf="userData.role_default === 'superAdmin'" (click)="navigateBy('/superAdmin/estadisticas')"><a><i class="fas fa-home"></i>Estadisticas</a></li>
             <li  [ngClass]="{'active_session': actual_path === 'usuarios'}"  *ngIf="userData.role_default === 'superAdmin'" (click)="navigateBy('/superAdmin/usuarios')" ><a ><i class="fas fa-home"></i>Usuarios</a></li>
+            <li  [ngClass]="{'active_session': actual_path === 'maestros'}" *ngIf="userData.role_default === 'superAdmin'" (click)="navigateBy('/superAdmin/maestros')" ><a><i class="fas fa-home"></i>Maestros</a></li>
             <li  [ngClass]="{'active_session': actual_path === 'asignaturas'}"  *ngIf="userData.role_default === 'superAdmin'" (click)="navigateBy('/superAdmin/asignaturas')" ><a ><i class="fas fa-home"></i>Asignaturas</a></li>
             <li  [ngClass]="{'active_session': actual_path === 'consultas'}" *ngIf="userData.role_default === 'trabajador'" (click)="navigateBy('/trabajador/consultas')" ><a><i class="fas fa-home"></i>Consultas</a></li>
             <li  [ngClass]="{'active_session': actual_path === 'perfil-maestro'}" *ngIf="userData.role_default === 'maestro'" (click)="navigateBy('/maestro/perfil-maestro')" ><a><i class="fas fa-home"></i>Perfil Maestro</a></li>

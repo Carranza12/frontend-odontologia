@@ -8,6 +8,7 @@ import { UsuarioNewComponent } from './pages/usuarios/usuario-new/usuario-new.co
 import { SuperAdminGuard } from './superAdmin.guard';
 import { UsuarioEditComponent } from './pages/usuarios/usuario-edit/usuario-edit.component';
 import { AsignaturasComponent } from './pages/asignaturas/asignaturas.component';
+import { MaestrosComponent } from './pages/maestros/maestros.component';
 
 const routes: Routes = [
   { path: '',  canActivate: [SuperAdminGuard],component: SuperAdminComponent },
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'usuarios/edicion/:id', canActivate: [SuperAdminGuard], component: UsuarioEditComponent },
   { path: 'estadisticas', canActivate: [SuperAdminGuard], component: EstadisticasComponent },
   { path: 'asignaturas', canActivate: [SuperAdminGuard], component: AsignaturasComponent },
+  { path: 'maestros', canActivate: [SuperAdminGuard], component: MaestrosComponent },
 ];
 
 @NgModule({

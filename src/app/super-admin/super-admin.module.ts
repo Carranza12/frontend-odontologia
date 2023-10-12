@@ -9,6 +9,7 @@ import { UsuarioNewComponent } from './pages/usuarios/usuario-new/usuario-new.co
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UsuarioEditComponent } from './pages/usuarios/usuario-edit/usuario-edit.component';
 import { AsignaturasComponent } from './pages/asignaturas/asignaturas.component';
+import { MaestrosComponent } from './pages/maestros/maestros.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { AsignaturasComponent } from './pages/asignaturas/asignaturas.component'
     EstadisticasComponent,
     UsuarioNewComponent,
     UsuarioEditComponent,
-    AsignaturasComponent
+    AsignaturasComponent,
+    MaestrosComponent
   ],
   imports: [
     CommonModule,
