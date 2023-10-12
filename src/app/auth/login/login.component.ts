@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -37,6 +38,13 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
+    if(this.loginForm.invalid){
+      Swal.fire(
+        'Oops...',
+        'Por favor rellena los campos vacios.',
+        'error'
+      )
+    }
     if (this.loginForm.valid) {
       const formData: any = this.loginForm.value;
       this.authService.login(formData).subscribe(
@@ -45,6 +53,13 @@ export class LoginComponent implements OnInit {
           this.redirectToDashboard(userString);
         },
         (error) => {
+          if(error.status ===401){
+            Swal.fire(
+              'Oops...',
+              'Las credenciales son incorrectas. Favor de hablar con un administrador.',
+              'error'
+            )
+          }
           console.error('Error:', error);
         }
       );

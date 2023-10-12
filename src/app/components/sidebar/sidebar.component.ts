@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import jwtDecode from 'jwt-decode';
 import { AuthService } from 'src/app/auth/auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-sidebar',
@@ -11,10 +12,10 @@ import { AuthService } from 'src/app/auth/auth.service';
 export class SidebarComponent implements OnInit {
   public userData!: any;
   public sessionExpirationTime: string = '';
-  public profile_picture!:string;
-  public actual_path!:string;
+  public profile_picture!: string;
+  public actual_path!: string;
 
-  constructor(private authService: AuthService, private _router: Router, private route: ActivatedRoute) {}
+  constructor(private authService: AuthService, private _router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     const user_json = localStorage.getItem('user');
@@ -24,10 +25,10 @@ export class SidebarComponent implements OnInit {
     }
 
     this.route.url.subscribe(urlSegments => {
-      if(urlSegments[0]){
+      if (urlSegments[0]) {
         this.actual_path = urlSegments[0].path;
       }
-      
+
     });
 
     const token = localStorage.getItem('token');
@@ -43,8 +44,23 @@ export class SidebarComponent implements OnInit {
     }
   }
 
-  public logout(): void {
-    this.authService.logout();
+  async logout(): Promise<void> {
+    const result = await Swal.fire({
+      title: '¿Estás seguro de que desea cerrar sesion?',
+      showCancelButton: true,
+      confirmButtonText: 'Sí',
+      cancelButtonText: 'Cancelar',
+      icon: 'question'
+    });
+
+    if (result.isConfirmed) {
+      try {
+        this.authService.logout();
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
   }
 
   public navigateBy(url: string) {
