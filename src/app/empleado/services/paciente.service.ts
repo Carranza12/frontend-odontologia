@@ -1,158 +1,22 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PacienteService {
+  private PATIENTS_URL_API = 'http://localhost:3000/api/patients';
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  public getEmpleados(){
-    return [
-      {
-        _id: "2830482349023",
-        nombre_completo: "Eduardo Aguilar",
-        fehca_nacimiento: "16/09/2001",
-        genero: "Masculino",
-        estado_civil: "Comprometido",
-        ocupacion: "Desarrollador de software",
-        domicilio: "San nicolas de las garzas 456",
-        telefono: "8715741717",
-        ciudad_origen: "Monterrey",
-        estado_origen: "Nuevo leon",
-        pais_origen: "Mexico",
-        ciudad_Actual: "torreon",
-        historia_clinica_id: "2323",
-        nombre_contacto_emergencia: "Francisco Carranza",
-        parentesco_contacto_emergencia: "Primo",
-        telefono_contacto_emergencia: "47827492"
-      },
-      {
-        _id: "2830482349023",
-        nombre_completo: "Rogelio Sanchez",
-        fehca_nacimiento: "16/09/2001",
-        genero: "Masculino",
-        estado_civil: "Comprometido",
-        ocupacion: "Desarrollador de software",
-        domicilio: "San nicolas de las garzas 456",
-        telefono: "8715741717",
-        ciudad_origen: "Monterrey",
-        estado_origen: "Nuevo leon",
-        pais_origen: "Mexico",
-        ciudad_Actual: "torreon",
-        historia_clinica_id: "2323",
-        nombre_contacto_emergencia: "Francisco Carranza",
-        parentesco_contacto_emergencia: "Primo",
-        telefono_contacto_emergencia: "47827492"
-      },
-      {
-        _id: "2830482349023",
-        nombre_completo: "David Arincio",
-        fehca_nacimiento: "16/09/2001",
-        genero: "Masculino",
-        estado_civil: "Comprometido",
-        ocupacion: "Desarrollador de software",
-        domicilio: "San nicolas de las garzas 456",
-        telefono: "8715741717",
-        ciudad_origen: "Monterrey",
-        estado_origen: "Nuevo leon",
-        pais_origen: "Mexico",
-        ciudad_Actual: "torreon",
-        historia_clinica_id: "2323",
-        nombre_contacto_emergencia: "Francisco Carranza",
-        parentesco_contacto_emergencia: "Primo",
-        telefono_contacto_emergencia: "47827492"
-      },
-      {
-        _id: "2830482349023",
-        nombre_completo: "Obed Mendez",
-        fehca_nacimiento: "16/09/2001",
-        genero: "Masculino",
-        estado_civil: "Comprometido",
-        ocupacion: "Desarrollador de software",
-        domicilio: "San nicolas de las garzas 456",
-        telefono: "8715741717",
-        ciudad_origen: "Monterrey",
-        estado_origen: "Nuevo leon",
-        pais_origen: "Mexico",
-        ciudad_Actual: "torreon",
-        historia_clinica_id: "2323",
-        nombre_contacto_emergencia: "Francisco Carranza",
-        parentesco_contacto_emergencia: "Primo",
-        telefono_contacto_emergencia: "47827492"
-      },
-      {
-        _id: "2830482349023",
-        nombre_completo: "Victor Rodriguez",
-        fehca_nacimiento: "16/09/2001",
-        genero: "Masculino",
-        estado_civil: "Comprometido",
-        ocupacion: "Desarrollador de software",
-        domicilio: "San nicolas de las garzas 456",
-        telefono: "8715741717",
-        ciudad_origen: "Monterrey",
-        estado_origen: "Nuevo leon",
-        pais_origen: "Mexico",
-        ciudad_Actual: "torreon",
-        historia_clinica_id: "2323",
-        nombre_contacto_emergencia: "Francisco Carranza",
-        parentesco_contacto_emergencia: "Primo",
-        telefono_contacto_emergencia: "47827492"
-      },
-      {
-        _id: "2830482349023",
-        nombre_completo: "John Hutchinson",
-        fehca_nacimiento: "16/09/2001",
-        genero: "Masculino",
-        estado_civil: "Comprometido",
-        ocupacion: "Desarrollador de software",
-        domicilio: "San nicolas de las garzas 456",
-        telefono: "8715741717",
-        ciudad_origen: "Monterrey",
-        estado_origen: "Nuevo leon",
-        pais_origen: "Mexico",
-        ciudad_Actual: "torreon",
-        historia_clinica_id: "2323",
-        nombre_contacto_emergencia: "Francisco Carranza",
-        parentesco_contacto_emergencia: "Primo",
-        telefono_contacto_emergencia: "47827492"
-      },
-      {
-        _id: "2830482349023",
-        nombre_completo: "Christian Moreno",
-        fehca_nacimiento: "16/09/2001",
-        genero: "Masculino",
-        estado_civil: "Comprometido",
-        ocupacion: "Desarrollador de software",
-        domicilio: "San nicolas de las garzas 456",
-        telefono: "8715741717",
-        ciudad_origen: "Monterrey",
-        estado_origen: "Nuevo leon",
-        pais_origen: "Mexico",
-        ciudad_Actual: "torreon",
-        historia_clinica_id: "2323",
-        nombre_contacto_emergencia: "Francisco Carranza",
-        parentesco_contacto_emergencia: "Primo",
-        telefono_contacto_emergencia: "47827492"
-      },
-      {
-        _id: "2830482349023",
-        nombre_completo: "Oscar Perez",
-        fehca_nacimiento: "16/09/2001",
-        genero: "Masculino",
-        estado_civil: "Comprometido",
-        ocupacion: "Desarrollador de software",
-        domicilio: "San nicolas de las garzas 456",
-        telefono: "8715741717",
-        ciudad_origen: "Monterrey",
-        estado_origen: "Nuevo leon",
-        pais_origen: "Mexico",
-        ciudad_Actual: "torreon",
-        historia_clinica_id: "2323",
-        nombre_contacto_emergencia: "Francisco Carranza",
-        parentesco_contacto_emergencia: "Primo",
-        telefono_contacto_emergencia: "47827492"
-      },
-    ]
+  public getPacientes():any{
+    const token = localStorage.getItem('token');
+    if (token) {
+      const headers = new HttpHeaders({
+        Authorization: `Bearer ${token}`,
+      });
+      return this.http.get(`${this.PATIENTS_URL_API}`, { headers });
+    }
+    return [];
   }
 }

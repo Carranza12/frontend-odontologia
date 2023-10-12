@@ -26,7 +26,6 @@ export class ApiService {
   }
 
   registerUser(user: any): any {
-    console.log("USER:", user)
     const token = localStorage.getItem('token');
     if (token) {
       const headers = new HttpHeaders({
@@ -36,20 +35,21 @@ export class ApiService {
     }
     return false;
   }
-  
-  EditUser(user: any, id:string): any {
-    console.log("USER:", user)
+
+  EditUser(user: any, id: string): any {
     const token = localStorage.getItem('token');
     if (token) {
       const headers = new HttpHeaders({
         Authorization: `Bearer ${token}`,
       });
-      return this.http.put(`${this.EDIT_USER_URL_API}/${id}`, user, { headers });
+      return this.http.put(`${this.EDIT_USER_URL_API}/${id}`, user, {
+        headers,
+      });
     }
     return false;
   }
 
-  getUser(id:string): any {
+  getUser(id: string): any {
     const token = localStorage.getItem('token');
     if (token) {
       const headers = new HttpHeaders({
@@ -60,7 +60,7 @@ export class ApiService {
     return false;
   }
 
-  deleteUser(id:string): any {
+  deleteUser(id: string): any {
     const token = localStorage.getItem('token');
     if (token) {
       const headers = new HttpHeaders({
@@ -70,5 +70,4 @@ export class ApiService {
     }
     return false;
   }
-
 }

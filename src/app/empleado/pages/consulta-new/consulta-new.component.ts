@@ -4,6 +4,7 @@ import { PacienteService } from '../../services/paciente.service';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-consulta-new',
@@ -20,11 +21,11 @@ export class ConsultaNewComponent implements OnInit{
   public isKeywordAutocomplete: boolean = false;
   public myAngularxQrCode!: string ;
   
-  constructor(private _paciente:PacienteService, private _router:Router){
+  constructor(private _paciente:PacienteService, private _router:Router, private auth:AuthService){
     this.myAngularxQrCode = 'Your QR code data string';
   }
 
-  ngOnInit(): void {
+  async ngOnInit() {
     const user_json = localStorage.getItem('user');
     if (user_json) {
       this.userData = JSON.parse(user_json);
@@ -32,8 +33,15 @@ export class ConsultaNewComponent implements OnInit{
 
     this.nombre_paciente_autocomplete.valueChanges.subscribe((nombre) => {
       this.isKeywordAutocomplete = true;
-      this.list_pacientes = this._paciente.getEmpleados();
-      this.list_pacientes = this.list_pacientes.filter((paciente:any) => paciente.nombre_completo.toLowerCase().includes(nombre))
+
+      
+      
+      this._paciente.getPacientes().subscribe((pacientes:any) => {
+        console.log("pacientes:", pacientes)
+        this.list_pacientes = pacientes.filter((paciente:any) => paciente.nombre_completo.toLowerCase().includes(nombre))
+      })
+    
+      
     })
   }
 
