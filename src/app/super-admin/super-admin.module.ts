@@ -11,6 +11,7 @@ import { UsuarioEditComponent } from './pages/usuarios/usuario-edit/usuario-edit
 import { AsignaturasComponent } from './pages/asignaturas/asignaturas.component';
 import { MaestrosComponent } from './pages/maestros/maestros.component';
 import { PerfilComponent } from './pages/maestros/perfil/perfil.component';
+import { NgxSignaturePadModule } from '@eve-sama/ngx-signature-pad';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { PerfilComponent } from './pages/maestros/perfil/perfil.component';
     SuperAdminRoutingModule,
     SharedModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    NgxSignaturePadModule
   ]
 })
 export class SuperAdminModule { }

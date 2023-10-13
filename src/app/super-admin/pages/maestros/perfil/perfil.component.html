@@ -1,6 +1,7 @@
 <app-sidebar></app-sidebar>
 <main class="main_container">
   <app-page-title [title]="'Perfil Maestro'"></app-page-title>
+
   <div>
     <form class="login-form" [formGroup]="perfilForm" (ngSubmit)="onSubmit()">
       <div>
@@ -80,9 +81,29 @@
           </div>
         </div>
       </div>
+      <div>
+        <ngx-signature-pad
+          #signature
+          [options]="options"
+          (beginSign)="onBeginSign()"
+          (endSign)="onEndSign()"
+        >
+        </ngx-signature-pad>
+        <div
+          *ngIf="
+            perfilForm.get('firma')?.hasError('required') &&
+            perfilForm.get('firma')?.touched
+          "
+          class="error-message"
+        >
+          La firma es requerida.
+        </div>
+        <button type="button" class="btn_primary" (click)="signature.clear()">Limpiar</button>
+      </div>
 
-      <button type="button" (click)="onSubmit()" class="btn_primary">
-        Crear
+      <img [src]="firmaImagen" alt="Firma" *ngIf="firmaImagen">
+      <button style="margin-top: 40px;" type="button" (click)="onSubmit()" class="btn_primary">
+        Guardar perfil
       </button>
     </form>
   </div>
