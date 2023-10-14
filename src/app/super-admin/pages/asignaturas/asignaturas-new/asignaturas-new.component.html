@@ -1,0 +1,96 @@
+<app-sidebar></app-sidebar>
+<main class="main_container">
+  <app-page-title [title]="'Nueva asignatura'"></app-page-title>
+  <div>
+    <form class="login-form" [formGroup]="asignaturaForm" (ngSubmit)="onSubmit()">
+      <div>
+        <input
+        class="form_input"
+        type="text"
+        placeholder="Nombre"
+        formControlName="nombre"
+        name="uniqueFieldName1"
+
+        autocomplete="off"
+      />
+      <div
+        *ngIf="
+        asignaturaForm.get('nombre')?.hasError('required') &&
+        asignaturaForm.get('nombre')?.touched
+        "
+        class="error-message"
+      >
+        El nombre es requerido.
+      </div>
+      </div>
+      <div>
+        <select
+          class="form_input"
+          formControlName="carrera"
+          name="carrera"
+        >
+        <option value="">Selecciona la carrera</option>
+          <option [value]="carrera.value" *ngFor="let carrera of carrerasList">{{carrera.text}}</option>
+        </select>
+        <div
+          *ngIf="
+          asignaturaForm.get('carrera')?.hasError('required') &&
+          asignaturaForm.get('carrera')?.touched
+          "
+          class="error-message"
+        >
+          La carrera es requerida.
+        </div>
+      </div>
+
+      <div>
+        <select
+          class="form_input"
+          formControlName="profesor"
+          name="profesor"
+        >
+        <option value="" selected >Selecciona el maestro que imparte la asignatura:</option>
+          <option [value]="maestro.value" *ngFor="let maestro of maestrosList">{{maestro.text}}</option>
+        </select>
+        <div
+          *ngIf="
+          asignaturaForm.get('profesor')?.hasError('required') &&
+          asignaturaForm.get('profesor')?.touched
+          "
+          class="error-message"
+        >
+          El maestro es requerido.
+        </div>
+      </div>
+
+
+     
+      
+     
+      
+
+      <div>
+        <select
+          class="form_input"
+          formControlName="semestre"
+          name="semestre"
+        >
+        <option value="">Selecciona el semestre</option>
+          <option [value]="semestre.value" *ngFor="let semestre of semestresList">{{semestre.text}}</option>
+        </select>
+        <div
+          *ngIf="
+          asignaturaForm.get('semestre')?.hasError('required') &&
+          asignaturaForm.get('semestre')?.touched
+          "
+          class="error-message"
+        >
+          El semestre es requerido.
+        </div>
+      </div>
+      
+   
+      <button type="button" (click)="onSubmit()" class="btn_primary">Crear</button>
+    </form>
+  </div>
+</main>

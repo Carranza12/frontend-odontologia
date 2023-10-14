@@ -10,6 +10,7 @@ import { UsuarioEditComponent } from './pages/usuarios/usuario-edit/usuario-edit
 import { AsignaturasComponent } from './pages/asignaturas/asignaturas.component';
 import { MaestrosComponent } from './pages/maestros/maestros.component';
 import { PerfilComponent } from './pages/maestros/perfil/perfil.component';
+import { AsignaturasNewComponent } from './pages/asignaturas/asignaturas-new/asignaturas-new.component';
 
 const routes: Routes = [
   { path: '',  canActivate: [SuperAdminGuard],component: SuperAdminComponent },
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'usuarios/edicion/:id', canActivate: [SuperAdminGuard], component: UsuarioEditComponent },
   { path: 'estadisticas', canActivate: [SuperAdminGuard], component: EstadisticasComponent },
   { path: 'asignaturas', canActivate: [SuperAdminGuard], component: AsignaturasComponent },
+  { path: 'asignaturas/nuevo', canActivate: [SuperAdminGuard], component: AsignaturasNewComponent },
   { path: 'maestros', canActivate: [SuperAdminGuard], component: MaestrosComponent },
   { path: 'maestros/perfil-maestro/:id', canActivate: [SuperAdminGuard], component: PerfilComponent }
 ];

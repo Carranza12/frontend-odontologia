@@ -1,4 +1,36 @@
 <app-sidebar></app-sidebar>
 <main class="main_container">
     <app-page-title [title]="'Asignaturas'" ></app-page-title>
+    <div>
+        <button
+        type="button"
+        class="btn_primary"
+        (click)="_general.navigateBy('/superAdmin/asignaturas/nuevo')"
+      >
+        Nueva asignatura
+      </button>
+        <table class="table_grid">
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Carrera</th>
+                <th>Semestre</th>
+                <th>Profesor que imparte</th>
+                <th>Opciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let asignatura of asignaturasList">
+                <td>{{ asignatura.nombre }}</td>
+                <td>{{ asignatura.carrera }}</td>
+                <td>{{ asignatura.semestre }}</td>
+                <td>{{ asignatura.maestro_nombre }}</td>
+                <td class="icon_container">
+                  <button type="button" class="btn_icon" (click)="_general.navigateBy('/superAdmin/asignaturas/edicion/'+asignatura._id)">✎</button>
+                  <button type="button" class="btn_icon" (click)="deleteUser(asignatura._id)">✘</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
 </main>

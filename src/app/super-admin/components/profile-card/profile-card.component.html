@@ -1,0 +1,25 @@
+<div class="wrapper">
+    <div class="profile-card js-profile-card">
+      <div class="profile-card__img">
+        <img [src]="user.profileImage" alt="profile card">
+      </div>
+  
+      <div class="profile-card__cnt js-profile-cnt">
+        <div class="profile-card__name">{{user.name }} {{user.last_name}}</div>
+        <div class="profile-card__txt">{{ user.email }}</div>
+        <div class="profile-card-loc">
+          <span class="profile-card-loc__icon">
+            <svg class="icon"><use xlink:href="#icon-location"></use></svg>
+          </span>
+  
+          <span class="profile-card-loc__txt">
+            {{user.role_default}}
+          </span>
+        </div>
+
+  
+    </div>
+  
+  </div>
+  
+ 
