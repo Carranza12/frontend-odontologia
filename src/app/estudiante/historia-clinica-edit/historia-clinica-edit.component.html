@@ -1,6 +1,6 @@
 <app-sidebar></app-sidebar>
 <main class="main_container">
-  <app-page-title [title]="'Nuevo Paciente'"></app-page-title>
+  <app-page-title [title]="'Historia Clinica'"></app-page-title>
   <div>
     <form class="login-form" [formGroup]="pacienteForm" (ngSubmit)="onSubmit()">
       <div>
@@ -24,7 +24,7 @@
       </div>
       </div>
 
-     <!--  <div>
+       <div>
         <input
         class="form_input"
         type="date"
@@ -286,8 +286,9 @@
       >
         El Telefono del contacto de emergencia es requerido.
       </div>
-      </div> -->
+      </div>
       <button type="button" (click)="onSubmit()" class="btn_primary">Crear</button>
     </form>
   </div>
 </main>
+

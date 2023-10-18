@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { ApiService } from 'src/app/api.service';
 import { GeneralService } from 'src/app/general.service';
 
 @Component({
-  selector: 'app-paciente-new',
-  templateUrl: './paciente-new.component.html',
-  styleUrls: ['./paciente-new.component.scss']
+  selector: 'app-historia-clinica-edit',
+  templateUrl: './historia-clinica-edit.component.html',
+  styleUrls: ['./historia-clinica-edit.component.scss']
 })
-export class PacienteNewComponent {
+export class HistoriaClinicaEditComponent {
   public gender_options = [
     {
       value: 'm',
