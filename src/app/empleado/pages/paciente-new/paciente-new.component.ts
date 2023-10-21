@@ -168,7 +168,7 @@ export class PacienteNewComponent {
       (response: any) => {
         console.log('Usuario registrado con éxito', response);
         this.pacienteForm.reset();
-        this._general.navigateBy('/trabajador/consultas');
+        this._general.navigateBy(`/trabajador/consultas/nuevo?patientCreated=true&nombre=${item.nombre_completo}`);
       },
       (error: any) => {
         console.error('Error al registrar el usuario', error);

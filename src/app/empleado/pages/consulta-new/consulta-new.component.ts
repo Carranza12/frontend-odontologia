@@ -33,9 +33,6 @@ export class ConsultaNewComponent implements OnInit{
 
     this.nombre_paciente_autocomplete.valueChanges.subscribe((nombre) => {
       this.isKeywordAutocomplete = true;
-
-      
-      
       this._paciente.getPacientes().subscribe((pacientes:any) => {
         console.log("pacientes:", pacientes)
         this.list_pacientes = pacientes.filter((paciente:any) => paciente.nombre_completo.toLowerCase().includes(nombre))
@@ -43,6 +40,14 @@ export class ConsultaNewComponent implements OnInit{
     
       
     })
+
+    let urlTree = this._router.parseUrl(this._router.url);
+    console.log("urlTree:", urlTree)
+    let patientCreated = urlTree.queryParams['patientCreated'];
+    let nombre_completo = urlTree.queryParams['nombre'];
+    if(patientCreated){
+      this.nombre_paciente_autocomplete.setValue(nombre_completo)
+    }
   }
 
   public goNewPatient(){
