@@ -1,294 +1,495 @@
 <app-sidebar></app-sidebar>
 <main class="main_container">
   <app-page-title [title]="'Historia Clinica'"></app-page-title>
-  <div>
-    <form class="login-form" [formGroup]="pacienteForm" (ngSubmit)="onSubmit()">
-      <div>
-        <input
-        class="form_input"
-        type="text"
-        placeholder="Nombre completo"
-        formControlName="nombre_completo"
-        name="nombre_completo"
+  <form
+    class="login-form"
+    [formGroup]="historiaClinicaForm"
+    (ngSubmit)="onSubmit()"
+  >
+    <div class="tabs">
+      <div class="tabs__nav">
+        <button
+          class="tabs__nav-btn"
+          [ngClass]="{ active: showPacienteInfoTab }"
+          type="button"
+          (click)="changeTab('informacion_general_del_paciente')"
+        >
+          Informacion general del paciente
+        </button>
+        <button
+          class="tabs__nav-btn"
+          [ngClass]="{ active: showAparatosInfoTab }"
+          type="button"
+          (click)="changeTab('aparatos_y_sistemas')"
+        >
+          Aparatos y sistemas
+        </button>
+        <button
+          class="tabs__nav-btn"
+          [ngClass]="{ active: showExploracionInfoTab }"
+          type="button"
+          (click)="changeTab('exploracion_fisica')"
+        >
+          Exploracion Fisica
+        </button>
+        <button
+          class="tabs__nav-btn"
+          [ngClass]="{ active: showConsultasInfoTab }"
+          type="button"
+          (click)="changeTab('consultas_del_paciente')"
+        >
+          Consultas del paciente
+        </button>
+      </div>
+      <div class="tabs__content">
+        <div *ngIf="showPacienteInfoTab" class="informacion_general_paciente">
+          <h3>INFORMACION GENERAL DEL PACIENTE</h3>
+          <div class="form_container">
+            <div class="form_control">
+              <label for="" class="label_input">Nombre Completo:</label>
+              <input
+                class="form_input"
+                type="text"
+                placeholder="Nombre completo"
+                formControlName="nombre_completo"
+                name="nombre_completo"
+                autocomplete="off"
+              />
+              <div
+                *ngIf="
+                  historiaClinicaForm
+                    .get('nombre_completo')
+                    ?.hasError('required') &&
+                  historiaClinicaForm.get('nombre_completo')?.touched
+                "
+                class="error-message"
+              >
+                El nombre completo es requerido.
+              </div>
+            </div>
 
-        autocomplete="off"
-      />
-      <div
-        *ngIf="
-        pacienteForm.get('nombre_completo')?.hasError('required') &&
-        pacienteForm.get('nombre_completo')?.touched
-        "
-        class="error-message"
-      >
-        El nombre completo es requerido.
-      </div>
-      </div>
+            <div class="form_control">
+              <label for="" class="label_input">Fecha de nacimiento:</label>
+              <input
+                class="form_input"
+                type="date"
+                placeholder="Fecha de nacimiento"
+                formControlName="fecha_de_nacimiento"
+                name="fecha_de_nacimiento"
+                autocomplete="off"
+              />
+              <div
+                *ngIf="
+                  historiaClinicaForm
+                    .get('fecha_de_nacimiento')
+                    ?.hasError('required') &&
+                  historiaClinicaForm.get('fecha_de_nacimiento')?.touched
+                "
+                class="error-message"
+              >
+                La fecha de nacimiento es requerida.
+              </div>
+            </div>
 
-       <div>
-        <input
-        class="form_input"
-        type="date"
-        placeholder="Fecha de nacimiento"
-        formControlName="fecha_de_nacimiento"
-        name="fecha_de_nacimiento"
+            <div class="form_control">
+              <label for="" class="label_input">Genero:</label>
+              <select class="form_input" formControlName="genero" name="genero">
+                <option value="">Selecciona el genero</option>
+                <option
+                  [value]="gender.value"
+                  *ngFor="let gender of gender_options"
+                >
+                  {{ gender.text }}
+                </option>
+              </select>
+              <div
+                *ngIf="
+                  historiaClinicaForm.get('genero')?.hasError('required') &&
+                  historiaClinicaForm.get('genero')?.touched
+                "
+                class="error-message"
+              >
+                El genero es requerido.
+              </div>
+            </div>
 
-        autocomplete="off"
-      />
-      <div
-        *ngIf="
-        pacienteForm.get('fecha_de_nacimiento')?.hasError('required') &&
-        pacienteForm.get('fecha_de_nacimiento')?.touched
-        "
-        class="error-message"
-      >
-        La fecha de nacimiento es requerida.
+            <div class="form_control">
+              <label for="" class="label_input">Estado civil:</label>
+              <select
+                class="form_input"
+                formControlName="estado_civil"
+                name="estado_civil"
+              >
+                <option value="">Selecciona el Estado civil</option>
+                <option
+                  [value]="status.value"
+                  *ngFor="let status of status_options"
+                >
+                  {{ status.text }}
+                </option>
+              </select>
+              <div
+                *ngIf="
+                  historiaClinicaForm
+                    .get('estado_civil')
+                    ?.hasError('required') &&
+                  historiaClinicaForm.get('estado_civil')?.touched
+                "
+                class="error-message"
+              >
+                El Estado civil es requerido.
+              </div>
+            </div>
+
+            <div class="form_control">
+              <label for="" class="label_input">Domicilio:</label>
+              <input
+                class="form_input"
+                type="text"
+                placeholder="Domicilio"
+                formControlName="domicilio"
+                name="domicilio"
+                autocomplete="off"
+              />
+              <div
+                *ngIf="
+                  historiaClinicaForm.get('domicilio')?.hasError('required') &&
+                  historiaClinicaForm.get('domicilio')?.touched
+                "
+                class="error-message"
+              >
+                El domicilio es requerido.
+              </div>
+            </div>
+
+            <div class="form_control">
+              <label for="" class="label_input">Telefono:</label>
+              <input
+                class="form_input"
+                type="number"
+                placeholder="Telefono"
+                formControlName="telefono"
+                name="telefono"
+                autocomplete="off"
+              />
+              <div
+                *ngIf="
+                  historiaClinicaForm.get('telefono')?.hasError('required') &&
+                  historiaClinicaForm.get('telefono')?.touched
+                "
+                class="error-message"
+              >
+                El Telefono es requerido.
+              </div>
+            </div>
+
+            <div class="form_control">
+              <label for="" class="label_input">Pais:</label>
+              <select
+                class="form_input"
+                formControlName="pais_origen"
+                name="pais_origen"
+              >
+                <option value="">Selecciona el Pais de origen</option>
+                <option
+                  [value]="country.value"
+                  *ngFor="let country of countries_options"
+                >
+                  {{ country.text }}
+                </option>
+              </select>
+              <div
+                *ngIf="
+                  historiaClinicaForm
+                    .get('pais_origen')
+                    ?.hasError('required') &&
+                  historiaClinicaForm.get('pais_origen')?.touched
+                "
+                class="error-message"
+              >
+                El Pais de origen es requerido.
+              </div>
+            </div>
+
+            <div class="form_control">
+              <label for="" class="label_input">Estado:</label>
+              <select
+                class="form_input"
+                formControlName="estado_origen"
+                name="estado_origen"
+              >
+                <option value="">Selecciona el Estado de origen</option>
+                <option
+                  [value]="state.value"
+                  *ngFor="let state of estates_mexico_options"
+                >
+                  {{ state.text }}
+                </option>
+              </select>
+              <div
+                *ngIf="
+                  historiaClinicaForm
+                    .get('estado_origen')
+                    ?.hasError('required') &&
+                  historiaClinicaForm.get('estado_origen')?.touched
+                "
+                class="error-message"
+              >
+                El Estado de origen es requerido.
+              </div>
+            </div>
+
+            <div class="form_control">
+              <label for="" class="label_input">Ciudad de Origen:</label>
+              <select
+                class="form_input"
+                formControlName="ciudad_origen"
+                name="ciudad_origen"
+              >
+                <option value="">Selecciona la ciudad de origen</option>
+                <option
+                  [value]="city.value"
+                  *ngFor="let city of cities_options"
+                >
+                  {{ city.text }}
+                </option>
+              </select>
+              <div
+                *ngIf="
+                  historiaClinicaForm
+                    .get('ciudad_origen')
+                    ?.hasError('required') &&
+                  historiaClinicaForm.get('ciudad_origen')?.touched
+                "
+                class="error-message"
+              >
+                La Ciudad de origen es requerido.
+              </div>
+            </div>
+
+            <div class="form_control">
+              <label for="" class="label_input">Ciudad Actual:</label>
+              <select
+                class="form_input"
+                formControlName="ciudad_Actual"
+                name="ciudad_Actual"
+              >
+                <option value="">Selecciona la ciudad actual</option>
+                <option
+                  [value]="city.value"
+                  *ngFor="let city of cities_options"
+                >
+                  {{ city.text }}
+                </option>
+              </select>
+              <div
+                *ngIf="
+                  historiaClinicaForm
+                    .get('ciudad_Actual')
+                    ?.hasError('required') &&
+                  historiaClinicaForm.get('ciudad_Actual')?.touched
+                "
+                class="error-message"
+              >
+                La Ciudad Actual es requerida.
+              </div>
+            </div>
+            <div class="form_control">
+              <label for="" class="label_input">Ocupacion:</label>
+              <input
+                class="form_input"
+                type="text"
+                placeholder="Ocupacion"
+                formControlName="ocupacion"
+                name="ocupacion"
+                autocomplete="off"
+              />
+              <div
+                *ngIf="
+                  historiaClinicaForm.get('ocupacion')?.hasError('required') &&
+                  historiaClinicaForm.get('ocupacion')?.touched
+                "
+                class="error-message"
+              >
+                La ocupacion es requerida.
+              </div>
+            </div>
+            <div class="form_control">
+              <label for="" class="label_input"
+                >Nombre del contacto de emergencia:</label
+              >
+              <input
+                class="form_input"
+                type="text"
+                placeholder="Nombre contacto de emergencia"
+                formControlName="nombre_contacto_emergencia"
+                name="nombre_contacto_emergencia"
+                autocomplete="off"
+              />
+              <div
+                *ngIf="
+                  historiaClinicaForm
+                    .get('nombre_contacto_emergencia')
+                    ?.hasError('required') &&
+                  historiaClinicaForm.get('nombre_contacto_emergencia')?.touched
+                "
+                class="error-message"
+              >
+                El Nombre contacto de emergencia es requerido.
+              </div>
+            </div>
+
+            <div class="form_control">
+              <label for="" class="label_input"
+                >Parentesco del contacto de emergencia:</label
+              >
+              <select
+                class="form_input"
+                formControlName="parentesco_contacto_emergencia"
+                name="parentesco_contacto_emergencia"
+              >
+                <option value="">Selecciona la Parentesco</option>
+                <option
+                  [value]="parentesco.value"
+                  *ngFor="let parentesco of parentescos_options"
+                >
+                  {{ parentesco.text }}
+                </option>
+              </select>
+              <div
+                *ngIf="
+                  historiaClinicaForm
+                    .get('parentesco_contacto_emergencia')
+                    ?.hasError('required') &&
+                  historiaClinicaForm.get('parentesco_contacto_emergencia')
+                    ?.touched
+                "
+                class="error-message"
+              >
+                El parentesco es requerido.
+              </div>
+            </div>
+
+            <div class="form_control">
+              <label for="" class="label_input"
+                >Telefono del contacto de emergencia:</label
+              >
+              <input
+                class="form_input"
+                type="number"
+                placeholder="Telefono Contacto de emergencia"
+                formControlName="telefono_contacto_emergencia"
+                name="telefono_contacto_emergencia"
+                autocomplete="off"
+              />
+              <div
+                *ngIf="
+                  historiaClinicaForm
+                    .get('telefono_contacto_emergencia')
+                    ?.hasError('required') &&
+                  historiaClinicaForm.get('telefono_contacto_emergencia')
+                    ?.touched
+                "
+                class="error-message"
+              >
+                El Telefono del contacto de emergencia es requerido.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="showAparatosInfoTab" class="aparatos_y_sistemas">
+          <h3>APARATOS Y SISTEMAS</h3>
+          <div class="digestivo_container" style="margin-top: 20px">
+            <h3 style="margin-bottom: 10px; color: #b21e36">Digestivo:</h3>
+            <div class="form_control_check">
+              <div>
+                <label for="" class="form_label">Apetito:</label>
+                <input type="checkbox" class="checkbox_input" />
+              </div>
+              <div>
+                <label for="" class="form_label">Masticacion:</label>
+                <input type="checkbox" class="checkbox_input" />
+              </div>
+              <div>
+                <label for="" class="form_label">Deglucion:</label>
+                <input type="checkbox" class="checkbox_input" />
+              </div>
+              <div>
+                <label for="" class="form_label">Disfagia:</label>
+                <input type="checkbox" class="checkbox_input" />
+              </div>
+              <div>
+                <label for="" class="form_label">Nuaseas:</label>
+                <input type="checkbox" class="checkbox_input" />
+              </div>
+              <div>
+                <label for="" class="form_label">Vomito:</label>
+                <input type="checkbox" class="checkbox_input" />
+              </div>
+              <div>
+                <label for="" class="form_label">Dolor abdominal:</label>
+                <input type="checkbox" class="checkbox_input" />
+              </div>
+              <div>
+                <label for="" class="form_label">Hematemsis:</label>
+                <input type="checkbox" class="checkbox_input" />
+              </div>
+              <div>
+                <label for="" class="form_label">Pirosis:</label>
+                <input type="checkbox" class="checkbox_input" />
+              </div>
+              <div>
+                <label for="" class="form_label">Meteorismo:</label>
+                <input type="checkbox" class="checkbox_input" />
+              </div>
+              <div>
+                <label for="" class="form_label">Diarrea:</label>
+                <input type="checkbox" class="checkbox_input" />
+              </div>
+              <div>
+                <label for="" class="form_label">Estrenimiento:</label>
+                <input type="checkbox" class="checkbox_input" />
+              </div>
+              <div>
+                <label for="" class="form_label">Rectorragia:</label>
+                <input type="checkbox" class="checkbox_input" />
+              </div>
+              <div>
+                <label for="" class="form_label">Otro:</label>
+                <input
+                  type="checkbox"
+                  class="checkbox_input"
+                  formControlName="aparatos_sistemas_digestivo_Otros"
+                  (click)="otroCheckbox()"
+                />
+              </div>
+              <div class="form_control" *ngIf="showDigestivoOtroTextarea">
+                <label for="" class="label_input">Cual?:</label>
+                <input
+                  class="form_input"
+                  type="text"
+                  placeholder=""
+                  formControlName="aparatos_sistemas_digestivo_Otros_textarea"
+                  name="aparatos_sistemas_digestivo_Otros_textarea"
+                  autocomplete="off"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="showExploracionInfoTab">
+          <h3>EXPLORACION FISICA</h3>
+        </div>
+        <div *ngIf="showConsultasInfoTab">
+          <h3>CONSULTAS DEL PACIENTE</h3>
+        </div>
       </div>
-      </div>
+    </div>
+  </form>
+  <!--  <div>
+    <form class="login-form" [formGroup]="historiaClinicaForm" (ngSubmit)="onSubmit()">
     
-      <div>
-        <select
-          class="form_input"
-          formControlName="genero"
-          name="genero"
-        >
-        <option value="">Selecciona el genero</option>
-          <option [value]="gender.value" *ngFor="let gender of gender_options">{{gender.text}}</option>
-        </select>
-        <div
-          *ngIf="
-          pacienteForm.get('genero')?.hasError('required') &&
-          pacienteForm.get('genero')?.touched
-          "
-          class="error-message"
-        >
-          El genero es requerido.
-        </div>
-      </div>
-
-      <div>
-        <select
-          class="form_input"
-          formControlName="estado_civil"
-          name="estado_civil"
-        >
-        <option value="">Selecciona el Estado civil</option>
-          <option [value]="status.value" *ngFor="let status of status_options">{{status.text}}</option>
-        </select>
-        <div
-          *ngIf="
-          pacienteForm.get('estado_civil')?.hasError('required') &&
-          pacienteForm.get('estado_civil')?.touched
-          "
-          class="error-message"
-        >
-          El Estado civil es requerido.
-        </div>
-      </div>
-
-      <div>
-        <input
-        class="form_input"
-        type="text"
-        placeholder="Domicilio"
-        formControlName="domicilio"
-        name="domicilio"
-
-        autocomplete="off"
-      />
-      <div
-        *ngIf="
-        pacienteForm.get('domicilio')?.hasError('required') &&
-        pacienteForm.get('domicilio')?.touched
-        "
-        class="error-message"
-      >
-        El domicilio es requerido.
-      </div>
-      </div>
-
-      <div>
-        <input
-        class="form_input"
-        type="number"
-        placeholder="Telefono"
-        formControlName="telefono"
-        name="telefono"
-
-        autocomplete="off"
-      />
-      <div
-        *ngIf="
-        pacienteForm.get('telefono')?.hasError('required') &&
-        pacienteForm.get('telefono')?.touched
-        "
-        class="error-message"
-      >
-        El Telefono es requerido.
-      </div>
-      </div>
-
-      <div>
-        <select
-          class="form_input"
-          formControlName="pais_origen"
-          name="pais_origen"
-        >
-        <option value="">Selecciona el Pais de origen</option>
-          <option [value]="country.value" *ngFor="let country of countries_options">{{country.text}}</option>
-        </select>
-        <div
-          *ngIf="
-          pacienteForm.get('pais_origen')?.hasError('required') &&
-          pacienteForm.get('pais_origen')?.touched
-          "
-          class="error-message"
-        >
-          El Pais de origen es requerido.
-        </div>
-      </div>
-
-      <div>
-        <select
-          class="form_input"
-          formControlName="estado_origen"
-          name="estado_origen"
-        >
-        <option value="">Selecciona el Estado de origen</option>
-          <option [value]="state.value" *ngFor="let state of estates_mexico_options">{{state.text}}</option>
-        </select>
-        <div
-          *ngIf="
-          pacienteForm.get('estado_origen')?.hasError('required') &&
-          pacienteForm.get('estado_origen')?.touched
-          "
-          class="error-message"
-        >
-          El Estado de origen es requerido.
-        </div>
-      </div>
-
-      <div>
-        <select
-          class="form_input"
-          formControlName="ciudad_origen"
-          name="ciudad_origen"
-        >
-        <option value="">Selecciona la ciudad de origen</option>
-          <option [value]="city.value" *ngFor="let city of cities_options">{{city.text}}</option>
-        </select>
-        <div
-          *ngIf="
-          pacienteForm.get('ciudad_origen')?.hasError('required') &&
-          pacienteForm.get('ciudad_origen')?.touched
-          "
-          class="error-message"
-        >
-          La Ciudad de origen es requerido.
-        </div>
-      </div>
-
-      <div>
-        <select
-          class="form_input"
-          formControlName="ciudad_Actual"
-          name="ciudad_Actual"
-        >
-        <option value="">Selecciona la ciudad actual</option>
-          <option [value]="city.value" *ngFor="let city of cities_options">{{city.text}}</option>
-        </select>
-        <div
-          *ngIf="
-          pacienteForm.get('ciudad_Actual')?.hasError('required') &&
-          pacienteForm.get('ciudad_Actual')?.touched
-          "
-          class="error-message"
-        >
-          La Ciudad Actual es requerida.
-        </div>
-      </div>
-      <div>
-        <input
-        class="form_input"
-        type="text"
-        placeholder="Ocupacion"
-        formControlName="ocupacion"
-        name="ocupacion"
-
-        autocomplete="off"
-      />
-      <div
-        *ngIf="
-        pacienteForm.get('ocupacion')?.hasError('required') &&
-        pacienteForm.get('ocupacion')?.touched
-        "
-        class="error-message"
-      >
-        La ocupacion es requerida.
-      </div>
-      </div>
-      <div>
-        <input
-        class="form_input"
-        type="text"
-        placeholder="Nombre contacto de emergencia"
-        formControlName="nombre_contacto_emergencia"
-        name="nombre_contacto_emergencia"
-
-        autocomplete="off"
-      />
-      <div
-        *ngIf="
-        pacienteForm.get('nombre_contacto_emergencia')?.hasError('required') &&
-        pacienteForm.get('nombre_contacto_emergencia')?.touched
-        "
-        class="error-message"
-      >
-        El Nombre contacto de emergencia es requerido.
-      </div>
-      </div>
-
-      <div>
-        <select
-          class="form_input"
-          formControlName="parentesco_contacto_emergencia"
-          name="parentesco_contacto_emergencia"
-        >
-        <option value="">Selecciona la Parentesco</option>
-          <option [value]="parentesco.value" *ngFor="let parentesco of parentescos_options">{{parentesco.text}}</option>
-        </select>
-        <div
-          *ngIf="
-          pacienteForm.get('parentesco_contacto_emergencia')?.hasError('required') &&
-          pacienteForm.get('parentesco_contacto_emergencia')?.touched
-          "
-          class="error-message"
-        >
-          El parentesco es requerido.
-        </div>
-      </div>
-
-      <div>
-        <input
-        class="form_input"
-        type="number"
-        placeholder="Telefono Contacto de emergencia"
-        formControlName="telefono_contacto_emergencia"
-        name="telefono_contacto_emergencia"
-
-        autocomplete="off"
-      />
-      <div
-        *ngIf="
-        pacienteForm.get('telefono_contacto_emergencia')?.hasError('required') &&
-        pacienteForm.get('telefono_contacto_emergencia')?.touched
-        "
-        class="error-message"
-      >
-        El Telefono del contacto de emergencia es requerido.
-      </div>
-      </div>
       <button type="button" (click)="onSubmit()" class="btn_primary">Crear</button>
     </form>
-  </div>
+  </div> -->
 </main>
-

@@ -90,8 +90,22 @@ body {
   padding: 10px;
   color: #8d8b8b;
   margin-bottom: 10px;
-  margin-top: 10px;
+//  margin-top: 10px;
   width: 70%;
+}
+
+.label_input{
+  margin: 0px;
+  padding: 5px;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.form_control{
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+
 }
 
 .form_input select {
@@ -139,7 +153,23 @@ body {
   background-color: #1d7971;
 }
 
+.checkbox_input {
+  width: 20px;
+  height: 20px;
+  border-radius: 13px;
+  
+}
 
-
-
-
+.form_control_check{
+  width: 60%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  font-size: 14px;
+  gap: 15px;
+  div{
+    display: flex;
+    gap: 5px;
+    font-weight: 500;
+  }
+}
