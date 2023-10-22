@@ -11,8 +11,10 @@ export class ApiService {
   private REGSITER_USER_URL_API = 'http://localhost:3000/api/auth/register';
   private EDIT_USER_URL_API = 'http://localhost:3000/api/auth/users';
   private DELETE_USER_URL_API = 'http://localhost:3000/api/auth/users';
-  private CRETAE_PATIENT_HISTORIA_URL_API = 'http://localhost:3000/api/patients';
-
+  private CRETAE_PATIENT_HISTORIA_URL_API =
+    'http://localhost:3000/api/patients';
+  private GET_HISTORIA_AND_PATIENT_URL_API =
+    'http://localhost:3000/api/patients/historia_clinica';
 
   constructor(private http: HttpClient) {}
 
@@ -62,6 +64,19 @@ export class ApiService {
     return false;
   }
 
+  getHistoriaClinica(id: string) :any{
+    const token = localStorage.getItem('token');
+    if (token) {
+      const headers = new HttpHeaders({
+        Authorization: `Bearer ${token}`,
+      });
+      return this.http.get(`${this.GET_HISTORIA_AND_PATIENT_URL_API}/${id}`, {
+        headers,
+      });
+    }
+    return false;
+  }
+
   deleteUser(id: string): any {
     const token = localStorage.getItem('token');
     if (token) {
@@ -79,7 +94,9 @@ export class ApiService {
       const headers = new HttpHeaders({
         Authorization: `Bearer ${token}`,
       });
-      return this.http.post(`${this.CRETAE_PATIENT_HISTORIA_URL_API}`, user, { headers });
+      return this.http.post(`${this.CRETAE_PATIENT_HISTORIA_URL_API}`, user, {
+        headers,
+      });
     }
     return false;
   }

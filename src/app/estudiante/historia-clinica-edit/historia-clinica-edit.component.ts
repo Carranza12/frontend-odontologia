@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/api.service';
 import { GeneralService } from 'src/app/general.service';
 
@@ -8,7 +9,7 @@ import { GeneralService } from 'src/app/general.service';
   templateUrl: './historia-clinica-edit.component.html',
   styleUrls: ['./historia-clinica-edit.component.scss'],
 })
-export class HistoriaClinicaEditComponent {
+export class HistoriaClinicaEditComponent implements OnInit{
   public gender_options = [
     {
       value: 'm',
@@ -121,6 +122,7 @@ export class HistoriaClinicaEditComponent {
   public showAparatosInfoTab: boolean = false;
   public showExploracionInfoTab: boolean = false;
   public showConsultasInfoTab: boolean = false;
+  public showOdontogramaInfoTab: boolean = false;
 
   public showDigestivoOtroTextarea: boolean = false;
 
@@ -145,8 +147,27 @@ export class HistoriaClinicaEditComponent {
   constructor(
     private formBuilder: FormBuilder,
     private apiSevice: ApiService,
-    private _general: GeneralService
+    private _general: GeneralService,
+    private _route: ActivatedRoute
   ) {}
+
+  ngOnInit(): void {
+    this._route.params.subscribe((param) => {
+      const historia_clinica_id = param['id']
+      if(historia_clinica_id){
+        this.apiSevice.getHistoriaClinica(historia_clinica_id).subscribe(
+          (response: any) => {
+           
+           console.log("item:", response.item)
+           this.historiaClinicaForm.get("nombre_completo")?.setValue(response?.item?.paciente?.nombre_completo)
+          },
+          (error: any) => {
+            console.error('Error al registrar el usuario', error);
+          }
+        );
+      }
+    })
+  }
 
   public onSubmit() {
     if (this.historiaClinicaForm.invalid) {
@@ -198,24 +219,35 @@ export class HistoriaClinicaEditComponent {
       this.showConsultasInfoTab = false;
       this.showExploracionInfoTab = false;
       this.showAparatosInfoTab = false;
+      this.showOdontogramaInfoTab = false;
     }
     if (tabName === 'aparatos_y_sistemas') {
       this.showPacienteInfoTab = false;
       this.showConsultasInfoTab = false;
       this.showExploracionInfoTab = false;
       this.showAparatosInfoTab = true;
+      this.showOdontogramaInfoTab = false;
     }
     if (tabName === 'exploracion_fisica') {
       this.showPacienteInfoTab = false;
       this.showConsultasInfoTab = false;
       this.showExploracionInfoTab = true;
       this.showAparatosInfoTab = false;
+      this.showOdontogramaInfoTab = false;
     }
     if (tabName === 'consultas_del_paciente') {
       this.showPacienteInfoTab = false;
       this.showConsultasInfoTab = true;
       this.showExploracionInfoTab = false;
       this.showAparatosInfoTab = false;
+      this.showOdontogramaInfoTab = false;
+    }
+    if (tabName === 'odontograma') {
+      this.showPacienteInfoTab = false;
+      this.showConsultasInfoTab = false;
+      this.showExploracionInfoTab = false;
+      this.showAparatosInfoTab = false;
+      this.showOdontogramaInfoTab = true;
     }
   }
 }

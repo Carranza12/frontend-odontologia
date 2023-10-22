@@ -1,16 +1,18 @@
 <app-sidebar></app-sidebar>
-<main class="main_container">
+<main class="main_container" >
   <app-page-title [title]="'Nueva consulta'"></app-page-title>
   <div>
-    <form>
-      <div class="autocomplete" *ngIf="showAutocomplete">
+    <form >
+     
+      <div class="autocomplete" *ngIf="showAutocomplete" (click)="closeAutocomplete()">
         <input
+          (click)="openAutocomplete()"
           class="form_input"
           [formControl]="nombre_paciente_autocomplete"
           type="text"
           placeholder="Busca el nombre del paciente..."
         />
-        <div class="list-group">
+        <div class="list-group" >
           <div
             class="item"
             *ngFor="let paciente of list_pacientes"
@@ -26,6 +28,14 @@
           </div>
         </div>
       </div>
+      <button
+      *ngIf="!showPatientDetail"
+      type="button"
+      class="btn_primary"
+      (click)="_general.navigateBy('/trabajador/pacientes/nuevo')"
+    >
+      Nuevo Paciente
+    </button>
       <div *ngIf="showPatientDetail" class="patient_container" id="htmlData">
         <div class="patient_header">
           <img src="../../../../assets/logos/logo.jpeg.png" alt="logo_facultad">

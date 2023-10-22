@@ -162,13 +162,12 @@ export class PacienteNewComponent {
     }
 
 
-    console.log("ITEM:", item)
 
     this.apiSevice.createPacienteAndHistoriaClinica(item).subscribe(
       (response: any) => {
         console.log('Usuario registrado con éxito', response);
         this.pacienteForm.reset();
-        this._general.navigateBy(`/trabajador/consultas/nuevo?patientCreated=true&nombre=${item.nombre_completo}`);
+        this._general.navigateBy(`/trabajador/consultas/nuevo?patientCreated=true&nombre=${item.nombre_completo}&historia_id=${response.item.historia_clinica_id}`);
       },
       (error: any) => {
         console.error('Error al registrar el usuario', error);

@@ -33,6 +33,14 @@
           Exploracion Fisica
         </button>
         <button
+        class="tabs__nav-btn"
+        [ngClass]="{ active: showOdontogramaInfoTab }"
+        type="button"
+        (click)="changeTab('odontograma')"
+      >
+        Odontograma
+      </button>
+        <button
           class="tabs__nav-btn"
           [ngClass]="{ active: showConsultasInfoTab }"
           type="button"
@@ -480,9 +488,13 @@
         <div *ngIf="showExploracionInfoTab">
           <h3>EXPLORACION FISICA</h3>
         </div>
+        <div *ngIf="showOdontogramaInfoTab">
+          <h3>ODONTROGRAMA</h3>
+        </div>
         <div *ngIf="showConsultasInfoTab">
           <h3>CONSULTAS DEL PACIENTE</h3>
         </div>
+
       </div>
     </div>
   </form>
