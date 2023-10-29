@@ -125,8 +125,14 @@ export class HistoriaClinicaEditComponent implements OnInit{
   public showOdontogramaInfoTab: boolean = false;
 
   public showDigestivoOtroTextarea: boolean = false;
+  public showRespiratorioOtroTextarea: boolean = false;
+  public showCirculatorioOtroTextarea: boolean = false;
+  public showGenitoUrinarioOtroTextarea: boolean = false;
+  public showSistNerviosoOtroTextarea: boolean = false;
+  public showSintomasGeneralesOtroTextarea: boolean = false;
 
   public historiaClinicaForm = this.formBuilder.group({
+    //INFORMACION GENERAL DEL PACIENTE
     nombre_completo: ['', Validators.required],
     fecha_de_nacimiento: ['', Validators.required],
     genero: ['', Validators.required],
@@ -141,7 +147,77 @@ export class HistoriaClinicaEditComponent implements OnInit{
     nombre_contacto_emergencia: ['', Validators.required],
     parentesco_contacto_emergencia: ['', Validators.required],
     telefono_contacto_emergencia: ['', Validators.required],
+    //DIGESTIVO
+    aparatos_sistemas_digestivo_apetito: [],
+    aparatos_sistemas_digestivo_Masticacion: [],
+    aparatos_sistemas_digestivo_Deglucion: [],
+    aparatos_sistemas_digestivo_Disfagia: [],
+    aparatos_sistemas_digestivo_Nauseas: [],
+    aparatos_sistemas_digestivo_Vomito: [],
+    aparatos_sistemas_digestivo_Dolor_Abdominal: [],
+    aparatos_sistemas_digestivo_Hematemsis: [],
+    aparatos_sistemas_digestivo_Pirosis: [],
+    aparatos_sistemas_digestivo_Meteorismo: [],
+    aparatos_sistemas_digestivo_Diarrea: [],
+    aparatos_sistemas_digestivo_Estrenimiento: [],
+    aparatos_sistemas_digestivo_Melena: [],
+    aparatos_sistemas_digestivo_Rectorragia: [],
     aparatos_sistemas_digestivo_Otros: [],
+    aparatos_sistemas_digestivo_Otros_textarea: [],
+    //SISTEMAS RESPIRATOIROS
+    aparatos_sistemas_respiratorio_Epistasis: [],
+    aparatos_sistemas_respiratorio_Tos: [],
+    aparatos_sistemas_respiratorio_Disnea: [],
+    aparatos_sistemas_respiratorio_Expectoracion: [],
+    aparatos_sistemas_respiratorio_Asma: [],
+    aparatos_sistemas_respiratorio_Dolor_al_respirar: [],
+    aparatos_sistemas_respiratorio_Disfonia: [],
+    aparatos_sistemas_respiratorio_Gripa_frecuente: [],
+    aparatos_sistemas_respiratorio_Otros: [],
+    aparatos_sistemas_respiratorio_Otros_textarea: [],
+    // CIRCULATORIO
+    aparatos_sistemas_circulatorio_Disnea_del_esfuerzo: [],
+    aparatos_sistemas_circulatorio_Dolor_retroesternal: [],
+    aparatos_sistemas_circulatorio_Palpitaciones: [],
+    aparatos_sistemas_circulatorio_Edema: [],
+    aparatos_sistemas_circulatorio_Lipotimias: [],
+    aparatos_sistemas_circulatorio_Calambres: [],
+    aparatos_sistemas_circulatorio_Cianosis: [],
+    aparatos_sistemas_circulatorio_Acufenos: [],
+    aparatos_sistemas_circulatorio_Fosfenos: [],
+    aparatos_sistemas_circulatorio_Otros: [],
+    aparatos_sistemas_circulatorio_Otros_textarea: [],
+    //GENITO URINARIO
+    aparatos_sistemas_genito_urinario_Frecuencia_de_micciones: [],
+    aparatos_sistemas_genito_urinario_Color: [],
+    aparatos_sistemas_genito_urinario_Diuria: [],
+    aparatos_sistemas_genito_urinario_Nicturia: [],
+    aparatos_sistemas_genito_urinario_Hematuria: [],
+    aparatos_sistemas_genito_urinario_Poliuria: [],
+    aparatos_sistemas_genito_urinario_Otros: [],
+    aparatos_sistemas_genito_urinario_Otros_textarea: [],
+    // SISTEMA NERVIOSO
+    aparatos_sistemas_sist_nervioso_Ansiedad: [],
+    aparatos_sistemas_sist_nervioso_Temor: [],
+    aparatos_sistemas_sist_nervioso_Convulciones: [],
+    aparatos_sistemas_sist_nervioso_Paralisis: [],
+    aparatos_sistemas_sist_nervioso_Temblores: [],
+    aparatos_sistemas_sist_nervioso_Tics: [],
+    aparatos_sistemas_sist_nervioso_Vista: [],
+    aparatos_sistemas_sist_nervioso_Oido: [],
+    aparatos_sistemas_sist_nervioso_Tacto: [],
+    aparatos_sistemas_sist_nervioso_Otros: [],
+    aparatos_sistemas_sist_nervioso_Otros_textarea: [],
+    // SINTOMAS GENERALES
+    aparatos_sistemas_sintomas_generales_Variacion_de_peso: [],
+    aparatos_sistemas_sintomas_generales_Astenia: [],
+    aparatos_sistemas_sintomas_generales_Adinamia: [],
+    aparatos_sistemas_sintomas_generales_Fiebre: [],
+    aparatos_sistemas_sintomas_generales_Escalofrios: [],
+    aparatos_sistemas_sintomas_generales_Cambio_de_coloracaion_en_piel_y_mucosa: [],
+    aparatos_sistemas_sintomas_generales_Anorexia: [],
+    aparatos_sistemas_sintomas_generales_otros: [],
+    aparatos_sistemas_sintomas_generales_otros_textarea: [],
   });
 
   constructor(
@@ -210,9 +286,60 @@ export class HistoriaClinicaEditComponent implements OnInit{
     this.historiaClinicaForm.get("aparatos_sistemas_digestivo_Otros")?.valueChanges.subscribe((valor:any) => {
       this.showDigestivoOtroTextarea = valor
     })
+
+    this.historiaClinicaForm.get("aparatos_sistemas_respiratorio_Otros")?.valueChanges.subscribe((valor:any) => {
+      this.showRespiratorioOtroTextarea = valor
+    })
+
+    this.historiaClinicaForm.get("aparatos_sistemas_circulatorio_Otros")?.valueChanges.subscribe((valor:any) => {
+      this.showCirculatorioOtroTextarea = valor
+    })
+
+    this.historiaClinicaForm.get("aparatos_sistemas_genito_urinario_Otros")?.valueChanges.subscribe((valor:any) => {
+      this.showGenitoUrinarioOtroTextarea = valor
+    })
+
+    this.historiaClinicaForm.get("aparatos_sistemas_sist_nervioso_Otros")?.valueChanges.subscribe((valor:any) => {
+      this.showSistNerviosoOtroTextarea = valor
+    })
+
+    this.historiaClinicaForm.get("aparatos_sistemas_sintomas_generales_otros")?.valueChanges.subscribe((valor:any) => {
+      this.showSintomasGeneralesOtroTextarea = valor
+    })
   
   }
 
+  public nextPaso2(){
+    this.showPacienteInfoTab = false;
+    this.showConsultasInfoTab = false;
+    this.showExploracionInfoTab = false;
+    this.showAparatosInfoTab = true;
+    this.showOdontogramaInfoTab = false;
+  }
+
+  public nextPaso3(){
+    this.showPacienteInfoTab = false;
+      this.showConsultasInfoTab = false;
+      this.showExploracionInfoTab = true;
+      this.showAparatosInfoTab = false;
+      this.showOdontogramaInfoTab = false;
+  }
+
+  public nextPaso4(){
+    this.showPacienteInfoTab = false;
+    this.showConsultasInfoTab = true;
+    this.showExploracionInfoTab = false;
+    this.showAparatosInfoTab = false;
+    this.showOdontogramaInfoTab = false;
+  }
+
+  public nextPaso5(){
+    this.showPacienteInfoTab = false;
+    this.showConsultasInfoTab = false;
+    this.showExploracionInfoTab = false;
+    this.showAparatosInfoTab = false;
+    this.showOdontogramaInfoTab = true;
+  }
   public changeTab(tabName: string) {
     if (tabName === 'informacion_general_del_paciente') {
       this.showPacienteInfoTab = true;
