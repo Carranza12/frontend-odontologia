@@ -6,6 +6,7 @@ import { MenuAuthComponent } from './auth/menu-auth/menu-auth.component';
 import { AuthGuard } from './auth/auth.guard';
 import { SuperAdminGuard } from './super-admin/superAdmin.guard';
 import { EmpleadoGuard } from './empleado/empleado.guard';
+import { EstudianteGuard } from './estudiante/estudiante.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
@@ -36,7 +37,7 @@ const routes: Routes = [
   },
   {
     path: 'estudiante',
-    canActivate: [AuthGuard],
+    canActivate: [EstudianteGuard],
     loadChildren: () =>
       import('./estudiante/estudiante.module').then((m) => m.EstudianteModule),
   },

@@ -218,6 +218,14 @@ export class HistoriaClinicaEditComponent implements OnInit{
     aparatos_sistemas_sintomas_generales_Anorexia: [],
     aparatos_sistemas_sintomas_generales_otros: [],
     aparatos_sistemas_sintomas_generales_otros_textarea: [],
+    //EXPLORACION FISICA HABITUS EXTERIOR
+    exploracion_fisica_raza_sexo_edad_facies_estado_conciencia: [],
+    exploracion_fisica_actitud_constitucion_marcha_movimientos_anormales: [],
+    exploracion_fisica_signos_vitales: [],
+    exploracion_fisica_TA: [],
+    exploracion_fisica_frec_respiratoria: [],
+    exploracion_fisica_temperatura: [],
+    exploracion_fisica_peso: [],
   });
 
   constructor(

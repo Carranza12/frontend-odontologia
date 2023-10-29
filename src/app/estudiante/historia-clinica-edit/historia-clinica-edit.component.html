@@ -14,7 +14,7 @@
           type="button"
           (click)="changeTab('informacion_general_del_paciente')"
         >
-          Informacion general del paciente
+          Ficha de identificacion
         </button>
         <button
           class="tabs__nav-btn"
@@ -781,6 +781,78 @@
         </div>
         <div *ngIf="showExploracionInfoTab">
           <h3>EXPLORACION FISICA</h3>
+          <div class="habitus_exterior_container" style="margin-top: 20px">
+            <h3 style="margin-bottom: 10px; color: #b21e36">Habitus Exterior:</h3>
+            <div class="form_control" >
+              <label for="" class="label_input">Raza, Sexo, Edad Aparente, Facies, Estado de Conciencia:</label>
+              <textarea  
+              class="form_input form_textarea"
+              formControlName="exploracion_fisica_raza_sexo_edad_facies_estado_conciencia">
+            </textarea>
+            </div>
+            <div class="form_control" >
+              <label for="" class="label_input">Actitud, Constitucion, Conformacion, Marcha, Movimientos Anormales:</label>
+              <textarea  
+              class="form_input form_textarea"
+              formControlName="exploracion_fisica_actitud_constitucion_marcha_movimientos_anormales">
+            </textarea>
+            </div>
+            <div class="form_control">
+              <label for="" class="label_input">Signos Vitales:</label>
+              <input
+                class="form_input"
+                type="text"
+                placeholder=""
+                formControlName="exploracion_fisica_signos_vitales"
+                name="exploracion_fisica_signos_vitales"
+                autocomplete="off"
+              />
+            </div>
+            <div class="form_control">
+              <label for="" class="label_input">T/A:</label>
+              <input
+                class="form_input"
+                type="text"
+                placeholder=""
+                formControlName="exploracion_fisica_TA"
+                name="exploracion_fisica_TA"
+                autocomplete="off"
+              />
+            </div>
+            <div class="form_control">
+              <label for="" class="label_input">Frec Respiratoria:</label>
+              <input
+                class="form_input"
+                type="text"
+                placeholder=""
+                formControlName="exploracion_fisica_frec_respiratoria"
+                name="exploracion_fisica_frec_respiratoria"
+                autocomplete="off"
+              />
+            </div>
+            <div class="form_control">
+              <label for="" class="label_input">Temperatura:</label>
+              <input
+                class="form_input"
+                type="text"
+                placeholder=""
+                formControlName="exploracion_fisica_temperatura"
+                name="exploracion_fisica_temperatura"
+                autocomplete="off"
+              />
+            </div>
+            <div class="form_control">
+              <label for="" class="label_input">Peso:</label>
+              <input
+                class="form_input"
+                type="text"
+                placeholder=""
+                formControlName="exploracion_fisica_peso"
+                name="exploracion_fisica_peso"
+                autocomplete="off"
+              />
+            </div>
+          </div>
         </div>
         <div *ngIf="showOdontogramaInfoTab">
           <h3>ODONTROGRAMA</h3>
