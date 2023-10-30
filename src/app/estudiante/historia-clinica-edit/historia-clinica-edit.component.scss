@@ -52,3 +52,92 @@
 .tabs__item.active {
     display: block;
 }
+
+.circle {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    //background-color: #3498db;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid black;
+}
+
+.circle_active{
+    background-color: #b21e36!important;
+}
+.inner-circle {
+    width: 20px;
+    height: 20px;
+    border: 3px solid black;
+  //  background-color: #e74c3c;
+  background-color: white;
+    border-radius: 50%;
+    position: absolute;
+    z-index: 99;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.diagonal {
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background-color: black;
+    transform-origin: 0 50%;
+}
+
+.diagonal-1 {
+    top: 14%;
+    left: 15%;
+    transform: rotate(45deg);
+}
+
+.diagonal-2 {
+    bottom: 14%;
+    right: -15%;
+    transform: rotate(-45deg);
+}
+
+
+.container_dientes_arriba {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    .row {
+        display: flex;
+        flex-direction: row;
+    }
+    .square_container{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+    }
+   
+    .number{
+        width: 50px;
+        height: 50px;
+        color: black;
+        text-align: center;
+        line-height: 30px;
+    }
+    .square {
+        width: 50px;
+        height: 50px;
+        color: black;
+        text-align: center;
+        line-height: 30px;
+        border: 2px solid #333;
+    }
+    
+    .empty-space {
+        width: 30px;
+        height: 30px;
+        background-color: transparent;
+    }
+}

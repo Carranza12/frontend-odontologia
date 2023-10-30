@@ -33,13 +33,13 @@
           Exploracion Fisica
         </button>
         <button
-        class="tabs__nav-btn"
-        [ngClass]="{ active: showOdontogramaInfoTab }"
-        type="button"
-        (click)="changeTab('odontograma')"
-      >
-        Odontograma
-      </button>
+          class="tabs__nav-btn"
+          [ngClass]="{ active: showOdontogramaInfoTab }"
+          type="button"
+          (click)="changeTab('odontograma')"
+        >
+          Odontograma
+        </button>
         <button
           class="tabs__nav-btn"
           [ngClass]="{ active: showConsultasInfoTab }"
@@ -403,9 +403,10 @@
                 El Telefono del contacto de emergencia es requerido.
               </div>
             </div>
-            
           </div>
-          <button type="button" class="btn_primary" (click)="nextPaso2()">Siguiente paso</button>
+          <button type="button" class="btn_primary" (click)="nextPaso2()">
+            Siguiente paso
+          </button>
         </div>
         <div *ngIf="showAparatosInfoTab" class="aparatos_y_sistemas">
           <h3>APARATOS Y SISTEMAS</h3>
@@ -414,59 +415,115 @@
             <div class="form_control_check">
               <div>
                 <label for="" class="form_label">Apetito:</label>
-                <input type="checkbox" formControlName="aparatos_sistemas_digestivo_apetito" class="checkbox_input" />
+                <input
+                  type="checkbox"
+                  formControlName="aparatos_sistemas_digestivo_apetito"
+                  class="checkbox_input"
+                />
               </div>
               <div>
                 <label for="" class="form_label">Masticacion:</label>
-                <input type="checkbox" formControlName="aparatos_sistemas_digestivo_Masticacion" class="checkbox_input" />
+                <input
+                  type="checkbox"
+                  formControlName="aparatos_sistemas_digestivo_Masticacion"
+                  class="checkbox_input"
+                />
               </div>
               <div>
                 <label for="" class="form_label">Deglucion:</label>
-                <input type="checkbox" formControlName="aparatos_sistemas_digestivo_Deglucion" class="checkbox_input" />
+                <input
+                  type="checkbox"
+                  formControlName="aparatos_sistemas_digestivo_Deglucion"
+                  class="checkbox_input"
+                />
               </div>
               <div>
                 <label for="" class="form_label">Disfagia:</label>
-                <input type="checkbox" formControlName="aparatos_sistemas_digestivo_Disfagia" class="checkbox_input" />
+                <input
+                  type="checkbox"
+                  formControlName="aparatos_sistemas_digestivo_Disfagia"
+                  class="checkbox_input"
+                />
               </div>
               <div>
                 <label for="" class="form_label">Nuaseas:</label>
-                <input type="checkbox" formControlName="aparatos_sistemas_digestivo_Nauseas" class="checkbox_input" />
+                <input
+                  type="checkbox"
+                  formControlName="aparatos_sistemas_digestivo_Nauseas"
+                  class="checkbox_input"
+                />
               </div>
               <div>
                 <label for="" class="form_label">Vomito:</label>
-                <input type="checkbox" formControlName="aparatos_sistemas_digestivo_Vomito" class="checkbox_input" />
+                <input
+                  type="checkbox"
+                  formControlName="aparatos_sistemas_digestivo_Vomito"
+                  class="checkbox_input"
+                />
               </div>
               <div>
                 <label for="" class="form_label">Dolor abdominal:</label>
-                <input type="checkbox" formControlName="aparatos_sistemas_digestivo_Dolor_Abdominal" class="checkbox_input" />
+                <input
+                  type="checkbox"
+                  formControlName="aparatos_sistemas_digestivo_Dolor_Abdominal"
+                  class="checkbox_input"
+                />
               </div>
               <div>
                 <label for="" class="form_label">Hematemsis:</label>
-                <input type="checkbox" formControlName="aparatos_sistemas_digestivo_Hematemsis" class="checkbox_input" />
+                <input
+                  type="checkbox"
+                  formControlName="aparatos_sistemas_digestivo_Hematemsis"
+                  class="checkbox_input"
+                />
               </div>
               <div>
                 <label for="" class="form_label">Pirosis:</label>
-                <input type="checkbox" formControlName="aparatos_sistemas_digestivo_Pirosis" class="checkbox_input" />
+                <input
+                  type="checkbox"
+                  formControlName="aparatos_sistemas_digestivo_Pirosis"
+                  class="checkbox_input"
+                />
               </div>
               <div>
                 <label for="" class="form_label">Meteorismo:</label>
-                <input type="checkbox" formControlName="aparatos_sistemas_digestivo_Meteorismo" class="checkbox_input" />
+                <input
+                  type="checkbox"
+                  formControlName="aparatos_sistemas_digestivo_Meteorismo"
+                  class="checkbox_input"
+                />
               </div>
               <div>
                 <label for="" class="form_label">Diarrea:</label>
-                <input type="checkbox" formControlName="aparatos_sistemas_digestivo_Diarrea" class="checkbox_input" />
+                <input
+                  type="checkbox"
+                  formControlName="aparatos_sistemas_digestivo_Diarrea"
+                  class="checkbox_input"
+                />
               </div>
               <div>
                 <label for="" class="form_label">Estrenimiento:</label>
-                <input type="checkbox" formControlName="aparatos_sistemas_digestivo_Estrenimiento" class="checkbox_input" />
+                <input
+                  type="checkbox"
+                  formControlName="aparatos_sistemas_digestivo_Estrenimiento"
+                  class="checkbox_input"
+                />
               </div>
               <div>
                 <label for="" class="form_label">Melena:</label>
-                <input type="checkbox" formControlName="aparatos_sistemas_digestivo_Melena" class="checkbox_input" />
+                <input
+                  type="checkbox"
+                  formControlName="aparatos_sistemas_digestivo_Melena"
+                  class="checkbox_input"
+                />
               </div>
               <div>
                 <label for="" class="form_label">Rectorragia:</label>
-                <input type="checkbox" formControlName="aparatos_sistemas_digestivo_Rectorragia" class="checkbox_input" />
+                <input
+                  type="checkbox"
+                  formControlName="aparatos_sistemas_digestivo_Rectorragia"
+                  class="checkbox_input"
+                />
               </div>
               <div>
                 <label for="" class="form_label">Otro:</label>
@@ -495,37 +552,69 @@
             <div class="form_control_check">
               <div>
                 <label for="" class="form_label">Epistasis:</label>
-                <input type="checkbox" formControlName="aparatos_sistemas_respiratorio_Epistasis" class="checkbox_input" />
+                <input
+                  type="checkbox"
+                  formControlName="aparatos_sistemas_respiratorio_Epistasis"
+                  class="checkbox_input"
+                />
               </div>
               <div>
                 <label for="" class="form_label">Tos:</label>
-                <input type="checkbox" formControlName="aparatos_sistemas_respiratorio_Tos" class="checkbox_input" />
+                <input
+                  type="checkbox"
+                  formControlName="aparatos_sistemas_respiratorio_Tos"
+                  class="checkbox_input"
+                />
               </div>
               <div>
                 <label for="" class="form_label">Disnea:</label>
-                <input type="checkbox" formControlName="aparatos_sistemas_respiratorio_Disnea" class="checkbox_input" />
+                <input
+                  type="checkbox"
+                  formControlName="aparatos_sistemas_respiratorio_Disnea"
+                  class="checkbox_input"
+                />
               </div>
               <div>
                 <label for="" class="form_label">Expectoracion:</label>
-                <input type="checkbox" formControlName="aparatos_sistemas_respiratorio_Expectoracion" class="checkbox_input" />
+                <input
+                  type="checkbox"
+                  formControlName="aparatos_sistemas_respiratorio_Expectoracion"
+                  class="checkbox_input"
+                />
               </div>
               <div>
                 <label for="" class="form_label">Asma:</label>
-                <input type="checkbox" formControlName="aparatos_sistemas_respiratorio_Asma" class="checkbox_input" />
+                <input
+                  type="checkbox"
+                  formControlName="aparatos_sistemas_respiratorio_Asma"
+                  class="checkbox_input"
+                />
               </div>
               <div>
                 <label for="" class="form_label">Dolor al respirar:</label>
-                <input type="checkbox" formControlName="aparatos_sistemas_respiratorio_Dolor_al_respirar" class="checkbox_input" />
+                <input
+                  type="checkbox"
+                  formControlName="aparatos_sistemas_respiratorio_Dolor_al_respirar"
+                  class="checkbox_input"
+                />
               </div>
               <div>
                 <label for="" class="form_label">Disfonia:</label>
-                <input type="checkbox" formControlName="aparatos_sistemas_respiratorio_Disfonia" class="checkbox_input" />
+                <input
+                  type="checkbox"
+                  formControlName="aparatos_sistemas_respiratorio_Disfonia"
+                  class="checkbox_input"
+                />
               </div>
               <div>
                 <label for="" class="form_label">Gripa frecuente:</label>
-                <input type="checkbox" formControlName="aparatos_sistemas_respiratorio_Gripa_frecuente" class="checkbox_input" />
+                <input
+                  type="checkbox"
+                  formControlName="aparatos_sistemas_respiratorio_Gripa_frecuente"
+                  class="checkbox_input"
+                />
               </div>
-             
+
               <div>
                 <label for="" class="form_label">Otro:</label>
                 <input
@@ -547,46 +636,81 @@
                 />
               </div>
             </div>
-           
           </div>
           <div class="circulatorio_container" style="margin-top: 20px">
             <h3 style="margin-bottom: 10px; color: #b21e36">Circulatorio:</h3>
             <div class="form_control_check">
               <div>
                 <label for="" class="form_label">Disnea del esfuerzo:</label>
-                <input type="checkbox" formControlName="aparatos_sistemas_circulatorio_Disnea_del_esfuerzo" class="checkbox_input" />
+                <input
+                  type="checkbox"
+                  formControlName="aparatos_sistemas_circulatorio_Disnea_del_esfuerzo"
+                  class="checkbox_input"
+                />
               </div>
               <div>
                 <label for="" class="form_label">Dolor retroesternal:</label>
-                <input type="checkbox" formControlName="aparatos_sistemas_circulatorio_Dolor_retroesternal" class="checkbox_input" />
+                <input
+                  type="checkbox"
+                  formControlName="aparatos_sistemas_circulatorio_Dolor_retroesternal"
+                  class="checkbox_input"
+                />
               </div>
               <div>
                 <label for="" class="form_label">Palpitaciones:</label>
-                <input type="checkbox" formControlName="aparatos_sistemas_circulatorio_Palpitaciones" class="checkbox_input" />
+                <input
+                  type="checkbox"
+                  formControlName="aparatos_sistemas_circulatorio_Palpitaciones"
+                  class="checkbox_input"
+                />
               </div>
               <div>
                 <label for="" class="form_label">Edema:</label>
-                <input type="checkbox" formControlName="aparatos_sistemas_circulatorio_Edema" class="checkbox_input" />
+                <input
+                  type="checkbox"
+                  formControlName="aparatos_sistemas_circulatorio_Edema"
+                  class="checkbox_input"
+                />
               </div>
               <div>
                 <label for="" class="form_label">Lipotimias:</label>
-                <input type="checkbox" formControlName="aparatos_sistemas_circulatorio_Lipotimias" class="checkbox_input" />
+                <input
+                  type="checkbox"
+                  formControlName="aparatos_sistemas_circulatorio_Lipotimias"
+                  class="checkbox_input"
+                />
               </div>
               <div>
                 <label for="" class="form_label">Calambres:</label>
-                <input type="checkbox" formControlName="aparatos_sistemas_circulatorio_Calambres" class="checkbox_input" />
+                <input
+                  type="checkbox"
+                  formControlName="aparatos_sistemas_circulatorio_Calambres"
+                  class="checkbox_input"
+                />
               </div>
               <div>
                 <label for="" class="form_label">Cianosis:</label>
-                <input type="checkbox" formControlName="aparatos_sistemas_circulatorio_Cianosis" class="checkbox_input" />
+                <input
+                  type="checkbox"
+                  formControlName="aparatos_sistemas_circulatorio_Cianosis"
+                  class="checkbox_input"
+                />
               </div>
               <div>
                 <label for="" class="form_label">Acufenos:</label>
-                <input type="checkbox" formControlName="aparatos_sistemas_circulatorio_Acufenos" class="checkbox_input" />
+                <input
+                  type="checkbox"
+                  formControlName="aparatos_sistemas_circulatorio_Acufenos"
+                  class="checkbox_input"
+                />
               </div>
               <div>
                 <label for="" class="form_label">Fosfenos:</label>
-                <input type="checkbox" formControlName="aparatos_sistemas_circulatorio_Fosfenos" class="checkbox_input" />
+                <input
+                  type="checkbox"
+                  formControlName="aparatos_sistemas_circulatorio_Fosfenos"
+                  class="checkbox_input"
+                />
               </div>
               <div>
                 <label for="" class="form_label">Otro:</label>
@@ -609,34 +733,61 @@
                 />
               </div>
             </div>
-           
           </div>
           <div class="genito_urinario_container" style="margin-top: 20px">
-            <h3 style="margin-bottom: 10px; color: #b21e36">Genito Urinario:</h3>
+            <h3 style="margin-bottom: 10px; color: #b21e36">
+              Genito Urinario:
+            </h3>
             <div class="form_control_check">
               <div>
-                <label for="" class="form_label">Frecuencia de micciones:</label>
-                <input type="checkbox" formControlName="aparatos_sistemas_genito_urinario_Frecuencia_de_micciones" class="checkbox_input" />
+                <label for="" class="form_label"
+                  >Frecuencia de micciones:</label
+                >
+                <input
+                  type="checkbox"
+                  formControlName="aparatos_sistemas_genito_urinario_Frecuencia_de_micciones"
+                  class="checkbox_input"
+                />
               </div>
               <div>
                 <label for="" class="form_label">Color:</label>
-                <input type="checkbox" formControlName="aparatos_sistemas_genito_urinario_Color" class="checkbox_input" />
+                <input
+                  type="checkbox"
+                  formControlName="aparatos_sistemas_genito_urinario_Color"
+                  class="checkbox_input"
+                />
               </div>
               <div>
                 <label for="" class="form_label">Diuria:</label>
-                <input type="checkbox" formControlName="aparatos_sistemas_genito_urinario_Diuria" class="checkbox_input" />
+                <input
+                  type="checkbox"
+                  formControlName="aparatos_sistemas_genito_urinario_Diuria"
+                  class="checkbox_input"
+                />
               </div>
               <div>
                 <label for="" class="form_label">Nicturia:</label>
-                <input type="checkbox" formControlName="aparatos_sistemas_genito_urinario_Nicturia" class="checkbox_input" />
+                <input
+                  type="checkbox"
+                  formControlName="aparatos_sistemas_genito_urinario_Nicturia"
+                  class="checkbox_input"
+                />
               </div>
               <div>
                 <label for="" class="form_label">Hematuria:</label>
-                <input type="checkbox" formControlName="aparatos_sistemas_genito_urinario_Hematuria" class="checkbox_input" />
+                <input
+                  type="checkbox"
+                  formControlName="aparatos_sistemas_genito_urinario_Hematuria"
+                  class="checkbox_input"
+                />
               </div>
               <div>
                 <label for="" class="form_label">Poliuria:</label>
-                <input type="checkbox" formControlName="aparatos_sistemas_genito_urinario_Poliuria" class="checkbox_input" />
+                <input
+                  type="checkbox"
+                  formControlName="aparatos_sistemas_genito_urinario_Poliuria"
+                  class="checkbox_input"
+                />
               </div>
               <div>
                 <label for="" class="form_label">Otro:</label>
@@ -659,46 +810,83 @@
                 />
               </div>
             </div>
-           
           </div>
           <div class="sistema_nervioso_container" style="margin-top: 20px">
-            <h3 style="margin-bottom: 10px; color: #b21e36">Sistema Nervioso:</h3>
+            <h3 style="margin-bottom: 10px; color: #b21e36">
+              Sistema Nervioso:
+            </h3>
             <div class="form_control_check">
               <div>
                 <label for="" class="form_label">Ansiedad:</label>
-                <input type="checkbox" formControlName="aparatos_sistemas_sist_nervioso_Ansiedad" class="checkbox_input" />
+                <input
+                  type="checkbox"
+                  formControlName="aparatos_sistemas_sist_nervioso_Ansiedad"
+                  class="checkbox_input"
+                />
               </div>
               <div>
                 <label for="" class="form_label">Temor:</label>
-                <input type="checkbox" formControlName="aparatos_sistemas_sist_nervioso_Temor" class="checkbox_input" />
+                <input
+                  type="checkbox"
+                  formControlName="aparatos_sistemas_sist_nervioso_Temor"
+                  class="checkbox_input"
+                />
               </div>
               <div>
                 <label for="" class="form_label">Convulciones:</label>
-                <input type="checkbox" formControlName="aparatos_sistemas_sist_nervioso_Convulciones" class="checkbox_input" />
+                <input
+                  type="checkbox"
+                  formControlName="aparatos_sistemas_sist_nervioso_Convulciones"
+                  class="checkbox_input"
+                />
               </div>
               <div>
                 <label for="" class="form_label">Paralisis:</label>
-                <input type="checkbox" formControlName="aparatos_sistemas_sist_nervioso_Paralisis" class="checkbox_input" />
+                <input
+                  type="checkbox"
+                  formControlName="aparatos_sistemas_sist_nervioso_Paralisis"
+                  class="checkbox_input"
+                />
               </div>
               <div>
                 <label for="" class="form_label">Temblores:</label>
-                <input type="checkbox" formControlName="aparatos_sistemas_sist_nervioso_Temblores" class="checkbox_input" />
+                <input
+                  type="checkbox"
+                  formControlName="aparatos_sistemas_sist_nervioso_Temblores"
+                  class="checkbox_input"
+                />
               </div>
               <div>
                 <label for="" class="form_label">Tics:</label>
-                <input type="checkbox" formControlName="aparatos_sistemas_sist_nervioso_Tics" class="checkbox_input" />
+                <input
+                  type="checkbox"
+                  formControlName="aparatos_sistemas_sist_nervioso_Tics"
+                  class="checkbox_input"
+                />
               </div>
               <div>
                 <label for="" class="form_label">Vista:</label>
-                <input type="checkbox" formControlName="aparatos_sistemas_sist_nervioso_Vista" class="checkbox_input" />
+                <input
+                  type="checkbox"
+                  formControlName="aparatos_sistemas_sist_nervioso_Vista"
+                  class="checkbox_input"
+                />
               </div>
               <div>
                 <label for="" class="form_label">Oido:</label>
-                <input type="checkbox" formControlName="aparatos_sistemas_sist_nervioso_Oido" class="checkbox_input" />
+                <input
+                  type="checkbox"
+                  formControlName="aparatos_sistemas_sist_nervioso_Oido"
+                  class="checkbox_input"
+                />
               </div>
               <div>
                 <label for="" class="form_label">Tacto:</label>
-                <input type="checkbox" formControlName="aparatos_sistemas_sist_nervioso_Tacto" class="checkbox_input" />
+                <input
+                  type="checkbox"
+                  formControlName="aparatos_sistemas_sist_nervioso_Tacto"
+                  class="checkbox_input"
+                />
               </div>
               <div>
                 <label for="" class="form_label">Otro:</label>
@@ -721,38 +909,69 @@
                 />
               </div>
             </div>
-           
           </div>
           <div class="sintomas_generales_container" style="margin-top: 20px">
-            <h3 style="margin-bottom: 10px; color: #b21e36">Sintomas Generales:</h3>
+            <h3 style="margin-bottom: 10px; color: #b21e36">
+              Sintomas Generales:
+            </h3>
             <div class="form_control_check">
               <div>
                 <label for="" class="form_label">Variacion de peso:</label>
-                <input type="checkbox" formControlName="aparatos_sistemas_sintomas_generales_Variacion_de_peso" class="checkbox_input" />
+                <input
+                  type="checkbox"
+                  formControlName="aparatos_sistemas_sintomas_generales_Variacion_de_peso"
+                  class="checkbox_input"
+                />
               </div>
               <div>
                 <label for="" class="form_label">Astenia:</label>
-                <input type="checkbox" formControlName="aparatos_sistemas_sintomas_generales_Astenia" class="checkbox_input" />
+                <input
+                  type="checkbox"
+                  formControlName="aparatos_sistemas_sintomas_generales_Astenia"
+                  class="checkbox_input"
+                />
               </div>
               <div>
                 <label for="" class="form_label">Adinamia:</label>
-                <input type="checkbox" formControlName="aparatos_sistemas_sintomas_generales_Adinamia" class="checkbox_input" />
+                <input
+                  type="checkbox"
+                  formControlName="aparatos_sistemas_sintomas_generales_Adinamia"
+                  class="checkbox_input"
+                />
               </div>
               <div>
                 <label for="" class="form_label">Fiebre:</label>
-                <input type="checkbox" formControlName="aparatos_sistemas_sintomas_generales_Fiebre" class="checkbox_input" />
+                <input
+                  type="checkbox"
+                  formControlName="aparatos_sistemas_sintomas_generales_Fiebre"
+                  class="checkbox_input"
+                />
               </div>
               <div>
                 <label for="" class="form_label">Escalofrios:</label>
-                <input type="checkbox" formControlName="aparatos_sistemas_sintomas_generales_Escalofrios" class="checkbox_input" />
+                <input
+                  type="checkbox"
+                  formControlName="aparatos_sistemas_sintomas_generales_Escalofrios"
+                  class="checkbox_input"
+                />
               </div>
               <div>
-                <label for="" class="form_label">Cambio de coloracion en piel y mucosa:</label>
-                <input type="checkbox" formControlName="aparatos_sistemas_sintomas_generales_Cambio_de_coloracaion_en_piel_y_mucosa" class="checkbox_input" />
+                <label for="" class="form_label"
+                  >Cambio de coloracion en piel y mucosa:</label
+                >
+                <input
+                  type="checkbox"
+                  formControlName="aparatos_sistemas_sintomas_generales_Cambio_de_coloracaion_en_piel_y_mucosa"
+                  class="checkbox_input"
+                />
               </div>
               <div>
                 <label for="" class="form_label">Anorexia:</label>
-                <input type="checkbox" formControlName="aparatos_sistemas_sintomas_generales_Anorexia" class="checkbox_input" />
+                <input
+                  type="checkbox"
+                  formControlName="aparatos_sistemas_sintomas_generales_Anorexia"
+                  class="checkbox_input"
+                />
               </div>
               <div>
                 <label for="" class="form_label">Otro:</label>
@@ -763,7 +982,10 @@
                   (click)="otroCheckbox()"
                 />
               </div>
-              <div class="form_control" *ngIf="showSintomasGeneralesOtroTextarea">
+              <div
+                class="form_control"
+                *ngIf="showSintomasGeneralesOtroTextarea"
+              >
                 <label for="" class="label_input">Cual?:</label>
                 <input
                   class="form_input"
@@ -775,27 +997,37 @@
                 />
               </div>
             </div>
-           
           </div>
-          <button type="button" class="btn_primary" (click)="nextPaso3()">Siguiente paso</button>
+          <button type="button" class="btn_primary" (click)="nextPaso3()">
+            Siguiente paso
+          </button>
         </div>
         <div *ngIf="showExploracionInfoTab">
           <h3>EXPLORACION FISICA</h3>
           <div class="habitus_exterior_container" style="margin-top: 20px">
-            <h3 style="margin-bottom: 10px; color: #b21e36">Habitus Exterior:</h3>
-            <div class="form_control" >
-              <label for="" class="label_input">Raza, Sexo, Edad Aparente, Facies, Estado de Conciencia:</label>
-              <textarea  
-              class="form_input form_textarea"
-              formControlName="exploracion_fisica_raza_sexo_edad_facies_estado_conciencia">
-            </textarea>
+            <h3 style="margin-bottom: 10px; color: #b21e36">
+              Habitus Exterior:
+            </h3>
+            <div class="form_control">
+              <label for="" class="label_input"
+                >Raza, Sexo, Edad Aparente, Facies, Estado de Conciencia:</label
+              >
+              <textarea
+                class="form_input form_textarea"
+                formControlName="exploracion_fisica_raza_sexo_edad_facies_estado_conciencia"
+              >
+              </textarea>
             </div>
-            <div class="form_control" >
-              <label for="" class="label_input">Actitud, Constitucion, Conformacion, Marcha, Movimientos Anormales:</label>
-              <textarea  
-              class="form_input form_textarea"
-              formControlName="exploracion_fisica_actitud_constitucion_marcha_movimientos_anormales">
-            </textarea>
+            <div class="form_control">
+              <label for="" class="label_input"
+                >Actitud, Constitucion, Conformacion, Marcha, Movimientos
+                Anormales:</label
+              >
+              <textarea
+                class="form_input form_textarea"
+                formControlName="exploracion_fisica_actitud_constitucion_marcha_movimientos_anormales"
+              >
+              </textarea>
             </div>
             <div class="form_control">
               <label for="" class="label_input">Signos Vitales:</label>
@@ -856,11 +1088,164 @@
         </div>
         <div *ngIf="showOdontogramaInfoTab">
           <h3>ODONTROGRAMA</h3>
+          <div>
+            <div class="container_dientes_arriba">
+              <div class="row">
+                <div class="square_container">
+                  <div class="square"></div>
+                  <div class="number">18</div>
+                  <div class="circle">
+                    <div class="inner-circle"></div>
+                    <div class="diagonal diagonal-1"></div>
+                    <div class="diagonal diagonal-2"></div>
+                  </div>
+                </div>
+                <div class="square_container">
+                  <div class="square"></div>
+                  <div class="number">17</div>
+                  <div class="circle">
+                    <div class="inner-circle"></div>
+                    <div class="diagonal diagonal-1"></div>
+                    <div class="diagonal diagonal-2"></div>
+                  </div>
+                </div>
+                <div class="square_container">
+                  <div class="square"></div>
+                  <div class="number">16</div>
+                  <div class="circle">
+                    <div class="inner-circle"></div>
+                    <div class="diagonal diagonal-1"></div>
+                    <div class="diagonal diagonal-2"></div>
+                  </div>
+                </div>
+                <div class="square_container">
+                  <div class="square"></div>
+                  <div class="number">15</div>
+                  <div class="circle">
+                    <div class="inner-circle"></div>
+                    <div class="diagonal diagonal-1"></div>
+                    <div class="diagonal diagonal-2"></div>
+                  </div>
+                </div>
+                <div class="square_container">
+                  <div class="square"></div>
+                  <div class="number">14</div>
+                  <div class="circle">
+                    <div class="inner-circle"></div>
+                    <div class="diagonal diagonal-1"></div>
+                    <div class="diagonal diagonal-2"></div>
+                  </div>
+                </div>
+                <div class="square_container">
+                  <div class="square"></div>
+                  <div class="number">13</div>
+                  <div class="circle">
+                    <div class="inner-circle"></div>
+                    <div class="diagonal diagonal-1"></div>
+                    <div class="diagonal diagonal-2"></div>
+                  </div>
+                </div>
+                <div class="square_container">
+                  <div class="square"></div>
+                  <div class="number">12</div>
+                  <div class="circle">
+                    <div class="inner-circle"></div>
+                    <div class="diagonal diagonal-1"></div>
+                    <div class="diagonal diagonal-2"></div>
+                  </div>
+                </div>
+                <div class="square_container">
+                  <div class="square"></div>
+                  <div class="number">11</div>
+                  <div class="circle">
+                    <div class="inner-circle"></div>
+                    <div class="diagonal diagonal-1"></div>
+                    <div class="diagonal diagonal-2"></div>
+                  </div>
+                </div>
+                <div class="square_container">
+                  <div class="square"></div>
+                  <div class="number empty-space"></div>
+                </div>
+                <div class="square_container">
+                  <div class="square"></div>
+                  <div class="number">21</div>
+                  <div class="circle">
+                    <div class="inner-circle"></div>
+                    <div class="diagonal diagonal-1"></div>
+                    <div class="diagonal diagonal-2"></div>
+                  </div>
+                </div>
+                <div class="square_container">
+                  <div class="square"></div>
+                  <div class="number">22</div>
+                  <div class="circle">
+                    <div class="inner-circle"></div>
+                    <div class="diagonal diagonal-1"></div>
+                    <div class="diagonal diagonal-2"></div>
+                  </div>
+                </div>
+                <div class="square_container">
+                  <div class="square"></div>
+                  <div class="number">23</div>
+                  <div class="circle">
+                    <div class="inner-circle"></div>
+                    <div class="diagonal diagonal-1"></div>
+                    <div class="diagonal diagonal-2"></div>
+                  </div>
+                </div>
+                <div class="square_container">
+                  <div class="square"></div>
+                  <div class="number">24</div>
+                  <div class="circle">
+                    <div class="inner-circle"></div>
+                    <div class="diagonal diagonal-1"></div>
+                    <div class="diagonal diagonal-2"></div>
+                  </div>
+                </div>
+                <div class="square_container">
+                  <div class="square"></div>
+                  <div class="number">25</div>
+                  <div class="circle">
+                    <div class="inner-circle circle_active" ></div>
+                    <div class="diagonal diagonal-1"></div>
+                    <div class="diagonal diagonal-2"></div>
+                  </div>
+                </div>
+                <div class="square_container">
+                  <div class="square"></div>
+                  <div class="number">26</div>
+                  <div class="circle">
+                    <div class="inner-circle"></div>
+                    <div class="diagonal diagonal-1"></div>
+                    <div class="diagonal diagonal-2"></div>
+                  </div>
+                </div>
+                <div class="square_container">
+                  <div class="square"></div>
+                  <div class="number">27</div>
+                  <div class="circle">
+                    <div class="inner-circle"></div>
+                    <div class="diagonal diagonal-1"></div>
+                    <div class="diagonal diagonal-2"></div>
+                  </div>
+                </div>
+                <div class="square_container">
+                  <div class="square"></div>
+                  <div class="number">28</div>
+                  <div class="circle">
+                    <div class="inner-circle"></div>
+                    <div class="diagonal diagonal-1"></div>
+                    <div class="diagonal diagonal-2"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         <div *ngIf="showConsultasInfoTab">
           <h3>CONSULTAS DEL PACIENTE</h3>
         </div>
-
       </div>
     </div>
   </form>
