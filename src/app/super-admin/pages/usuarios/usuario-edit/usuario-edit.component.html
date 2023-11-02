@@ -84,12 +84,12 @@
       El correo electrónico no es válido.
     </div>
       </div>
-      <div class="cbx-container">
+    <!--   <div class="cbx-container">
         <label for="cbxPass">
           Modificar Contraseña
         </label>  
         <input type="checkbox" id="cbxPass" formControlName="changePass">
-      </div>
+      </div> -->
       <div>    
         <input
         class="form_input"
@@ -187,8 +187,9 @@
             El Puesto es requerido.
           </div>
         </div>
+        <button type="button" (click)="onSubmit()" class="btn_primary">Actualizar</button>
       </div>
-      <button type="button" (click)="onSubmit()" class="btn_primary">Actualizar</button>
+    
     </form>
   </div>
   
