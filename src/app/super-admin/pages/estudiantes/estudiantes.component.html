@@ -1,0 +1,30 @@
+<app-sidebar></app-sidebar>
+<main class="main_container">
+  <app-page-title [title]="'Estudiantes'"></app-page-title>
+  <div>
+   
+    <table class="table_grid">
+      <thead>
+        <tr>
+          <th>Nombres</th>
+          <th>Apellidos</th>
+          <th>Email</th>
+          <th>Roles</th>
+          <th>Opciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let estudiante of estudiantesList">
+          <td>{{ estudiante.name }}</td>
+          <td>{{ estudiante.last_name }}</td>
+          <td>{{ estudiante.email }}</td>
+          <td><p *ngFor="let role of estudiante.roles">{{role}}</p></td>
+          <td class="icon_container">
+            <button type="button" class="btn_icon" (click)="_general.navigateBy('/superAdmin/estudiantes/perfil-estudiante/'+estudiante._id)">✎</button>
+            <button type="button" class="btn_icon" (click)="deleteUser(estudiante._id)">✘</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</main>

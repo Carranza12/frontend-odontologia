@@ -14,6 +14,9 @@ import { PerfilComponent } from './pages/maestros/perfil/perfil.component';
 import { NgxSignaturePadModule } from '@eve-sama/ngx-signature-pad';
 import { ProfileCardComponent } from './components/profile-card/profile-card.component';
 import { AsignaturasNewComponent } from './pages/asignaturas/asignaturas-new/asignaturas-new.component';
+import { AsignaturasEditComponent } from './pages/asignaturas/asignaturas-edit/asignaturas-edit.component';
+import { EstudiantesComponent } from './pages/estudiantes/estudiantes.component';
+import { EstudiantePerfilComponent } from './pages/estudiantes/estudiante-perfil/estudiante-perfil.component';
 
 
 @NgModule({
@@ -27,7 +30,10 @@ import { AsignaturasNewComponent } from './pages/asignaturas/asignaturas-new/asi
     MaestrosComponent,
     PerfilComponent,
     ProfileCardComponent,
-    AsignaturasNewComponent
+    AsignaturasNewComponent,
+    AsignaturasEditComponent,
+    EstudiantesComponent,
+    EstudiantePerfilComponent
   ],
   imports: [
     CommonModule,

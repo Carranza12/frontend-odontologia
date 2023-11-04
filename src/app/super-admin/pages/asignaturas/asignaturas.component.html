@@ -27,7 +27,7 @@
                 <td>{{ asignatura.maestro_nombre }}</td>
                 <td class="icon_container">
                   <button type="button" class="btn_icon" (click)="_general.navigateBy('/superAdmin/asignaturas/edicion/'+asignatura._id)">✎</button>
-                  <button type="button" class="btn_icon" (click)="deleteUser(asignatura._id)">✘</button>
+                  <button type="button" class="btn_icon" (click)="delete(asignatura._id)">✘</button>
                 </td>
               </tr>
             </tbody>

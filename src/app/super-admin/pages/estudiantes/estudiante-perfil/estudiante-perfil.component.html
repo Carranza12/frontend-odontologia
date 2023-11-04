@@ -1,0 +1,79 @@
+<app-sidebar></app-sidebar>
+<main class="main_container">
+  <app-page-title [title]="'Perfil Estudiante'"></app-page-title>
+
+  <div>
+    <app-profile-card></app-profile-card>
+    <form class="login-form" [formGroup]="perfilForm" (ngSubmit)="onSubmit()">
+      <section style="padding: 20px;">
+        <div>
+            <p>Matricula</p>
+          <input
+            class="form_input"
+            type="text"
+            placeholder="Matricula"
+            formControlName="Matricula"
+            name="uniqueFieldName1"
+            autocomplete="off"
+          />
+          <div
+            *ngIf="
+              perfilForm.get('expediente')?.hasError('required') &&
+              perfilForm.get('expediente')?.touched
+            "
+            class="error-message"
+          >
+            El expediente es requerido.
+          </div>
+        </div>
+        <div>
+            <p>Semestre actual</p>
+            <select
+              class="form_input"
+              formControlName="semestre_actual"
+              name="semestre"
+            >
+            <option value="">Selecciona el semestre</option>
+              <option [value]="semestre.value" *ngFor="let semestre of semestresList">{{semestre.text}}</option>
+            </select>
+            <div
+              *ngIf="
+              perfilForm.get('semestre_actual')?.hasError('required') &&
+              perfilForm.get('semestre_actual')?.touched
+              "
+              class="error-message"
+            >
+              El semestre actual es requerido.
+            </div>
+          </div>
+
+          <p>Selecciona las materias:</p>
+      <table class="table_grid table_grid2">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let materia of materiasAvailableList">
+            <td   [ngClass]="{'user_selected': materia.selected}" (click)="selectmateria(materia)">{{ materia.nombre }}</td>
+          </tr>
+         
+        </tbody>
+      </table>
+
+        
+
+        
+        <button
+          style="margin-top: 40px"
+          type="button"
+          (click)="onSubmit()"
+          class="btn_primary"
+        >
+          Guardar perfil
+        </button>
+      </section>
+    </form>
+  </div>
+</main>

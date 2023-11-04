@@ -14,7 +14,16 @@ a, a:hover {
 }
 
 .wrapper {
-  width: 100%;
+  width: 500px !important;
+    @media (max-width: 537px) {
+      width: 400px !important;
+    }
+    @media (max-width: 440px) {
+      width: 360px !important;
+    }
+    @media (max-width: 400px) {
+      width: 330px !important;
+    }
   height: auto;
   padding: 50px 20px;
   padding-top: 80px;
@@ -350,7 +359,7 @@ a, a:hover {
     padding: 35px;
     transform: scale(.8);
     position: relative;
-    z-index: 3;
+    z-index: 1;
     transition: all .3s;
 
     @media screen and (max-width: 768px) {

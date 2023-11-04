@@ -1,34 +1,43 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-    width: 100%;
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
-    height: 100vh;
-  }
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  height: 100vh;
+}
 
-  .container {
-    text-align: left;
-    margin:15px;
-    display: flex;
-    width: 100%;
-    justify-content: flex-start;
-    align-items: flex-start;
-    .form_input, .table_grid{
-      width: 500px!important;
-      
+.container {
+  text-align: left;
+  margin: 15px;
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+  align-items: flex-start;
+  .form_input,
+  .table_grid {
+    width: 500px !important;
+    @media (max-width: 537px) {
+      width: 400px !important;
     }
-    .btn_primary{
-      margin: 0;
+    @media (max-width: 440px) {
+      width: 360px !important;
     }
+    @media (max-width: 400px) {
+      width: 330px !important;
+    }
+  
   }
-.img_path{
-    width: 200px;
+  .btn_primary {
+    margin: 0;
+  }
+}
+.img_path {
+  width: 200px;
 }
 .user_selected {
-    background-color:#b21e36;
-    color: white;
+  background-color: #b21e36;
+  color: white;
 }
-

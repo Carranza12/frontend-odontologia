@@ -57,40 +57,51 @@ export class AsignaturasComponent {
     );
   }
 
-  async deleteUser(id: string) {
+  async delete(id:string){
     const result = await Swal.fire({
       title: '¿Estás seguro de cancelar la finalizacion?',
       showCancelButton: true,
       confirmButtonText: 'Sí',
       cancelButtonText: 'Cancelar',
-    });
+  });
 
-    if (result.isConfirmed) {
+  if (result.isConfirmed) {
       try {
-        this.apiService.deleteUser(id).subscribe(
+         
+        this._asignatura.delete(id).subscribe(
           (response: any) => {
-            console.log('Usuario eliminado con éxito', response);
-            Swal.fire('Usuario eliminado con éxito', '', 'success');
-            this.apiService.getUsers().subscribe(
-              (data: any) => {
-                if (Array.isArray(data)) {
+            console.log('Asignatura eliminada con éxito', response);
+            Swal.fire(
+              'Asignatura eliminada con éxito',
+              '',
+              'success'
+            )
+            this._asignatura.getAll().subscribe(
+              (data:any) => {
+                if(Array.isArray(data)){
                   this.asignaturasList = data;
                 }
               },
-              (error: any) => {
+              (error:any) => {
                 console.error(error);
-                this.auth.logout();
+                this.auth.logout()
               }
             );
           },
           (error: any) => {
-            console.error('Error al eliminar el usuario', error);
-            Swal.fire(`Error al eliminar el usuario: ${error}`, '', 'error');
-          }
-        );
+            console.error('Error al eliminar la Asignatura', error);
+            Swal.fire(
+              `Error al eliminar la Asignatura: ${error}`,
+              '',
+              'error'
+            )
+          })
+          
+     
       } catch (error) {
-        console.error(error);
+          console.error(error);
       }
-    }
+  }
+    
   }
 }

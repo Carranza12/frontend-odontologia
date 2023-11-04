@@ -20,7 +20,8 @@
             <li  [ngClass]="{'active_session': actual_path === 'asignaturas'}"  *ngIf="userData.role_default === 'superAdmin'" (click)="navigateBy('/superAdmin/asignaturas')" ><a ><i class="fas fa-home"></i>Asignaturas</a></li>
             <li  [ngClass]="{'active_session': actual_path === 'consultas'}" *ngIf="userData.role_default === 'trabajador'" (click)="navigateBy('/trabajador/consultas')" ><a><i class="fas fa-home"></i>Consultas</a></li>
             <li  [ngClass]="{'active_session': actual_path === 'perfil-maestro'}" *ngIf="userData.role_default === 'maestro'" (click)="navigateBy('/maestro/perfil-maestro')" ><a><i class="fas fa-home"></i>Perfil Maestro</a></li>
-        </ul> 
+            <li  [ngClass]="{'active_session': actual_path === 'estudiantes'}" *ngIf="userData.role_default === 'superAdmin'" (click)="navigateBy('/superAdmin/estudiantes')" ><a><i class="fas fa-home"></i>Estudiantes</a></li>
+          </ul> 
         <div class="social_media">
           <a (click)="logout()">Cerrar sesion</a>
       </div>
@@ -48,7 +49,8 @@
           <li  [ngClass]="{'active_session': actual_path === 'asignaturas'}"  *ngIf="userData.role_default === 'superAdmin'" (click)="navigateBy('/superAdmin/asignaturas')" ><a ><i class="fas fa-home"></i>Asignaturas</a></li>
           <li  [ngClass]="{'active_session': actual_path === 'consultas'}" *ngIf="userData.role_default === 'trabajador'" (click)="navigateBy('/trabajador/consultas')" ><a><i class="fas fa-home"></i>Consultas</a></li>
           <li  [ngClass]="{'active_session': actual_path === 'perfil-maestro'}" *ngIf="userData.role_default === 'maestro'" (click)="navigateBy('/maestro/perfil-maestro')" ><a><i class="fas fa-home"></i>Perfil Maestro</a></li>
-      </ul> 
+          <li  [ngClass]="{'active_session': actual_path === 'estudiantes'}" *ngIf="userData.role_default === 'superAdmin'" (click)="navigateBy('/superAdmin/estudiantes')" ><a><i class="fas fa-home"></i>Estudiantes</a></li>
+        </ul> 
       <div class="social_media">
         <a (click)="logout()">Cerrar sesion</a>
     </div>

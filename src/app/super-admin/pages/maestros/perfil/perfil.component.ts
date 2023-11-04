@@ -28,14 +28,14 @@ export class PerfilComponent implements OnInit {
     universidad: ['', Validators.required],
     especialidad: ['', Validators.required],
   });
-
-  public options: NgxSignatureOptions = {
+  public width_firma = '500px';
+  public options: any = {
     backgroundColor: '#F4F5F5',
-    width: 570,
-    height: 300,
     css: {
       'border-radius': '16px',
+      'width': this.width_firma
     },
+    
   };
   constructor(
     public _general: GeneralService,
@@ -68,7 +68,30 @@ export class PerfilComponent implements OnInit {
         }
       );
     });
+
+  this.adjustWidthBasedOnScreenWidth()
+    
+
   }
+
+  private adjustWidthBasedOnScreenWidth() {
+    const screenWidth =  document.documentElement.clientWidth;
+    console.log("screenWidth:", screenWidth)
+    if (screenWidth <= 537 && screenWidth > 440) {
+      console.log("aqui 1")
+      this.options.css.width = '400px';
+    } 
+    if (screenWidth <= 440  && screenWidth > 400) {
+      console.log("aqui 2")
+      this.options.css.width = '360px';
+    }
+    if (screenWidth <= 400) {
+      console.log("aqui 3")
+      this.options.css.width = '330px';
+    } 
+    
+  }
+
   async onSubmit() {
     if (this.perfilForm.valid) {
       let formPerfil: any = this.perfilForm.value;

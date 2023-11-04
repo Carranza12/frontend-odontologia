@@ -7,6 +7,7 @@
     <form class="login-form" [formGroup]="perfilForm" (ngSubmit)="onSubmit()">
       <section style="padding: 20px;">
         <div>
+          <p>Expediente</p>
           <input
             class="form_input"
             type="text"
@@ -26,6 +27,7 @@
           </div>
         </div>
         <div>
+          <p>Cedula profesional</p>
           <input
             class="form_input"
             type="text"
@@ -45,6 +47,7 @@
           </div>
         </div>
         <div>
+          <p>Universidad</p>
           <input
             class="form_input"
             type="text"
@@ -64,6 +67,7 @@
           </div>
 
           <div>
+            <p>Especialidad</p>
             <input
               class="form_input"
               type="text"
@@ -112,7 +116,8 @@
           </div>
 
           <img
-            width="570px"
+          class="firma_img"
+       
             [src]="firmaImagenShow"
             alt="Firma"
             *ngIf="firmaImagenShow && !showEditFirma"
@@ -125,6 +130,7 @@
         <div *ngIf="!isEditPerfil">
           <div>
             <ngx-signature-pad
+            class="signature"
               #signature
               [options]="options"
               (beginSign)="onBeginSign()"

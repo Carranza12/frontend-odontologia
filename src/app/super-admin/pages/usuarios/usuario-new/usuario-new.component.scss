@@ -11,24 +11,32 @@ body {
 
 .container {
   text-align: left;
-  margin:15px;
+  margin: 15px;
   display: flex;
   width: 100%;
   justify-content: flex-start;
   align-items: flex-start;
-  .form_input, .table_grid{
-    width: 500px!important;
-    
+  .form_input,
+  .table_grid {
+    width: 500px !important;
+    @media (max-width: 537px) {
+      width: 400px !important;
+    }
+    @media (max-width: 440px) {
+      width: 360px !important;
+    }
+    @media (max-width: 400px) {
+      width: 330px !important;
+    }
   }
-  .btn_primary{
+  .btn_primary {
     margin: 0;
   }
 }
-.img_path{
+.img_path {
   width: 200px;
 }
 .user_selected {
-  background-color:#b21e36;
+  background-color: #b21e36;
   color: white;
 }
-
