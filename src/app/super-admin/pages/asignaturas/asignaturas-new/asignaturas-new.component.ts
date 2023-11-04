@@ -19,53 +19,17 @@ export class AsignaturasNewComponent {
     carrera: ['', Validators.required],
     profesor: ['', Validators.required],
     semestre: ['', Validators.required],
+    meta_practicas: ['', Validators.required],
   });
 
-  public semestresList = [
-    {
-      value: '1',
-      text: 'primer semestre',
-    },
-    {
-      value: '2',
-      text: 'segundo semestre',
-    },
-    {
-      value: '3',
-      text: 'tercer semestre',
-    },
-    {
-      value: '4',
-      text: 'cuarto semestre',
-    },
-    {
-      value: '5',
-      text: 'quinto semestre',
-    },
-    {
-      value: '6',
-      text: 'sexto semestre',
-    },
-    {
-      value: '7',
-      text: 'septimo semestre',
-    },
-    {
-      value: '8',
-      text: 'octavo semestre',
-    },
-    {
-      value: '9',
-      text: 'noveno semestre',
-    },
+
+
+  public semestresList:any = [
+   
   ];
 
-  public carrerasList = [
-    {
-      value: 'Lic en odontologia',
-      text: 'Lic en odontologia',
-    },
-  ];
+  public carrerasList:any = [
+  ]
 
   public maestrosList: any = [];
 
@@ -82,6 +46,10 @@ export class AsignaturasNewComponent {
   ) {}
 
   async ngOnInit(): Promise<void> {
+
+    this.semestresList = this.apiService.getSemestreList();
+    this.carrerasList = this.apiService.getCarrerasList();
+
     this.perfilMaestro
       .getAll()
       .pipe(
@@ -110,6 +78,7 @@ export class AsignaturasNewComponent {
           carrera: this.asignaturaForm.get('carrera')?.value,
           maestro_id: this.asignaturaForm.get('profesor')?.value,
           semestre: this.asignaturaForm.get('semestre')?.value,
+          meta_practicas: this.asignaturaForm.get('meta_practicas')?.value,
         })
         .subscribe(
           (response: any) => {

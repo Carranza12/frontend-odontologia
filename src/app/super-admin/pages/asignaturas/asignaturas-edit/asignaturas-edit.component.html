@@ -4,6 +4,7 @@
   <div>
     <form class="login-form" [formGroup]="asignaturaForm" (ngSubmit)="onSubmit()">
       <div>
+        <p>Nombre</p>
         <input
           class="form_input"
           type="text"
@@ -20,6 +21,7 @@
         </div>
       </div>
       <div>
+        <p>Carrera</p>
         <select class="form_input" formControlName="carrera" name="carrera">
           <option value="">Selecciona la carrera</option>
           <option [value]="carrera.value" *ngFor="let carrera of carrerasList">{{ carrera.text }}</option>
@@ -33,6 +35,7 @@
       </div>
 
       <div>
+        <p>Maestro a cargo</p>
         <select class="form_input" formControlName="profesor" name="profesor">
           <option value="" selected>Selecciona el maestro que imparte la asignatura:</option>
           <option [value]="maestro.value" *ngFor="let maestro of maestrosList">{{ maestro.text }}</option>
@@ -46,6 +49,7 @@
       </div>
 
       <div>
+        <p>Semestre</p>
         <select class="form_input" formControlName="semestre" name="semestre">
           <option value="">Selecciona el semestre</option>
           <option [value]="semestre.value" *ngFor="let semestre of semestresList">{{ semestre.text }}</option>
@@ -57,7 +61,27 @@
           El semestre es requerido.
         </div>
       </div>
+      <div>
+        <p>Numero de practicas por estudiante</p>
+        <input
+        class="form_input"
+        type="number"
+        placeholder="Numero de practicas por estudiante"
+        formControlName="meta_practicas"
+        name="meta_practicas"
 
+        autocomplete="off"
+      />
+      <div
+        *ngIf="
+        asignaturaForm.get('meta_practicas')?.hasError('required') &&
+        asignaturaForm.get('meta_practicas')?.touched
+        "
+        class="error-message"
+      >
+        Este campo es requerido.
+      </div>
+      </div>
       <button type="button" (click)="onSubmit()" class="btn_primary">Actualizar</button>
     </form>
   </div>

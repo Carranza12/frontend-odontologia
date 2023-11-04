@@ -4,6 +4,7 @@
   <div>
     <form class="login-form" [formGroup]="asignaturaForm" (ngSubmit)="onSubmit()">
       <div>
+        <p>Nombre</p>
         <input
         class="form_input"
         type="text"
@@ -24,6 +25,7 @@
       </div>
       </div>
       <div>
+        <p>Carrera</p>
         <select
           class="form_input"
           formControlName="carrera"
@@ -44,6 +46,7 @@
       </div>
 
       <div>
+        <p>Maestro a cargo</p>
         <select
           class="form_input"
           formControlName="profesor"
@@ -70,6 +73,7 @@
       
 
       <div>
+        <p>Semestre</p>
         <select
           class="form_input"
           formControlName="semestre"
@@ -89,6 +93,27 @@
         </div>
       </div>
       
+      <div>
+        <p>Numero de practicas por estudiante</p>
+        <input
+        class="form_input"
+        type="number"
+        placeholder="Numero de practicas por estudiante"
+        formControlName="meta_practicas"
+        name="meta_practicas"
+
+        autocomplete="off"
+      />
+      <div
+        *ngIf="
+        asignaturaForm.get('meta_practicas')?.hasError('required') &&
+        asignaturaForm.get('meta_practicas')?.touched
+        "
+        class="error-message"
+      >
+        Este campo es requerido.
+      </div>
+      </div>
    
       <button type="button" (click)="onSubmit()" class="btn_primary">Crear</button>
     </form>

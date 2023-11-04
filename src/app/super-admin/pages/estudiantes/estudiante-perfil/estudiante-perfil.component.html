@@ -46,7 +46,26 @@
               El semestre actual es requerido.
             </div>
           </div>
-
+          <div>
+            <p>Carrera</p>
+            <select
+              class="form_input"
+              formControlName="carrera"
+              name="semestre"
+            >
+            <option value="">Selecciona la carrera</option>
+              <option [value]="carrera.value" *ngFor="let carrera of carrerasList">{{carrera.text}}</option>
+            </select>
+            <div
+              *ngIf="
+              perfilForm.get('carrera')?.hasError('required') &&
+              perfilForm.get('carrera')?.touched
+              "
+              class="error-message"
+            >
+              La carrera es requerida.
+            </div>
+          </div>
           <p>Selecciona las materias:</p>
       <table class="table_grid table_grid2">
         <thead>

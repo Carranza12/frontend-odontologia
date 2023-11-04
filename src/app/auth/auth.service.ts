@@ -23,7 +23,8 @@ export class AuthService {
             roles: response.roles,
             role_default: response.role_default,
             email: response.email,
-            img: response.profileImage
+            img: response.profileImage,
+            user_id: response.user_id
           };
           console.log("user auth:", user)
           localStorage.setItem('token', token);

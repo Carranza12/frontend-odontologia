@@ -1,0 +1,31 @@
+<app-sidebar></app-sidebar>
+<main class="main_container">
+  <app-page-title [title]="'Mis Materias'"></app-page-title>
+  <div>
+   
+    <table class="table_grid">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Semestre</th>
+          <th>Carrera</th>
+          <th>Practicas necesarias</th>
+          <th>Practicas Realizadas</th>
+          <th>Nombre profesor</th>
+          <th>Fotografia</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let profesor of misMateriasList">
+          <td>{{ profesor.nombre }}</td>
+          <td>{{ profesor.semestre }}</td>
+          <td>{{ profesor.carrera }}</td>
+          <td>{{ profesor.meta_practicas }}</td>
+          <td>{{ profesor.practicas_Realizadas }}</td>
+          <td>{{ profesor.nombre_profesor }}</td>
+          <td><img [src]=" profesor.img" alt="profesor" width="70px" height="70px" style="object-fit: cover;"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</main>

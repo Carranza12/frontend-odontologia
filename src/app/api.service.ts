@@ -16,6 +16,8 @@ export class ApiService {
   private GET_HISTORIA_AND_PATIENT_URL_API =
     'http://localhost:3000/api/patients/historia_clinica';
 
+
+    private USER_URLE_MAIL_API = 'http://localhost:3000/api/auth/user/email';
   constructor(private http: HttpClient) {}
 
   getUsers(): any {
@@ -64,6 +66,18 @@ export class ApiService {
     return false;
   }
 
+  getUserByEmail(email: any): any {
+    const token = localStorage.getItem('token');
+    if (token) {
+      const headers = new HttpHeaders({
+        Authorization: `Bearer ${token}`,
+      });
+      const respuesta = this.http.get(`${this.USER_URLE_MAIL_API}/${email}`, { headers });
+      return respuesta
+    }
+    return false;
+  }
+
   getHistoriaClinica(id: string) :any{
     const token = localStorage.getItem('token');
     if (token) {
@@ -75,6 +89,60 @@ export class ApiService {
       });
     }
     return false;
+  }
+
+  getSemestreList(){
+    return [
+      {
+        value: '1',
+        text: 'primer semestre',
+      },
+      {
+        value: '2',
+        text: 'segundo semestre',
+      },
+      {
+        value: '3',
+        text: 'tercer semestre',
+      },
+      {
+        value: '4',
+        text: 'cuarto semestre',
+      },
+      {
+        value: '5',
+        text: 'quinto semestre',
+      },
+      {
+        value: '6',
+        text: 'sexto semestre',
+      },
+      {
+        value: '7',
+        text: 'septimo semestre',
+      },
+      {
+        value: '8',
+        text: 'octavo semestre',
+      },
+      {
+        value: '9',
+        text: 'noveno semestre',
+      },
+    ];
+  }
+
+  getCarrerasList(){
+    return [
+      {
+        value: 'Lic en odontologia',
+        text: 'Lic en odontologia',
+      },
+      {
+        value: 'Cirujano Dentista',
+        text: 'Cirujano Dentista',
+      },
+    ];
   }
 
   deleteUser(id: string): any {
