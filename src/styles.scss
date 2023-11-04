@@ -13,17 +13,20 @@ body {
   margin-left: 200px;
   padding: 10px;
   height: 100vh;
+  @media (max-width: 752px) {
+    width: 100vw;
+    margin-left: 0px;
+}
 }
 
 .table_grid {
   border-collapse: collapse;
   width: 70%;
+}
 
-
-  .icon_container {
-    display: flex;
-    justify-content: space-between;
-  }
+.icon_container {
+  display: flex;
+  justify-content: space-between;
 }
 
 .table_grid th,
@@ -45,6 +48,28 @@ body {
   background-color: #e0e0e0;
 }
 
+/* Media query para pantallas de 320px o más */
+@media screen and (min-width: 340px) {
+  .table_grid {
+    width: 100%; /* Ajusta el ancho al 100% para pantallas pequeñas */
+  }
+  
+}
+@media screen and (max-width: 430px) {
+  .table_grid {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow-x: scroll;
+  }
+  .table_grid th,
+  .table_grid td {
+    min-width: 220px!important;
+    max-width: 220px!important;
+    font-size: 12px;
+  }
+  
+}
 .btn_primary {
   margin: 5px;
   border-radius: 30px;

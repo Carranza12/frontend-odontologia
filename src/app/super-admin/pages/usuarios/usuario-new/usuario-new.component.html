@@ -71,8 +71,8 @@
     >
       El correo electrónico no es válido.
     </div>
-    <input type="file" (change)="onFileSelected($event)" name="profileImage" class="btn_files">
-
+    <input type="file"  id="fileInput" class="input-file" (change)="onFileSelected($event)" name="profileImage" >
+    <label for="fileInput" class="custom-file-button">Seleccionar archivo</label>
       </div>
       <div>
         <input

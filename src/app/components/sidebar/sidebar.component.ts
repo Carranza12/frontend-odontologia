@@ -14,6 +14,7 @@ export class SidebarComponent implements OnInit {
   public sessionExpirationTime: string = '';
   public profile_picture!: string;
   public actual_path!: string;
+  public showMenu: boolean = false;
 
   constructor(private authService: AuthService, private _router: Router, private route: ActivatedRoute) { }
 
@@ -23,6 +24,8 @@ export class SidebarComponent implements OnInit {
       this.userData = JSON.parse(user_json);
       this.profile_picture = this.userData.img
     }
+
+    
 
     this.route.url.subscribe(urlSegments => {
       if (urlSegments[0]) {
@@ -65,5 +68,13 @@ export class SidebarComponent implements OnInit {
 
   public navigateBy(url: string) {
     this._router.navigateByUrl(url);
+  }
+
+  public openMenu(){
+    this.showMenu = true;
+  }
+
+  public closeMenu(){
+    this.showMenu = false;
   }
 }

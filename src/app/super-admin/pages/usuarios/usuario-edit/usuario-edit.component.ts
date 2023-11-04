@@ -83,15 +83,7 @@ export class UsuarioEditComponent {
         }
       );
     });
-    this.userForm.get('changePass')?.valueChanges.subscribe((valor: any) => {
-      console.log(valor);
-      if (valor) {
-        this.userForm.get('password')?.enable();
-      } else {
-        this.userForm.get('password')?.disable();
-        this.userForm.get('password')?.setValue('');
-      }
-    });
+   
   }
 
   onFileSelected(event: any) {
@@ -134,7 +126,7 @@ export class UsuarioEditComponent {
     this.userForm.get('role_default')?.setValue(user.role_default);
     this.userForm.get('email')?.setValue(user.email);
     this.img_path = user.profileImage;
-    this.userForm.get('password')?.disable();
+    
 
     
   }
@@ -166,6 +158,7 @@ export class UsuarioEditComponent {
   }
 
   onSubmit() {
+    console.log(this.userForm.value)
     if (this.userForm.valid) {
       let formUser: any = this.userForm.value;
       const formData = new FormData();
