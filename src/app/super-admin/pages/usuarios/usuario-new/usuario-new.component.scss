@@ -1,52 +1,34 @@
-
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-    width: 100%;
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
-    height: 100vh;
-  }
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  height: 100vh;
+}
 
-  .container {
-    text-align: left;
-    margin-left: 15%;
-    display: flex;
-    width: 100%;
-    justify-content: flex-start;
-    align-items: flex-start;
-    .form_input, .table_grid{
-      width: 500px!important;
-      
-    }
-    .btn_primary{
-      margin: 0;
-    }
+.container {
+  text-align: left;
+  margin:15px;
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+  align-items: flex-start;
+  .form_input, .table_grid{
+    width: 500px!important;
+    
   }
+  .btn_primary{
+    margin: 0;
+  }
+}
 .img_path{
-    width: 200px;
+  width: 200px;
 }
 .user_selected {
-    background-color:#b21e36;
-    color: white;
+  background-color:#b21e36;
+  color: white;
 }
 
-
-  
- 
-
-  .top-container{
-    text-align: left;
-  }
-  .top-container img{
-    display: block; /* Asegura que la imagen ocupe todo el ancho disponible */
- // margin: 0 auto; /* Para centrar horizontalmente la imagen en el contenedor */
-  }
-
-  .top-container label{
-    display: block; /* Coloca el botón en su propia línea (debajo de la imagen) */
-    margin-top: 10px;
- //    margin: 10px auto; /* Agrega un margen y centra horizontalmente el botón */
-  }

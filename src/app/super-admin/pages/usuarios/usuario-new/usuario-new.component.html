@@ -1,9 +1,10 @@
 <app-sidebar></app-sidebar>
 <main class="main_container">
   <app-page-title [title]="'Nuevo usuario'"></app-page-title>
-  <div>
+  <div class="container">
     <form class="login-form" [formGroup]="userForm" (ngSubmit)="onSubmit()">
       <div>
+        <p>Nombre del usuario</p>
         <input
         class="form_input"
         type="text"
@@ -24,6 +25,7 @@
       </div>
       </div>
       <div>
+        <p>Apellidos</p>
         <input
         class="form_input"
         type="text"
@@ -44,6 +46,7 @@
       </div>
       </div>
       <div>
+        <p>Correo electronico</p>
         <input
         class="form_input"
         type="email"
@@ -75,6 +78,7 @@
     <label for="fileInput" class="custom-file-button">Seleccionar archivo</label>
       </div>
       <div>
+        <p>Contraseña</p>
         <input
         class="form_input"
         type="password"
@@ -111,6 +115,7 @@
       </table>
 
       <div>
+        <p>Selecciona el rol por defecto</p>
         <select
           class="form_input"
           formControlName="role_default"
