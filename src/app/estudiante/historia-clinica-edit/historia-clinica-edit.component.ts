@@ -310,7 +310,7 @@ export class HistoriaClinicaEditComponent implements OnInit{
         id_estudiante: data._id
       }
 
-      console.log("estudianteData:", this.estudianteData)
+    
     })
    
     this._route.params.subscribe((param) => {
@@ -365,11 +365,87 @@ export class HistoriaClinicaEditComponent implements OnInit{
            this.historiaClinicaForm.get("Neoplasticas")?.setValue(response?.item?.historia_clinica?.Neoplasticas)
            this.historiaClinicaForm.get("SIDA")?.setValue(response?.item?.historia_clinica?.SIDA)
           
+
+           this.historiaClinicaForm.get("aparatos_sistemas_digestivo_apetito")?.setValue(response?.item?.historia_clinica?.aparatos_sistemas_digestivo_apetito)
+           this.historiaClinicaForm.get("aparatos_sistemas_digestivo_Masticacion")?.setValue(response?.item?.historia_clinica?.aparatos_sistemas_digestivo_Masticacion)
+           this.historiaClinicaForm.get("aparatos_sistemas_digestivo_Deglucion")?.setValue(response?.item?.historia_clinica?.aparatos_sistemas_digestivo_Deglucion)
+           this.historiaClinicaForm.get("aparatos_sistemas_digestivo_Disfagia")?.setValue(response?.item?.historia_clinica?.aparatos_sistemas_digestivo_Disfagia)
+           this.historiaClinicaForm.get("aparatos_sistemas_digestivo_Nauseas")?.setValue(response?.item?.historia_clinica?.aparatos_sistemas_digestivo_Nauseas)
+           this.historiaClinicaForm.get("aparatos_sistemas_digestivo_Vomito")?.setValue(response?.item?.historia_clinica?.aparatos_sistemas_digestivo_Vomito)
+           this.historiaClinicaForm.get("aparatos_sistemas_digestivo_Dolor_Abdominal")?.setValue(response?.item?.historia_clinica?.aparatos_sistemas_digestivo_Dolor_Abdominal)
+           this.historiaClinicaForm.get("aparatos_sistemas_digestivo_Hematemsis")?.setValue(response?.item?.historia_clinica?.aparatos_sistemas_digestivo_Hematemsis)
+           this.historiaClinicaForm.get("aparatos_sistemas_digestivo_Pirosis")?.setValue(response?.item?.historia_clinica?.aparatos_sistemas_digestivo_Pirosis)
+           this.historiaClinicaForm.get("aparatos_sistemas_digestivo_Meteorismo")?.setValue(response?.item?.historia_clinica?.aparatos_sistemas_digestivo_Meteorismo)
+           this.historiaClinicaForm.get("aparatos_sistemas_digestivo_Diarrea")?.setValue(response?.item?.historia_clinica?.aparatos_sistemas_digestivo_Diarrea)
+           this.historiaClinicaForm.get("aparatos_sistemas_digestivo_Estrenimiento")?.setValue(response?.item?.historia_clinica?.aparatos_sistemas_digestivo_Estrenimiento)
+           this.historiaClinicaForm.get("aparatos_sistemas_digestivo_Melena")?.setValue(response?.item?.historia_clinica?.aparatos_sistemas_digestivo_Melena)
+           this.historiaClinicaForm.get("aparatos_sistemas_digestivo_Rectorragia")?.setValue(response?.item?.historia_clinica?.aparatos_sistemas_digestivo_Rectorragia)
+           this.historiaClinicaForm.get("aparatos_sistemas_digestivo_Otros")?.setValue(response?.item?.historia_clinica?.aparatos_sistemas_digestivo_Otros)
+           this.historiaClinicaForm.get("aparatos_sistemas_digestivo_Otros_textarea")?.setValue(response?.item?.historia_clinica?.aparatos_sistemas_digestivo_Otros_textarea)
+           this.historiaClinicaForm.get("aparatos_sistemas_respiratorio_Epistasis")?.setValue(response?.item?.historia_clinica?.aparatos_sistemas_respiratorio_Epistasis)
+           this.historiaClinicaForm.get("aparatos_sistemas_respiratorio_Tos")?.setValue(response?.item?.historia_clinica?.aparatos_sistemas_respiratorio_Tos)
+           this.historiaClinicaForm.get("aparatos_sistemas_respiratorio_Disnea")?.setValue(response?.item?.historia_clinica?.aparatos_sistemas_respiratorio_Disnea)
+           this.historiaClinicaForm.get("aparatos_sistemas_respiratorio_Expectoracion")?.setValue(response?.item?.historia_clinica?.aparatos_sistemas_respiratorio_Expectoracion)
+           this.historiaClinicaForm.get("aparatos_sistemas_respiratorio_Asma")?.setValue(response?.item?.historia_clinica?.aparatos_sistemas_respiratorio_Asma)
+           this.historiaClinicaForm.get("aparatos_sistemas_respiratorio_Dolor_al_respirar")?.setValue(response?.item?.historia_clinica?.aparatos_sistemas_respiratorio_Dolor_al_respirar)
+           this.historiaClinicaForm.get("aparatos_sistemas_respiratorio_Disfonia")?.setValue(response?.item?.historia_clinica?.aparatos_sistemas_respiratorio_Disfonia)
+           this.historiaClinicaForm.get("aparatos_sistemas_respiratorio_Gripa_frecuente")?.setValue(response?.item?.historia_clinica?.aparatos_sistemas_respiratorio_Gripa_frecuente)
+           this.historiaClinicaForm.get("aparatos_sistemas_respiratorio_Otros")?.setValue(response?.item?.historia_clinica?.aparatos_sistemas_respiratorio_Otros)
+           this.historiaClinicaForm.get("aparatos_sistemas_respiratorio_Otros_textarea")?.setValue(response?.item?.historia_clinica?.aparatos_sistemas_respiratorio_Otros_textarea)
+           this.historiaClinicaForm.get("aparatos_sistemas_circulatorio_Disnea_del_esfuerzo")?.setValue(response?.item?.historia_clinica?.aparatos_sistemas_circulatorio_Disnea_del_esfuerzo)
+           this.historiaClinicaForm.get("aparatos_sistemas_circulatorio_Dolor_retroesternal")?.setValue(response?.item?.historia_clinica?.aparatos_sistemas_circulatorio_Dolor_retroesternal)
+           this.historiaClinicaForm.get("aparatos_sistemas_circulatorio_Palpitaciones")?.setValue(response?.item?.historia_clinica?.aparatos_sistemas_circulatorio_Palpitaciones)
+           this.historiaClinicaForm.get("aparatos_sistemas_circulatorio_Edema")?.setValue(response?.item?.historia_clinica?.aparatos_sistemas_circulatorio_Edema)
+           this.historiaClinicaForm.get("aparatos_sistemas_circulatorio_Lipotimias")?.setValue(response?.item?.historia_clinica?.aparatos_sistemas_circulatorio_Lipotimias)
+           this.historiaClinicaForm.get("aparatos_sistemas_circulatorio_Calambres")?.setValue(response?.item?.historia_clinica?.aparatos_sistemas_circulatorio_Calambres)
+           this.historiaClinicaForm.get("aparatos_sistemas_circulatorio_Cianosis")?.setValue(response?.item?.historia_clinica?.aparatos_sistemas_circulatorio_Cianosis)
+           this.historiaClinicaForm.get("aparatos_sistemas_circulatorio_Acufenos")?.setValue(response?.item?.historia_clinica?.aparatos_sistemas_circulatorio_Acufenos)
+           this.historiaClinicaForm.get("aparatos_sistemas_circulatorio_Fosfenos")?.setValue(response?.item?.historia_clinica?.aparatos_sistemas_circulatorio_Fosfenos)
+           this.historiaClinicaForm.get("aparatos_sistemas_circulatorio_Otros")?.setValue(response?.item?.historia_clinica?.aparatos_sistemas_circulatorio_Otros)
+           this.historiaClinicaForm.get("aparatos_sistemas_circulatorio_Otros_textarea")?.setValue(response?.item?.historia_clinica?.aparatos_sistemas_circulatorio_Otros_textarea)
+           this.historiaClinicaForm.get("aparatos_sistemas_genito_urinario_Frecuencia_de_micciones")?.setValue(response?.item?.historia_clinica?.aparatos_sistemas_genito_urinario_Frecuencia_de_micciones)
+           this.historiaClinicaForm.get("aparatos_sistemas_genito_urinario_Color")?.setValue(response?.item?.historia_clinica?.aparatos_sistemas_genito_urinario_Color)
+           this.historiaClinicaForm.get("aparatos_sistemas_genito_urinario_Diuria")?.setValue(response?.item?.historia_clinica?.aparatos_sistemas_genito_urinario_Diuria)
+           this.historiaClinicaForm.get("aparatos_sistemas_genito_urinario_Nicturia")?.setValue(response?.item?.historia_clinica?.aparatos_sistemas_genito_urinario_Nicturia)
+           this.historiaClinicaForm.get("aparatos_sistemas_genito_urinario_Hematuria")?.setValue(response?.item?.historia_clinica?.aparatos_sistemas_genito_urinario_Hematuria)
+           this.historiaClinicaForm.get("aparatos_sistemas_genito_urinario_Poliuria")?.setValue(response?.item?.historia_clinica?.aparatos_sistemas_genito_urinario_Poliuria)
+           this.historiaClinicaForm.get("aparatos_sistemas_genito_urinario_Otros")?.setValue(response?.item?.historia_clinica?.aparatos_sistemas_genito_urinario_Otros)
+           this.historiaClinicaForm.get("aparatos_sistemas_genito_urinario_Otros_textarea")?.setValue(response?.item?.historia_clinica?.aparatos_sistemas_genito_urinario_Otros_textarea)
+           this.historiaClinicaForm.get("aparatos_sistemas_sist_nervioso_Ansiedad")?.setValue(response?.item?.historia_clinica?.aparatos_sistemas_sist_nervioso_Ansiedad)
+           this.historiaClinicaForm.get("aparatos_sistemas_sist_nervioso_Temor")?.setValue(response?.item?.historia_clinica?.aparatos_sistemas_sist_nervioso_Temor)
+           this.historiaClinicaForm.get("aparatos_sistemas_sist_nervioso_Convulciones")?.setValue(response?.item?.historia_clinica?.aparatos_sistemas_sist_nervioso_Convulciones)
+           this.historiaClinicaForm.get("aparatos_sistemas_sist_nervioso_Paralisis")?.setValue(response?.item?.historia_clinica?.aparatos_sistemas_sist_nervioso_Paralisis)
+           this.historiaClinicaForm.get("aparatos_sistemas_sist_nervioso_Temblores")?.setValue(response?.item?.historia_clinica?.aparatos_sistemas_sist_nervioso_Temblores)
+           this.historiaClinicaForm.get("aparatos_sistemas_sist_nervioso_Tics")?.setValue(response?.item?.historia_clinica?.aparatos_sistemas_sist_nervioso_Tics)
+           this.historiaClinicaForm.get("aparatos_sistemas_sist_nervioso_Vista")?.setValue(response?.item?.historia_clinica?.aparatos_sistemas_sist_nervioso_Vista)
+           this.historiaClinicaForm.get("aparatos_sistemas_sist_nervioso_Oido")?.setValue(response?.item?.historia_clinica?.aparatos_sistemas_sist_nervioso_Oido)
+           this.historiaClinicaForm.get("aparatos_sistemas_sist_nervioso_Tacto")?.setValue(response?.item?.historia_clinica?.aparatos_sistemas_sist_nervioso_Tacto)
+           this.historiaClinicaForm.get("aparatos_sistemas_sist_nervioso_Otros")?.setValue(response?.item?.historia_clinica?.aparatos_sistemas_sist_nervioso_Otros)
+           this.historiaClinicaForm.get("aparatos_sistemas_sist_nervioso_Otros_textarea")?.setValue(response?.item?.historia_clinica?.aparatos_sistemas_sist_nervioso_Otros_textarea)
+           this.historiaClinicaForm.get("aparatos_sistemas_sintomas_generales_Variacion_de_peso")?.setValue(response?.item?.historia_clinica?.aparatos_sistemas_sintomas_generales_Variacion_de_peso)
+           this.historiaClinicaForm.get("aparatos_sistemas_sintomas_generales_Astenia")?.setValue(response?.item?.historia_clinica?.aparatos_sistemas_sintomas_generales_Astenia)
+           this.historiaClinicaForm.get("aparatos_sistemas_sintomas_generales_Adinamia")?.setValue(response?.item?.historia_clinica?.aparatos_sistemas_sintomas_generales_Adinamia)
+           this.historiaClinicaForm.get("aparatos_sistemas_sintomas_generales_Fiebre")?.setValue(response?.item?.historia_clinica?.aparatos_sistemas_sintomas_generales_Fiebre)
+           this.historiaClinicaForm.get("aparatos_sistemas_sintomas_generales_Escalofrios")?.setValue(response?.item?.historia_clinica?.aparatos_sistemas_sintomas_generales_Escalofrios)
+           this.historiaClinicaForm.get("aparatos_sistemas_sintomas_generales_Cambio_de_coloracaion_en_piel_y_mucosa")?.setValue(response?.item?.historia_clinica?.aparatos_sistemas_sintomas_generales_Cambio_de_coloracaion_en_piel_y_mucosa)
+           this.historiaClinicaForm.get("aparatos_sistemas_sintomas_generales_Anorexia")?.setValue(response?.item?.historia_clinica?.aparatos_sistemas_sintomas_generales_Anorexia)
+           this.historiaClinicaForm.get("aparatos_sistemas_sintomas_generales_otros")?.setValue(response?.item?.historia_clinica?.aparatos_sistemas_sintomas_generales_otros)
+           this.historiaClinicaForm.get("aparatos_sistemas_sintomas_generales_otros_textarea")?.setValue(response?.item?.historia_clinica?.aparatos_sistemas_sintomas_generales_otros_textarea)
+           this.historiaClinicaForm.get("exploracion_fisica_raza_sexo_edad_facies_estado_conciencia")?.setValue(response?.item?.historia_clinica?.exploracion_fisica_raza_sexo_edad_facies_estado_conciencia)
+           this.historiaClinicaForm.get("exploracion_fisica_actitud_constitucion_marcha_movimientos_anormales")?.setValue(response?.item?.historia_clinica?.exploracion_fisica_actitud_constitucion_marcha_movimientos_anormales)
+           this.historiaClinicaForm.get("exploracion_fisica_signos_vitales")?.setValue(response?.item?.historia_clinica?.exploracion_fisica_signos_vitales)
+           this.historiaClinicaForm.get("exploracion_fisica_TA")?.setValue(response?.item?.historia_clinica?.exploracion_fisica_TA)
+           this.historiaClinicaForm.get("exploracion_fisica_frec_respiratoria")?.setValue(response?.item?.historia_clinica?.exploracion_fisica_frec_respiratoria)
+           this.historiaClinicaForm.get("exploracion_fisica_temperatura")?.setValue(response?.item?.historia_clinica?.exploracion_fisica_temperatura)
+           this.historiaClinicaForm.get("exploracion_fisica_peso")?.setValue(response?.item?.historia_clinica?.exploracion_fisica_peso)
+   
+
            
 
 
 
            this.consultasList = response.item.historia_clinica.consultas
+           this.consultasList = this.consultasList.map((item:any) => ({...item, selected: true}))
           },
           (error: any) => {
             console.error('Error al registrar el usuario', error);
@@ -406,13 +482,34 @@ export class HistoriaClinicaEditComponent implements OnInit{
       }
     };
 
-    console.log('ITEM:', item);
-
     this.apiSevice.updateHistoriaClinica(this.historia_clinica_id, item).subscribe(
       (response: any) => {
         console.log('historia clinica guardada con exito', response);
+
+        this.consultasList.forEach((consulta:any) => {
+          console.log("cosnulta:", consulta)
+          const materia_id = consulta.practica_para_la_materia.value;
+          this._perfil_estudiante.getPerfil(consulta.estudiante.id_estudiante).subscribe((estudianteData:any) => {
+ 
+            let materias = estudianteData.materias;
+            let find_index_materia_to_update = materias.findIndex((materia:any) => materia.materia_id === materia_id )
+            let find_materia_to_update = materias.find((materia:any) => materia.materia_id === materia_id )
+        
+            materias[find_index_materia_to_update] = {
+              materia_id : find_materia_to_update.materia_id,
+              practicas_realizadas : consulta.selected ? find_materia_to_update.practicas_realizadas : find_materia_to_update.practicas_realizadas + 1
+            }
+            const item_to_update = {
+              ...estudianteData,
+              materias
+            }
+            this._perfil_estudiante.update_perfil(consulta.estudiante.id_estudiante, item_to_update).subscribe((data_Res:any) => {
+              console.log("compleado con exito", data_Res)
+            })
+          })
+        })
         this.historiaClinicaForm.reset();
-        this._general.navigateBy('/estudiante');
+        this._general.navigateBy('/estudiante'); 
       },
       (error: any) => {
         console.error('Error al guardar la historia clinica', error);
@@ -442,7 +539,8 @@ export class HistoriaClinicaEditComponent implements OnInit{
       },
       practica_para_la_materia: this.materia_Seleccionada_consula,
       aprobado: "Sin aprobar",
-      maestro: { maestro_id: "", nombre: ""}
+      maestro: { maestro_id: "", nombre: ""},
+      selected : false
     }
    this.consultasList.push(consulta)
 

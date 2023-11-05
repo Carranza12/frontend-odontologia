@@ -58,6 +58,22 @@ export class PerfilEstudiantesService {
     }
   }
 
+  public update_perfil(id:any,perfil: any) {
+    console.log("id:", id)
+    console.log("perfil:", perfil)
+    console.log("rutA:", `${this.POST_PERFIL_URL_API}${id}`)
+    const token = localStorage.getItem('token');
+    if (token) {
+      const headers = new HttpHeaders({
+        Authorization: `Bearer ${token}`,
+      });
+      return this.http.put(`${this.POST_PERFIL_URL_API}${id}`, perfil, { headers });
+    } else {
+      // Devolver un observable con valor false
+      return of(false);
+    }
+  }
+
   public getAll(){
     const token = localStorage.getItem('token');
     if (token) {

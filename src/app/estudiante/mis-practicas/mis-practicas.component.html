@@ -1,0 +1,28 @@
+<app-sidebar></app-sidebar>
+<main class="main_container">
+  <app-page-title [title]="'Mis Practicas'"></app-page-title>
+  <div>
+   
+    <table class="table_grid">
+      <thead>
+        <tr>
+          <th>Fecha</th>
+          <th>Semestre</th>
+          <th>Materia</th>
+          <th>Estado</th>
+          <th>Maestro</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let practica of misPracticasList">
+          <td>{{ practica.fecha_consulta }}</td>
+          <td>{{ practica.estudiante.semestre_Actual }}</td>
+          <td>{{ practica.practica_para_la_materia.text }}</td>
+          <td>{{ practica.aprobado }}</td>
+          <td>{{ practica.maestro.nombre }}</td>
+          
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</main>

@@ -91,6 +91,19 @@ export class ApiService {
     return false;
   }
 
+  getHistoriaClinicaByEstudiante(id_estudiante: string) :any{
+    const token = localStorage.getItem('token');
+    if (token) {
+      const headers = new HttpHeaders({
+        Authorization: `Bearer ${token}`,
+      });
+      return this.http.get(`${this.GET_HISTORIA_AND_PATIENT_URL_API}/estudiante/${id_estudiante}`, {
+        headers,
+      });
+    }
+    return false;
+  }
+
   getSemestreList(){
     return [
       {
