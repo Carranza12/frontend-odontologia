@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/api.service';
+import { asignaturaService } from 'src/app/asignatura.service';
+import { PerfilEstudiantesService } from 'src/app/empleado/services/perfil_estudiantes.service';
 import { GeneralService } from 'src/app/general.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-historia-clinica-edit',
@@ -119,6 +122,7 @@ export class HistoriaClinicaEditComponent implements OnInit{
   ];
 
   public showPacienteInfoTab: boolean = true;
+  public showAntecedentesInfoTab: boolean = false;
   public showAparatosInfoTab: boolean = false;
   public showExploracionInfoTab: boolean = false;
   public showConsultasInfoTab: boolean = false;
@@ -147,6 +151,38 @@ export class HistoriaClinicaEditComponent implements OnInit{
     nombre_contacto_emergencia: ['', Validators.required],
     parentesco_contacto_emergencia: ['', Validators.required],
     telefono_contacto_emergencia: ['', Validators.required],
+    //ANTECEDENTES
+    antecedentes_hereditarios: [],
+    alcoholismo: [],
+    tabaquismo: [],
+    toxicomanias: [],
+    higiene: [],
+    alimentacion: [],
+    condicion : [],
+    socioconomia: [],
+    habitos: [],
+    ant_personales_otros_textarea: [''],
+    //
+    enf_infancia: [],
+    Fimicos: [], 
+    Lueticos: [],
+    Diabeticos: [],
+    Quirurgicos: [],
+    Traumaticos: [],
+    Ictericos: [],
+    Epilepticos: [],
+    Alergicos: [],
+    Reumaticos: [],
+    Transfusiones: [],
+    Enfermedades_Cardiovasculares: [],
+    Incidencia_de_Infecciones_Bucales: [],
+    Neoplasticas: [],
+    SIDA: [],
+    ant_personales_p_otros_textarea: [''],
+    padecimiento_principio: [''],
+    padecimiento_evolucion: [''],
+    padecimiento_estado_actual: [''],
+     
     //DIGESTIVO
     aparatos_sistemas_digestivo_apetito: [],
     aparatos_sistemas_digestivo_Masticacion: [],
@@ -228,22 +264,112 @@ export class HistoriaClinicaEditComponent implements OnInit{
     exploracion_fisica_peso: [],
   });
 
+  public motivos_de_la_consulta = new FormControl('');
+  public fecha_de_la_consulta = new FormControl('');
+  public comentarios_sobre_la_consulta = new FormControl('');
+  public practica_para_la_materia = new FormControl('');
+  public materia_Seleccionada_consula:any = {}
+
+  public estudianteData:any = {}
+
+  public consultasList:any = []
+
+  public historia_clinica_id:any = ''
   constructor(
     private formBuilder: FormBuilder,
     private apiSevice: ApiService,
     private _general: GeneralService,
-    private _route: ActivatedRoute
+    private _route: ActivatedRoute,
+    private _perfil_estudiante: PerfilEstudiantesService,
+    private _asignaturas:asignaturaService
   ) {}
 
   ngOnInit(): void {
+    let user:any = localStorage.getItem("user")
+    user = JSON.parse(user)
+
+    this.practica_para_la_materia.valueChanges.subscribe((value) => {
+      this.materia_Seleccionada_consula = this.estudianteData.materias.find((item:any ) => item.value === value)
+    })
+    
+    this._perfil_estudiante.getPerfil(user.user_id).subscribe(async (data:any) => {
+      let materias :any = []
+      for await(const item_materia of data.materias){
+        this._asignaturas.get(item_materia.materia_id).subscribe((materia_data:any) => {
+          materias.push({
+            text: materia_data.nombre,
+            value: materia_data._id
+          })
+        })
+      }
+      this.estudianteData = {
+        matricula: data.Matricula,
+        carrera: data.carrera,
+        materias: materias,
+        semestre_Actual: data.semestre_actual,
+        id_estudiante: data._id
+      }
+
+      console.log("estudianteData:", this.estudianteData)
+    })
+   
     this._route.params.subscribe((param) => {
-      const historia_clinica_id = param['id']
-      if(historia_clinica_id){
-        this.apiSevice.getHistoriaClinica(historia_clinica_id).subscribe(
+      this.historia_clinica_id = param['id']
+      if(this.historia_clinica_id){
+        this.apiSevice.getHistoriaClinica(this.historia_clinica_id).subscribe(
           (response: any) => {
-           
-           console.log("item:", response.item)
+           console.log("RESPONSE:", response.item)
            this.historiaClinicaForm.get("nombre_completo")?.setValue(response?.item?.paciente?.nombre_completo)
+           this.historiaClinicaForm.get("fecha_de_nacimiento")?.setValue(response?.item?.paciente?.fecha_de_nacimiento)
+           this.historiaClinicaForm.get("genero")?.setValue(response?.item?.paciente?.genero)
+           this.historiaClinicaForm.get("estado_civil")?.setValue(response?.item?.paciente?.estado_civil)
+           this.historiaClinicaForm.get("ocupacion")?.setValue(response?.item?.paciente?.ocupacion)
+           this.historiaClinicaForm.get("domicilio")?.setValue(response?.item?.paciente?.domicilio)
+           this.historiaClinicaForm.get("telefono")?.setValue(response?.item?.paciente?.telefono)
+           this.historiaClinicaForm.get("ciudad_origen")?.setValue(response?.item?.paciente?.ciudad_origen)
+           this.historiaClinicaForm.get("estado_origen")?.setValue(response?.item?.paciente?.estado_origen)
+           this.historiaClinicaForm.get("pais_origen")?.setValue(response?.item?.paciente?.pais_origen)
+           this.historiaClinicaForm.get("ciudad_Actual")?.setValue(response?.item?.paciente?.ciudad_Actual)
+           this.historiaClinicaForm.get("nombre_contacto_emergencia")?.setValue(response?.item?.paciente?.nombre_contacto_emergencia)
+           this.historiaClinicaForm.get("parentesco_contacto_emergencia")?.setValue(response?.item?.paciente?.parentesco_contacto_emergencia)
+           this.historiaClinicaForm.get("telefono_contacto_emergencia")?.setValue(response?.item?.paciente?.telefono_contacto_emergencia)
+
+           this.historiaClinicaForm.get("antecedentes_hereditarios")?.setValue(response?.item?.historia_clinica?.antecedentes_hereditarios)
+           this.historiaClinicaForm.get("alcoholismo")?.setValue(response?.item?.historia_clinica?.alcoholismo)
+           this.historiaClinicaForm.get("tabaquismo")?.setValue(response?.item?.historia_clinica?.tabaquismo)
+           this.historiaClinicaForm.get("toxicomanias")?.setValue(response?.item?.historia_clinica?.toxicomanias)
+           this.historiaClinicaForm.get("higiene")?.setValue(response?.item?.historia_clinica?.higiene)
+           this.historiaClinicaForm.get("alimentacion")?.setValue(response?.item?.historia_clinica?.alimentacion)
+           this.historiaClinicaForm.get("condicion")?.setValue(response?.item?.historia_clinica?.condicion)
+           this.historiaClinicaForm.get("socioconomia")?.setValue(response?.item?.historia_clinica?.socioconomia)
+           this.historiaClinicaForm.get("habitos")?.setValue(response?.item?.historia_clinica?.habitos)
+           this.historiaClinicaForm.get("ant_personales_otros_textarea")?.setValue(response?.item?.historia_clinica?.ant_personales_otros_textarea)
+           this.historiaClinicaForm.get("padecimiento_principio")?.setValue(response?.item?.historia_clinica?.padecimiento_principio)
+           this.historiaClinicaForm.get("padecimiento_evolucion")?.setValue(response?.item?.historia_clinica?.padecimiento_evolucion)
+           this.historiaClinicaForm.get("padecimiento_estado_actual")?.setValue(response?.item?.historia_clinica?.padecimiento_estado_actual)
+           this.historiaClinicaForm.get("ant_personales_p_otros_textarea")?.setValue(response?.item?.historia_clinica?.ant_personales_p_otros_textarea)
+           
+           this.historiaClinicaForm.get("enf_infancia")?.setValue(response?.item?.historia_clinica?.enf_infancia)
+           this.historiaClinicaForm.get("Fimicos")?.setValue(response?.item?.historia_clinica?.Fimicos)
+           this.historiaClinicaForm.get("Lueticos")?.setValue(response?.item?.historia_clinica?.Lueticos)
+           this.historiaClinicaForm.get("Diabeticos")?.setValue(response?.item?.historia_clinica?.Diabeticos)
+           this.historiaClinicaForm.get("Quirurgicos")?.setValue(response?.item?.historia_clinica?.Quirurgicos)
+           this.historiaClinicaForm.get("Traumaticos")?.setValue(response?.item?.historia_clinica?.Traumaticos)
+           this.historiaClinicaForm.get("Ictericos")?.setValue(response?.item?.historia_clinica?.Ictericos)
+           this.historiaClinicaForm.get("Epilepticos")?.setValue(response?.item?.historia_clinica?.Epilepticos)
+           this.historiaClinicaForm.get("Alergicos")?.setValue(response?.item?.historia_clinica?.Alergicos)
+           this.historiaClinicaForm.get("Reumaticos")?.setValue(response?.item?.historia_clinica?.Reumaticos)
+           this.historiaClinicaForm.get("Transfusiones")?.setValue(response?.item?.historia_clinica?.Transfusiones)
+           this.historiaClinicaForm.get("Enfermedades_Cardiovasculares")?.setValue(response?.item?.historia_clinica?.Enfermedades_Cardiovasculares)
+           this.historiaClinicaForm.get("Incidencia_de_Infecciones_Bucales")?.setValue(response?.item?.historia_clinica?.Incidencia_de_Infecciones_Bucales)
+           this.historiaClinicaForm.get("Neoplasticas")?.setValue(response?.item?.historia_clinica?.Neoplasticas)
+           this.historiaClinicaForm.get("SIDA")?.setValue(response?.item?.historia_clinica?.SIDA)
+          
+           
+
+
+
+           this.consultasList = response.item.historia_clinica.consultas
           },
           (error: any) => {
             console.error('Error al registrar el usuario', error);
@@ -254,40 +380,77 @@ export class HistoriaClinicaEditComponent implements OnInit{
   }
 
   public onSubmit() {
-    if (this.historiaClinicaForm.invalid) {
-      return;
-    }
+   
 
     const item = {
-      nombre_completo: this.historiaClinicaForm.get('nombre_completo')?.value,
-      /*  fecha_de_nacimiento :  this.historiaClinicaForm.get("fecha_de_nacimiento")?.value,
-      genero :  this.historiaClinicaForm.get("genero")?.value,
-      estado_civil :  this.historiaClinicaForm.get("estado_civil")?.value,
-      ocupacion :  this.historiaClinicaForm.get("ocupacion")?.value,
-      domicilio:  this.historiaClinicaForm.get("domicilio")?.value,
-      telefono:  this.historiaClinicaForm.get("telefono")?.value,
-      ciudad_origen:  this.historiaClinicaForm.get("ciudad_origen")?.value,
-      estado_origen:  this.historiaClinicaForm.get("estado_origen")?.value,
-      pais_origen:  this.historiaClinicaForm.get("pais_origen")?.value,
-      ciudad_Actual:  this.historiaClinicaForm.get("ciudad_Actual")?.value,
-      nombre_contacto_emergencia:  this.historiaClinicaForm.get("nombre_contacto_emergencia")?.value,
-      parentesco_contacto_emergencia:  this.historiaClinicaForm.get("parentesco_contacto_emergencia")?.value,
-      telefono_contacto_emergencia:  this.historiaClinicaForm.get("telefono_contacto_emergencia")?.value, */
-      historia_clinica_id: '',
+     ...this.historiaClinicaForm.value,
+      consultas : this.consultasList,
+      odontogramas: [],
+      paciente: {
+        nombre_completo: this.historiaClinicaForm.get("nombre_completo")?.value,
+        fecha_de_nacimiento : this.historiaClinicaForm.get("fecha_de_nacimiento")?.value,
+        genero: this.historiaClinicaForm.get("genero")?.value,
+        estado_civil: this.historiaClinicaForm.get("estado_civil")?.value,
+        ocupacion: this.historiaClinicaForm.get("ocupacion")?.value,
+        domicilio: this.historiaClinicaForm.get("domicilio")?.value,
+        telefono: this.historiaClinicaForm.get("telefono")?.value,
+        ciudad_origen: this.historiaClinicaForm.get("ciudad_origen")?.value,
+        estado_origen: this.historiaClinicaForm.get("estado_origen")?.value,
+        pais_origen: this.historiaClinicaForm.get("pais_origen")?.value,
+        ciudad_Actual : this.historiaClinicaForm.get("ciudad_Actual")?.value,
+        nombre_contacto_emergencia: this.historiaClinicaForm.get("nombre_contacto_emergencia")?.value,
+        parentesco_contacto_emergencia: this.historiaClinicaForm.get("parentesco_contacto_emergencia")?.value,
+        telefono_contacto_emergencia: this.historiaClinicaForm.get("telefono_contacto_emergencia")?.value,
+
+
+      }
     };
 
     console.log('ITEM:', item);
 
-    this.apiSevice.createPacienteAndHistoriaClinica(item).subscribe(
+    this.apiSevice.updateHistoriaClinica(this.historia_clinica_id, item).subscribe(
       (response: any) => {
-        console.log('Usuario registrado con éxito', response);
+        console.log('historia clinica guardada con exito', response);
         this.historiaClinicaForm.reset();
-        this._general.navigateBy('/trabajador/consultas');
+        this._general.navigateBy('/estudiante');
       },
       (error: any) => {
-        console.error('Error al registrar el usuario', error);
+        console.error('Error al guardar la historia clinica', error);
       }
     );
+  }
+
+  public saveConsulta(){
+    let user:any = localStorage.getItem("user")
+    user = JSON.parse(user)
+
+    if(!this.fecha_de_la_consulta.value || !this.motivos_de_la_consulta.value || !this.comentarios_sobre_la_consulta.value || !this.practica_para_la_materia.value){
+      Swal.fire(
+        'Oops...',
+        'Por favor rellena los campos vacios para crear una consulta.',
+        'error'
+      )
+      return;
+    }
+    const consulta = {
+      fecha_consulta: this.fecha_de_la_consulta.value,
+      motivos_consulta: this.motivos_de_la_consulta.value,
+      comentarios: this.comentarios_sobre_la_consulta.value,
+      estudiante: {
+       ...this.estudianteData,
+       nombre: user.fullName
+      },
+      practica_para_la_materia: this.materia_Seleccionada_consula,
+      aprobado: "Sin aprobar",
+      maestro: { maestro_id: "", nombre: ""}
+    }
+   this.consultasList.push(consulta)
+
+   this.fecha_de_la_consulta.setValue("")
+   this.motivos_de_la_consulta.setValue("")
+   this.comentarios_sobre_la_consulta.setValue("")
+   this.practica_para_la_materia.setValue("")
+  
   }
 
   public otroCheckbox() {
@@ -321,24 +484,27 @@ export class HistoriaClinicaEditComponent implements OnInit{
     this.showPacienteInfoTab = false;
     this.showConsultasInfoTab = false;
     this.showExploracionInfoTab = false;
-    this.showAparatosInfoTab = true;
+    this.showAparatosInfoTab = false;
+    this.showAntecedentesInfoTab = true
     this.showOdontogramaInfoTab = false;
   }
 
   public nextPaso3(){
     this.showPacienteInfoTab = false;
       this.showConsultasInfoTab = false;
-      this.showExploracionInfoTab = true;
-      this.showAparatosInfoTab = false;
+      this.showExploracionInfoTab = false;
+      this.showAparatosInfoTab = true;
       this.showOdontogramaInfoTab = false;
+      this.showAntecedentesInfoTab = false
   }
 
   public nextPaso4(){
     this.showPacienteInfoTab = false;
-    this.showConsultasInfoTab = true;
-    this.showExploracionInfoTab = false;
+    this.showConsultasInfoTab = false;
+    this.showExploracionInfoTab = true;
     this.showAparatosInfoTab = false;
     this.showOdontogramaInfoTab = false;
+    this.showAntecedentesInfoTab = false
   }
 
   public nextPaso5(){
@@ -347,10 +513,29 @@ export class HistoriaClinicaEditComponent implements OnInit{
     this.showExploracionInfoTab = false;
     this.showAparatosInfoTab = false;
     this.showOdontogramaInfoTab = true;
+    this.showAntecedentesInfoTab = false
+  }
+
+  public nextPaso6(){
+    this.showPacienteInfoTab = false;
+    this.showConsultasInfoTab = true;
+    this.showExploracionInfoTab = false;
+    this.showAparatosInfoTab = false;
+    this.showOdontogramaInfoTab = false;
+    this.showAntecedentesInfoTab = false
   }
   public changeTab(tabName: string) {
     if (tabName === 'informacion_general_del_paciente') {
       this.showPacienteInfoTab = true;
+      this.showConsultasInfoTab = false;
+      this.showExploracionInfoTab = false;
+      this.showAparatosInfoTab = false;
+      this.showOdontogramaInfoTab = false;
+      this.showAntecedentesInfoTab = false;
+    }
+    if (tabName === 'antecedentes') {
+      this.showPacienteInfoTab = false;
+      this.showAntecedentesInfoTab = true
       this.showConsultasInfoTab = false;
       this.showExploracionInfoTab = false;
       this.showAparatosInfoTab = false;
@@ -362,6 +547,7 @@ export class HistoriaClinicaEditComponent implements OnInit{
       this.showExploracionInfoTab = false;
       this.showAparatosInfoTab = true;
       this.showOdontogramaInfoTab = false;
+      this.showAntecedentesInfoTab = false;
     }
     if (tabName === 'exploracion_fisica') {
       this.showPacienteInfoTab = false;
@@ -369,6 +555,7 @@ export class HistoriaClinicaEditComponent implements OnInit{
       this.showExploracionInfoTab = true;
       this.showAparatosInfoTab = false;
       this.showOdontogramaInfoTab = false;
+      this.showAntecedentesInfoTab = false;
     }
     if (tabName === 'consultas_del_paciente') {
       this.showPacienteInfoTab = false;
@@ -376,6 +563,7 @@ export class HistoriaClinicaEditComponent implements OnInit{
       this.showExploracionInfoTab = false;
       this.showAparatosInfoTab = false;
       this.showOdontogramaInfoTab = false;
+      this.showAntecedentesInfoTab = false;
     }
     if (tabName === 'odontograma') {
       this.showPacienteInfoTab = false;
@@ -383,6 +571,7 @@ export class HistoriaClinicaEditComponent implements OnInit{
       this.showExploracionInfoTab = false;
       this.showAparatosInfoTab = false;
       this.showOdontogramaInfoTab = true;
+      this.showAntecedentesInfoTab = false;
     }
   }
 }

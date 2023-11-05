@@ -17,6 +17,14 @@
           Ficha de identificacion
         </button>
         <button
+        class="tabs__nav-btn"
+        [ngClass]="{ active: showAntecedentesInfoTab }"
+        type="button"
+        (click)="changeTab('antecedentes')"
+      >
+        Antecedentes
+      </button>
+        <button
           class="tabs__nav-btn"
           [ngClass]="{ active: showAparatosInfoTab }"
           type="button"
@@ -405,6 +413,285 @@
             </div>
           </div>
           <button type="button" class="btn_primary" (click)="nextPaso2()">
+            Siguiente paso
+          </button>
+        </div>
+        <div *ngIf="showAntecedentesInfoTab">
+          <h3>ANTECEDENTES</h3>
+          <div class="form_control">
+            <label for="" class="label_input"
+              >Antecedentes hereditarios:</label
+            >
+            <p>Padres, Hermanos,Conyuge,Hijos,Colaterales.</p>
+            <textarea
+              class="form_input form_textarea"
+              formControlName="antecedentes_hereditarios"
+            >
+            </textarea>
+          </div>
+          <div class="antecedentes_personales_no_patologicos_container" style="margin-top: 20px">
+            <h3 style="margin-bottom: 10px; color: #b21e36">ANTECEDENTES PERSONALES NO PATOLOGICOS:</h3>
+            <div class="form_control_check">
+              <div>
+                <label for="" class="form_label">Alcoholismo:</label>
+                <input
+                  type="checkbox"
+                  formControlName="alcoholismo"
+                  class="checkbox_input"
+                />
+              </div>
+              <div>
+                <label for="" class="form_label">tabaquismo:</label>
+                <input
+                  type="checkbox"
+                  formControlName="tabaquismo"
+                  class="checkbox_input"
+                />
+              </div>
+              <div>
+                <label for="" class="form_label">toxicomanias:</label>
+                <input
+                  type="checkbox"
+                  formControlName="toxicomanias"
+                  class="checkbox_input"
+                />
+              </div>
+              <div>
+                <label for="" class="form_label">higiene: </label>
+                <input
+                  type="checkbox"
+                  formControlName="higiene"
+                  class="checkbox_input"
+                />
+              </div>
+              <div>
+                <label for="" class="form_label">alimentacion: </label>
+                <input
+                  type="checkbox"
+                  formControlName="alimentacion"
+                  class="checkbox_input"
+                />
+              </div>
+              <div>
+                <label for="" class="form_label">condicion:</label>
+                <input
+                  type="checkbox"
+                  formControlName="condicion"
+                  class="checkbox_input"
+                />
+              </div>
+              <div>
+                <label for="" class="form_label">socioconomia:</label>
+                <input
+                  type="checkbox"
+                  formControlName="socioconomia"
+                  class="checkbox_input"
+                />
+              </div>
+              <div>
+                <label for="" class="form_label"> habitos:</label>
+                <input
+                  type="checkbox"
+                  formControlName="habitos"
+                  class="checkbox_input"
+                />
+              </div>
+             
+            </div>
+            <div class="form_control">
+              <label for="" class="label_input"
+                >Comentarios:</label
+              >
+          
+              <textarea
+                class="form_input form_textarea"
+                formControlName="ant_personales_otros_textarea"
+              >
+              </textarea>
+            </div>
+          </div>
+         
+          <div class="antecedentes_personales_patologicos_container" style="margin-top: 20px">
+            <h3 style="margin-bottom: 10px; color: #b21e36">ANTECEDENTES PERSONALES PATOLOGICOS:</h3>
+            <div class="form_control_check">
+              <div>
+                <label for="" class="form_label">Enfermedades propias de la infancia:</label>
+                <input
+                  type="checkbox"
+                  formControlName="enf_infancia"
+                  class="checkbox_input"
+                />
+              </div>
+              <div>
+                <label for="" class="form_label">Fimicos:</label>
+                <input
+                  type="checkbox"
+                  formControlName="Fimicos"
+                  class="checkbox_input"
+                />
+              </div>
+              <div>
+                <label for="" class="form_label">Lueticos:</label>
+                <input
+                  type="checkbox"
+                  formControlName="Lueticos"
+                  class="checkbox_input"
+                />
+              </div>
+              <div>
+                <label for="" class="form_label">Diabeticos: </label>
+                <input
+                  type="checkbox"
+                  formControlName="Diabeticos"
+                  class="checkbox_input"
+                />
+              </div>
+              <div>
+                <label for="" class="form_label">Quirurgicos: </label>
+                <input
+                  type="checkbox"
+                  formControlName="Quirurgicos"
+                  class="checkbox_input"
+                />
+              </div>
+              <div>
+                <label for="" class="form_label">Traumaticos:</label>
+                <input
+                  type="checkbox"
+                  formControlName="Traumaticos"
+                  class="checkbox_input"
+                />
+              </div>
+              <div>
+                <label for="" class="form_label">Ictericos:</label>
+                <input
+                  type="checkbox"
+                  formControlName="Ictericos"
+                  class="checkbox_input"
+                />
+              </div>
+              <div>
+                <label for="" class="form_label"> Epilepticos:</label>
+                <input
+                  type="checkbox"
+                  formControlName="Epilepticos"
+                  class="checkbox_input"
+                />
+              </div>
+
+              <div>
+                <label for="" class="form_label"> Alergicos:</label>
+                <input
+                  type="checkbox"
+                  formControlName="Alergicos"
+                  class="checkbox_input"
+                />
+              </div>
+
+              <div>
+                <label for="" class="form_label"> Reumaticos:</label>
+                <input
+                  type="checkbox"
+                  formControlName="Reumaticos"
+                  class="checkbox_input"
+                />
+              </div>
+
+              <div>
+                <label for="" class="form_label"> Transfusiones:</label>
+                <input
+                  type="checkbox"
+                  formControlName="Transfusiones"
+                  class="checkbox_input"
+                />
+              </div>
+
+              <div>
+                <label for="" class="form_label"> Enfermedades Cardiovasculares:</label>
+                <input
+                  type="checkbox"
+                  formControlName="Enfermedades_Cardiovasculares"
+                  class="checkbox_input"
+                />
+              </div>
+
+              <div>
+                <label for="" class="form_label"> Incidencia de infecciones Bucales y tipos de Odontologicas:</label>
+                <input
+                  type="checkbox"
+                  formControlName="Incidencia_de_Infecciones_Bucales"
+                  class="checkbox_input"
+                />
+              </div>
+
+              <div>
+                <label for="" class="form_label"> Neoplasticas:</label>
+                <input
+                  type="checkbox"
+                  formControlName="Neoplasticas"
+                  class="checkbox_input"
+                />
+              </div>
+
+              <div>
+                <label for="" class="form_label"> SIDA:</label>
+                <input
+                  type="checkbox"
+                  formControlName="SIDA"
+                  class="checkbox_input"
+                />
+              </div>
+             
+            </div>
+            <div class="form_control">
+              <label for="" class="label_input"
+                >Comentarios:</label
+              >
+          
+              <textarea
+                class="form_input form_textarea"
+                formControlName="ant_personales_p_otros_textarea"
+              >
+              </textarea>
+            </div>
+
+            <div class="form_control">
+              <label for="" class="label_input"
+                >PADECIMIENTO ACTUAL - Principio:</label
+              >
+          
+              <textarea
+                class="form_input form_textarea"
+                formControlName="padecimiento_principio"
+              >
+              </textarea>
+            </div>
+
+            <div class="form_control">
+              <label for="" class="label_input"
+                > PADECIMIENTO ACTUAL - Evolucion:</label
+              >
+          
+              <textarea
+                class="form_input form_textarea"
+                formControlName="padecimiento_evolucion"
+              >
+              </textarea>
+            </div>
+
+            <div class="form_control">
+              <label for="" class="label_input"
+                >PADECIMIENTO ACTUAL - Estado actual:</label
+              >
+          
+              <textarea
+                class="form_input form_textarea"
+                formControlName="padecimiento_estado_actual"
+              >
+              </textarea>
+            </div>
+          </div>
+          <button type="button" class="btn_primary" (click)="nextPaso3()">
             Siguiente paso
           </button>
         </div>
@@ -998,7 +1285,7 @@
               </div>
             </div>
           </div>
-          <button type="button" class="btn_primary" (click)="nextPaso3()">
+          <button type="button" class="btn_primary" (click)="nextPaso4()">
             Siguiente paso
           </button>
         </div>
@@ -1085,6 +1372,9 @@
               />
             </div>
           </div>
+          <button type="button" class="btn_primary" (click)="nextPaso5()">
+            Siguiente paso
+          </button>
         </div>
         <div *ngIf="showOdontogramaInfoTab">
           <h3>ODONTROGRAMA</h3>
@@ -1242,17 +1532,116 @@
               </div>
             </div>
           </div>
+          <button type="button" class="btn_primary" (click)="nextPaso6()">
+            Siguiente paso
+          </button>
         </div>
         <div *ngIf="showConsultasInfoTab">
           <h3>CONSULTAS DEL PACIENTE</h3>
+          <div class="form_control">
+            <label for="" class="label_input"
+              >Motivos de la consulta:</label
+            >
+            <textarea
+              class="form_input form_textarea"
+              [formControl]="motivos_de_la_consulta"
+            >
+            </textarea>
+          </div>
+          <div class="form_control">
+            <label for="" class="label_input">Fecha de la consulta:</label>
+            <input
+              class="form_input"
+              type="date"
+              placeholder="Fecha de nacimiento"
+              [formControl]="fecha_de_la_consulta"
+              name="fecha_de_nacimiento"
+              autocomplete="off"
+            />
+            <div
+              *ngIf="
+                historiaClinicaForm
+                  .get('fecha_de_nacimiento')
+                  ?.hasError('required') &&
+                historiaClinicaForm.get('fecha_de_nacimiento')?.touched
+              "
+              class="error-message"
+            >
+              La fecha de nacimiento es requerida.
+            </div>
+          </div>
+          <div class="form_control">
+            <label for="" class="label_input"
+              >Comentarios sobre la consulta, diagnostico y observaciones:</label
+            >
+            <textarea
+              class="form_input form_textarea"
+              [formControl]="comentarios_sobre_la_consulta"
+            >
+            </textarea>
+
+            <div class="form_control">
+              <label for="" class="label_input">Practica para la materia:</label>
+              <select class="form_input" [formControl]="practica_para_la_materia" name="practica_para_la_materia">
+                <option value="">Selecciona la materia</option>
+                <option
+                  [value]="materia.value"
+                  *ngFor="let materia of estudianteData.materias"
+                >
+                  {{ materia.text }}
+                </option>
+              </select>
+              <div
+                *ngIf="
+                  historiaClinicaForm.get('genero')?.hasError('required') &&
+                  historiaClinicaForm.get('genero')?.touched
+                "
+                class="error-message"
+              >
+                El genero es requerido.
+              </div>
+            </div>
+            <button type="button" class="btn_primary" (click)="saveConsulta()" style="width: 200px;">
+             Crear consulta
+            </button>
+          </div>
+
+          <table class="table_grid" *ngIf="consultasList.length > 0" >
+            <thead>
+              <tr>
+                <th>Fecha</th>
+                <th>Motivo</th>
+                <th>Diagnostico</th>
+                <th>Para la materia</th>
+                <th>Alumno que lo atendio</th>
+                <th>Aprobado</th>
+                <th>Aprobador por el maestro</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let consulta of consultasList">
+                <td>{{ consulta.fecha_consulta }}</td>
+                <td>{{ consulta.motivos_consulta }}</td>
+                <td>{{ consulta.comentarios }}</td>
+                <td>{{ consulta.practica_para_la_materia.text }}</td>
+                <td>{{ consulta.estudiante.nombre }}</td>
+                <td>{{consulta.aprobado}}</td>
+                <td> {{ consulta.maestro.nombre }}</td>
+              </tr>
+            </tbody>
+          </table>
+          <button type="button" (click)="onSubmit()" class="btn_primary">Crear</button>
         </div>
+       
       </div>
     </div>
+
+ 
   </form>
-  <!--  <div>
-    <form class="login-form" [formGroup]="historiaClinicaForm" (ngSubmit)="onSubmit()">
+    <div>
+   
     
-      <button type="button" (click)="onSubmit()" class="btn_primary">Crear</button>
-    </form>
-  </div> -->
+     
+   
+  </div> 
 </main>

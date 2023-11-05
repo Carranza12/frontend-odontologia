@@ -168,4 +168,17 @@ export class ApiService {
     }
     return false;
   }
+
+  updateHistoriaClinica(id:any, body:any):any {
+    const token = localStorage.getItem('token');
+    if (token) {
+      const headers = new HttpHeaders({
+        Authorization: `Bearer ${token}`,
+      });
+      return this.http.put(`${this.CRETAE_PATIENT_HISTORIA_URL_API}/${id}`, body, {
+        headers,
+      });
+    }
+    return false;
+  }
 }
