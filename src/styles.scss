@@ -114,6 +114,9 @@ body {
   border-radius: 8px;
   padding: 10px;
   color: #8d8b8b;
+  @media(max-width:473px){
+    width: 100%!important;
+  }
   margin-bottom: 10px;
 //  margin-top: 10px;
   width: 70%;

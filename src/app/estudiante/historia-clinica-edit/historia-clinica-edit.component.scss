@@ -18,6 +18,13 @@
     padding: 10px;
 
 }
+h3{
+    margin-top: 10px;
+}
+.btn_primary{
+    margin-bottom: 10px!important;
+}
+
 
 
 .tabs__nav-btn {
@@ -36,6 +43,7 @@
   @media (max-width: 768px) {
     .tabs {
       grid-template-columns: 1fr;
+      margin: 0 auto;
     }
   }
 
