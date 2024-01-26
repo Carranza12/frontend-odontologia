@@ -63,6 +63,20 @@ export class asignaturaService {
     return false;
   }
 
+  getByMaestro(maestro_id: string): any {
+    const token = localStorage.getItem('token');
+    if (token) {
+      const headers = new HttpHeaders({
+        Authorization: `Bearer ${token}`,
+      });
+      console.log("RUTA:", `${this.ASIGNATURAS_URL_API}/maestro/${maestro_id}`)
+      const data = this.http.get(`${this.ASIGNATURAS_URL_API}/maestro/${maestro_id}`, { headers })
+      return data
+    }
+    return false;
+  }
+
+
   delete(id: string): any {
     const token = localStorage.getItem('token');
     if (token) {

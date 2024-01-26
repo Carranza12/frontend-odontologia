@@ -49,13 +49,22 @@
       >
         <a><i class="fas fa-home"></i>Consultas</a>
       </li>
-      <li
+    <!--   <li
         [ngClass]="{ active_session: actual_path === 'perfil-maestro' }"
         *ngIf="userData.role_default === 'maestro'"
         (click)="navigateBy('/maestro/perfil-maestro')"
       >
         <a><i class="fas fa-home"></i>Perfil Maestro</a>
-      </li>
+      </li> -->
+
+      <li
+      [ngClass]="{ active_session: actual_path === 'mis-materias' }"
+      *ngIf="userData.role_default === 'maestro'"
+      (click)="navigateBy('/maestro/mis-materias')"
+    >
+      <a><i class="fas fa-home"></i>Materias impartidas</a>
+    </li>
+
       <li
         [ngClass]="{ active_session: actual_path === 'estudiantes' }"
         *ngIf="userData.role_default === 'superAdmin'"
@@ -164,6 +173,14 @@
     >
       <a><i class="fas fa-home"></i>Mis Materias</a>
     </li>
+
+    <li
+    [ngClass]="{ active_session: actual_path === 'mis-materias' }"
+    *ngIf="userData.role_default === 'maestro'"
+    (click)="navigateBy('/maestro/mis-materias')"
+  >
+    <a><i class="fas fa-home"></i>Mis Materias</a>
+  </li>
     </ul>
     <div class="social_media">
       <a (click)="logout()">Cerrar sesion</a>

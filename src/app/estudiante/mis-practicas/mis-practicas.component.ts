@@ -15,11 +15,15 @@ import { GeneralService } from 'src/app/general.service';
 export class MisPracticasComponent {
   public misPracticasList:any = []
 
-  constructor(private apiService: ApiService, 
+  constructor(
+    private apiService: ApiService, 
     public _asignaturas:asignaturaService,
     public _perfil_estudiante:PerfilEstudiantesService,
     public _perfil_maestro:PerfilMaestroService,
-    public _general: GeneralService, public router: Router, private auth:AuthService, private cdr:ChangeDetectorRef) {}
+    public _general: GeneralService,
+    public router: Router, 
+    private auth:AuthService, 
+    private cdr:ChangeDetectorRef) {}
 
 
   ngOnInit(): void {

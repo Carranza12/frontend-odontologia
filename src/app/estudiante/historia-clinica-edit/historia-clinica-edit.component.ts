@@ -440,10 +440,6 @@ export class HistoriaClinicaEditComponent implements OnInit{
            this.historiaClinicaForm.get("exploracion_fisica_peso")?.setValue(response?.item?.historia_clinica?.exploracion_fisica_peso)
    
 
-           
-
-
-
            this.consultasList = response.item.historia_clinica.consultas
            this.consultasList = this.consultasList.map((item:any) => ({...item, selected: true}))
           },

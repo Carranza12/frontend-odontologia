@@ -25,7 +25,6 @@ export class SidebarComponent implements OnInit {
       this.profile_picture = this.userData.img
     }
 
-    
 
     this.route.url.subscribe(urlSegments => {
       if (urlSegments[0]) {
