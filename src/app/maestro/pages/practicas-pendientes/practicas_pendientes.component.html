@@ -4,5 +4,34 @@
   <div>
    
   <h1>Practicas pendientes</h1>
+  <table class="table_grid" *ngIf="practicasParaRevisarList">
+    <thead>
+      <tr>
+        <th>Fecha de la practica</th>
+        <th>Alumno que realizo la practica</th>
+        <th>Semestre en que realizo la practica</th>
+        <th>Motivos de la consulta</th>
+        <th>Observaciones de la practica</th>
+        <th>Estado de la practica</th>
+        <th colspan="2"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let practica of practicasParaRevisarList">
+        <td>{{ practica.fecha_consulta }}</td>
+        <td>{{ practica.estudiante.nombre }}</td>
+        <td>{{ practica.estudiante.semestre_Actual }}</td>
+        <td>{{ practica.motivos_consulta }}</td>
+        <td>{{ practica.comentarios }}</td>
+        <td>{{ practica.aprobado }}</td>
+        <td>
+          <button  type="button" class="btn_primary" (click)="aprobarPractica(practica)">Aprobar</button>
+        </td>
+        <td>
+          <button  type="button" class="btn_primary"(click)="rechazarPractica(practica)" >Rechazar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
   </div>
 </main>

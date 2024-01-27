@@ -272,6 +272,8 @@ export class HistoriaClinicaEditComponent implements OnInit{
 
   public estudianteData:any = {}
 
+  public isAprobadoAnyConsulta:boolean = false;
+
   public consultasList:any = []
 
   public historia_clinica_id:any = ''
@@ -319,6 +321,12 @@ export class HistoriaClinicaEditComponent implements OnInit{
         this.apiSevice.getHistoriaClinica(this.historia_clinica_id).subscribe(
           (response: any) => {
            console.log("RESPONSE:", response.item)
+           const consultas = response.item.historia_clinica.consultas;
+           for(const consulta of consultas){
+            if(consulta.aprobado === 'Aprobado'){
+              this.isAprobadoAnyConsulta = true;
+            }
+           }
            this.historiaClinicaForm.get("nombre_completo")?.setValue(response?.item?.paciente?.nombre_completo)
            this.historiaClinicaForm.get("fecha_de_nacimiento")?.setValue(response?.item?.paciente?.fecha_de_nacimiento)
            this.historiaClinicaForm.get("genero")?.setValue(response?.item?.paciente?.genero)
@@ -449,6 +457,8 @@ export class HistoriaClinicaEditComponent implements OnInit{
         );
       }
     })
+
+   
   }
 
   public onSubmit() {

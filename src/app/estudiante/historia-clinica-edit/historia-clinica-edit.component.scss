@@ -37,7 +37,9 @@ h3{
     text-align: center;
 
 }
-
+.deshabilitado {
+    pointer-events: none; 
+  }
   
   /* Estilos responsivos */
   @media (max-width: 768px) {
