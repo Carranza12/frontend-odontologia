@@ -67,8 +67,10 @@
           [width]="256"
           [errorCorrectionLevel]="'M'"
         ></qrcode>
-       
+       <h4>{{myAngularxQrCode}}</h4>
       </div>
+
+
       <div *ngIf="showPatientDetail" style="margin-top: 15px;">
         <button type="button" class="btn_primary" (click)="openPDF()" >Imprimir consulta</button>
       </div>
