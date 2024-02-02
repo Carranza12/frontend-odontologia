@@ -270,6 +270,14 @@ export class HistoriaClinicaEditComponent implements OnInit{
   public practica_para_la_materia = new FormControl('');
   public materia_Seleccionada_consula:any = {}
 
+  //ENFERMEDADES
+  public esDiabetico: boolean = false;
+  public esAlcoholico: boolean = false;
+  public esFumador: boolean = false;
+  public esEpileptico: boolean = false;
+  public esReumatico: boolean = false;
+  public esAlergico: boolean = false;
+
   public estudianteData:any = {}
 
   public isAprobadoAnyConsulta:boolean = false;
@@ -316,6 +324,10 @@ export class HistoriaClinicaEditComponent implements OnInit{
     })
    
     this._route.params.subscribe((param) => {
+
+
+
+
       this.historia_clinica_id = param['id']
       if(this.historia_clinica_id){
         this.apiSevice.getHistoriaClinica(this.historia_clinica_id).subscribe(
@@ -344,6 +356,24 @@ export class HistoriaClinicaEditComponent implements OnInit{
 
            this.historiaClinicaForm.get("antecedentes_hereditarios")?.setValue(response?.item?.historia_clinica?.antecedentes_hereditarios)
            this.historiaClinicaForm.get("alcoholismo")?.setValue(response?.item?.historia_clinica?.alcoholismo)
+           if(response?.item?.historia_clinica?.alcoholismo){
+            this.esAlcoholico
+           }
+           if(response?.item?.historia_clinica?.tabaquismo){
+            this.esFumador
+           }
+           if(response?.item?.historia_clinica?.Diabeticos){
+            this.esDiabetico
+           }
+           if(response?.item?.historia_clinica?.Alergicos){
+            this.esAlergico
+           }
+           if(response?.item?.historia_clinica?.Reumaticos){
+            this.esReumatico
+           }
+           if(response?.item?.historia_clinica?.Epilepticos){
+            this.esEpileptico
+           }
            this.historiaClinicaForm.get("tabaquismo")?.setValue(response?.item?.historia_clinica?.tabaquismo)
            this.historiaClinicaForm.get("toxicomanias")?.setValue(response?.item?.historia_clinica?.toxicomanias)
            this.historiaClinicaForm.get("higiene")?.setValue(response?.item?.historia_clinica?.higiene)
@@ -459,6 +489,62 @@ export class HistoriaClinicaEditComponent implements OnInit{
     })
 
    
+
+
+    this.historiaClinicaForm.controls.Diabeticos.valueChanges.subscribe((valor:any) => {
+        if(valor){
+          this.esDiabetico = true;
+        }else{
+          this.esDiabetico = false;
+        }
+    })
+
+    this.historiaClinicaForm.controls.alcoholismo.valueChanges.subscribe((valor:any) => {
+      if(valor){
+        this.esAlcoholico = true;
+      }else{
+        this.esAlcoholico = false;
+      }
+  })
+
+  
+    this.historiaClinicaForm.controls.tabaquismo.valueChanges.subscribe((valor:any) => {
+      if(valor){
+        this.esFumador = true;
+      }else{
+        this.esFumador = false;
+      }
+  })
+
+
+    this.historiaClinicaForm.controls.Epilepticos.valueChanges.subscribe((valor:any) => {
+      if(valor){
+        this.esEpileptico = true;
+      }else{
+        this.esEpileptico = false;
+      }
+    })
+
+
+    this.historiaClinicaForm.controls.Reumaticos.valueChanges.subscribe((valor:any) => {
+      if(valor){
+        this.esReumatico = true;
+      }else{
+        this.esReumatico = false;
+      }
+    })
+
+
+    this.historiaClinicaForm.controls.Alergicos.valueChanges.subscribe((valor:any) => {
+      if(valor){
+        this.esAlergico = true;
+      }else{
+        this.esAlergico = false;
+      }
+    })
+
+
+
   }
 
   public onSubmit() {
@@ -515,7 +601,14 @@ export class HistoriaClinicaEditComponent implements OnInit{
           })
         })
         this.historiaClinicaForm.reset();
-        this._general.navigateBy('/estudiante'); 
+        Swal.fire(
+          'Historia clinica actualizada con exito',
+          'En breve seras redirigido a tu tablero digital...',
+          'success'
+        )
+        setTimeout(() => {
+          this._general.navigateBy('/estudiante');
+        }, 3000);
       },
       (error: any) => {
         console.error('Error al guardar la historia clinica', error);
@@ -546,7 +639,12 @@ export class HistoriaClinicaEditComponent implements OnInit{
       practica_para_la_materia: this.materia_Seleccionada_consula,
       aprobado: "Sin aprobar",
       maestro: { maestro_id: "", nombre: ""},
-      selected : false
+      selected : false,
+      evidencia1: '',
+      evidencia2: '',
+      evidencia3: '',
+      evidencia4: '',
+      evidencia5: '',
     }
    this.consultasList.push(consulta)
 

@@ -3,6 +3,11 @@
     margin: auto;
     cursor: pointer;
 }
+.alerts{
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
 
 .tabs__nav {
     display: grid;
