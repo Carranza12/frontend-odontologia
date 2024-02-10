@@ -114,14 +114,16 @@
               Limpiar
             </button>
           </div>
+          <div  *ngIf="firmaImagenShow && !showEditFirma">
+            <img
+            class="firma_img"
+           
+              [src]="firmaImagenShow"
+              alt="Firma"
+             
+            />
+          </div>
           
-          <img
-          class="firma_img"
-       
-            [src]="firmaImagenShow"
-            alt="Firma"
-            *ngIf="firmaImagenShow && !showEditFirma"
-          />
           <button type="button" class="btn_primary" (click)="showEditFirma = !showEditFirma">
             {{ showEditFirma ? "cancelar edicion" : "Editar firma" }}
           </button>

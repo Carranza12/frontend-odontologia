@@ -16,7 +16,7 @@ import { GeneralService } from 'src/app/general.service';
   styleUrls: ['./perfil.component.scss'],
 })
 export class PerfilComponent implements OnInit {
-  @ViewChild('signature', { static: true }) signature!: NgxSignaturePadComponent;
+  @ViewChild('signature') signature!: NgxSignaturePadComponent;
   
   public firmaImagen: any = null;
   public firmaImagenShow: string | null = null;
@@ -67,6 +67,7 @@ export class PerfilComponent implements OnInit {
             this.perfilForm.get('universidad')?.setValue(data.universidad);
             this.perfilForm.get('especialidad')?.setValue(data.especialidad);
             this.firmaImagenShow = data.firma;
+            console.log("this.firmaImagenShow:", this.firmaImagenShow)
           }
         },
         (error: any) => {
@@ -109,7 +110,7 @@ export class PerfilComponent implements OnInit {
         universidad: formPerfil.universidad,
         especialidad: formPerfil.especialidad,
         id_user: this.user_id,
-        firma: ''
+        firma: this.firmaImagenShow
       };
       console.log("this.firmaImagen:", this.firmaImagen)
       if (this.firmaImagen) {
