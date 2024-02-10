@@ -82,7 +82,7 @@ export class ConsultaNewComponent implements OnInit {
     this.patient.nombre_completo = patient.nombre_completo;
     this.patient.fecha_consulta = new Date();
     this.patient.consulta_generada = this.userData.fullName;
-    this.myAngularxQrCode = `http://localhost:4200/estudiante/historia-clinica/edicion/${patient.historia_clinica_id}`;
+    this.myAngularxQrCode = `192.168.1.114200/estudiante/historia-clinica/edicion/${patient.historia_clinica_id}`;
   }
 
   public openPDF(): void {

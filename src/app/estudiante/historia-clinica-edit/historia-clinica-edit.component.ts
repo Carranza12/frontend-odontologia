@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormControlDirective, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/api.service';
 import { asignaturaService } from 'src/app/asignatura.service';
@@ -22,55 +22,6 @@ export class HistoriaClinicaEditComponent implements OnInit{
       value: 'f',
       text: 'Femenino',
     },
-  ];
-
-  public countries_options = [
-    {
-      value: 'Mexico',
-      text: 'Mexico',
-    },
-  ];
-
-  public cities_options = [
-    {
-      value: 'Torreon',
-      text: 'Torreon',
-    },
-  ];
-
-  public estates_mexico_options = [
-    { value: 'Aguascalientes', text: 'Aguascalientes' },
-    { value: 'Baja California', text: 'Baja California' },
-    { value: 'Baja California Sur', text: 'Baja California Sur' },
-    { value: 'Campeche', text: 'Campeche' },
-    { value: 'Chiapas', text: 'Chiapas' },
-    { value: 'Chihuahua', text: 'Chihuahua' },
-    { value: 'Ciudad de México', text: 'Ciudad de México' },
-    { value: 'Coahuila', text: 'Coahuila' },
-    { value: 'Colima', text: 'Colima' },
-    { value: 'Durango', text: 'Durango' },
-    { value: 'Estado de México', text: 'Estado de México' },
-    { value: 'Guanajuato', text: 'Guanajuato' },
-    { value: 'Guerrero', text: 'Guerrero' },
-    { value: 'Hidalgo', text: 'Hidalgo' },
-    { value: 'Jalisco', text: 'Jalisco' },
-    { value: 'Michoacán', text: 'Michoacán' },
-    { value: 'Morelos', text: 'Morelos' },
-    { value: 'Nayarit', text: 'Nayarit' },
-    { value: 'Nuevo León', text: 'Nuevo León' },
-    { value: 'Oaxaca', text: 'Oaxaca' },
-    { value: 'Puebla', text: 'Puebla' },
-    { value: 'Querétaro', text: 'Querétaro' },
-    { value: 'Quintana Roo', text: 'Quintana Roo' },
-    { value: 'San Luis Potosí', text: 'San Luis Potosí' },
-    { value: 'Sinaloa', text: 'Sinaloa' },
-    { value: 'Sonora', text: 'Sonora' },
-    { value: 'Tabasco', text: 'Tabasco' },
-    { value: 'Tamaulipas', text: 'Tamaulipas' },
-    { value: 'Tlaxcala', text: 'Tlaxcala' },
-    { value: 'Veracruz', text: 'Veracruz' },
-    { value: 'Yucatán', text: 'Yucatán' },
-    { value: 'Zacatecas', text: 'Zacatecas' },
   ];
 
   public status_options = [
@@ -120,6 +71,12 @@ export class HistoriaClinicaEditComponent implements OnInit{
     { value: 'novio', text: 'Novio' },
     { value: 'novia', text: 'Novia' },
   ];
+
+  public evidencia1: FormControl = new FormControl('');
+  public evidencia2: FormControl = new FormControl('');
+  public evidencia3: FormControl = new FormControl('');
+  public evidencia4: FormControl = new FormControl('');
+  public evidencia5: FormControl = new FormControl('');
 
   public showPacienteInfoTab: boolean = true;
   public showAntecedentesInfoTab: boolean = false;
@@ -547,6 +504,10 @@ export class HistoriaClinicaEditComponent implements OnInit{
 
   }
 
+  public viewEvidencia(url:string){
+    window.open(url,"_blank")
+  }
+
   public onSubmit() {
    
 
@@ -616,7 +577,7 @@ export class HistoriaClinicaEditComponent implements OnInit{
     );
   }
 
-  public saveConsulta(){
+  public async saveConsulta(){
     let user:any = localStorage.getItem("user")
     user = JSON.parse(user)
 
@@ -628,6 +589,49 @@ export class HistoriaClinicaEditComponent implements OnInit{
       )
       return;
     }
+    if(this.esAlcoholico || this.esAlergico || this.esDiabetico || this.esEpileptico || this.esEpileptico || this.esFumador || this.esReumatico){
+      const result = await Swal.fire({
+        title: '¿Estás seguro de crear la consulta?',
+        text: 'su paciente cuenta con alertas...',
+        showCancelButton: true,
+        confirmButtonText: 'Sí, estoy seguro de crear la consulta',
+        cancelButtonText: 'regresar',
+        icon: 'question'
+      });
+  
+      if (result.isConfirmed) {
+        try {
+          const consulta = {
+            fecha_consulta: this.fecha_de_la_consulta.value,
+            motivos_consulta: this.motivos_de_la_consulta.value,
+            comentarios: this.comentarios_sobre_la_consulta.value,
+            estudiante: {
+             ...this.estudianteData,
+             nombre: user.fullName
+            },
+            practica_para_la_materia: this.materia_Seleccionada_consula,
+            aprobado: "Sin aprobar",
+            maestro: { maestro_id: "", nombre: ""},
+            selected : false,
+            evidencia1: this.evidencia1.value,
+            evidencia2: this.evidencia2.value,
+            evidencia3: this.evidencia3.value,
+            evidencia4: this.evidencia4.value,
+            evidencia5: this.evidencia5.value,
+          }
+         this.consultasList.push(consulta)
+         this.fecha_de_la_consulta.setValue("")
+         this.motivos_de_la_consulta.setValue("")
+         this.comentarios_sobre_la_consulta.setValue("")
+         this.practica_para_la_materia.setValue("")
+         return;
+        } catch (error) {
+          console.error(error);
+        }
+      }
+      return;
+    }
+   
     const consulta = {
       fecha_consulta: this.fecha_de_la_consulta.value,
       motivos_consulta: this.motivos_de_la_consulta.value,
@@ -640,19 +644,43 @@ export class HistoriaClinicaEditComponent implements OnInit{
       aprobado: "Sin aprobar",
       maestro: { maestro_id: "", nombre: ""},
       selected : false,
-      evidencia1: '',
-      evidencia2: '',
-      evidencia3: '',
-      evidencia4: '',
-      evidencia5: '',
+      evidencia1: this.evidencia1.value,
+      evidencia2: this.evidencia2.value,
+      evidencia3: this.evidencia3.value,
+      evidencia4: this.evidencia4.value,
+      evidencia5: this.evidencia5.value,
     }
    this.consultasList.push(consulta)
-
    this.fecha_de_la_consulta.setValue("")
    this.motivos_de_la_consulta.setValue("")
    this.comentarios_sobre_la_consulta.setValue("")
    this.practica_para_la_materia.setValue("")
-  
+  }
+
+  public fileToBase64(file: File): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        if (typeof reader.result === 'string') {
+          resolve(reader.result);
+        } else {
+          reject(new Error('Failed to read file as Base64'));
+        }
+      };
+      reader.onerror = (error) => reject(error);
+      reader.readAsDataURL(file);
+    });
+  }
+
+  async onFileSelected(event: Event, type:String) {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      if(type === "evidencia1")  this.evidencia1.setValue(await this.fileToBase64(input.files[0]))
+      if(type === "evidencia2")  this.evidencia2.setValue(await this.fileToBase64(input.files[0]))
+      if(type === "evidencia3")  this.evidencia3.setValue(await this.fileToBase64(input.files[0]))
+      if(type === "evidencia4")  this.evidencia4.setValue(await this.fileToBase64(input.files[0]))
+      if(type === "evidencia5")  this.evidencia5.setValue(await this.fileToBase64(input.files[0]))
+    }
   }
 
   public otroCheckbox() {

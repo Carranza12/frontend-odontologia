@@ -1,23 +1,23 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-
+import { environment } from '../environment'
 @Injectable({
   providedIn: 'root',
 })
 export class ApiService {
-  private USERS_URL_API = 'http://localhost:3000/api/auth/users';
-  private USER_URL_API = 'http://localhost:3000/api/auth/user';
-  private REGSITER_USER_URL_API = 'http://localhost:3000/api/auth/register';
-  private EDIT_USER_URL_API = 'http://localhost:3000/api/auth/users';
-  private DELETE_USER_URL_API = 'http://localhost:3000/api/auth/users';
+  private USERS_URL_API = environment.backendHost+'/api/auth/users';
+  private USER_URL_API = environment.backendHost+'/api/auth/user';
+  private REGSITER_USER_URL_API = environment.backendHost+'/api/auth/register';
+  private EDIT_USER_URL_API = environment.backendHost+'/api/auth/users';
+  private DELETE_USER_URL_API = environment.backendHost+'/api/auth/users';
   private CRETAE_PATIENT_HISTORIA_URL_API =
-    'http://localhost:3000/api/patients';
+    environment.backendHost+'/api/patients';
   private GET_HISTORIA_AND_PATIENT_URL_API =
-    'http://localhost:3000/api/patients/historia_clinica';
+    environment.backendHost+'/api/patients/historia_clinica';
 
 
-    private USER_URLE_MAIL_API = 'http://localhost:3000/api/auth/user/email';
+    private USER_URLE_MAIL_API = environment.backendHost+'/api/auth/user/email';
   constructor(private http: HttpClient) {}
 
   getUsers(): any {
@@ -201,6 +201,7 @@ export class ApiService {
       const headers = new HttpHeaders({
         Authorization: `Bearer ${token}`,
       });
+      console.log("BODY PARA EL BACKEND:", body)
       return this.http.put(`${this.CRETAE_PATIENT_HISTORIA_URL_API}/${id}`, body, {
         headers,
       });

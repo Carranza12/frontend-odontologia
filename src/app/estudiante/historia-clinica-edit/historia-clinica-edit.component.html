@@ -1746,24 +1746,24 @@
 
             <!--Los fuckin inputs de tipo file-->
 
-            <div class="form_control">
+            <div class="form_control" >
               <label class="label_input" for="file1">Evidencia 1:</label>
               <input
                 class="form_input"
                 type="file"
                 id="file1"
-                name="file1"
+                (change)="onFileSelected($event,'evidencia1')"
               /><br />
             </div>
 
             <div class="form_control">
               <label class="label_input" for="file2">Evidencia 2:</label>
-              <input class="form_input" type="file" id="file2" name="file2" />
+              <input class="form_input" type="file" id="file2"    (change)="onFileSelected($event,'evidencia2')" />
             </div>
 
             <div class="form_control">
               <label class="label_input" for="file3">Evidencia 3:</label>
-              <input class="form_input" type="file" id="file3" name="file3" />
+              <input class="form_input" type="file" id="file3"     (change)="onFileSelected($event,'evidencia3')" />
             </div>
 
             <div class="form_control">
@@ -1772,7 +1772,7 @@
                 class="form_input"
                 type="file"
                 id="file4"
-                name="file4"
+                (change)="onFileSelected($event,'evidencia4')"
               /><br />
             </div>
 
@@ -1782,7 +1782,7 @@
                 class="form_input"
                 type="file"
                 id="file5"
-                name="file5"
+                (change)="onFileSelected($event,'evidencia5')"
               /><br />
             </div>
 
@@ -1822,11 +1822,11 @@
                 <td>{{ consulta.estudiante.nombre }}</td>
                 <td>{{ consulta.aprobado }}</td>
                 <td>{{ consulta.maestro.nombre }}</td>
-                <td>{{ consulta.evidencia1 }}</td>
-                <td>{{ consulta.evidencia2 }}</td>
-                <td>{{ consulta.evidencia3 }}</td>
-                <td>{{ consulta.evidencia4 }}</td>
-                <td>{{ consulta.evidencia5 }}</td>
+                <td><img  width="100px" [src]="consulta.evidencia1" alt="" (click)="viewEvidencia(consulta.evidencia1)" > </td>
+                <td><img  width="100px" [src]="consulta.evidencia2" alt="" (click)="viewEvidencia(consulta.evidencia2)" > </td>
+                <td><img  width="100px" [src]="consulta.evidencia3" alt="" (click)="viewEvidencia(consulta.evidencia3)" > </td>
+                <td><img  width="100px" [src]="consulta.evidencia4" alt="" (click)="viewEvidencia(consulta.evidencia4)" > </td>
+                <td><img  width="100px" [src]="consulta.evidencia5" alt="" (click)="viewEvidencia(consulta.evidencia5)" > </td>
               </tr>
             </tbody>
           </table>

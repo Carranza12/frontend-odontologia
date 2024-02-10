@@ -1,14 +1,15 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { of } from 'rxjs';
+import { environment } from 'src/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PerfilEstudiantesService {
-  private GET_PATIENT_URL_API = 'http://localhost:3000/api/perfil/estudiantes';
-  private POST_PERFIL_URL_API = 'http://localhost:3000/api/perfil/estudiantes/';
-  private GET_ASIGNATURAS_URL_API = 'http://localhost:3000/api/asignaturas/semestre';
+  private GET_PATIENT_URL_API = environment.backendHost+'/api/perfil/estudiantes';
+  private POST_PERFIL_URL_API = environment.backendHost+'/api/perfil/estudiantes/';
+  private GET_ASIGNATURAS_URL_API = environment.backendHost+'/api/asignaturas/semestre';
   constructor(private http: HttpClient) {}
 
   public getPerfil(id: string): any {

@@ -1,16 +1,16 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-
+import { environment } from '../environment'
 @Injectable({
   providedIn: 'root',
 })
 export class asignaturaService {
-  private ASIGNATURAS_URL_API = 'http://localhost:3000/api/asignaturas';
-  private ASIGNATURA_URL_API = 'http://localhost:3000/api/asignaturas';
-  private CREATE_ASIGNATURA_URL_API = 'http://localhost:3000/api/asignaturas';
-  private EDIT_ASIGNATURA_URL_API = 'http://localhost:3000/api/asignaturas';
-  private DELETE_ASIGNATURA_URL_API = 'http://localhost:3000/api/asignaturas';
+  private ASIGNATURAS_URL_API = environment.backendHost+'/api/asignaturas';
+  private ASIGNATURA_URL_API = environment.backendHost+'/api/asignaturas';
+  private CREATE_ASIGNATURA_URL_API = environment.backendHost+'/api/asignaturas';
+  private EDIT_ASIGNATURA_URL_API = environment.backendHost+'/api/asignaturas';
+  private DELETE_ASIGNATURA_URL_API = environment.backendHost+'/api/asignaturas';
 
   constructor(private http: HttpClient) {}
 
