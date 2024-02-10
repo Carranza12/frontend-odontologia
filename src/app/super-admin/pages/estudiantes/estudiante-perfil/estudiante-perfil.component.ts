@@ -76,13 +76,12 @@ export class EstudiantePerfilComponent {
       this._perfil_estudiante
         .getAsigntaturasBySemestre(this.carrera_param, this.semestre_param)
         .subscribe((data: any) => {
-          this.materiasAvailableList = data;
-
+         this.materiasAvailableList = data;
           this.materiasAvailableList = this.materiasAvailableList.map(
             (item: any) => ({
               ...item,
               selected: this.materias_id_edit_list.find(
-                (materia: any) => materia === item._id
+                (materia: any) => materia.materia_id === item._id
               )
                 ? true
                 : false,
@@ -92,6 +91,9 @@ export class EstudiantePerfilComponent {
             (materia: any) => materia.selected
           );
         });
+
+
+        console.log("materias:", this.materiasSelectedList)
     });
   }
 
