@@ -101,28 +101,28 @@ export class PerfilComponent implements OnInit {
   async onSubmit() {
     if (this.perfilForm.valid) {
       let formPerfil: any = this.perfilForm.value;
+      let firmaBase64;
 
-      const formData: any = new FormData();
-
-      // Convierte la firma a Blob
+      let requestBody: any = {
+        expediente: formPerfil.expediente,
+        cedula_profesional: formPerfil.cedula_profesional,
+        universidad: formPerfil.universidad,
+        especialidad: formPerfil.especialidad,
+        id_user: this.user_id,
+        firma: ''
+      };
+      console.log("this.firmaImagen:", this.firmaImagen)
       if (this.firmaImagen) {
-        const blob = await this.dataURLtoBlob(this.firmaImagen);
-        const file = new File([blob], 'firma.jpg', { type: 'image/jpeg' });
-
-        formData.append('firma', file);
+        console.log("estas enviando una firma")
+      
+         firmaBase64 = await this.imageToBase64(this.firmaImagen);
+         console.log("firmaBase64:", firmaBase64)
+         requestBody.firma = firmaBase64;
       }
 
-      formData.append('expediente', formPerfil.expediente);
-      formData.append('cedula_profesional', formPerfil.cedula_profesional);
-      formData.append('universidad', formPerfil.universidad);
-      formData.append('especialidad', formPerfil.especialidad);
-      formData.append('id_user', this.user_id);
-
-      for (var pair of formData.entries()) {
-        console.log(pair[0] + ', ' + pair[1]);
-      }
-
-      this._perfil_maestro.post_perfil(formData).subscribe(
+      
+    
+      this._perfil_maestro.post_perfil(requestBody).subscribe(
         (response: any) => {
           // Manejar la respuesta exitosa aquí
           console.log('Solicitud exitosa:', response);
@@ -136,11 +136,36 @@ export class PerfilComponent implements OnInit {
     }
   }
 
+  async imageToBase64(imageUrl: string): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.crossOrigin = 'Anonymous';
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        canvas.width = img.width;
+        canvas.height = img.height;
+        const ctx = canvas.getContext('2d');
+        if (ctx) {
+          ctx.drawImage(img, 0, 0);
+          const base64String = canvas.toDataURL('image/jpeg');
+          resolve(base64String);
+        } else {
+          reject(new Error('Failed to get canvas context.'));
+        }
+      };
+      img.onerror = (error) => {
+        reject(error);
+      };
+      img.src = imageUrl;
+    });
+  }
+
   onBeginSign(): void {
     console.log('on begin sing');
   }
 
   onEndSign(): void {
+    console.log("this.signature:", this.signature)
     if (this.signature) {
       this.firmaImagen = this.signature.toDataURL();
     }

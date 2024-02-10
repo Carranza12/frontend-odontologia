@@ -28,6 +28,7 @@ export class PerfilMaestroService {
       const headers = new HttpHeaders({
         Authorization: `Bearer ${token}`,
       });
+      console.log("PERIFL BODY:", perfil)
       return this.http.post(`${this.POST_PERFIL_URL_API}`, perfil, { headers });
     } else {
       // Devolver un observable con valor false
