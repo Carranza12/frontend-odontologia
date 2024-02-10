@@ -20,13 +20,18 @@ export class ApiService {
     private USER_URLE_MAIL_API = environment.backendHost+'/api/auth/user/email';
   constructor(private http: HttpClient) {}
 
-  getUsers(): any {
+  getUsers(page?:string): any {
     const token = localStorage.getItem('token');
     if (token) {
       const headers = new HttpHeaders({
         Authorization: `Bearer ${token}`,
       });
-      return this.http.get(`${this.USERS_URL_API}`, { headers });
+      if(page){
+        return this.http.get(`${this.USERS_URL_API}?page=${page}`, { headers });
+      }
+      if(!page){
+        return this.http.get(`${this.USERS_URL_API}`, { headers });
+      }
     }
     return false;
   }

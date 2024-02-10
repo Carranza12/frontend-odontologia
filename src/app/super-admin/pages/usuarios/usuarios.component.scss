@@ -1,0 +1,36 @@
+.paginator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .prev,
+  .next,
+  .page-number {
+    padding: 8px 16px;
+    margin: 0 4px;
+    border: 1px solid #ccc;
+    background-color: #f0f0f0;
+    cursor: pointer;
+  }
+  
+  .prev:hover,
+  .next:hover,
+  .page-number:hover {
+    background-color: #e0e0e0;
+  }
+  
+  .prev,
+  .next {
+    font-weight: bold;
+  }
+  
+  .page-numbers {
+    display: flex;
+  }
+  
+  /* Estilos adicionales para resaltar la página actual */
+  .page-number.active {
+    background-color: #ddd;
+  }
+  

@@ -12,20 +12,12 @@ import Swal from 'sweetalert2';
 })
 export class UsuariosComponent implements OnInit {
   public usuariosList:any = [];
+  public totalPages!:[];
+  public currentPage!:number;
   constructor(private apiService: ApiService, public _general: GeneralService, public router: Router, private auth:AuthService, private cdr:ChangeDetectorRef) {}
 
   ngOnInit(): void {
-    this.apiService.getUsers().subscribe(
-      (data:any) => {
-        if(Array.isArray(data)){
-          this.usuariosList = data;
-        }
-      },
-      (error:any) => {
-        console.error(error);
-        this.auth.logout()
-      }
-    );
+    this.searchInApi('1')
   }
 
   async deleteUser(id:string){
@@ -74,5 +66,31 @@ export class UsuariosComponent implements OnInit {
       }
   }
     
+  }
+
+  changePage(page:number){
+    if (page !== 0 && page <= this.totalPages.length) {
+      console.log("page:", page);
+      const pageFinal = page.toString();
+      this.searchInApi(pageFinal);
+    } else {
+      console.log("Página no válida");
+    }
+  }
+
+  async searchInApi(page:string){
+    this.apiService.getUsers(page).subscribe(
+      (data:any) => {
+        if(Array.isArray(data.items)){
+          this.usuariosList = data.items;
+          this.totalPages = data.totalPages;
+          this.currentPage = Number(data.currentPage);
+        }
+      },
+      (error:any) => {
+        console.error(error);
+        this.auth.logout()
+      }
+    );
   }
 }
