@@ -95,7 +95,7 @@
               [options]="options"
               (beginSign)="onBeginSign()"
               (endSign)="onEndSign()"
-            >
+              >
             </ngx-signature-pad>
             <div
               *ngIf="
@@ -114,7 +114,7 @@
               Limpiar
             </button>
           </div>
-
+          
           <img
           class="firma_img"
        
@@ -128,7 +128,7 @@
         </div>
 
         <div *ngIf="!isEditPerfil">
-          <div>
+          <div class="">
             <ngx-signature-pad
             class="signature"
               #signature

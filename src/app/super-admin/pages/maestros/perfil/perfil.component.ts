@@ -16,7 +16,8 @@ import { GeneralService } from 'src/app/general.service';
   styleUrls: ['./perfil.component.scss'],
 })
 export class PerfilComponent implements OnInit {
-  @ViewChild('signature') signature!: NgxSignaturePadComponent;
+  @ViewChild('signature', { static: true }) signature!: NgxSignaturePadComponent;
+  
   public firmaImagen: any = null;
   public firmaImagenShow: string | null = null;
   public showEditFirma: boolean = false;
@@ -28,15 +29,20 @@ export class PerfilComponent implements OnInit {
     universidad: ['', Validators.required],
     especialidad: ['', Validators.required],
   });
-  public width_firma = '500px';
+
+  
   public options: any = {
     backgroundColor: '#F4F5F5',
-    css: {
-      'border-radius': '16px',
-      'width': this.width_firma
-    },
+    minWidth: 1,
     
+    css: {
+      'border': '1px dashed #000',
+      'width': '500px',
+      'margin-bottom': '20px',
+    },
   };
+  
+
   constructor(
     public _general: GeneralService,
     private router: Router,
