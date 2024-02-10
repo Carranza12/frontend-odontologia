@@ -13,7 +13,9 @@
         <th>Motivos de la consulta</th>
         <th>Observaciones de la practica</th>
         <th>Estado de la practica</th>
-        <th colspan="2"></th>
+        <th>ver Historia clinica</th>
+        
+        <th colspan="3"></th>
       </tr>
     </thead>
     <tbody>
@@ -24,6 +26,10 @@
         <td>{{ practica.motivos_consulta }}</td>
         <td>{{ practica.comentarios }}</td>
         <td>{{ practica.aprobado }}</td>
+        <td>
+          <button  type="button" class="btn_primary" (click)="viewHistoria(practica.historia_clinica_id)">Historia Clinica</button>
+        </td>
+        <td>
         <td>
           <button  type="button" class="btn_primary" (click)="aprobarPractica(practica)">Aprobar</button>
         </td>

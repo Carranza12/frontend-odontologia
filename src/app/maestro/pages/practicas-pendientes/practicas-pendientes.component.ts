@@ -8,7 +8,7 @@ import { PerfilEstudiantesService } from 'src/app/empleado/services/perfil_estud
 import { PerfilMaestroService } from 'src/app/empleado/services/perfil_maestros.service';
 import { GeneralService } from 'src/app/general.service';
 import Swal from 'sweetalert2';
-
+import { environment } from 'src/environment';
 @Component({
   selector: 'app-practicas-pendientes',
   templateUrl: './practicas_pendientes.component.html',
@@ -66,6 +66,9 @@ export class practicasPendientesComponent {
     });
   }
 
+  viewHistoria(historia_clinica_id:string){
+    window.open(`${environment.frontenHost}/estudiante/historia-clinica/edicion/${historia_clinica_id}`,'_blank')
+  }
   async aprobarPractica(practica: any) {
     const result = await Swal.fire({
       title: '¿Estás seguro de aprobar la practica?',
