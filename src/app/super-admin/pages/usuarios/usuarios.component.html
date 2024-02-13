@@ -32,6 +32,9 @@
         </tr>
       </tbody>
     </table>
+    <br>
+    <br>
+    <div class="container">
     <div class="paginator">
       <button class="prev" (click)="changePage(currentPage - 1)">&lt;</button>
       <div class="page-numbers">
@@ -39,7 +42,8 @@
       </div>
       <button class="next" (click)="changePage(currentPage + 1)"  >&gt;</button>
     </div>
-
     <h3 *ngIf="currentPage && totalPages">Pagina: {{currentPage}}/ {{totalPages.length}}</h3>
+    
   </div>
+</div>
 </main>
