@@ -7,6 +7,7 @@ import { SharedModule } from '../shared.module';
 import { PerfilMaestroComponent } from './pages/perfil-maestro/perfil-maestro.component';
 import { materiasProfeComponent } from './pages/materias-profe/materias-profe.component';
 import { practicasPendientesComponent } from './pages/practicas-pendientes/practicas-pendientes.component';
+import { AbrirHistoriaComponent } from './pages/abrir-historia/abrir-historia.component';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { practicasPendientesComponent } from './pages/practicas-pendientes/pract
     MaestroComponent,
     PerfilMaestroComponent,
     materiasProfeComponent,
-    practicasPendientesComponent
+    practicasPendientesComponent,
+    AbrirHistoriaComponent
   ],
   imports: [
     CommonModule,

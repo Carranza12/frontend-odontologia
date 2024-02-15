@@ -65,6 +65,14 @@
       <a><i class="fas fa-home"></i>Materias impartidas</a>
     </li>
 
+    <li
+    [ngClass]="{ active_session: actual_path === 'abrir-historia' }"
+    *ngIf="userData.role_default === 'maestro'"
+    (click)="navigateBy('/maestro/abrir-historia')"
+  >
+    <a><i class="fas fa-home"></i>Historia Clinica</a>
+  </li>
+
       <li
         [ngClass]="{ active_session: actual_path === 'estudiantes' }"
         *ngIf="userData.role_default === 'superAdmin'"
