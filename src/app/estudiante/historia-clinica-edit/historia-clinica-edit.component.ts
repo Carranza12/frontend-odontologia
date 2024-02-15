@@ -82,8 +82,8 @@ export class HistoriaClinicaEditComponent implements OnInit{
   public showAntecedentesInfoTab: boolean = false;
   public showAparatosInfoTab: boolean = false;
   public showExploracionInfoTab: boolean = false;
-  public showConsultasInfoTab: boolean = false;
-  public showOdontogramaInfoTab: boolean = false;
+  public showAutorizacionInfoTab: boolean = false;
+
 
   public showDigestivoOtroTextarea: boolean = false;
   public showRespiratorioOtroTextarea: boolean = false;
@@ -712,96 +712,68 @@ export class HistoriaClinicaEditComponent implements OnInit{
 
   public nextPaso2(){
     this.showPacienteInfoTab = false;
-    this.showConsultasInfoTab = false;
     this.showExploracionInfoTab = false;
     this.showAparatosInfoTab = false;
-    this.showAntecedentesInfoTab = true
-    this.showOdontogramaInfoTab = false;
+    this.showAntecedentesInfoTab = true;
   }
 
   public nextPaso3(){
     this.showPacienteInfoTab = false;
-      this.showConsultasInfoTab = false;
       this.showExploracionInfoTab = false;
       this.showAparatosInfoTab = true;
-      this.showOdontogramaInfoTab = false;
-      this.showAntecedentesInfoTab = false
+      this.showAntecedentesInfoTab = false;
   }
 
   public nextPaso4(){
     this.showPacienteInfoTab = false;
-    this.showConsultasInfoTab = false;
     this.showExploracionInfoTab = true;
     this.showAparatosInfoTab = false;
-    this.showOdontogramaInfoTab = false;
-    this.showAntecedentesInfoTab = false
+    this.showAntecedentesInfoTab = false;
   }
 
   public nextPaso5(){
     this.showPacienteInfoTab = false;
-    this.showConsultasInfoTab = false;
     this.showExploracionInfoTab = false;
     this.showAparatosInfoTab = false;
-    this.showOdontogramaInfoTab = true;
-    this.showAntecedentesInfoTab = false
+    this.showAntecedentesInfoTab = false;
   }
 
-  public nextPaso6(){
-    this.showPacienteInfoTab = false;
-    this.showConsultasInfoTab = true;
-    this.showExploracionInfoTab = false;
-    this.showAparatosInfoTab = false;
-    this.showOdontogramaInfoTab = false;
-    this.showAntecedentesInfoTab = false
-  }
+
   public changeTab(tabName: string) {
     if (tabName === 'informacion_general_del_paciente') {
       this.showPacienteInfoTab = true;
-      this.showConsultasInfoTab = false;
       this.showExploracionInfoTab = false;
       this.showAparatosInfoTab = false;
-      this.showOdontogramaInfoTab = false;
       this.showAntecedentesInfoTab = false;
+      this.showAutorizacionInfoTab = false;
     }
     if (tabName === 'antecedentes') {
       this.showPacienteInfoTab = false;
       this.showAntecedentesInfoTab = true
-      this.showConsultasInfoTab = false;
       this.showExploracionInfoTab = false;
       this.showAparatosInfoTab = false;
-      this.showOdontogramaInfoTab = false;
+      this.showAutorizacionInfoTab = false;
     }
     if (tabName === 'aparatos_y_sistemas') {
       this.showPacienteInfoTab = false;
-      this.showConsultasInfoTab = false;
       this.showExploracionInfoTab = false;
       this.showAparatosInfoTab = true;
-      this.showOdontogramaInfoTab = false;
       this.showAntecedentesInfoTab = false;
+      this.showAutorizacionInfoTab = false;
     }
     if (tabName === 'exploracion_fisica') {
       this.showPacienteInfoTab = false;
-      this.showConsultasInfoTab = false;
       this.showExploracionInfoTab = true;
       this.showAparatosInfoTab = false;
-      this.showOdontogramaInfoTab = false;
       this.showAntecedentesInfoTab = false;
+      this.showAutorizacionInfoTab = false;
     }
-    if (tabName === 'consultas_del_paciente') {
+    if (tabName === 'carta') {
       this.showPacienteInfoTab = false;
-      this.showConsultasInfoTab = true;
       this.showExploracionInfoTab = false;
       this.showAparatosInfoTab = false;
-      this.showOdontogramaInfoTab = false;
       this.showAntecedentesInfoTab = false;
-    }
-    if (tabName === 'odontograma') {
-      this.showPacienteInfoTab = false;
-      this.showConsultasInfoTab = false;
-      this.showExploracionInfoTab = false;
-      this.showAparatosInfoTab = false;
-      this.showOdontogramaInfoTab = true;
-      this.showAntecedentesInfoTab = false;
+      this.showAutorizacionInfoTab = true;
     }
   }
 }
