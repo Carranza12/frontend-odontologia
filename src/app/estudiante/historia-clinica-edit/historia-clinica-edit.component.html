@@ -1490,6 +1490,33 @@
           <p>Estoy consciente de que dichos procedimientos pueden causar reacciones que sean leves,
             moderadas o graves, y que en casos extremos pueden ser fatales.
           </p>
+
+
+            <div class="concentimiento">
+              <div class="nombre">
+                <label for="nombrePaciente">Nombre del paciente:</label>
+                <label>Nombre xd</label>
+              </div>
+              
+              <div class="firma-placeholder">
+                <label>Firma del Paciente</label>
+                <ngx-signature-pad
+              #signature
+              [options]="options"
+              (beginSign)="onBeginSign()"
+              (endSign)="onEndSign()"
+              >
+            </ngx-signature-pad>
+              </div>
+            </div>
+
+            <!--<div class="nombre">
+                <label for="nombrePaciente">Nombre del paciente:</label>
+              <input type="text" id="nombrePaciente" name="nombrePaciente" placeholder="Ingrese su nombre">
+              </div>
+              
+              <div class="firma-placeholder">Firma del paciente:</div>-->
+
         </div>
         
       </div>

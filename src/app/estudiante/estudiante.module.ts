@@ -7,6 +7,7 @@ import { SharedModule } from '../shared.module';
 import { HistoriaClinicaEditComponent } from './historia-clinica-edit/historia-clinica-edit.component';
 import { MisProfesoresComponent } from './mis-profesores/mis-profesores.component';
 import { MisPracticasComponent } from './mis-practicas/mis-practicas.component';
+import { NgxSignaturePadModule } from '@eve-sama/ngx-signature-pad';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { MisPracticasComponent } from './mis-practicas/mis-practicas.component';
   imports: [
     CommonModule,
     EstudianteRoutingModule,
-    SharedModule
+    SharedModule,
+    NgxSignaturePadModule
   ]
 })
 export class EstudianteModule { }
