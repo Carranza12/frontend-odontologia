@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/api.service';
@@ -7,71 +7,20 @@ import { PerfilEstudiantesService } from 'src/app/empleado/services/perfil_estud
 import { GeneralService } from 'src/app/general.service';
 import Swal from 'sweetalert2';
 
+
 @Component({
   selector: 'app-diagnostico',
   templateUrl: './diagnostico.component.html',
   styleUrls: ['./diagnostico.component.scss']
 })
 export class DiagnosticoComponent implements OnInit{
-    public gender_options = [
-      {
-        value: 'm',
-        text: 'Masculino',
-      },
-      {
-        value: 'f',
-        text: 'Femenino',
-      },
-    ];
-  
-    public status_options = [
-      {
-        value: 'Soltero/a',
-        text: 'Soltero/a',
-      },
-      {
-        value: 'Casado/a',
-        text: 'Casado/a',
-      },
-      {
-        value: 'Divorciado/a',
-        text: 'Divorciado/a',
-      },
-      {
-        value: 'Separado/a en proceso judicial',
-        text: 'Separado/a en proceso judicial',
-      },
-      {
-        value: 'Viudo/a',
-        text: 'Viudo/a',
-      },
-      {
-        value: 'Concubinato',
-        text: 'Concubinato',
-      },
-    ];
-  
-    public parentescos_options = [
-      { value: 'padre', text: 'Padre' },
-      { value: 'madre', text: 'Madre' },
-      { value: 'hijo', text: 'Hijo' },
-      { value: 'hija', text: 'Hija' },
-      { value: 'abuelo', text: 'Abuelo' },
-      { value: 'abuela', text: 'Abuela' },
-      { value: 'hermano', text: 'Hermano' },
-      { value: 'hermana', text: 'Hermana' },
-      { value: 'tío', text: 'Tío' },
-      { value: 'tía', text: 'Tía' },
-      { value: 'primo', text: 'Primo' },
-      { value: 'prima', text: 'Prima' },
-      { value: 'sobrino', text: 'Sobrino' },
-      { value: 'sobrina', text: 'Sobrina' },
-      { value: 'esposo', text: 'Esposo' },
-      { value: 'esposa', text: 'Esposa' },
-      { value: 'novio', text: 'Novio' },
-      { value: 'novia', text: 'Novia' },
-    ];
-  
+    @ViewChild('canvas') canvas: any;
+    ctx: any;
+    isDrawing: boolean = false;
+
+    canvasWidth: number = 800;
+    canvasHeight: number = 600;
+
     public evidencia1: FormControl = new FormControl('');
     public evidencia2: FormControl = new FormControl('');
     public evidencia3: FormControl = new FormControl('');
@@ -80,13 +29,6 @@ export class DiagnosticoComponent implements OnInit{
   
     public showConsultasInfoTab: boolean = false;
     public showOdontogramaInfoTab: boolean = true;
-  
-    public showDigestivoOtroTextarea: boolean = false;
-    public showRespiratorioOtroTextarea: boolean = false;
-    public showCirculatorioOtroTextarea: boolean = false;
-    public showGenitoUrinarioOtroTextarea: boolean = false;
-    public showSistNerviosoOtroTextarea: boolean = false;
-    public showSintomasGeneralesOtroTextarea: boolean = false;
   
     public diagnosticoForm = this.formBuilder.group({
       });
@@ -97,14 +39,7 @@ export class DiagnosticoComponent implements OnInit{
     public practica_para_la_materia = new FormControl('');
     public materia_Seleccionada_consula:any = {}
   
-    //ENFERMEDADES
-    public esDiabetico: boolean = false;
-    public esAlcoholico: boolean = false;
-    public esFumador: boolean = false;
-    public esEpileptico: boolean = false;
-    public esReumatico: boolean = false;
-    public esAlergico: boolean = false;
-  
+ 
     public estudianteData:any = {}
   
     public isAprobadoAnyConsulta:boolean = false;
@@ -125,7 +60,7 @@ export class DiagnosticoComponent implements OnInit{
       let user:any = localStorage.getItem("user")
       user = JSON.parse(user)
   
-      this.practica_para_la_materia.valueChanges.subscribe((value) => {
+     /*  this.practica_para_la_materia.valueChanges.subscribe((value) => {
         this.materia_Seleccionada_consula = this.estudianteData.materias.find((item:any ) => item.value === value)
       })
       
@@ -165,26 +100,7 @@ export class DiagnosticoComponent implements OnInit{
               if(consulta.aprobado === 'Aprobado'){
                 this.isAprobadoAnyConsulta = true;
               }
-             }
-             if(response?.item?.historia_clinica?.alcoholismo){
-              this.esAlcoholico
-             }
-             if(response?.item?.historia_clinica?.tabaquismo){
-              this.esFumador
-             }
-             if(response?.item?.historia_clinica?.Diabeticos){
-              this.esDiabetico
-             }
-             if(response?.item?.historia_clinica?.Alergicos){
-              this.esAlergico
-             }
-             if(response?.item?.historia_clinica?.Reumaticos){
-              this.esReumatico
-             }
-             if(response?.item?.historia_clinica?.Epilepticos){
-              this.esEpileptico
-             }
-            
+             } 
              this.consultasList = response.item.historia_clinica.consultas
              this.consultasList = this.consultasList.map((item:any) => ({...item, selected: true}))
             },
@@ -193,9 +109,39 @@ export class DiagnosticoComponent implements OnInit{
             }
           );
         }
-      })
+      }) */
   
     }
+
+  
+    ngAfterViewInit(): void {
+      this.ctx = this.canvas.nativeElement.getContext('2d');
+      this.ctx.lineWidth = 2;
+      this.ctx.strokeStyle = 'black';
+      const backgroundImage = new Image();
+      backgroundImage.src = '../../../assets/logos/odontograma.jpg';
+      backgroundImage.onload = () => {
+        this.ctx.drawImage(backgroundImage, 0, 0, this.canvas.nativeElement.width, this.canvas.nativeElement.height);
+      };
+    }
+  
+    startDrawing(event: MouseEvent): void {
+      this.isDrawing = true;
+      this.ctx.beginPath();
+      this.ctx.moveTo(event.offsetX, event.offsetY);
+    }
+  
+    draw(event: MouseEvent): void {
+      if (this.isDrawing) {
+        this.ctx.lineTo(event.offsetX, event.offsetY);
+        this.ctx.stroke();
+      }
+    }
+  
+    endDrawing(): void {
+      this.isDrawing = false;
+    }
+  
   
     public viewEvidencia(url:string){
       window.open(url,"_blank")
@@ -282,48 +228,10 @@ export class DiagnosticoComponent implements OnInit{
         )
         return;
       }
-      if(this.esAlcoholico || this.esAlergico || this.esDiabetico || this.esEpileptico || this.esEpileptico || this.esFumador || this.esReumatico){
-        const result = await Swal.fire({
-          title: '¿Estás seguro de crear la consulta?',
-          text: 'su paciente cuenta con alertas...',
-          showCancelButton: true,
-          confirmButtonText: 'Sí, estoy seguro de crear la consulta',
-          cancelButtonText: 'regresar',
-          icon: 'question'
-        });
+     
     
-        if (result.isConfirmed) {
-          try {
-            const consulta = {
-              fecha_consulta: this.fecha_de_la_consulta.value,
-              motivos_consulta: this.motivos_de_la_consulta.value,
-              comentarios: this.comentarios_sobre_la_consulta.value,
-              estudiante: {
-               ...this.estudianteData,
-               nombre: user.fullName
-              },
-              practica_para_la_materia: this.materia_Seleccionada_consula,
-              aprobado: "Sin aprobar",
-              maestro: { maestro_id: "", nombre: ""},
-              selected : false,
-              evidencia1: this.evidencia1.value,
-              evidencia2: this.evidencia2.value,
-              evidencia3: this.evidencia3.value,
-              evidencia4: this.evidencia4.value,
-              evidencia5: this.evidencia5.value,
-            }
-           this.consultasList.push(consulta)
-           this.fecha_de_la_consulta.setValue("")
-           this.motivos_de_la_consulta.setValue("")
-           this.comentarios_sobre_la_consulta.setValue("")
-           this.practica_para_la_materia.setValue("")
-           return;
-          } catch (error) {
-            console.error(error);
-          }
-        }
-        return;
-      }
+      
+      
      
       const consulta = {
         fecha_consulta: this.fecha_de_la_consulta.value,
@@ -377,29 +285,7 @@ export class DiagnosticoComponent implements OnInit{
     }
   
     public otroCheckbox() {
-      this.diagnosticoForm.get("aparatos_sistemas_digestivo_Otros")?.valueChanges.subscribe((valor:any) => {
-        this.showDigestivoOtroTextarea = valor
-      })
-  
-      this.diagnosticoForm.get("aparatos_sistemas_respiratorio_Otros")?.valueChanges.subscribe((valor:any) => {
-        this.showRespiratorioOtroTextarea = valor
-      })
-  
-      this.diagnosticoForm.get("aparatos_sistemas_circulatorio_Otros")?.valueChanges.subscribe((valor:any) => {
-        this.showCirculatorioOtroTextarea = valor
-      })
-  
-      this.diagnosticoForm.get("aparatos_sistemas_genito_urinario_Otros")?.valueChanges.subscribe((valor:any) => {
-        this.showGenitoUrinarioOtroTextarea = valor
-      })
-  
-      this.diagnosticoForm.get("aparatos_sistemas_sist_nervioso_Otros")?.valueChanges.subscribe((valor:any) => {
-        this.showSistNerviosoOtroTextarea = valor
-      })
-  
-      this.diagnosticoForm.get("aparatos_sistemas_sintomas_generales_otros")?.valueChanges.subscribe((valor:any) => {
-        this.showSintomasGeneralesOtroTextarea = valor
-      })
+    
     
     }
  

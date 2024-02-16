@@ -28,160 +28,9 @@
       <div class="tabs__content"> 
         <div *ngIf="showOdontogramaInfoTab">
           <h3>ODONTROGRAMA</h3>
-          <div>
-            <div class="container_dientes_arriba">
-              <div class="row">
-                <div class="square_container">
-                  <div class="square"></div>
-                  <div class="number">18</div>
-                  <div class="circle">
-                    <div class="inner-circle"></div>
-                    <div class="diagonal diagonal-1"></div>
-                    <div class="diagonal diagonal-2"></div>
-                  </div>
-                </div>
-                <div class="square_container">
-                  <div class="square"></div>
-                  <div class="number">17</div>
-                  <div class="circle">
-                    <div class="inner-circle"></div>
-                    <div class="diagonal diagonal-1"></div>
-                    <div class="diagonal diagonal-2"></div>
-                  </div>
-                </div>
-                <div class="square_container">
-                  <div class="square"></div>
-                  <div class="number">16</div>
-                  <div class="circle">
-                    <div class="inner-circle"></div>
-                    <div class="diagonal diagonal-1"></div>
-                    <div class="diagonal diagonal-2"></div>
-                  </div>
-                </div>
-                <div class="square_container">
-                  <div class="square"></div>
-                  <div class="number">15</div>
-                  <div class="circle">
-                    <div class="inner-circle"></div>
-                    <div class="diagonal diagonal-1"></div>
-                    <div class="diagonal diagonal-2"></div>
-                  </div>
-                </div>
-                <div class="square_container">
-                  <div class="square"></div>
-                  <div class="number">14</div>
-                  <div class="circle">
-                    <div class="inner-circle"></div>
-                    <div class="diagonal diagonal-1"></div>
-                    <div class="diagonal diagonal-2"></div>
-                  </div>
-                </div>
-                <div class="square_container">
-                  <div class="square"></div>
-                  <div class="number">13</div>
-                  <div class="circle">
-                    <div class="inner-circle"></div>
-                    <div class="diagonal diagonal-1"></div>
-                    <div class="diagonal diagonal-2"></div>
-                  </div>
-                </div>
-                <div class="square_container">
-                  <div class="square"></div>
-                  <div class="number">12</div>
-                  <div class="circle">
-                    <div class="inner-circle"></div>
-                    <div class="diagonal diagonal-1"></div>
-                    <div class="diagonal diagonal-2"></div>
-                  </div>
-                </div>
-                <div class="square_container">
-                  <div class="square"></div>
-                  <div class="number">11</div>
-                  <div class="circle">
-                    <div class="inner-circle"></div>
-                    <div class="diagonal diagonal-1"></div>
-                    <div class="diagonal diagonal-2"></div>
-                  </div>
-                </div>
-                <div class="square_container">
-                  <div class="square"></div>
-                  <div class="number empty-space"></div>
-                </div>
-                <div class="square_container">
-                  <div class="square"></div>
-                  <div class="number">21</div>
-                  <div class="circle">
-                    <div class="inner-circle"></div>
-                    <div class="diagonal diagonal-1"></div>
-                    <div class="diagonal diagonal-2"></div>
-                  </div>
-                </div>
-                <div class="square_container">
-                  <div class="square"></div>
-                  <div class="number">22</div>
-                  <div class="circle">
-                    <div class="inner-circle"></div>
-                    <div class="diagonal diagonal-1"></div>
-                    <div class="diagonal diagonal-2"></div>
-                  </div>
-                </div>
-                <div class="square_container">
-                  <div class="square"></div>
-                  <div class="number">23</div>
-                  <div class="circle">
-                    <div class="inner-circle"></div>
-                    <div class="diagonal diagonal-1"></div>
-                    <div class="diagonal diagonal-2"></div>
-                  </div>
-                </div>
-                <div class="square_container">
-                  <div class="square"></div>
-                  <div class="number">24</div>
-                  <div class="circle">
-                    <div class="inner-circle"></div>
-                    <div class="diagonal diagonal-1"></div>
-                    <div class="diagonal diagonal-2"></div>
-                  </div>
-                </div>
-                <div class="square_container">
-                  <div class="square"></div>
-                  <div class="number">25</div>
-                  <div class="circle">
-                    <div class="inner-circle circle_active"></div>
-                    <div class="diagonal diagonal-1"></div>
-                    <div class="diagonal diagonal-2"></div>
-                  </div>
-                </div>
-                <div class="square_container">
-                  <div class="square"></div>
-                  <div class="number">26</div>
-                  <div class="circle">
-                    <div class="inner-circle"></div>
-                    <div class="diagonal diagonal-1"></div>
-                    <div class="diagonal diagonal-2"></div>
-                  </div>
-                </div>
-                <div class="square_container">
-                  <div class="square"></div>
-                  <div class="number">27</div>
-                  <div class="circle">
-                    <div class="inner-circle"></div>
-                    <div class="diagonal diagonal-1"></div>
-                    <div class="diagonal diagonal-2"></div>
-                  </div>
-                </div>
-                <div class="square_container">
-                  <div class="square"></div>
-                  <div class="number">28</div>
-                  <div class="circle">
-                    <div class="inner-circle"></div>
-                    <div class="diagonal diagonal-1"></div>
-                    <div class="diagonal diagonal-2"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+         
+          <canvas [width]="canvasWidth" [height]="canvasHeight" #canvas width="500" height="500" (mousedown)="startDrawing($event)" (mousemove)="draw($event)" (mouseup)="endDrawing()"></canvas>
+
           <button type="button" class="btn_primary" (click)="nextPaso6()">
             Siguiente paso
           </button>
@@ -189,7 +38,7 @@
         <div *ngIf="showConsultasInfoTab">
           <h3>CONSULTAS DEL PACIENTE</h3>
 
-          <div class="alerts">
+        <!--   <div class="alerts">
             <app-alert
               enfermedad="Este paciente tiene diabetes."
               *ngIf="esDiabetico"
@@ -214,7 +63,7 @@
               enfermedad="Este paciente sufre de alergias."
               *ngIf="esAlergico"
             ></app-alert>
-          </div>
+          </div> -->
 
           <div class="form_control">
             <label for="" class="label_input">Motivos de la consulta:</label>
