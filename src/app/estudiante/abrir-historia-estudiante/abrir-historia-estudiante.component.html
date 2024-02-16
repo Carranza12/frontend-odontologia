@@ -1,0 +1,37 @@
+<app-sidebar></app-sidebar>
+<main class="main_container">
+  <app-page-title [title]="'Historias clinicas'"></app-page-title>
+  <div style="display: flex; flex-direction: column; gap: 20px; max-width: 600px;">
+    <article class="welcome__article">
+      <h2>¡Consulta las historias clinicas de tus alumnos:</h2>
+      <p class="welcome__text">
+        Para poder abrir una historia clinica, agrega el
+        <strong>"Codigo"</strong> que te proporciono tu paciente y da clic en el
+        boton <strong>"Abrir"</strong>
+      </p>
+    </article>
+    <div class="form_container">
+      <div class="form_control">
+        <label for="" class="label_input">Codigo:</label>
+        <input
+            style="width: 100%;"
+          class="form_input"
+          type="text"
+          placeholder="Escribe el codigo aqui..."
+          [formControl]="codigoControl"
+          name="nombre_completo"
+          autocomplete="off"
+        />
+        <div
+          *ngIf="codigoControl?.hasError('required') && codigoControl?.touched"
+          class="error-message"
+        >
+          El codigo es requerido.
+        </div>
+      </div>
+    </div>
+    <button type="button" class="btn_primary" (click)="submit()">
+        Abrir
+      </button>
+  </div>
+</main>

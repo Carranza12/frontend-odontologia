@@ -8,18 +8,25 @@ import { HistoriaClinicaEditComponent } from './historia-clinica-edit/historia-c
 import { MisProfesoresComponent } from './mis-profesores/mis-profesores.component';
 import { MisPracticasComponent } from './mis-practicas/mis-practicas.component';
 
+import { NgxSignaturePadModule } from '@eve-sama/ngx-signature-pad';
+import { AbrirHistoriaEstudianteComponent } from './abrir-historia-estudiante/abrir-historia-estudiante.component';
+import { TratamientosComponent } from './tratamientos/tratamientos.component';
+
 
 @NgModule({
   declarations: [
     EstudianteComponent,
     HistoriaClinicaEditComponent,
     MisProfesoresComponent,
-    MisPracticasComponent
+    MisPracticasComponent,
+    AbrirHistoriaEstudianteComponent,
+    TratamientosComponent
   ],
   imports: [
     CommonModule,
     EstudianteRoutingModule,
-    SharedModule
+    SharedModule,
+    NgxSignaturePadModule
   ]
 })
 export class EstudianteModule { }

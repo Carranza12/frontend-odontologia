@@ -6,6 +6,7 @@ import html2canvas from 'html2canvas';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
 import { GeneralService } from 'src/app/general.service';
+import { ApiService } from 'src/app/api.service';
 
 @Component({
   selector: 'app-consulta-new',
@@ -21,12 +22,14 @@ export class ConsultaNewComponent implements OnInit {
   public userData: any = {};
   public isKeywordAutocomplete: boolean = false;
   public myAngularxQrCode!: string;
+  public codigo!: string;
 
   constructor(
     private _paciente: PacienteService,
     private _router: Router,
     private auth: AuthService,
-    public _general: GeneralService
+    public _general: GeneralService,
+    public _api: ApiService
   ) {
     this.myAngularxQrCode = 'Your QR code data string';
   }
@@ -83,6 +86,11 @@ export class ConsultaNewComponent implements OnInit {
     this.patient.fecha_consulta = new Date();
     this.patient.consulta_generada = this.userData.fullName;
     this.myAngularxQrCode = `192.168.1.114200/estudiante/historia-clinica/edicion/${patient.historia_clinica_id}`;
+    this._api.getHistoriaClinica(patient.historia_clinica_id).subscribe((historia: any) => {
+      console.log("Historia: ", historia);
+      this.codigo = historia.item.historia_clinica.codigo;
+      console.log("codigo: ", this.codigo);
+    })
   }
 
   public openPDF(): void {

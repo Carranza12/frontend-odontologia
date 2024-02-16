@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormControlDirective, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { NgxSignaturePadComponent } from '@eve-sama/ngx-signature-pad';
 import { ApiService } from 'src/app/api.service';
 import { asignaturaService } from 'src/app/asignatura.service';
 import { PerfilEstudiantesService } from 'src/app/empleado/services/perfil_estudiantes.service';
@@ -13,6 +14,61 @@ import Swal from 'sweetalert2';
   styleUrls: ['./historia-clinica-edit.component.scss'],
 })
 export class HistoriaClinicaEditComponent implements OnInit{
+/*Elementos de la firma*/ 
+  @ViewChild('signature') signature!: NgxSignaturePadComponent;
+  
+  public firmaImagen: any = null;
+  public firmaImagenShow: string | null = null;
+  public showEditFirma: boolean = false;
+  public isEditPerfil: boolean = false;
+  public user_id!: string;
+  public perfilForm = this.formBuilder.group({
+    expediente: ['', Validators.required],
+    cedula_profesional: ['', Validators.required],
+    universidad: ['', Validators.required],
+    especialidad: ['', Validators.required],
+  });
+
+  public options: any = {
+    backgroundColor: '#F4F5F5',
+    minWidth: 1,
+    
+    css: {
+      /*'border': '1px dashed #000',
+      'width': '300px',
+      'margin-bottom': '20px',*/
+
+      'border': '1px solid #ccc',
+      'height': '200px',
+      'width': '400px',
+    },
+  };
+
+  onBeginSign(): void {
+    console.log('on begin sing');
+  }
+
+  onEndSign(): void {
+    console.log("this.signature:", this.signature)
+    if (this.signature) {
+      this.firmaImagen = this.signature.toDataURL();
+    }
+  }
+
+  async dataURLtoBlob(dataURL: string): Promise<Blob> {
+    return new Promise((resolve) => {
+      const byteString = atob(dataURL.split(',')[1]);
+      const mimeString = dataURL.split(',')[0].split(':')[1].split(';')[0];
+      const ab = new ArrayBuffer(byteString.length);
+      const ia = new Uint8Array(ab);
+      for (let i = 0; i < byteString.length; i++) {
+        ia[i] = byteString.charCodeAt(i);
+      }
+      const blob = new Blob([ab], { type: mimeString });
+      resolve(blob);
+    });
+  }
+  
   public gender_options = [
     {
       value: 'm',
