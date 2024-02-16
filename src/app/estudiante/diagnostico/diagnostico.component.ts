@@ -116,8 +116,8 @@ export class DiagnosticoComponent implements OnInit{
   
     ngAfterViewInit(): void {
       this.ctx = this.canvas.nativeElement.getContext('2d');
-      this.ctx.lineWidth = 2;
-      this.ctx.strokeStyle = 'black';
+      this.ctx.lineWidth = 1.2;
+      this.ctx.strokeStyle = 'gray';
       const backgroundImage = new Image();
       backgroundImage.src = '../../../assets/logos/odontograma.jpg';
       backgroundImage.onload = () => {
@@ -125,6 +125,14 @@ export class DiagnosticoComponent implements OnInit{
       };
     }
   
+    saveImage(): void {
+      const link = document.createElement('a');
+      link.download = 'imagen_rayada.png';
+      link.href = this.canvas.nativeElement.toDataURL('image/png');
+      link.click();
+      console.log("link:", link)
+    }
+
     startDrawing(event: MouseEvent): void {
       this.isDrawing = true;
       this.ctx.beginPath();

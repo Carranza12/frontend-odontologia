@@ -30,7 +30,7 @@
           <h3>ODONTROGRAMA</h3>
          
           <canvas [width]="canvasWidth" [height]="canvasHeight" #canvas width="500" height="500" (mousedown)="startDrawing($event)" (mousemove)="draw($event)" (mouseup)="endDrawing()"></canvas>
-
+          <button type="button" class="btn_primary" (click)="saveImage()">Guardar imagen</button>
           <button type="button" class="btn_primary" (click)="nextPaso6()">
             Siguiente paso
           </button>
