@@ -20,4 +20,17 @@ export class PacienteService {
     }
     return [];
   }
+
+  public getHistoriaClinicaByCodigo(codigo_id: string) :any{
+    const token = localStorage.getItem('token');
+    if (token) {
+      const headers = new HttpHeaders({
+        Authorization: `Bearer ${token}`,
+      });
+      return this.http.get(`${this.PATIENTS_URL_API}/codigo/${codigo_id}`, {
+        headers,
+      });
+    }
+    return false;
+  }
 }

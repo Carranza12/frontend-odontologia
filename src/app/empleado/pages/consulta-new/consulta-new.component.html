@@ -67,7 +67,7 @@
           [width]="256"
           [errorCorrectionLevel]="'M'"
         ></qrcode>
-       <h4>{{myAngularxQrCode}}</h4>
+       <h4 *ngIf = "codigo">Codigo de acceso: {{codigo}}</h4>
       </div>
 
 
