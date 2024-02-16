@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Formulario</title>
+</head>
+<body>
+  <h2>Formulario</h2>
+  <form action="/submit" method="post">
+    <div>
+      <label for="tratamiento">Tratamiento:</label><br>
+      <textarea id="tratamiento" name="tratamiento" rows="4" cols="50"></textarea>
+    </div>
+    <div>
+      <label for="alumno">Alumno:</label><br>
+      <input type="text" id="alumno" name="alumno" maxlength="50">
+    </div>
+    <div>
+      <label for="matricula">Matrícula:</label><br>
+      <input type="text" id="matricula" name="matricula" maxlength="8" pattern="[0-9]*">
+    </div>
+    <div>
+      <label for="expediente">No. de expediente:</label><br>
+      <input type="text" id="expediente" name="expediente" maxlength="50">
+    </div>
+    <div>
+      <label for="firma_maestro">Firma del maestro:</label><br>
+    </div>
+    <div>
+      <label for="observaciones">Observaciones:</label><br>
+      <textarea id="observaciones" name="observaciones" rows="4" cols="50"></textarea>
+    </div>
+    <div>
+      <input type="submit" value="Enviar">
+    </div>
+  </form>
+</body>
+</html>
