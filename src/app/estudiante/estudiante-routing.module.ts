@@ -12,6 +12,7 @@ const routes: Routes = [
   { path: 'historia-clinica/edicion/:id', canActivate: [historiaGuard], component: HistoriaClinicaEditComponent },
   { path: 'mis-materias', canActivate: [EstudianteGuard], component: MisProfesoresComponent },
   { path: 'mis-practicas', canActivate: [EstudianteGuard], component: MisPracticasComponent },
+  { path: 'diagnostico', canActivate: [EstudianteGuard], loadChildren: () => import('./diagnostico/diagnostico.module').then(m => m.DiagnosticoModule) },
 ];
 
 @NgModule({
