@@ -213,4 +213,18 @@ export class ApiService {
     }
     return false;
   }
+
+  createDiagnostico(body:any):any {
+    const token = localStorage.getItem('token');
+    if (token) {
+      const headers = new HttpHeaders({
+        Authorization: `Bearer ${token}`,
+      });
+      console.log("BODY PARA EL BACKEND:", body)
+      return this.http.put(`${this.CRETAE_PATIENT_HISTORIA_URL_API}/diagnostico`, body, {
+        headers,
+      });
+    }
+    return false;
+  }
 }

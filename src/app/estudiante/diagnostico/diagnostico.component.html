@@ -7,36 +7,142 @@
     (ngSubmit)="onSubmit()"
   >
     <div class="tabs">
-      <div class="tabs__nav">
-        <button
-          class="tabs__nav-btn"
-          [ngClass]="{ active: showOdontogramaInfoTab }"
-          type="button"
-          (click)="changeTab('odontograma')"
-        >
-          Odontograma
-        </button>
-        <button
-          class="tabs__nav-btn"
-          [ngClass]="{ active: showConsultasInfoTab }"
-          type="button"
-          (click)="changeTab('consultas_del_paciente')"
-        >
-          Consultas del paciente
-        </button>
-      </div>
-      <div class="tabs__content"> 
-        <div *ngIf="showOdontogramaInfoTab">
           <h3>ODONTROGRAMA</h3>
          
           <canvas [width]="canvasWidth" [height]="canvasHeight" #canvas width="500" height="500" (mousedown)="startDrawing($event)" (mousemove)="draw($event)" (mouseup)="endDrawing()"></canvas>
-          <button type="button" class="btn_primary" (click)="saveImage()">Guardar imagen</button>
-          <button type="button" class="btn_primary" (click)="nextPaso6()">
-            Siguiente paso
-          </button>
-        </div>
-        <div *ngIf="showConsultasInfoTab">
-          <h3>CONSULTAS DEL PACIENTE</h3>
+      
+          <h3>CABEZA:</h3>
+          <div class="form_control">
+            <label for="" class="label_input">Craneo:</label>
+            <textarea
+              class="form_input form_textarea"
+              formControlName="cabeza_craneo"
+            ></textarea>
+          </div>
+          <div class="form_control">
+            <label for="" class="label_input">Cara:</label>
+            <textarea
+              class="form_input form_textarea"
+              formControlName="cabeza_cara"
+            ></textarea>
+          </div>
+          <h3>BOCA:</h3>
+          <div class="form_control">
+            <label for="" class="label_input">Labios:</label>
+            <textarea
+              class="form_input form_textarea"
+              formControlName="boca_labios"
+            ></textarea>
+          </div>
+          <div class="form_control">
+            <label for="" class="label_input">Carillos:</label>
+            <textarea
+              class="form_input form_textarea"
+              formControlName="boca_carrillos"
+            ></textarea>
+          </div>
+          <div class="form_control">
+            <label for="" class="label_input">Encia:</label>
+            <textarea
+              class="form_input form_textarea"
+              formControlName="boca_encia"
+            ></textarea>
+          </div>
+          <div class="form_control">
+            <label for="" class="label_input">Piso de Boca:</label>
+            <textarea
+              class="form_input form_textarea"
+              formControlName="boca_piso_de_boca"
+            ></textarea>
+          </div>
+          <div class="form_control">
+            <label for="" class="label_input">Lengua:</label>
+            <textarea
+              class="form_input form_textarea"
+              formControlName="boca_lengua"
+            ></textarea>
+          </div>
+          <div class="form_control">
+            <label for="" class="label_input">Paladar:</label>
+            <textarea
+              class="form_input form_textarea"
+              formControlName="boca_paladar"
+            ></textarea>
+          </div>
+
+          <h3>ATM:</h3>
+          <div class="form_control">
+            <label for="" class="label_input"></label>
+            <textarea
+              class="form_input form_textarea"
+              formControlName="atm"
+            ></textarea>
+          </div>
+          <div class="form_control">
+            <label for="" class="label_input">Anexos:</label>
+            <textarea
+              class="form_input form_textarea"
+              formControlName="atm_anexos"
+            ></textarea>
+          </div>
+          <div class="form_control">
+            <label for="" class="label_input">Macizo Oseo (Maxilares y Mandibula):</label>
+            <textarea
+              class="form_input form_textarea"
+              formControlName="atm_macizo_oseo"
+            ></textarea>
+          </div>
+          <div class="form_control">
+            <label for="" class="label_input">CUELLO:</label>
+            <textarea
+              class="form_input form_textarea"
+              formControlName="cuello"
+            ></textarea>
+          </div>
+          <div class="form_control">
+            <label for="" class="label_input">TORAX:</label>
+            <textarea
+              class="form_input form_textarea"
+              formControlName="torax"
+            ></textarea>
+          </div>
+
+          <div class="form_control">
+            <label for="" class="label_input">ABDOMEN:</label>
+            <textarea
+              class="form_input form_textarea"
+              formControlName="abdomen"
+            ></textarea>
+          </div>
+          <div class="form_control">
+            <label for="" class="label_input">EXTREMIDADES:</label>
+            <textarea
+              class="form_input form_textarea"
+              formControlName="extremidades"
+            ></textarea>
+          </div>
+          <div class="form_control">
+            <label for="" class="label_input">EXAMENES DE LABORATORIO:</label>
+            <textarea
+              class="form_input form_textarea"
+              formControlName="examenes_de_laboratorio"
+            ></textarea>
+          </div>
+          <div class="form_control">
+            <label for="" class="label_input">DIAGNOSTICO:</label>
+            <textarea
+              class="form_input form_textarea"
+              formControlName="diagnostico"
+            ></textarea>
+          </div>
+          <div class="form_control">
+            <label for="" class="label_input">OBSERVACIONES:</label>
+            <textarea
+              class="form_input form_textarea"
+              formControlName="observaciones"
+            ></textarea>
+          </div>
+          <h3>INFORMACION</h3>
 
         <!--   <div class="alerts">
             <app-alert
@@ -69,7 +175,7 @@
             <label for="" class="label_input">Motivos de la consulta:</label>
             <textarea
               class="form_input form_textarea"
-              [formControl]="motivos_de_la_consulta"
+              formControlName="motivos_de_la_consulta"
             >
             </textarea>
           </div>
@@ -79,7 +185,7 @@
               class="form_input"
               type="date"
               placeholder="Fecha de nacimiento"
-              [formControl]="fecha_de_la_consulta"
+              formControlName="fecha_de_la_consulta"
               name="fecha_de_nacimiento"
               autocomplete="off"
             />
@@ -102,37 +208,11 @@
             >
             <textarea
               class="form_input form_textarea"
-              [formControl]="comentarios_sobre_la_consulta"
+              formControlName="comentarios_sobre_la_consulta"
             >
             </textarea>
 
-            <div class="form_control">
-              <label for="" class="label_input"
-                >Practica para la materia:</label
-              >
-              <select
-                class="form_input"
-                [formControl]="practica_para_la_materia"
-                name="practica_para_la_materia"
-              >
-                <option value="">Selecciona la materia</option>
-                <option
-                  [value]="materia.value"
-                  *ngFor="let materia of estudianteData.materias"
-                >
-                  {{ materia.text }}
-                </option>
-              </select>
-              <div
-                *ngIf="
-                  diagnosticoForm.get('genero')?.hasError('required') &&
-                  diagnosticoForm.get('genero')?.touched
-                "
-                class="error-message"
-              >
-                El genero es requerido.
-              </div>
-            </div>
+           
 
             <!--Los fuckin inputs de tipo file-->
 
@@ -176,55 +256,14 @@
               /><br />
             </div>
 
-            <button
-              type="button"
-              class="btn_primary"
-              (click)="saveConsulta()"
-              style="width: 200px"
-            >
-              Crear consulta
-            </button>
+         
           </div>
 
-          <table class="table_grid" *ngIf="consultasList.length > 0">
-            <thead>
-              <tr>
-                <th>Fecha</th>
-                <th>Motivo</th>
-                <th>Diagnostico</th>
-                <th>Para la materia</th>
-                <th>Alumno que lo atendio</th>
-                <th>Estado</th>
-                <th>Aprobado/Rechazado por el maestro</th>
-                <th>Evidencia 1</th>
-                <th>Evidencia 2</th>
-                <th>Evidencia 3</th>
-                <th>Evidencia 4</th>
-                <th>Evidencia 5</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let consulta of consultasList">
-                <td>{{ consulta.fecha_consulta }}</td>
-                <td>{{ consulta.motivos_consulta }}</td>
-                <td>{{ consulta.comentarios }}</td>
-                <td>{{ consulta.practica_para_la_materia.text }}</td>
-                <td>{{ consulta.estudiante.nombre }}</td>
-                <td>{{ consulta.aprobado }}</td>
-                <td>{{ consulta.maestro.nombre }}</td>
-                <td><img  width="100px" [src]="consulta.evidencia1" alt="" (click)="viewEvidencia(consulta.evidencia1)" > </td>
-                <td><img  width="100px" [src]="consulta.evidencia2" alt="" (click)="viewEvidencia(consulta.evidencia2)" > </td>
-                <td><img  width="100px" [src]="consulta.evidencia3" alt="" (click)="viewEvidencia(consulta.evidencia3)" > </td>
-                <td><img  width="100px" [src]="consulta.evidencia4" alt="" (click)="viewEvidencia(consulta.evidencia4)" > </td>
-                <td><img  width="100px" [src]="consulta.evidencia5" alt="" (click)="viewEvidencia(consulta.evidencia5)" > </td>
-              </tr>
-            </tbody>
-          </table>
+       
           <button type="button" (click)="onSubmit()" class="btn_primary">
             Crear
           </button>
-        </div>
-      </div>
+      
     </div>
   </form>
   <div></div>
