@@ -12,6 +12,7 @@ import { NgxSignaturePadModule } from '@eve-sama/ngx-signature-pad';
 import { AbrirHistoriaEstudianteComponent } from './abrir-historia-estudiante/abrir-historia-estudiante.component';
 import { TratamientosComponent } from './tratamientos/tratamientos.component';
 import { DiagnosticoComponent } from './diagnostico/diagnostico.component';
+import { DiagnosticoViewComponent } from './diagnostico-view/diagnostico-view.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { DiagnosticoComponent } from './diagnostico/diagnostico.component';
     MisPracticasComponent,
     AbrirHistoriaEstudianteComponent,
     TratamientosComponent,
-    DiagnosticoComponent
+    DiagnosticoComponent,
+    DiagnosticoViewComponent
   ],
   imports: [
     CommonModule,

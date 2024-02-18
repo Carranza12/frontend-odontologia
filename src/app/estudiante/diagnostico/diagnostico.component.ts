@@ -20,15 +20,6 @@ export class DiagnosticoComponent implements OnInit {
   canvasWidth: number = 800;
   canvasHeight: number = 600;
 
-  public evidencia1: FormControl = new FormControl('');
-  public evidencia2: FormControl = new FormControl('');
-  public evidencia3: FormControl = new FormControl('');
-  public evidencia4: FormControl = new FormControl('');
-  public evidencia5: FormControl = new FormControl('');
-
-  public showConsultasInfoTab: boolean = false;
-  public showOdontogramaInfoTab: boolean = true;
-
   public diagnosticoForm = this.formBuilder.group({
     motivos_de_la_consulta: new FormControl(''),
     fecha_de_la_consulta: new FormControl(''),
@@ -59,11 +50,9 @@ export class DiagnosticoComponent implements OnInit {
     evidencia5: new FormControl(''),
   });
 
-  public estudianteData: any = {};
-
-  public isAprobadoAnyConsulta: boolean = false;
-
   public historia_clinica_id: any = '';
+
+  public item: any;
   constructor(
     private formBuilder: FormBuilder,
     private apiSevice: ApiService,
@@ -75,8 +64,14 @@ export class DiagnosticoComponent implements OnInit {
     let user: any = localStorage.getItem('user');
     user = JSON.parse(user);
 
-    this.route.params.subscribe(params => {
-      this.historia_clinica_id = params['id']; 
+    this.route.params.subscribe((params) => {
+      this.historia_clinica_id = params['id'];
+      this.apiSevice
+        .getHistoriaClinica(this.historia_clinica_id)
+        .subscribe((res: any) => {
+          this.item = res.item;
+          console.log('ITEM:', this.item);
+        });
     });
   }
 
@@ -96,7 +91,6 @@ export class DiagnosticoComponent implements OnInit {
       );
     };
   }
-
 
   startDrawing(event: MouseEvent): void {
     this.isDrawing = true;
@@ -119,34 +113,48 @@ export class DiagnosticoComponent implements OnInit {
     window.open(url, '_blank');
   }
 
-  public onSubmit() {
-    const odontograma = this.canvas.nativeElement.toDataURL('image/png');
+  public async onSubmit() {
+    const result = await Swal.fire({
+      title: '¿Estás seguro de crear el diagnostico? una vez creado, NO podra ser editado.',
+      showCancelButton: true,
+      confirmButtonText: 'Sí',
+      cancelButtonText: 'Cancelar',
+      icon: 'question',
+    });
 
-    const item = {
-      ...this.diagnosticoForm.value,
-      odontograma,
-      historia_clinica_id: this.historia_clinica_id
+    if (result.isConfirmed) {
+      try {
+        const odontograma = this.canvas.nativeElement.toDataURL('image/png');
+
+        const item = {
+          ...this.diagnosticoForm.value,
+          odontograma,
+          historia_clinica_id: this.historia_clinica_id,
+        };
+
+        this.apiSevice.createDiagnostico(item).subscribe(
+          (response: any) => {
+            console.log('Diagnostico creado con exito', response);
+            this.diagnosticoForm.reset();
+            Swal.fire(
+              'Diagnostico creado con exito',
+              'En breve seras redirigido a la historia clinica del paciente',
+              'success'
+            );
+            setTimeout(() => {
+              this._general.navigateBy(
+                `/estudiante/historia-clinica/edicion/${this.historia_clinica_id}`
+              );
+            }, 3000);
+          },
+          (error: any) => {
+            console.error('Error al guardar la historia clinica', error);
+          }
+        );
+      } catch (error) {
+        console.error(error);
+      }
     }
-
-    this.apiSevice
-      .createDiagnostico(item)
-      .subscribe(
-        (response: any) => {
-          console.log('Diagnostico creado con exito', response);
-          this.diagnosticoForm.reset();
-          Swal.fire(
-            'Diagnostico creado con exito',
-            'En breve seras redirigido a la historia clinica del paciente',
-            'success'
-          );
-          setTimeout(() => {
-            this._general.navigateBy(`/estudiante/historia-clinica/edicion/${this.historia_clinica_id}`);
-          }, 3000);
-        },
-        (error: any) => {
-          console.error('Error al guardar la historia clinica', error);
-        }
-      );
   }
 
   public fileToBase64(file: File): Promise<string> {
@@ -168,16 +176,25 @@ export class DiagnosticoComponent implements OnInit {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
       if (type === 'evidencia1')
-        this.diagnosticoForm.controls['evidencia1'].setValue(await this.fileToBase64(input.files[0]));
+        this.diagnosticoForm.controls['evidencia1'].setValue(
+          await this.fileToBase64(input.files[0])
+        );
       if (type === 'evidencia2')
-        this.diagnosticoForm.controls['evidencia2'].setValue(await this.fileToBase64(input.files[0]));
+        this.diagnosticoForm.controls['evidencia2'].setValue(
+          await this.fileToBase64(input.files[0])
+        );
       if (type === 'evidencia3')
-        this.diagnosticoForm.controls['evidencia3'].setValue(await this.fileToBase64(input.files[0]));
+        this.diagnosticoForm.controls['evidencia3'].setValue(
+          await this.fileToBase64(input.files[0])
+        );
       if (type === 'evidencia4')
-        this.diagnosticoForm.controls['evidencia4'].setValue(await this.fileToBase64(input.files[0]));
+        this.diagnosticoForm.controls['evidencia4'].setValue(
+          await this.fileToBase64(input.files[0])
+        );
       if (type === 'evidencia5')
-        this.diagnosticoForm.controls['evidencia5'].setValue(await this.fileToBase64(input.files[0]));
+        this.diagnosticoForm.controls['evidencia5'].setValue(
+          await this.fileToBase64(input.files[0])
+        );
     }
   }
-
 }

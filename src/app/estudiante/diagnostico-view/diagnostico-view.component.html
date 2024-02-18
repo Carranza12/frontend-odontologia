@@ -1,14 +1,14 @@
 <app-sidebar></app-sidebar>
 <main class="main_container">
   <app-page-title [title]="'Diagnostico'"></app-page-title>
-  <form
-    class="login-form"
-    [formGroup]="diagnosticoForm"
-    (ngSubmit)="onSubmit()"
-  >
+  <form class="login-form">
     <div class="historia_clinica" *ngIf="item">
-      <h3 style="text-transform: uppercase;margin-bottom: 20px; color: #b21e36;">Informacion del paciente</h3>
-     
+      <h3
+        style="text-transform: uppercase; margin-bottom: 20px; color: #b21e36"
+      >
+        Informacion del paciente
+      </h3>
+
       <div class="alerts">
         <app-alert
           enfermedad="Este paciente tiene diabetes."
@@ -36,64 +36,92 @@
         ></app-alert>
 
         <app-alert
-        enfermedad="Este paciente sufre problemas cardiovasculares."
-        *ngIf="item.historia_clinica.Enfermedades_Cardiovasculares"
-      ></app-alert>
-      </div> 
-      <div class="contenedor" style="display: flex;gap: 20px;flex-wrap: wrap;background-color: #ddd;padding: 20px;border-radius: 13px">
-      <div>
-        <label for=""><strong>Nombre Completo:</strong> {{item.paciente.nombre_completo}}</label>
+          enfermedad="Este paciente sufre problemas cardiovasculares."
+          *ngIf="item.historia_clinica.Enfermedades_Cardiovasculares"
+        ></app-alert>
       </div>
-      <div>
-        <label for=""><strong>0cupacion: </strong>{{item.paciente.ocupacion}}</label>
+      <div
+        class="contenedor"
+        style="
+          display: flex;
+          gap: 20px;
+          flex-wrap: wrap;
+          background-color: #ddd;
+          padding: 20px;
+          border-radius: 13px;
+        "
+      >
+        <div>
+          <label for=""
+            ><strong>Nombre Completo:</strong>
+            {{ item.paciente.nombre_completo }}</label
+          >
+        </div>
+        <div>
+          <label for=""
+            ><strong>0cupacion: </strong>{{ item.paciente.ocupacion }}</label
+          >
+        </div>
+        <div>
+          <label for=""
+            ><strong>Genero:</strong> {{ item.paciente.genero }}</label
+          >
+        </div>
+        <div>
+          <label for=""
+            ><strong>Telefono:</strong> {{ item.paciente.telefono }}</label
+          >
+        </div>
+        <div>
+          <label for=""
+            ><strong>Fecha de nacimiento:</strong>
+            {{ item.paciente.fecha_de_nacimiento }}</label
+          >
+        </div>
+        <div>
+          <label for=""
+            ><strong>Domicilio:</strong> {{ item.paciente.domicilio }}</label
+          >
+        </div>
+        <div>
+          <label for=""
+            ><strong>Ciudad actual:</strong>
+            {{ item.paciente.ciudad_Actual }}</label
+          >
+        </div>
+        <div>
+          <label for=""
+            ><strong>Estado civil: </strong>
+            {{ item.paciente.estado_civil }}</label
+          >
+        </div>
       </div>
-      <div>
-        <label for=""><strong>Genero:</strong> {{item.paciente.genero}}</label>
-      </div>
-      <div>
-        <label for=""><strong>Telefono:</strong> {{item.paciente.telefono}}</label>
-      </div>
-      <div>
-        <label for=""><strong>Fecha de nacimiento:</strong> {{item.paciente.fecha_de_nacimiento}}</label>
-      </div>
-      <div>
-        <label for=""><strong>Domicilio:</strong> {{item.paciente.domicilio}}</label>
-      </div>
-      <div>
-        <label for=""><strong>Ciudad actual:</strong> {{item.paciente.ciudad_Actual}}</label>
-      </div>
-      <div>
-        <label for=""><strong>Estado civil: </strong> {{item.paciente.estado_civil}}</label>
-      </div>
-     </div>
     </div>
-    <div class="tabs">
+    <div class="tabs" *ngIf="diagnosticoItem">
       <h3>ODONTROGRAMA</h3>
 
-      <canvas
-        [width]="canvasWidth"
-        [height]="canvasHeight"
-        #canvas
-        width="500"
-        height="500"
-        (mousedown)="startDrawing($event)"
-        (mousemove)="draw($event)"
-        (mouseup)="endDrawing()"
-      ></canvas>
+      <img
+        [src]="diagnosticoItem.odontograma"
+        width="800"
+        height="600"
+        alt=""
+      />
 
       <h3>CABEZA:</h3>
       <div class="form_control">
         <label for="" class="label_input">Craneo:</label>
         <textarea
           class="form_input form_textarea"
-          formControlName="cabeza_craneo"
+          readonly
+          [value]="diagnosticoItem.cabeza_craneo"
         ></textarea>
       </div>
       <div class="form_control">
         <label for="" class="label_input">Cara:</label>
         <textarea
           class="form_input form_textarea"
-          formControlName="cabeza_cara"
+          readonly
+          [value]="diagnosticoItem.cabeza_cara"
         ></textarea>
       </div>
       <h3>BOCA:</h3>
@@ -101,42 +129,48 @@
         <label for="" class="label_input">Labios:</label>
         <textarea
           class="form_input form_textarea"
-          formControlName="boca_labios"
+          readonly
+          [value]="diagnosticoItem.boca_labios"
         ></textarea>
       </div>
       <div class="form_control">
         <label for="" class="label_input">Carillos:</label>
         <textarea
           class="form_input form_textarea"
-          formControlName="boca_carrillos"
+          readonly
+          [value]="diagnosticoItem.boca_carrillos"
         ></textarea>
       </div>
       <div class="form_control">
         <label for="" class="label_input">Encia:</label>
         <textarea
           class="form_input form_textarea"
-          formControlName="boca_encia"
+          readonly
+          [value]="diagnosticoItem.boca_encia"
         ></textarea>
       </div>
       <div class="form_control">
         <label for="" class="label_input">Piso de Boca:</label>
         <textarea
           class="form_input form_textarea"
-          formControlName="boca_piso_de_boca"
+          readonly
+          [value]="diagnosticoItem.boca_piso_de_boca"
         ></textarea>
       </div>
       <div class="form_control">
         <label for="" class="label_input">Lengua:</label>
         <textarea
           class="form_input form_textarea"
-          formControlName="boca_lengua"
+          readonly
+          [value]="diagnosticoItem.boca_lengua"
         ></textarea>
       </div>
       <div class="form_control">
         <label for="" class="label_input">Paladar:</label>
         <textarea
           class="form_input form_textarea"
-          formControlName="boca_paladar"
+          readonly
+          [value]="diagnosticoItem.boca_paladar"
         ></textarea>
       </div>
 
@@ -145,14 +179,16 @@
         <label for="" class="label_input"></label>
         <textarea
           class="form_input form_textarea"
-          formControlName="atm"
+          readonly
+          [value]="diagnosticoItem.atm"
         ></textarea>
       </div>
       <div class="form_control">
         <label for="" class="label_input">Anexos:</label>
         <textarea
           class="form_input form_textarea"
-          formControlName="atm_anexos"
+          readonly
+          [value]="diagnosticoItem.atm_anexos"
         ></textarea>
       </div>
       <div class="form_control">
@@ -161,21 +197,24 @@
         >
         <textarea
           class="form_input form_textarea"
-          formControlName="atm_macizo_oseo"
+          readonly
+          [value]="diagnosticoItem.atm_macizo_oseo"
         ></textarea>
       </div>
       <div class="form_control">
         <label for="" class="label_input">CUELLO:</label>
         <textarea
           class="form_input form_textarea"
-          formControlName="cuello"
+          readonly
+          [value]="diagnosticoItem.cuello"
         ></textarea>
       </div>
       <div class="form_control">
         <label for="" class="label_input">TORAX:</label>
         <textarea
           class="form_input form_textarea"
-          formControlName="torax"
+          readonly
+          [value]="diagnosticoItem.torax"
         ></textarea>
       </div>
 
@@ -183,46 +222,50 @@
         <label for="" class="label_input">ABDOMEN:</label>
         <textarea
           class="form_input form_textarea"
-          formControlName="abdomen"
+          readonly
+          [value]="diagnosticoItem.abdomen"
         ></textarea>
       </div>
       <div class="form_control">
         <label for="" class="label_input">EXTREMIDADES:</label>
         <textarea
           class="form_input form_textarea"
-          formControlName="extremidades"
+          readonly
+          [value]="diagnosticoItem.extremidades"
         ></textarea>
       </div>
       <div class="form_control">
         <label for="" class="label_input">EXAMENES DE LABORATORIO:</label>
         <textarea
           class="form_input form_textarea"
-          formControlName="examenes_de_laboratorio"
+          readonly
+          [value]="diagnosticoItem.examenes_de_laboratorio"
         ></textarea>
       </div>
       <div class="form_control">
         <label for="" class="label_input">DIAGNOSTICO:</label>
         <textarea
           class="form_input form_textarea"
-          formControlName="diagnostico"
+          readonly
+          [value]="diagnosticoItem.diagnostico"
         ></textarea>
       </div>
       <div class="form_control">
         <label for="" class="label_input">OBSERVACIONES:</label>
         <textarea
           class="form_input form_textarea"
-          formControlName="observaciones"
+          readonly
+          [value]="diagnosticoItem.observaciones"
         ></textarea>
       </div>
       <h3>INFORMACION</h3>
-
-      
 
       <div class="form_control">
         <label for="" class="label_input">Motivos de la consulta:</label>
         <textarea
           class="form_input form_textarea"
-          formControlName="motivos_de_la_consulta"
+          readonly
+          [value]="diagnosticoItem.motivos_de_la_consulta"
         >
         </textarea>
       </div>
@@ -232,19 +275,11 @@
           class="form_input"
           type="date"
           placeholder="Fecha de nacimiento"
-          formControlName="fecha_de_la_consulta"
+          readonly
+          [value]="diagnosticoItem.fecha_de_la_consulta"
           name="fecha_de_nacimiento"
           autocomplete="off"
         />
-        <div
-          *ngIf="
-            diagnosticoForm.get('fecha_de_nacimiento')?.hasError('required') &&
-            diagnosticoForm.get('fecha_de_nacimiento')?.touched
-          "
-          class="error-message"
-        >
-          La fecha de nacimiento es requerida.
-        </div>
       </div>
       <div class="form_control">
         <label for="" class="label_input"
@@ -252,66 +287,40 @@
         >
         <textarea
           class="form_input form_textarea"
-          formControlName="comentarios_sobre_la_consulta"
+          readonly
+          [value]="diagnosticoItem.comentarios_sobre_la_consulta"
         >
         </textarea>
 
         <!--Los fuckin inputs de tipo file-->
 
-        <div class="form_control">
-          <label class="label_input" for="file1">Evidencia 1:</label>
-          <input
-            class="form_input"
-            type="file"
-            id="file1"
-            (change)="onFileSelected($event, 'evidencia1')"
-          /><br />
-        </div>
-
-        <div class="form_control">
-          <label class="label_input" for="file2">Evidencia 2:</label>
-          <input
-            class="form_input"
-            type="file"
-            id="file2"
-            (change)="onFileSelected($event, 'evidencia2')"
-          />
-        </div>
-
-        <div class="form_control">
-          <label class="label_input" for="file3">Evidencia 3:</label>
-          <input
-            class="form_input"
-            type="file"
-            id="file3"
-            (change)="onFileSelected($event, 'evidencia3')"
-          />
-        </div>
-
-        <div class="form_control">
-          <label class="label_input" for="file4">Evidencia 4:</label>
-          <input
-            class="form_input"
-            type="file"
-            id="file4"
-            (change)="onFileSelected($event, 'evidencia4')"
-          /><br />
-        </div>
-
-        <div class="form_control">
-          <label class="label_input" for="file5">Evidencia 5:</label>
-          <input
-            class="form_input"
-            type="file"
-            id="file5"
-            (change)="onFileSelected($event, 'evidencia5')"
-          /><br />
+        <div class="evidencias" style="display: flex; gap: 20px;flex-wrap: wrap;">
+            <div class="form_control">
+                <label class="label_input" for="file1">Evidencia 1:</label>
+                <img [src]="diagnosticoItem.evidencia1" width="300" height="300" alt="Sin evidencia" >
+              </div>
+      
+              <div class="form_control">
+                <label class="label_input" for="file2">Evidencia 2:</label>
+                <img [src]="diagnosticoItem.evidencia2" width="300" height="300" alt="Sin evidencia">
+              </div>
+      
+              <div class="form_control">
+                <label class="label_input" for="file3">Evidencia 3:</label>
+                <img [src]="diagnosticoItem.evidencia3" width="300" height="300" alt="Sin evidencia">
+              </div>
+      
+              <div class="form_control">
+                <label class="label_input" for="file4">Evidencia 4:</label>
+                <img [src]="diagnosticoItem.evidencia4" width="300" height="300" alt="Sin evidencia">
+              </div>
+      
+              <div class="form_control">
+                <label class="label_input" for="file5">Evidencia 5:</label>
+                <img  [src]="diagnosticoItem.evidencia5" width="300" height="300" alt="Sin evidencia">
+              </div>
         </div>
       </div>
-
-      <button type="button" (click)="onSubmit()" class="btn_primary">
-        Crear
-      </button>
     </div>
   </form>
   <div></div>
