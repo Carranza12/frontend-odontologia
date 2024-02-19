@@ -311,6 +311,10 @@ export class HistoriaClinicaEditComponent implements OnInit{
   ) {}
 
   ngOnInit(): void {
+
+
+    
+
     let user:any = localStorage.getItem("user")
     user = JSON.parse(user)
 
@@ -358,13 +362,13 @@ export class HistoriaClinicaEditComponent implements OnInit{
            }
 
            this.historiaClinicaForm.get("nombre_completo")?.setValue(response?.item?.paciente?.nombre_completo)
+           
            /*Valor de la fecha de nacimiento*/ 
            const fechaNacimiento = response?.item?.paciente?.fecha_de_nacimiento;
-           console.log(fechaNacimiento);
-           
+           const edad= this.calcularEdad(fechaNacimiento);
+           console.log(edad);
            this.historiaClinicaForm.get("fecha_de_nacimiento")?.setValue(response?.item?.paciente?.fecha_de_nacimiento)
            
-
            this.historiaClinicaForm.get("genero")?.setValue(response?.item?.paciente?.genero)
            this.historiaClinicaForm.get("estado_civil")?.setValue(response?.item?.paciente?.estado_civil)
            this.historiaClinicaForm.get("ocupacion")?.setValue(response?.item?.paciente?.ocupacion)
@@ -398,6 +402,7 @@ export class HistoriaClinicaEditComponent implements OnInit{
            if(response?.item?.historia_clinica?.Epilepticos){
             this.esEpileptico
            }
+
            this.historiaClinicaForm.get("tabaquismo")?.setValue(response?.item?.historia_clinica?.tabaquismo)
            this.historiaClinicaForm.get("toxicomanias")?.setValue(response?.item?.historia_clinica?.toxicomanias)
            this.historiaClinicaForm.get("higiene")?.setValue(response?.item?.historia_clinica?.higiene)
@@ -512,7 +517,7 @@ export class HistoriaClinicaEditComponent implements OnInit{
       }
     })
 
-   
+  
 
 
     this.historiaClinicaForm.controls.Diabeticos.valueChanges.subscribe((valor:any) => {
@@ -571,9 +576,37 @@ export class HistoriaClinicaEditComponent implements OnInit{
 
   }
 
+  public calcularEdad(fecha_nacimiento: string){
+    // Verificar si la fecha de nacimiento es proporcionada
+    if (!fecha_nacimiento) {
+      console.error("Fecha de nacimiento no proporcionada");
+      return -1; // Retorna un valor negativo para indicar un error o una edad no válida
+    }
+    // Convertir la cadena de fecha de nacimiento a un objeto Date
+    const fechaNacimiento = new Date(fecha_nacimiento);
+  
+    // Obtener la fecha actual
+    const ahora = new Date();
+  
+    // Calcular la diferencia de años
+    const edad = ahora.getFullYear() - fechaNacimiento.getFullYear();
+  
+    // Verificar si el cumpleaños ya pasó este año
+    if (
+      ahora.getMonth() < fechaNacimiento.getMonth() ||
+      (ahora.getMonth() === fechaNacimiento.getMonth() &&
+        ahora.getDate() < fechaNacimiento.getDate())
+    ) {
+      return edad - 1; // Restar 1 año si el cumpleaños aún no ha llegado este año
+    } else {
+      return edad;
+    }
+  }
+
   public viewEvidencia(url:string){
     window.open(url,"_blank")
   }
+
 
   public onSubmit() {
    
@@ -643,6 +676,8 @@ export class HistoriaClinicaEditComponent implements OnInit{
       }
     );
   }
+
+
 
   public async saveConsulta(){
     let user:any = localStorage.getItem("user")
@@ -774,8 +809,12 @@ export class HistoriaClinicaEditComponent implements OnInit{
     this.historiaClinicaForm.get("aparatos_sistemas_sintomas_generales_otros")?.valueChanges.subscribe((valor:any) => {
       this.showSintomasGeneralesOtroTextarea = valor
     })
-  
+
+    
+   
   }
+
+  
 
   public nextPaso2(){
     this.showPacienteInfoTab = false;
