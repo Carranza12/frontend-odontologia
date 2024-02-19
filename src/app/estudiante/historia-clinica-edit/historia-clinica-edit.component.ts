@@ -13,10 +13,13 @@ import Swal from 'sweetalert2';
   templateUrl: './historia-clinica-edit.component.html',
   styleUrls: ['./historia-clinica-edit.component.scss'],
 })
+
 export class HistoriaClinicaEditComponent implements OnInit{
+
+  public mostrarFirmas: boolean = true;
+
 /*Elementos de la firma*/ 
   @ViewChild('signature') signature!: NgxSignaturePadComponent;
-  
   public firmaImagen: any = null;
   public firmaImagenShow: string | null = null;
   public showEditFirma: boolean = false;
@@ -315,6 +318,7 @@ export class HistoriaClinicaEditComponent implements OnInit{
       this.materia_Seleccionada_consula = this.estudianteData.materias.find((item:any ) => item.value === value)
     })
     
+
     this._perfil_estudiante.getPerfil(user.user_id).subscribe(async (data:any) => {
       let materias :any = []
       for await(const item_materia of data.materias){
@@ -352,8 +356,15 @@ export class HistoriaClinicaEditComponent implements OnInit{
               this.isAprobadoAnyConsulta = true;
             }
            }
+
            this.historiaClinicaForm.get("nombre_completo")?.setValue(response?.item?.paciente?.nombre_completo)
+           /*Valor de la fecha de nacimiento*/ 
+           const fechaNacimiento = response?.item?.paciente?.fecha_de_nacimiento;
+           console.log(fechaNacimiento);
+           
            this.historiaClinicaForm.get("fecha_de_nacimiento")?.setValue(response?.item?.paciente?.fecha_de_nacimiento)
+           
+
            this.historiaClinicaForm.get("genero")?.setValue(response?.item?.paciente?.genero)
            this.historiaClinicaForm.get("estado_civil")?.setValue(response?.item?.paciente?.estado_civil)
            this.historiaClinicaForm.get("ocupacion")?.setValue(response?.item?.paciente?.ocupacion)
