@@ -62,14 +62,19 @@
         <a><i class="fas fa-home"></i>Mis Materias</a>
       </li>
 
-      <li [ngClass]="{ active_session: actual_path === 'abrir-historia-estudiante' }" *ngIf="userData.role_default === 'estudiante'"
-        (click)="navigateBy('/estudiante/abrir-historia-estudiante')">
+      <li [ngClass]="{ active_session: actual_path === 'abrir-historia-estudiante' }"
+        *ngIf="userData.role_default === 'estudiante'" (click)="navigateBy('/estudiante/abrir-historia-estudiante')">
         <a><i class="fas fa-home"></i>Historias clinicas</a>
       </li>
 
       <li [ngClass]="{ active_session: actual_path === 'mis-practicas' }" *ngIf="userData.role_default === 'estudiante'"
         (click)="navigateBy('/estudiante/mis-practicas')">
         <a><i class="fas fa-home"></i>Mis practicas</a>
+      </li>
+
+      <li [ngClass]="{ active_session: actual_path === 'tratamientos' }" *ngIf="userData.role_default === 'estudiante'"
+        (click)="navigateBy('/estudiante/tratamientos')">
+        <a><i class="fas fa-home"></i>Tratamientos</a>
       </li>
 
     </ul>

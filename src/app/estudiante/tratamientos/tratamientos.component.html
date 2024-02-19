@@ -1,39 +1,72 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
+<app-sidebar></app-sidebar>
 <html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Formulario</title>
-</head>
-<body>
-  <h2>Formulario</h2>
-  <form action="/submit" method="post">
-    <div>
-      <label for="tratamiento">Tratamiento:</label><br>
-      <textarea id="tratamiento" name="tratamiento" rows="4" cols="50"></textarea>
-    </div>
-    <div>
-      <label for="alumno">Alumno:</label><br>
-      <input type="text" id="alumno" name="alumno" maxlength="50">
-    </div>
-    <div>
-      <label for="matricula">Matrícula:</label><br>
-      <input type="text" id="matricula" name="matricula" maxlength="8" pattern="[0-9]*">
-    </div>
-    <div>
-      <label for="expediente">No. de expediente:</label><br>
-      <input type="text" id="expediente" name="expediente" maxlength="50">
-    </div>
-    <div>
-      <label for="firma_maestro">Firma del maestro:</label><br>
-    </div>
-    <div>
-      <label for="observaciones">Observaciones:</label><br>
-      <textarea id="observaciones" name="observaciones" rows="4" cols="50"></textarea>
-    </div>
-    <div>
-      <input type="submit" value="Enviar">
-    </div>
-  </form>
-</body>
+<main class="main_container">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="tratamientos.component.scss">
+    <title>Formulario</title>
+  </head>
+
+  <body>
+    <h2>Formulario</h2>
+    <form action="/submit" method="post">
+      <div>
+        <label class="label_input" for="tratamiento">Tratamiento:</label><br>
+        <textarea class="form_input form_textarea" id="tratamiento" name="tratamiento" rows="4" cols="50"
+          style="resize: none;"></textarea>
+      </div>
+      <div>
+        <label class="label_input" for="alumno">Alumno:</label><br>
+        <input class="form_input" type="text" id="alumno" name="alumno" maxlength="50">
+      </div>
+      <div>
+        <label class="label_input" for="matricula">Matrícula:</label><br>
+        <input class="form_input" type="text" id="matricula" name="matricula" maxlength="8" pattern="[0-9]*">
+      </div>
+      <div>
+        <label class="label_input" for="expediente">No. de expediente:</label><br>
+        <input class="form_input" type="text" id="expediente" name="expediente" maxlength="50">
+      </div>
+      <div>
+        <label class="label_input" for="firma_maestro">Firma del maestro:</label><br>
+        <div style="height: 80px;"></div>
+      </div>
+      <div>
+        <label class="label_input" for="observaciones">Observaciones:</label><br>
+        <textarea class="form_input form_textarea" id="observaciones" name="observaciones" rows="4" cols="50"
+          style="resize: none;"></textarea>
+      </div>
+      <h3>Evidencias del tratamiento</h3>
+      <div class="form_control">
+        <label class="label_input" for="file1">Evidencia 1:</label>
+        <input class="form_input" type="file" id="file1" name="file1"><br>
+      </div>
+      <div class="form_control">
+        <label class="label_input" for="file2">Evidencia 2:</label>
+        <input class="form_input" type="file" id="file2" name="file2">
+      </div>
+      <div class="form_control">
+        <label class="label_input" for="file3">Evidencia 3:</label>
+        <input class="form_input" type="file" id="file3" name="file3">
+      </div>
+      <div class="form_control">
+        <label class="label_input" for="file4">Evidencia 4:</label>
+        <input class="form_input" type="file" id="file4" name="file4"><br>
+      </div>
+      <div class="form_control">
+        <label class="label_input" for="file5">Evidencia 5:</label>
+        <input class="form_input" type="file" id="file5" name="file5"><br>
+      </div>
+      <div>
+      <button type="button" class="btn_primary">
+        Enviar
+      </button>
+      </div>
+    </form>
+  </body>
+</main>
+
 </html>
