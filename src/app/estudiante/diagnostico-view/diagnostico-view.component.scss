@@ -144,6 +144,7 @@ h3{
     transform: rotate(-45deg);
 }
 
+
 .container_dientes_arriba {
     display: flex;
     justify-content: center;
@@ -181,64 +182,8 @@ h3{
         height: 30px;
         background-color: transparent;
     }
-
-   
 }
 
-.contenedor_carta{
-    font-family: 'Arial', sans-serif;
-  max-width: 600px;
-  margin: 20px auto;
-  padding: 20px;
-  border-radius: 10px;
+.odontograma{
+    border: 2px soldi black;
 }
-
-.contenedor_carta p{
-    text-align: justify;
-  margin-bottom: 15px;
-  color: #555;
-}
-
-.contenedor_carta h3{
-    text-align: center;
-    margin-bottom: 15px;
-  }
-  
-  .contenedor_carta p {
-    text-align: center;
-    line-height: 1.5;
-  }
-
-  
-  .concentimiento {
-    display: flex;
-    gap: 10px;
-    align-items: center; 
-    width: 600px;
-    justify-content: center;
-    align-content: center;
-    margin: 0 auto;
-    margin-top: 40px;
-  }
-  
-  .concentimiento label {
-    margin-bottom: 5px; 
-  }
-  
-  .concentimiento input {
-    border: none;
-    border-bottom: 1px solid #ccc; 
-    padding: 5px;
-    box-sizing: border-box;
-    margin-bottom: 10px;
-    width: 200px;
-  }
-  
-  .firma-placeholder {
-  }
-
-  .nombre{
-    width: 400px;
-  }
-
-

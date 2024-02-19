@@ -8,6 +8,8 @@ import { MisPracticasComponent } from './mis-practicas/mis-practicas.component';
 import { historiaGuard } from './historia-clinica.guard';
 import { AbrirHistoriaEstudianteComponent } from './abrir-historia-estudiante/abrir-historia-estudiante.component';
 import { TratamientosComponent } from './tratamientos/tratamientos.component';
+import { DiagnosticoComponent } from './diagnostico/diagnostico.component';
+import { DiagnosticoViewComponent } from './diagnostico-view/diagnostico-view.component';
 
 const routes: Routes = [
   { path: '', canActivate: [EstudianteGuard], component: EstudianteComponent },
@@ -16,7 +18,8 @@ const routes: Routes = [
   { path: 'mis-practicas', canActivate: [EstudianteGuard], component: MisPracticasComponent },
   { path: 'abrir-historia-estudiante', canActivate: [EstudianteGuard], component: AbrirHistoriaEstudianteComponent },
   { path: 'tratamientos', canActivate: [EstudianteGuard], component: TratamientosComponent },
-  { path: 'diagnostico', canActivate: [EstudianteGuard], loadChildren: () => import('./diagnostico/diagnostico.module').then(m => m.DiagnosticoModule) },
+  { path: 'diagnostico/:id', canActivate: [EstudianteGuard], component: DiagnosticoComponent },
+  { path: 'diagnostico-view/:id', canActivate: [EstudianteGuard], component: DiagnosticoViewComponent },
 ];
 
 @NgModule({

@@ -96,6 +96,19 @@ export class ApiService {
     return false;
   }
 
+  getDiagnostico(id: string) :any{
+    const token = localStorage.getItem('token');
+    if (token) {
+      const headers = new HttpHeaders({
+        Authorization: `Bearer ${token}`,
+      });
+      return this.http.get(`${this.CRETAE_PATIENT_HISTORIA_URL_API}/diagnostico/${id}`, {
+        headers,
+      });
+    }
+    return false;
+  }
+
   getHistoriaClinicaByMateria(materia_id: string) :any{
     const token = localStorage.getItem('token');
     if (token) {
@@ -208,6 +221,20 @@ export class ApiService {
       });
       console.log("BODY PARA EL BACKEND:", body)
       return this.http.put(`${this.CRETAE_PATIENT_HISTORIA_URL_API}/${id}`, body, {
+        headers,
+      });
+    }
+    return false;
+  }
+
+  createDiagnostico(body:any):any {
+    const token = localStorage.getItem('token');
+    if (token) {
+      const headers = new HttpHeaders({
+        Authorization: `Bearer ${token}`,
+      });
+      console.log("BODY PARA EL BACKEND:", body)
+      return this.http.post(`${this.CRETAE_PATIENT_HISTORIA_URL_API}/diagnostico`, body, {
         headers,
       });
     }
