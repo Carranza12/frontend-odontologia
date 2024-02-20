@@ -1483,7 +1483,7 @@
 
         <!--Carta de autorizacion-->
         <div *ngIf="showAutorizacionInfoTab" class="contenedor_carta">
-          <div *ngIf="mostrarFirmas">
+          <div>
           <h3>AUTORIZACION PARA TRATAMIENTO DENTAL</h3>
           <p>Por medio de la presente concedo autorizacion al Personal Medico Odontologico y Asistente Dental
           de esta Facultad de Odontologia para administrar anestesicos y otros medicamentos, asi como emplear 
@@ -1495,7 +1495,7 @@
           </p>
 
 
-            <div class="concentimiento">
+            <div class="concentimiento" *ngIf="esMayorDeEdad">
               <div class="nombre">
                 <label for="nombrePaciente">NOMBRE DEL PACIENTE:</label>
                 <label>-----------------------------------</label>
@@ -1521,7 +1521,7 @@
               </div>
               
               <div class="firma-placeholder">Firma del paciente:</div>-->
-              <div class="concentimiento">
+              <div class="concentimiento" *ngIf="esMenordeEdad">
                 <div class="nombre">
                   <label for="nombrePaciente">NOMBRE DEL PADRE O TUTOR:</label>
                   <label>-----------------------------------</label>
