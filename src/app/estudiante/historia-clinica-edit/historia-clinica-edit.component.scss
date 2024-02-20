@@ -201,5 +201,44 @@ h3{
 
 .contenedor_carta h3{
     text-align: center;
-  color: #333;
-}
+    margin-bottom: 15px;
+  }
+  
+  .contenedor_carta p {
+    text-align: center;
+    line-height: 1.5;
+  }
+
+  
+  .concentimiento {
+    display: flex;
+    gap: 10px;
+    align-items: center; 
+    width: 600px;
+    justify-content: center;
+    align-content: center;
+    margin: 0 auto;
+    margin-top: 40px;
+  }
+  
+  .concentimiento label {
+    margin-bottom: 5px; 
+  }
+  
+  .concentimiento input {
+    border: none;
+    border-bottom: 1px solid #ccc; 
+    padding: 5px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+    width: 200px;
+  }
+  
+  .firma-placeholder {
+  }
+
+  .nombre{
+    width: 400px;
+  }
+
+

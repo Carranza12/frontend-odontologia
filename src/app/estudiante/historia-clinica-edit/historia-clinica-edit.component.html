@@ -1480,7 +1480,10 @@
           </button>
         </div>
         
+
+        <!--Carta de autorizacion-->
         <div *ngIf="showAutorizacionInfoTab" class="contenedor_carta">
+          <div *ngIf="mostrarFirmas">
           <h3>AUTORIZACION PARA TRATAMIENTO DENTAL</h3>
           <p>Por medio de la presente concedo autorizacion al Personal Medico Odontologico y Asistente Dental
           de esta Facultad de Odontologia para administrar anestesicos y otros medicamentos, asi como emplear 
@@ -1494,21 +1497,23 @@
 
             <div class="concentimiento">
               <div class="nombre">
-                <label for="nombrePaciente">Nombre del paciente:</label>
-                <label>Nombre xd</label>
+                <label for="nombrePaciente">NOMBRE DEL PACIENTE:</label>
+                <label>-----------------------------------</label>
               </div>
               
               <div class="firma-placeholder">
-                <label>Firma del Paciente</label>
+                <label>FIRMA DEL PACIENTE:</label>
                 <ngx-signature-pad
               #signature
               [options]="options"
               (beginSign)="onBeginSign()"
               (endSign)="onEndSign()"
               >
-            </ngx-signature-pad>
+              </ngx-signature-pad>
               </div>
             </div>
+
+            
 
             <!--<div class="nombre">
                 <label for="nombrePaciente">Nombre del paciente:</label>
@@ -1516,9 +1521,25 @@
               </div>
               
               <div class="firma-placeholder">Firma del paciente:</div>-->
+              <div class="concentimiento">
+                <div class="nombre">
+                  <label for="nombrePaciente">NOMBRE DEL PADRE O TUTOR:</label>
+                  <label>-----------------------------------</label>
+                </div>
 
+                <div class="firma-placeholder">
+                  <label>FIRMA DEL PADRE O TUTOR</label>
+                  <ngx-signature-pad
+                #signature
+                [options]="options"
+                (beginSign)="onBeginSign()"
+                (endSign)="onEndSign()"
+                >
+                </ngx-signature-pad>
+                </div>
+              </div>
+            </div>
         </div>
-        
       </div>
     </div>
     
