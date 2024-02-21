@@ -1,33 +1,88 @@
-<!DOCTYPE html>
 <app-sidebar></app-sidebar>
-<html lang="es">
 <main class="main_container">
+  <app-page-title [title]="'Tratamiento'"></app-page-title>
+  <div class="historia_clinica" *ngIf="item">
+    <h3 style="text-transform: uppercase;margin-bottom: 20px; color: #b21e36;">Informacion del paciente</h3>
+   
+    <div class="alerts">
+      <app-alert
+        enfermedad="Este paciente tiene diabetes."
+        *ngIf="item.historia_clinica.Diabeticos"
+      ></app-alert>
+      <app-alert
+        enfermedad="Este paciente es alcoholico."
+        *ngIf="item.historia_clinica.alcoholismo"
+      ></app-alert>
+      <app-alert
+        enfermedad="Este paciente es fumador."
+        *ngIf="item.historia_clinica.tabaquismo"
+      ></app-alert>
+      <app-alert
+        enfermedad="Este paciente sufre de epilepcia"
+        *ngIf="item.historia_clinica.Epilepticos"
+      ></app-alert>
+      <app-alert
+        enfermedad="Este paciente tiene antecedentes reumaticos."
+        *ngIf="item.historia_clinica.Reumaticos"
+      ></app-alert>
+      <app-alert
+        enfermedad="Este paciente sufre de alergias."
+        *ngIf="item.historia_clinica.Alergicos"
+      ></app-alert>
 
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="tratamientos.component.scss">
-    <title>Formulario</title>
-  </head>
-  <body>
-    <h2>Formulario</h2>
-    <form action="/submit" method="post">
+      <app-alert
+      enfermedad="Este paciente sufre problemas cardiovasculares."
+      *ngIf="item.historia_clinica.Enfermedades_Cardiovasculares"
+    ></app-alert>
+    </div> 
+    <div class="contenedor" style="display: flex;gap: 20px;flex-wrap: wrap;background-color: #ddd;padding: 20px;border-radius: 13px">
+    <div>
+      <label for=""><strong>Nombre Completo:</strong> {{item.paciente.nombre_completo}}</label>
+    </div>
+    <div>
+      <label for=""><strong>0cupacion: </strong>{{item.paciente.ocupacion}}</label>
+    </div>
+    <div>
+      <label for=""><strong>Genero:</strong> {{item.paciente.genero}}</label>
+    </div>
+    <div>
+      <label for=""><strong>Telefono:</strong> {{item.paciente.telefono}}</label>
+    </div>
+    <div>
+      <label for=""><strong>Fecha de nacimiento:</strong> {{item.paciente.fecha_de_nacimiento}}</label>
+    </div>
+    <div>
+      <label for=""><strong>Domicilio:</strong> {{item.paciente.domicilio}}</label>
+    </div>
+    <div>
+      <label for=""><strong>Ciudad actual:</strong> {{item.paciente.ciudad_Actual}}</label>
+    </div>
+    <div>
+      <label for=""><strong>Estado civil: </strong> {{item.paciente.estado_civil}}</label>
+    </div>
+   </div>
+  </div>
+    <form
+    class="login-form"
+    [formGroup]="tratamientoForm"
+    (ngSubmit)="onSubmit()"
+    >
       <div>
         <label class="label_input" for="tratamiento">Tratamiento:</label><br>
-        <textarea class="form_input form_textarea" id="tratamiento" name="tratamiento" rows="4" cols="50"
+        <textarea class="form_input form_textarea" id="tratamiento" formControlName="tratamiento" rows="4" cols="50"
           style="resize: none;"></textarea>
       </div>
       <div>
         <label class="label_input" for="alumno">Alumno:</label><br>
-        <input class="form_input" type="text" id="alumno" name="alumno" maxlength="50">
+        <input class="form_input" type="text" id="alumno" formControlName="alumno" maxlength="50" readonly>
       </div>
       <div>
         <label class="label_input" for="matricula">Matrícula:</label><br>
-        <input class="form_input" type="text" id="matricula" name="matricula" maxlength="8" pattern="[0-9]*">
+        <input class="form_input" type="text" id="matricula" formControlName="matricula" maxlength="8" pattern="[0-9]*">
       </div>
       <div>
         <label class="label_input" for="expediente">No. de expediente:</label><br>
-        <input class="form_input" type="text" id="expediente" name="expediente" maxlength="50">
+        <input class="form_input" type="text" id="expediente" formControlName="expediente" maxlength="50">
       </div>
       <div>
         <label class="label_input" for="firma_maestro">Firma del maestro:</label><br>
@@ -35,33 +90,33 @@
       </div>
       <div>
         <label class="label_input" for="observaciones">Observaciones:</label><br>
-        <textarea class="form_input form_textarea" id="observaciones" name="observaciones" rows="4" cols="50"
+        <textarea class="form_input form_textarea" id="observaciones" formControlName="observaciones" rows="4" cols="50"
           style="resize: none;"></textarea>
       </div>
       <h3>Evidencias del tratamiento</h3>
       <div class="form_control">
         <label class="label_input" for="file1">Evidencia 1:</label>
-        <input class="form_input" type="file" id="file1" name="file1"
+        <input class="form_input" type="file" id="file1" formControlName="evidencia1"
         (change)="onFileSelected($event, 'evidencia1')"><br>
       </div>
       <div class="form_control">
         <label class="label_input" for="file2">Evidencia 2:</label>
-        <input class="form_input" type="file" id="file2" name="file2"
+        <input class="form_input" type="file" id="file2" formControlName="evidencia2"
         (change)="onFileSelected($event, 'evidencia2')">
       </div>
       <div class="form_control">
         <label class="label_input" for="file3">Evidencia 3:</label>
-        <input class="form_input" type="file" id="file3" name="file3"
+        <input class="form_input" type="file" id="file3" formControlName="evidencia3"
         (change)="onFileSelected($event, 'evidencia3')">
       </div>
       <div class="form_control">
         <label class="label_input" for="file4">Evidencia 4:</label>
-        <input class="form_input" type="file" id="file4" name="file4"
+        <input class="form_input" type="file" id="file4" formControlName="evidencia4"
         (change)="onFileSelected($event, 'evidencia4')"><br>
       </div>
       <div class="form_control">
         <label class="label_input" for="file5">Evidencia 5:</label>
-        <input class="form_input" type="file" id="file5" name="file5"
+        <input class="form_input" type="file" id="file5" formControlName="evidencia5"
         (change)="onFileSelected($event, 'evidencia5')"><br>
       </div>
       <div>
@@ -70,7 +125,4 @@
       </button>
       </div>
     </form>
-  </body>
 </main>
-
-</html>

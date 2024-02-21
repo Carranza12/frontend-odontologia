@@ -17,7 +17,7 @@ const routes: Routes = [
   { path: 'mis-materias', canActivate: [EstudianteGuard], component: MisProfesoresComponent },
   { path: 'mis-practicas', canActivate: [EstudianteGuard], component: MisPracticasComponent },
   { path: 'abrir-historia-estudiante', canActivate: [EstudianteGuard], component: AbrirHistoriaEstudianteComponent },
-  { path: 'tratamientos', canActivate: [EstudianteGuard], component: TratamientosComponent },
+  { path: 'tratamientos/:id', canActivate: [EstudianteGuard], component: TratamientosComponent },
   { path: 'diagnostico/:id', canActivate: [EstudianteGuard], component: DiagnosticoComponent },
   { path: 'diagnostico-view/:id', canActivate: [EstudianteGuard], component: DiagnosticoViewComponent },
 ];

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/api.service';
 import { GeneralService } from 'src/app/general.service';
@@ -12,7 +12,18 @@ import Swal from 'sweetalert2';
 })
 
 export class TratamientosComponent {
-  diagnosticoForm: any;
+  public tratamientoForm = this.formBuilder.group({
+    tratamiento: new FormControl(''),
+    alumno: new FormControl(''),
+    matricula: new FormControl(''),
+    expediente: new FormControl(''),
+    observaciones: new FormControl(''),
+    evidencia1: new FormControl(''),
+    evidencia2: new FormControl(''),
+    evidencia3: new FormControl(''),
+    evidencia4: new FormControl(''),
+    evidencia5: new FormControl(''),
+  });
   public async onSubmit() {
     const result = await Swal.fire({
       title: '¿Estás seguro de crear? Una vez creado, NO podra ser editado.',
@@ -64,23 +75,23 @@ export class TratamientosComponent {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
       if (type === 'evidencia1')
-        this.diagnosticoForm.controls['evidencia1'].setValue(
+        this.tratamientoForm.controls['evidencia1'].setValue(
           await this.fileToBase64(input.files[0])
         );
       if (type === 'evidencia2')
-        this.diagnosticoForm.controls['evidencia2'].setValue(
+        this.tratamientoForm.controls['evidencia2'].setValue(
           await this.fileToBase64(input.files[0])
         );
       if (type === 'evidencia3')
-        this.diagnosticoForm.controls['evidencia3'].setValue(
+        this.tratamientoForm.controls['evidencia3'].setValue(
           await this.fileToBase64(input.files[0])
         );
       if (type === 'evidencia4')
-        this.diagnosticoForm.controls['evidencia4'].setValue(
+        this.tratamientoForm.controls['evidencia4'].setValue(
           await this.fileToBase64(input.files[0])
         );
       if (type === 'evidencia5')
-        this.diagnosticoForm.controls['evidencia5'].setValue(
+        this.tratamientoForm.controls['evidencia5'].setValue(
           await this.fileToBase64(input.files[0])
         );
     }
