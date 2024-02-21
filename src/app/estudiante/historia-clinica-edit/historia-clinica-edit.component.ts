@@ -156,6 +156,7 @@ export class HistoriaClinicaEditComponent implements OnInit{
 
   public historiaClinicaForm = this.formBuilder.group({
     //INFORMACION GENERAL DEL PACIENTE
+    nombre_tutor:[''],
     nombre_completo: ['', Validators.required],
     fecha_de_nacimiento: ['', Validators.required],
     genero: ['', Validators.required],
@@ -365,14 +366,21 @@ export class HistoriaClinicaEditComponent implements OnInit{
            /*Valor de la fecha de nacimiento*/ 
            const fechaNacimiento = response?.item?.paciente?.fecha_de_nacimiento;
            const edad= this.calcularEdad(fechaNacimiento);
-           if (edad < 18) {
-            this.esMayorDeEdad =false;
-            this.esMenordeEdad = true;
-          } else{
-            this.esMayorDeEdad = true;
+           console.log(edad);
+           if(edad!=-1){
+            if (edad < 18) {
+              this.esMayorDeEdad =false;
+              this.esMenordeEdad = true;
+            } else{
+              this.esMayorDeEdad = true;
+              this.esMenordeEdad = false;
+            }
+          }else{
+            this.esMayorDeEdad=false;
             this.esMenordeEdad = false;
           }
-           console.log(edad);
+
+          
            this.historiaClinicaForm.get("fecha_de_nacimiento")?.setValue(response?.item?.paciente?.fecha_de_nacimiento)
            
            this.historiaClinicaForm.get("genero")?.setValue(response?.item?.paciente?.genero)
@@ -524,6 +532,25 @@ export class HistoriaClinicaEditComponent implements OnInit{
     })
 
   
+this.historiaClinicaForm.controls.fecha_de_nacimiento.valueChanges.subscribe((valor:any)=>{
+  const fechaNacimiento = valor;
+  const edad= this.calcularEdad(fechaNacimiento);
+  console.log(edad);
+  if(edad!=-1){
+   if (edad < 18) {
+     this.esMayorDeEdad =false;
+     this.esMenordeEdad = true;
+   } else{
+     this.esMayorDeEdad = true;
+     this.esMenordeEdad = false;
+   }
+ }else{
+   this.esMayorDeEdad=false;
+   this.esMenordeEdad = false;
+ }
+
+}) 
+
 
 
     this.historiaClinicaForm.controls.Diabeticos.valueChanges.subscribe((valor:any) => {
@@ -625,8 +652,7 @@ export class HistoriaClinicaEditComponent implements OnInit{
 
     const item = {
      ...this.historiaClinicaForm.value,
-      consultas : this.consultasList,
-      odontogramas: [],
+     firmaPaciente: this.firmaImagen,
       paciente: {
         nombre_completo: this.historiaClinicaForm.get("nombre_completo")?.value,
         fecha_de_nacimiento : this.historiaClinicaForm.get("fecha_de_nacimiento")?.value,
@@ -646,6 +672,8 @@ export class HistoriaClinicaEditComponent implements OnInit{
 
       }
     };
+    console.log(item);
+    return;
 
     this.apiSevice.updateHistoriaClinica(this.historia_clinica_id, item).subscribe(
       (response: any) => {

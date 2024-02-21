@@ -1475,9 +1475,7 @@
               />
             </div>
           </div>
-          <button type="submit" class="btn_primary" >
-            crear
-          </button>
+         
         </div>
         
 
@@ -1498,7 +1496,7 @@
             <div class="concentimiento" *ngIf="esMayorDeEdad">
               <div class="nombre">
                 <label for="nombrePaciente">NOMBRE DEL PACIENTE:</label>
-                <label>-----------------------------------</label>
+                <label>{{this.historiaClinicaForm.controls.nombre_completo.value}}</label>
               </div>
               
               <div class="firma-placeholder">
@@ -1524,7 +1522,7 @@
               <div class="concentimiento" *ngIf="esMenordeEdad">
                 <div class="nombre">
                   <label for="nombrePaciente">NOMBRE DEL PADRE O TUTOR:</label>
-                  <label>-----------------------------------</label>
+                  <input type="text" formControlName="nombre_tutor" class="form_input">
                 </div>
 
                 <div class="firma-placeholder">
@@ -1539,6 +1537,9 @@
                 </div>
               </div>
             </div>
+            <button type="submit" class="btn_primary" >
+              crear
+            </button>
         </div>
       </div>
     </div>
