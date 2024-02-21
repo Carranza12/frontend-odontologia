@@ -156,6 +156,7 @@ export class HistoriaClinicaEditComponent implements OnInit{
 
   public historiaClinicaForm = this.formBuilder.group({
     //INFORMACION GENERAL DEL PACIENTE
+    nombre_tutor:[''],
     nombre_completo: ['', Validators.required],
     fecha_de_nacimiento: ['', Validators.required],
     genero: ['', Validators.required],
@@ -283,11 +284,6 @@ export class HistoriaClinicaEditComponent implements OnInit{
     exploracion_fisica_peso: [],
   });
 
-  public motivos_de_la_consulta = new FormControl('');
-  public fecha_de_la_consulta = new FormControl('');
-  public comentarios_sobre_la_consulta = new FormControl('');
-  public practica_para_la_materia = new FormControl('');
-  public materia_Seleccionada_consula:any = {}
 
   //ENFERMEDADES
   public esDiabetico: boolean = false;
@@ -316,10 +312,6 @@ export class HistoriaClinicaEditComponent implements OnInit{
   ngOnInit(): void {
     let user:any = localStorage.getItem("user")
     user = JSON.parse(user)
-
-    this.practica_para_la_materia.valueChanges.subscribe((value) => {
-      this.materia_Seleccionada_consula = this.estudianteData.materias.find((item:any ) => item.value === value)
-    })
     
 
     this._perfil_estudiante.getPerfil(user.user_id).subscribe(async (data:any) => {
@@ -365,14 +357,21 @@ export class HistoriaClinicaEditComponent implements OnInit{
            /*Valor de la fecha de nacimiento*/ 
            const fechaNacimiento = response?.item?.paciente?.fecha_de_nacimiento;
            const edad= this.calcularEdad(fechaNacimiento);
-           if (edad < 18) {
-            this.esMayorDeEdad =false;
-            this.esMenordeEdad = true;
-          } else{
-            this.esMayorDeEdad = true;
+           console.log(edad);
+           if(edad!=-1){
+            if (edad < 18) {
+              this.esMayorDeEdad =false;
+              this.esMenordeEdad = true;
+            } else{
+              this.esMayorDeEdad = true;
+              this.esMenordeEdad = false;
+            }
+          }else{
+            this.esMayorDeEdad=false;
             this.esMenordeEdad = false;
           }
-           console.log(edad);
+
+          
            this.historiaClinicaForm.get("fecha_de_nacimiento")?.setValue(response?.item?.paciente?.fecha_de_nacimiento)
            
            this.historiaClinicaForm.get("genero")?.setValue(response?.item?.paciente?.genero)
@@ -524,6 +523,25 @@ export class HistoriaClinicaEditComponent implements OnInit{
     })
 
   
+this.historiaClinicaForm.controls.fecha_de_nacimiento.valueChanges.subscribe((valor:any)=>{
+  const fechaNacimiento = valor;
+  const edad= this.calcularEdad(fechaNacimiento);
+  console.log(edad);
+  if(edad!=-1){
+   if (edad < 18) {
+     this.esMayorDeEdad =false;
+     this.esMenordeEdad = true;
+   } else{
+     this.esMayorDeEdad = true;
+     this.esMenordeEdad = false;
+   }
+ }else{
+   this.esMayorDeEdad=false;
+   this.esMenordeEdad = false;
+ }
+
+}) 
+
 
 
     this.historiaClinicaForm.controls.Diabeticos.valueChanges.subscribe((valor:any) => {
@@ -625,8 +643,7 @@ export class HistoriaClinicaEditComponent implements OnInit{
 
     const item = {
      ...this.historiaClinicaForm.value,
-      consultas : this.consultasList,
-      odontogramas: [],
+     firmaPaciente: this.firmaImagen,
       paciente: {
         nombre_completo: this.historiaClinicaForm.get("nombre_completo")?.value,
         fecha_de_nacimiento : this.historiaClinicaForm.get("fecha_de_nacimiento")?.value,
@@ -689,87 +706,6 @@ export class HistoriaClinicaEditComponent implements OnInit{
     );
   }
 
-
-
-  public async saveConsulta(){
-    let user:any = localStorage.getItem("user")
-    user = JSON.parse(user)
-
-    if(!this.fecha_de_la_consulta.value || !this.motivos_de_la_consulta.value || !this.comentarios_sobre_la_consulta.value || !this.practica_para_la_materia.value){
-      Swal.fire(
-        'Oops...',
-        'Por favor rellena los campos vacios para crear una consulta.',
-        'error'
-      )
-      return;
-    }
-    if(this.esAlcoholico || this.esAlergico || this.esDiabetico || this.esEpileptico || this.esEpileptico || this.esFumador || this.esReumatico){
-      const result = await Swal.fire({
-        title: '¿Estás seguro de crear la consulta?',
-        text: 'su paciente cuenta con alertas...',
-        showCancelButton: true,
-        confirmButtonText: 'Sí, estoy seguro de crear la consulta',
-        cancelButtonText: 'regresar',
-        icon: 'question'
-      });
-  
-      if (result.isConfirmed) {
-        try {
-          const consulta = {
-            fecha_consulta: this.fecha_de_la_consulta.value,
-            motivos_consulta: this.motivos_de_la_consulta.value,
-            comentarios: this.comentarios_sobre_la_consulta.value,
-            estudiante: {
-             ...this.estudianteData,
-             nombre: user.fullName
-            },
-            practica_para_la_materia: this.materia_Seleccionada_consula,
-            aprobado: "Sin aprobar",
-            maestro: { maestro_id: "", nombre: ""},
-            selected : false,
-            evidencia1: this.evidencia1.value,
-            evidencia2: this.evidencia2.value,
-            evidencia3: this.evidencia3.value,
-            evidencia4: this.evidencia4.value,
-            evidencia5: this.evidencia5.value,
-          }
-         this.consultasList.push(consulta)
-         this.fecha_de_la_consulta.setValue("")
-         this.motivos_de_la_consulta.setValue("")
-         this.comentarios_sobre_la_consulta.setValue("")
-         this.practica_para_la_materia.setValue("")
-         return;
-        } catch (error) {
-          console.error(error);
-        }
-      }
-      return;
-    }
-   
-    const consulta = {
-      fecha_consulta: this.fecha_de_la_consulta.value,
-      motivos_consulta: this.motivos_de_la_consulta.value,
-      comentarios: this.comentarios_sobre_la_consulta.value,
-      estudiante: {
-       ...this.estudianteData,
-       nombre: user.fullName
-      },
-      practica_para_la_materia: this.materia_Seleccionada_consula,
-      aprobado: "Sin aprobar",
-      maestro: { maestro_id: "", nombre: ""},
-      selected : false,
-      evidencia1: this.evidencia1.value,
-      evidencia2: this.evidencia2.value,
-      evidencia3: this.evidencia3.value,
-      evidencia4: this.evidencia4.value,
-      evidencia5: this.evidencia5.value,
-    }
-   this.consultasList.push(consulta)
-   this.fecha_de_la_consulta.setValue("")
-   this.motivos_de_la_consulta.setValue("")
-   this.comentarios_sobre_la_consulta.setValue("")
-   this.practica_para_la_materia.setValue("")
-  }
 
   public fileToBase64(file: File): Promise<string> {
     return new Promise((resolve, reject) => {
