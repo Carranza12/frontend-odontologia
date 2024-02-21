@@ -297,7 +297,6 @@ export class HistoriaClinicaEditComponent implements OnInit{
 
   public isAprobadoAnyConsulta:boolean = false;
 
-  public consultasList:any = []
 
   public historia_clinica_id:any = ''
   constructor(
@@ -314,43 +313,12 @@ export class HistoriaClinicaEditComponent implements OnInit{
     user = JSON.parse(user)
     
 
-    this._perfil_estudiante.getPerfil(user.user_id).subscribe(async (data:any) => {
-      let materias :any = []
-      for await(const item_materia of data.materias){
-        this._asignaturas.get(item_materia.materia_id).subscribe((materia_data:any) => {
-          materias.push({
-            text: materia_data.nombre,
-            value: materia_data._id
-          })
-        })
-      }
-      this.estudianteData = {
-        matricula: data.Matricula,
-        carrera: data.carrera,
-        materias: materias,
-        semestre_Actual: data.semestre_actual,
-        id_estudiante: data._id
-      }
-
-    
-    })
-   
     this._route.params.subscribe((param) => {
-
-
-
-
       this.historia_clinica_id = param['id']
       if(this.historia_clinica_id){
         this.apiSevice.getHistoriaClinica(this.historia_clinica_id).subscribe(
           (response: any) => {
            console.log("RESPONSE:", response.item)
-           const consultas = response.item.historia_clinica.consultas;
-           for(const consulta of consultas){
-            if(consulta.aprobado === 'Aprobado'){
-              this.isAprobadoAnyConsulta = true;
-            }
-           }
 
            this.historiaClinicaForm.get("nombre_completo")?.setValue(response?.item?.paciente?.nombre_completo)
            
@@ -373,7 +341,7 @@ export class HistoriaClinicaEditComponent implements OnInit{
 
           
            this.historiaClinicaForm.get("fecha_de_nacimiento")?.setValue(response?.item?.paciente?.fecha_de_nacimiento)
-           
+           this.historiaClinicaForm.get('nombre_tutor')?.setValue(response?.item?.historia_clinica?.nombre_tutor)
            this.historiaClinicaForm.get("genero")?.setValue(response?.item?.paciente?.genero)
            this.historiaClinicaForm.get("estado_civil")?.setValue(response?.item?.paciente?.estado_civil)
            this.historiaClinicaForm.get("ocupacion")?.setValue(response?.item?.paciente?.ocupacion)
@@ -510,10 +478,6 @@ export class HistoriaClinicaEditComponent implements OnInit{
            this.historiaClinicaForm.get("exploracion_fisica_frec_respiratoria")?.setValue(response?.item?.historia_clinica?.exploracion_fisica_frec_respiratoria)
            this.historiaClinicaForm.get("exploracion_fisica_temperatura")?.setValue(response?.item?.historia_clinica?.exploracion_fisica_temperatura)
            this.historiaClinicaForm.get("exploracion_fisica_peso")?.setValue(response?.item?.historia_clinica?.exploracion_fisica_peso)
-   
-
-           this.consultasList = response.item.historia_clinica.consultas
-           this.consultasList = this.consultasList.map((item:any) => ({...item, selected: true}))
           },
           (error: any) => {
             console.error('Error al registrar el usuario', error);
@@ -667,29 +631,6 @@ this.historiaClinicaForm.controls.fecha_de_nacimiento.valueChanges.subscribe((va
     this.apiSevice.updateHistoriaClinica(this.historia_clinica_id, item).subscribe(
       (response: any) => {
         console.log('historia clinica guardada con exito', response);
-
-        this.consultasList.forEach((consulta:any) => {
-          console.log("cosnulta:", consulta)
-          const materia_id = consulta.practica_para_la_materia.value;
-          this._perfil_estudiante.getPerfil(consulta.estudiante.id_estudiante).subscribe((estudianteData:any) => {
- 
-            let materias = estudianteData.materias;
-            let find_index_materia_to_update = materias.findIndex((materia:any) => materia.materia_id === materia_id )
-            let find_materia_to_update = materias.find((materia:any) => materia.materia_id === materia_id )
-        
-            materias[find_index_materia_to_update] = {
-              materia_id : find_materia_to_update.materia_id,
-              practicas_realizadas : consulta.selected ? find_materia_to_update.practicas_realizadas : find_materia_to_update.practicas_realizadas + 1
-            }
-            const item_to_update = {
-              ...estudianteData,
-              materias
-            }
-            this._perfil_estudiante.update_perfil(consulta.estudiante.id_estudiante, item_to_update).subscribe((data_Res:any) => {
-              console.log("compleado con exito", data_Res)
-            })
-          })
-        })
         this.historiaClinicaForm.reset();
         Swal.fire(
           'Historia clinica actualizada con exito',
