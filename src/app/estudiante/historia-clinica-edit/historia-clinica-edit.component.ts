@@ -24,9 +24,12 @@ export class HistoriaClinicaEditComponent implements OnInit{
 /*Elementos de la firma*/ 
   @ViewChild('signature') signature!: NgxSignaturePadComponent;
   public firmaImagen: any = null;
+
   public firmaImagenShow: string | null = null;
   public showEditFirma: boolean = false;
-  public isEditPerfil: boolean = false;
+  public isEditHistoria: boolean = false;
+
+
   public user_id!: string;
   public perfilForm = this.formBuilder.group({
     expediente: ['', Validators.required],
@@ -134,11 +137,6 @@ export class HistoriaClinicaEditComponent implements OnInit{
     { value: 'novia', text: 'Novia' },
   ];
 
-  public evidencia1: FormControl = new FormControl('');
-  public evidencia2: FormControl = new FormControl('');
-  public evidencia3: FormControl = new FormControl('');
-  public evidencia4: FormControl = new FormControl('');
-  public evidencia5: FormControl = new FormControl('');
 
   public showPacienteInfoTab: boolean = true;
   public showAntecedentesInfoTab: boolean = false;
@@ -325,8 +323,9 @@ export class HistoriaClinicaEditComponent implements OnInit{
            /*Valor de la fecha de nacimiento*/ 
            const fechaNacimiento = response?.item?.paciente?.fecha_de_nacimiento;
            const edad= this.calcularEdad(fechaNacimiento);
-           console.log(edad);
+          
            if(edad!=-1){
+            this.isEditHistoria = true;
             if (edad < 18) {
               this.esMayorDeEdad =false;
               this.esMenordeEdad = true;
@@ -339,7 +338,10 @@ export class HistoriaClinicaEditComponent implements OnInit{
             this.esMenordeEdad = false;
           }
 
-          
+            if(this.isEditHistoria){
+              this.firmaImagenShow = response?.item?.historia_clinica?.firmaPaciente
+              this.firmaImagen = response?.item?.historia_clinica?.firmaPaciente
+            }
            this.historiaClinicaForm.get("fecha_de_nacimiento")?.setValue(response?.item?.paciente?.fecha_de_nacimiento)
            this.historiaClinicaForm.get('nombre_tutor')?.setValue(response?.item?.historia_clinica?.nombre_tutor)
            this.historiaClinicaForm.get("genero")?.setValue(response?.item?.paciente?.genero)
@@ -375,7 +377,7 @@ export class HistoriaClinicaEditComponent implements OnInit{
            if(response?.item?.historia_clinica?.Epilepticos){
             this.esEpileptico
            }
-
+           
            this.historiaClinicaForm.get("tabaquismo")?.setValue(response?.item?.historia_clinica?.tabaquismo)
            this.historiaClinicaForm.get("toxicomanias")?.setValue(response?.item?.historia_clinica?.toxicomanias)
            this.historiaClinicaForm.get("higiene")?.setValue(response?.item?.historia_clinica?.higiene)
@@ -663,16 +665,7 @@ this.historiaClinicaForm.controls.fecha_de_nacimiento.valueChanges.subscribe((va
     });
   }
 
-  async onFileSelected(event: Event, type:String) {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files.length > 0) {
-      if(type === "evidencia1")  this.evidencia1.setValue(await this.fileToBase64(input.files[0]))
-      if(type === "evidencia2")  this.evidencia2.setValue(await this.fileToBase64(input.files[0]))
-      if(type === "evidencia3")  this.evidencia3.setValue(await this.fileToBase64(input.files[0]))
-      if(type === "evidencia4")  this.evidencia4.setValue(await this.fileToBase64(input.files[0]))
-      if(type === "evidencia5")  this.evidencia5.setValue(await this.fileToBase64(input.files[0]))
-    }
-  }
+ 
 
   public otroCheckbox() {
     this.historiaClinicaForm.get("aparatos_sistemas_digestivo_Otros")?.valueChanges.subscribe((valor:any) => {

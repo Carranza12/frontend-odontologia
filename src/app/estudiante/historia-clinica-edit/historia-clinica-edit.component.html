@@ -1493,7 +1493,7 @@
           </p>
 
 
-            <div class="concentimiento" *ngIf="esMayorDeEdad">
+            <div class="concentimiento" *ngIf="esMayorDeEdad && !isEditHistoria">
               <div class="nombre">
                 <label for="nombrePaciente">NOMBRE DEL PACIENTE:</label>
                 <label>{{this.historiaClinicaForm.controls.nombre_completo.value}}</label>
@@ -1511,15 +1511,45 @@
               </div>
             </div>
 
-            
-
-            <!--<div class="nombre">
-                <label for="nombrePaciente">Nombre del paciente:</label>
-              <input type="text" id="nombrePaciente" name="nombrePaciente" placeholder="Ingrese su nombre">
+            <div class="concentimiento" *ngIf="esMayorDeEdad && isEditHistoria">
+              <div class="nombre">
+                <label for="nombrePaciente">NOMBRE DEL PACIENTE:</label>
+                <label>{{this.historiaClinicaForm.controls.nombre_completo.value}}</label>
               </div>
               
-              <div class="firma-placeholder">Firma del paciente:</div>-->
-              <div class="concentimiento" *ngIf="esMenordeEdad">
+              <div class="firma-placeholder">
+                <label>FIRMA DEL PACIENTE:</label>
+                <div  *ngIf="firmaImagenShow && !showEditFirma">
+                  <img
+                  class="firma_img"
+                 
+                    [src]="firmaImagenShow"
+                    alt="Firma"
+                   
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="concentimiento" *ngIf="esMenordeEdad && !isEditHistoria">
+              <div class="nombre">
+                <label for="nombrePaciente">NOMBRE DEL PADRE O TUTOR:</label>
+                <input type="text" formControlName="nombre_tutor" class="form_input">
+              </div>
+              
+              <div class="firma-placeholder">
+                <label>FIRMA DEL PADRE O TUTOR:</label>
+                <ngx-signature-pad
+              #signature
+              [options]="options"
+              (beginSign)="onBeginSign()"
+              (endSign)="onEndSign()"
+              >
+              </ngx-signature-pad>
+              </div>
+            </div>
+     
+              <div class="concentimiento" *ngIf="esMenordeEdad && isEditHistoria">
                 <div class="nombre">
                   <label for="nombrePaciente">NOMBRE DEL PADRE O TUTOR:</label>
                   <input type="text" formControlName="nombre_tutor" class="form_input">
@@ -1527,13 +1557,15 @@
 
                 <div class="firma-placeholder">
                   <label>FIRMA DEL PADRE O TUTOR</label>
-                  <ngx-signature-pad
-                #signature
-                [options]="options"
-                (beginSign)="onBeginSign()"
-                (endSign)="onEndSign()"
-                >
-                </ngx-signature-pad>
+                  <div  *ngIf="firmaImagenShow && !showEditFirma">
+                    <img
+                    class="firma_img"
+                   
+                      [src]="firmaImagenShow"
+                      alt="Firma"
+                     
+                    />
+                  </div>
                 </div>
               </div>
             </div>
