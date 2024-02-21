@@ -16,8 +16,11 @@ import Swal from 'sweetalert2';
 
 export class HistoriaClinicaEditComponent implements OnInit{
 
-  public mostrarFirmas: boolean = true;
+  public esMayorDeEdad: boolean = false;
+  public esMenordeEdad: boolean = false;
 
+
+  
 /*Elementos de la firma*/ 
   @ViewChild('signature') signature!: NgxSignaturePadComponent;
   public firmaImagen: any = null;
@@ -311,10 +314,6 @@ export class HistoriaClinicaEditComponent implements OnInit{
   ) {}
 
   ngOnInit(): void {
-
-
-    
-
     let user:any = localStorage.getItem("user")
     user = JSON.parse(user)
 
@@ -366,6 +365,13 @@ export class HistoriaClinicaEditComponent implements OnInit{
            /*Valor de la fecha de nacimiento*/ 
            const fechaNacimiento = response?.item?.paciente?.fecha_de_nacimiento;
            const edad= this.calcularEdad(fechaNacimiento);
+           if (edad < 18) {
+            this.esMayorDeEdad =false;
+            this.esMenordeEdad = true;
+          } else{
+            this.esMayorDeEdad = true;
+            this.esMenordeEdad = false;
+          }
            console.log(edad);
            this.historiaClinicaForm.get("fecha_de_nacimiento")?.setValue(response?.item?.paciente?.fecha_de_nacimiento)
            
@@ -576,6 +582,9 @@ export class HistoriaClinicaEditComponent implements OnInit{
 
   }
 
+
+
+//Funcion para obtener la edad del paciente
   public calcularEdad(fecha_nacimiento: string){
     // Verificar si la fecha de nacimiento es proporcionada
     if (!fecha_nacimiento) {
@@ -584,13 +593,10 @@ export class HistoriaClinicaEditComponent implements OnInit{
     }
     // Convertir la cadena de fecha de nacimiento a un objeto Date
     const fechaNacimiento = new Date(fecha_nacimiento);
-  
     // Obtener la fecha actual
     const ahora = new Date();
-  
     // Calcular la diferencia de años
     const edad = ahora.getFullYear() - fechaNacimiento.getFullYear();
-  
     // Verificar si el cumpleaños ya pasó este año
     if (
       ahora.getMonth() < fechaNacimiento.getMonth() ||
@@ -601,7 +607,13 @@ export class HistoriaClinicaEditComponent implements OnInit{
     } else {
       return edad;
     }
+
   }
+
+  
+
+
+
 
   public viewEvidencia(url:string){
     window.open(url,"_blank")
