@@ -240,4 +240,19 @@ export class ApiService {
     }
     return false;
   }
+
+  createTratamiento(body:any):any {
+    const token = localStorage.getItem('token');
+    if (token) {
+      const headers = new HttpHeaders({
+        Authorization: `Bearer ${token}`,
+      });
+      console.log("BODY PARA EL BACKEND:", body)
+      return this.http.post(`${this.CRETAE_PATIENT_HISTORIA_URL_API}/tratamientos`, body, {
+        headers,
+      });
+    }
+    return false;
+  }
 }
+

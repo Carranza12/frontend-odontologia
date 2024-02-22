@@ -12,11 +12,14 @@ import Swal from 'sweetalert2';
 })
 
 export class TratamientosComponent {
+
+  
   public tratamientoForm = this.formBuilder.group({
     tratamiento: new FormControl(''),
     alumno: new FormControl(''),
     matricula: new FormControl(''),
     expediente: new FormControl(''),
+    fecha_tratamiento: new FormControl(''),
     observaciones: new FormControl(''),
     evidencia1: new FormControl(''),
     evidencia2: new FormControl(''),
@@ -32,6 +35,37 @@ export class TratamientosComponent {
       cancelButtonText: 'Cancelar',
       icon: 'question',
     });
+    if (result.isConfirmed) {
+      try {
+        const item = {
+          ...this.tratamientoForm.value,
+          historia_clinica_id: this.historia_clinica_id,
+          maestro_id: ""
+        };
+
+        this.apiSevice.createTratamiento(item).subscribe(
+          (response: any) => {
+            console.log('Tratamiento creado con exito', response);
+            this.tratamientoForm.reset();
+            Swal.fire(
+              'Tratamiento creado con exito',
+              'En breve seras redirigido a la historia clinica del paciente',
+              'success'
+            );
+            setTimeout(() => {
+              this._general.navigateBy(
+                `/estudiante/historia-clinica/edicion/${this.historia_clinica_id}`
+              );
+            }, 3000);
+          },
+          (error: any) => {
+            console.error('Error al guardar la historia clinica', error);
+          }
+        );
+      } catch (error) {
+        console.error(error);
+      }
+    }
   }
   public historia_clinica_id: any = '';
 
@@ -46,7 +80,10 @@ export class TratamientosComponent {
   ngOnInit(): void {
     let user: any = localStorage.getItem('user');
     user = JSON.parse(user);
-
+    if(user){
+      console.log(user);
+      this.tratamientoForm.controls.alumno.setValue(user.fullName);
+    }
     this.route.params.subscribe((params: { [x: string]: any; }) => {
       this.historia_clinica_id = params['id'];
       this.apiSevice
