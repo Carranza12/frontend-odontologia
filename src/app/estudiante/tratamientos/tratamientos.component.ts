@@ -12,11 +12,14 @@ import Swal from 'sweetalert2';
 })
 
 export class TratamientosComponent {
+
+  
   public tratamientoForm = this.formBuilder.group({
     tratamiento: new FormControl(''),
     alumno: new FormControl(''),
     matricula: new FormControl(''),
     expediente: new FormControl(''),
+    fecha_tratamiento: new FormControl(''),
     observaciones: new FormControl(''),
     evidencia1: new FormControl(''),
     evidencia2: new FormControl(''),
@@ -46,7 +49,10 @@ export class TratamientosComponent {
   ngOnInit(): void {
     let user: any = localStorage.getItem('user');
     user = JSON.parse(user);
-
+    if(user){
+      console.log(user);
+      this.tratamientoForm.controls.alumno.setValue(user.fullName);
+    }
     this.route.params.subscribe((params: { [x: string]: any; }) => {
       this.historia_clinica_id = params['id'];
       this.apiSevice
