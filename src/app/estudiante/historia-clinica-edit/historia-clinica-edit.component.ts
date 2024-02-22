@@ -24,9 +24,12 @@ export class HistoriaClinicaEditComponent implements OnInit{
 /*Elementos de la firma*/ 
   @ViewChild('signature') signature!: NgxSignaturePadComponent;
   public firmaImagen: any = null;
+
   public firmaImagenShow: string | null = null;
   public showEditFirma: boolean = false;
-  public isEditPerfil: boolean = false;
+  public isEditHistoria: boolean = false;
+
+
   public user_id!: string;
   public perfilForm = this.formBuilder.group({
     expediente: ['', Validators.required],
@@ -134,11 +137,6 @@ export class HistoriaClinicaEditComponent implements OnInit{
     { value: 'novia', text: 'Novia' },
   ];
 
-  public evidencia1: FormControl = new FormControl('');
-  public evidencia2: FormControl = new FormControl('');
-  public evidencia3: FormControl = new FormControl('');
-  public evidencia4: FormControl = new FormControl('');
-  public evidencia5: FormControl = new FormControl('');
 
   public showPacienteInfoTab: boolean = true;
   public showAntecedentesInfoTab: boolean = false;
@@ -297,7 +295,6 @@ export class HistoriaClinicaEditComponent implements OnInit{
 
   public isAprobadoAnyConsulta:boolean = false;
 
-  public consultasList:any = []
 
   public historia_clinica_id:any = ''
   constructor(
@@ -314,51 +311,21 @@ export class HistoriaClinicaEditComponent implements OnInit{
     user = JSON.parse(user)
     
 
-    this._perfil_estudiante.getPerfil(user.user_id).subscribe(async (data:any) => {
-      let materias :any = []
-      for await(const item_materia of data.materias){
-        this._asignaturas.get(item_materia.materia_id).subscribe((materia_data:any) => {
-          materias.push({
-            text: materia_data.nombre,
-            value: materia_data._id
-          })
-        })
-      }
-      this.estudianteData = {
-        matricula: data.Matricula,
-        carrera: data.carrera,
-        materias: materias,
-        semestre_Actual: data.semestre_actual,
-        id_estudiante: data._id
-      }
-
-    
-    })
-   
     this._route.params.subscribe((param) => {
-
-
-
-
       this.historia_clinica_id = param['id']
       if(this.historia_clinica_id){
         this.apiSevice.getHistoriaClinica(this.historia_clinica_id).subscribe(
           (response: any) => {
            console.log("RESPONSE:", response.item)
-           const consultas = response.item.historia_clinica.consultas;
-           for(const consulta of consultas){
-            if(consulta.aprobado === 'Aprobado'){
-              this.isAprobadoAnyConsulta = true;
-            }
-           }
 
            this.historiaClinicaForm.get("nombre_completo")?.setValue(response?.item?.paciente?.nombre_completo)
            
            /*Valor de la fecha de nacimiento*/ 
            const fechaNacimiento = response?.item?.paciente?.fecha_de_nacimiento;
            const edad= this.calcularEdad(fechaNacimiento);
-           console.log(edad);
+          
            if(edad!=-1){
+            this.isEditHistoria = true;
             if (edad < 18) {
               this.esMayorDeEdad =false;
               this.esMenordeEdad = true;
@@ -371,9 +338,12 @@ export class HistoriaClinicaEditComponent implements OnInit{
             this.esMenordeEdad = false;
           }
 
-          
+            if(this.isEditHistoria){
+              this.firmaImagenShow = response?.item?.historia_clinica?.firmaPaciente
+              this.firmaImagen = response?.item?.historia_clinica?.firmaPaciente
+            }
            this.historiaClinicaForm.get("fecha_de_nacimiento")?.setValue(response?.item?.paciente?.fecha_de_nacimiento)
-           
+           this.historiaClinicaForm.get('nombre_tutor')?.setValue(response?.item?.historia_clinica?.nombre_tutor)
            this.historiaClinicaForm.get("genero")?.setValue(response?.item?.paciente?.genero)
            this.historiaClinicaForm.get("estado_civil")?.setValue(response?.item?.paciente?.estado_civil)
            this.historiaClinicaForm.get("ocupacion")?.setValue(response?.item?.paciente?.ocupacion)
@@ -407,7 +377,7 @@ export class HistoriaClinicaEditComponent implements OnInit{
            if(response?.item?.historia_clinica?.Epilepticos){
             this.esEpileptico
            }
-
+           
            this.historiaClinicaForm.get("tabaquismo")?.setValue(response?.item?.historia_clinica?.tabaquismo)
            this.historiaClinicaForm.get("toxicomanias")?.setValue(response?.item?.historia_clinica?.toxicomanias)
            this.historiaClinicaForm.get("higiene")?.setValue(response?.item?.historia_clinica?.higiene)
@@ -510,10 +480,6 @@ export class HistoriaClinicaEditComponent implements OnInit{
            this.historiaClinicaForm.get("exploracion_fisica_frec_respiratoria")?.setValue(response?.item?.historia_clinica?.exploracion_fisica_frec_respiratoria)
            this.historiaClinicaForm.get("exploracion_fisica_temperatura")?.setValue(response?.item?.historia_clinica?.exploracion_fisica_temperatura)
            this.historiaClinicaForm.get("exploracion_fisica_peso")?.setValue(response?.item?.historia_clinica?.exploracion_fisica_peso)
-   
-
-           this.consultasList = response.item.historia_clinica.consultas
-           this.consultasList = this.consultasList.map((item:any) => ({...item, selected: true}))
           },
           (error: any) => {
             console.error('Error al registrar el usuario', error);
@@ -667,29 +633,6 @@ this.historiaClinicaForm.controls.fecha_de_nacimiento.valueChanges.subscribe((va
     this.apiSevice.updateHistoriaClinica(this.historia_clinica_id, item).subscribe(
       (response: any) => {
         console.log('historia clinica guardada con exito', response);
-
-        this.consultasList.forEach((consulta:any) => {
-          console.log("cosnulta:", consulta)
-          const materia_id = consulta.practica_para_la_materia.value;
-          this._perfil_estudiante.getPerfil(consulta.estudiante.id_estudiante).subscribe((estudianteData:any) => {
- 
-            let materias = estudianteData.materias;
-            let find_index_materia_to_update = materias.findIndex((materia:any) => materia.materia_id === materia_id )
-            let find_materia_to_update = materias.find((materia:any) => materia.materia_id === materia_id )
-        
-            materias[find_index_materia_to_update] = {
-              materia_id : find_materia_to_update.materia_id,
-              practicas_realizadas : consulta.selected ? find_materia_to_update.practicas_realizadas : find_materia_to_update.practicas_realizadas + 1
-            }
-            const item_to_update = {
-              ...estudianteData,
-              materias
-            }
-            this._perfil_estudiante.update_perfil(consulta.estudiante.id_estudiante, item_to_update).subscribe((data_Res:any) => {
-              console.log("compleado con exito", data_Res)
-            })
-          })
-        })
         this.historiaClinicaForm.reset();
         Swal.fire(
           'Historia clinica actualizada con exito',
@@ -722,16 +665,7 @@ this.historiaClinicaForm.controls.fecha_de_nacimiento.valueChanges.subscribe((va
     });
   }
 
-  async onFileSelected(event: Event, type:String) {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files.length > 0) {
-      if(type === "evidencia1")  this.evidencia1.setValue(await this.fileToBase64(input.files[0]))
-      if(type === "evidencia2")  this.evidencia2.setValue(await this.fileToBase64(input.files[0]))
-      if(type === "evidencia3")  this.evidencia3.setValue(await this.fileToBase64(input.files[0]))
-      if(type === "evidencia4")  this.evidencia4.setValue(await this.fileToBase64(input.files[0]))
-      if(type === "evidencia5")  this.evidencia5.setValue(await this.fileToBase64(input.files[0]))
-    }
-  }
+ 
 
   public otroCheckbox() {
     this.historiaClinicaForm.get("aparatos_sistemas_digestivo_Otros")?.valueChanges.subscribe((valor:any) => {
