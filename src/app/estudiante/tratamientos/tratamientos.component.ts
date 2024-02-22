@@ -12,8 +12,9 @@ import Swal from 'sweetalert2';
 })
 
 export class TratamientosComponent {
+  public historia_clinica_id!:string;
+  public diagnostico_id!:string;
 
-  
   public tratamientoForm = this.formBuilder.group({
     tratamiento: new FormControl(''),
     alumno: new FormControl(''),
@@ -40,9 +41,11 @@ export class TratamientosComponent {
         const item = {
           ...this.tratamientoForm.value,
           historia_clinica_id: this.historia_clinica_id,
+          diagnostico_id: this.diagnostico_id,
           maestro_id: ""
         };
-
+        console.log("item:", item)
+        return;
         this.apiSevice.createTratamiento(item).subscribe(
           (response: any) => {
             console.log('Tratamiento creado con exito', response);
@@ -67,7 +70,6 @@ export class TratamientosComponent {
       }
     }
   }
-  public historia_clinica_id: any = '';
 
   public item: any;
   constructor(
@@ -85,12 +87,13 @@ export class TratamientosComponent {
       this.tratamientoForm.controls.alumno.setValue(user.fullName);
     }
     this.route.params.subscribe((params: { [x: string]: any; }) => {
-      this.historia_clinica_id = params['id'];
+      this.historia_clinica_id = params['historia_clinica_id'];
+      this.diagnostico_id = params['diagnostico_id'];
+
       this.apiSevice
         .getHistoriaClinica(this.historia_clinica_id)
         .subscribe((res: any) => {
           this.item = res.item;
-          console.log('ITEM:', this.item);
         });
     });
   }

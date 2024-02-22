@@ -66,9 +66,15 @@
         <div *ngIf="showDiagnosticosInfoTab" class="tablas_diagnostico">
           <div class="encabezado-container">
           <h3>Diagnosticos del Paciente:</h3>
-          <input type="button" value="Nuevo Diagnostico" class="btn_primary">
+          <input type="button" value="Nuevo Diagnostico" class="btn_primary" (click)="OpenDiagnosticoForm()">
           </div>
-          <table class="mi-tabla">
+
+          <div class="alert alert-warning custom-alert" role="alert" *ngIf="diagnosticosList.length == 0">
+            No se han creado diagnosticos aun, crea uno presionando el boton <strong>"Nuevo Diagnostico"</strong>
+          </div>
+
+          
+          <table class="mi-tabla" *ngIf="diagnosticosList.length > 0">
             <thead>
               <tr>
                 <th>Fecha de Consulta</th>
@@ -79,12 +85,12 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>...</td>
-                <td>...</td>
-                <td>...</td>
-                <td>...</td>
-                <td><input type="button" class="" value="Ver"></td>
+              <tr *ngFor="let diagnostico of diagnosticosList">
+                <td>{{diagnostico.fecha_de_la_consulta | date }}</td>
+                <td>{{diagnostico.motivos_de_la_consulta}}</td>
+                <td>{{diagnostico.diagnostico}}</td>
+                <td>{{diagnostico.observaciones}}</td>
+                <td><input (click)="OpenDiagnosticoViewForm(diagnostico._id)" type="button" class="" value="Ver"></td>
               </tr>
               <!-- Puedes agregar más filas si es necesario -->
             </tbody>

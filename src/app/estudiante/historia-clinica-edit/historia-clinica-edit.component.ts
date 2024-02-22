@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormControlDirective, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSignaturePadComponent } from '@eve-sama/ngx-signature-pad';
 import { ApiService } from 'src/app/api.service';
 import { asignaturaService } from 'src/app/asignatura.service';
@@ -19,7 +19,7 @@ export class HistoriaClinicaEditComponent implements OnInit{
   public esMayorDeEdad: boolean = false;
   public esMenordeEdad: boolean = false;
 
-
+  public diagnosticosList:any[] = [];
   
 /*Elementos de la firma*/ 
   @ViewChild('signature') signature!: NgxSignaturePadComponent;
@@ -304,7 +304,8 @@ export class HistoriaClinicaEditComponent implements OnInit{
     private _general: GeneralService,
     private _route: ActivatedRoute,
     private _perfil_estudiante: PerfilEstudiantesService,
-    private _asignaturas:asignaturaService
+    private _asignaturas:asignaturaService,
+    private _router: Router
   ) {}
 
   ngOnInit(): void {
@@ -317,7 +318,6 @@ export class HistoriaClinicaEditComponent implements OnInit{
       if(this.historia_clinica_id){
         this.apiSevice.getHistoriaClinica(this.historia_clinica_id).subscribe(
           (response: any) => {
-           console.log("RESPONSE:", response.item)
 
            this.historiaClinicaForm.get("nombre_completo")?.setValue(response?.item?.paciente?.nombre_completo)
            
@@ -481,6 +481,11 @@ export class HistoriaClinicaEditComponent implements OnInit{
            this.historiaClinicaForm.get("exploracion_fisica_frec_respiratoria")?.setValue(response?.item?.historia_clinica?.exploracion_fisica_frec_respiratoria)
            this.historiaClinicaForm.get("exploracion_fisica_temperatura")?.setValue(response?.item?.historia_clinica?.exploracion_fisica_temperatura)
            this.historiaClinicaForm.get("exploracion_fisica_peso")?.setValue(response?.item?.historia_clinica?.exploracion_fisica_peso)
+          
+          this.apiSevice.getDiagnosticosByHistoriaClinicaID(this.historia_clinica_id).subscribe((respuesta:any) => {
+            console.log("DIASGNOSTICOS:", respuesta)
+            this.diagnosticosList = respuesta.items;
+          })
           },
           (error: any) => {
             console.error('Error al registrar el usuario', error);
@@ -778,5 +783,13 @@ this.historiaClinicaForm.controls.fecha_de_nacimiento.valueChanges.subscribe((va
       this.showAutorizacionInfoTab = false;
       this.showDiagnosticosInfoTab=true;
     }
+  }
+
+  public OpenDiagnosticoForm(){
+    this._router.navigateByUrl(`estudiante/diagnostico/${this.historia_clinica_id}`)
+  }
+
+  public OpenDiagnosticoViewForm(diagnostico_id:string){
+    this._router.navigateByUrl(`estudiante/diagnostico-view/${diagnostico_id}`)
   }
 }
