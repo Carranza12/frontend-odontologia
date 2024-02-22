@@ -143,6 +143,7 @@ export class HistoriaClinicaEditComponent implements OnInit{
   public showAparatosInfoTab: boolean = false;
   public showExploracionInfoTab: boolean = false;
   public showAutorizacionInfoTab: boolean = false;
+  public showDiagnosticosInfoTab: boolean = false;
 
 
   public showDigestivoOtroTextarea: boolean = false;
@@ -734,6 +735,7 @@ this.historiaClinicaForm.controls.fecha_de_nacimiento.valueChanges.subscribe((va
       this.showAparatosInfoTab = false;
       this.showAntecedentesInfoTab = false;
       this.showAutorizacionInfoTab = false;
+      this.showDiagnosticosInfoTab = false;
     }
     if (tabName === 'antecedentes') {
       this.showPacienteInfoTab = false;
@@ -741,6 +743,7 @@ this.historiaClinicaForm.controls.fecha_de_nacimiento.valueChanges.subscribe((va
       this.showExploracionInfoTab = false;
       this.showAparatosInfoTab = false;
       this.showAutorizacionInfoTab = false;
+      this.showDiagnosticosInfoTab = false;
     }
     if (tabName === 'aparatos_y_sistemas') {
       this.showPacienteInfoTab = false;
@@ -748,6 +751,7 @@ this.historiaClinicaForm.controls.fecha_de_nacimiento.valueChanges.subscribe((va
       this.showAparatosInfoTab = true;
       this.showAntecedentesInfoTab = false;
       this.showAutorizacionInfoTab = false;
+      this.showDiagnosticosInfoTab = false;
     }
     if (tabName === 'exploracion_fisica') {
       this.showPacienteInfoTab = false;
@@ -755,6 +759,7 @@ this.historiaClinicaForm.controls.fecha_de_nacimiento.valueChanges.subscribe((va
       this.showAparatosInfoTab = false;
       this.showAntecedentesInfoTab = false;
       this.showAutorizacionInfoTab = false;
+      this.showDiagnosticosInfoTab = false;
     }
     if (tabName === 'carta') {
       this.showPacienteInfoTab = false;
@@ -762,6 +767,16 @@ this.historiaClinicaForm.controls.fecha_de_nacimiento.valueChanges.subscribe((va
       this.showAparatosInfoTab = false;
       this.showAntecedentesInfoTab = false;
       this.showAutorizacionInfoTab = true;
+      this.showDiagnosticosInfoTab = false;
+    }
+
+    if(tabName === 'diagnosticos_tratamientos'){
+      this.showPacienteInfoTab = false;
+      this.showExploracionInfoTab = false;
+      this.showAparatosInfoTab = false;
+      this.showAntecedentesInfoTab = false;
+      this.showAutorizacionInfoTab = false;
+      this.showDiagnosticosInfoTab=true;
     }
   }
 }

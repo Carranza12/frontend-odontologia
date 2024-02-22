@@ -49,8 +49,77 @@
         >
           Carta de Consentimiento
         </button>
+<!--Nuevo apartado en historia clinica "Diagnosticos y tratamientos"-->
+        <button
+          class="tabs__nav-btn"
+          [ngClass]="{ active: showDiagnosticosInfoTab }"
+          type="button"
+          (click)="changeTab('diagnosticos_tratamientos')"
+        >
+          Diagnosticos y Tratamientos
+        </button>
+
 
       </div>
+<!--Contenido de Diagnosticos-->
+      <div class="tabs__content">
+        <div *ngIf="showDiagnosticosInfoTab" class="tablas_diagnostico">
+          <div class="encabezado-container">
+          <h3>Diagnosticos del Paciente:</h3>
+          <input type="button" value="Nuevo Diagnostico" class="btn_primary">
+          </div>
+          <table class="mi-tabla">
+            <thead>
+              <tr>
+                <th>Fecha de Consulta</th>
+                <th>Motivo de la Consulta</th>
+                <th>Diagnostico</th>
+                <th>Observaciones</th>
+                <th>Ver</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>...</td>
+                <td>...</td>
+                <td>...</td>
+                <td>...</td>
+                <td><input type="button" class="" value="Ver"></td>
+              </tr>
+              <!-- Puedes agregar más filas si es necesario -->
+            </tbody>
+          </table>
+
+
+          <div class="encabezado-container">
+            <h3>Hoja de Observaciones y Evolucion:</h3>
+            </div>
+            <table class="mi-tabla">
+              <thead>
+                <tr>
+                  <th>Fecha de Tratamiento</th>
+                  <th>Tratamiento</th>
+                  <th>Quien lo elabora</th>
+                  <th>Quien lo revisa</th>
+                  <th>Diagnostico</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>...</td>
+                  <td>...</td>
+                  <td>...</td>
+                  <td>...</td>
+                  <td>...</td>
+                </tr>
+                <!-- Puedes agregar más filas si es necesario -->
+              </tbody>
+            </table>
+
+
+        </div>
+      </div>
+
       <div class="tabs__content">
         <div *ngIf="showPacienteInfoTab" class="informacion_general_paciente">
           <h3>INFORMACION GENERAL DEL PACIENTE</h3>
