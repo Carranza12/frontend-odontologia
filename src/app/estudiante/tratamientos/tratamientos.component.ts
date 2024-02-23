@@ -14,6 +14,7 @@ import Swal from 'sweetalert2';
 export class TratamientosComponent {
   public historia_clinica_id!:string;
   public diagnostico_id!:string;
+  public alumno_id!:string;
 
   public tratamientoForm = this.formBuilder.group({
     tratamiento: new FormControl(''),
@@ -42,10 +43,10 @@ export class TratamientosComponent {
           ...this.tratamientoForm.value,
           historia_clinica_id: this.historia_clinica_id,
           diagnostico_id: this.diagnostico_id,
-          maestro_id: ""
+          maestro_id: "",
+          alumno_id: this.alumno_id
         };
-        console.log("item:", item)
-        return;
+
         this.apiSevice.createTratamiento(item).subscribe(
           (response: any) => {
             console.log('Tratamiento creado con exito', response);
@@ -83,8 +84,8 @@ export class TratamientosComponent {
     let user: any = localStorage.getItem('user');
     user = JSON.parse(user);
     if(user){
-      console.log(user);
       this.tratamientoForm.controls.alumno.setValue(user.fullName);
+      this.alumno_id = user.user_id;
     }
     this.route.params.subscribe((params: { [x: string]: any; }) => {
       this.historia_clinica_id = params['historia_clinica_id'];

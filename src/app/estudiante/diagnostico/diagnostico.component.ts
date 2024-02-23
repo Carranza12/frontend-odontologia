@@ -51,6 +51,7 @@ export class DiagnosticoComponent implements OnInit {
   });
 
   public historia_clinica_id: any = '';
+  public alumno_id: any = '';
 
   public item: any;
   constructor(
@@ -63,6 +64,9 @@ export class DiagnosticoComponent implements OnInit {
   ngOnInit(): void {
     let user: any = localStorage.getItem('user');
     user = JSON.parse(user);
+    if(user){
+      this.alumno_id = user.user_id
+    }
 
     this.route.params.subscribe((params) => {
       this.historia_clinica_id = params['id'];
@@ -130,6 +134,8 @@ export class DiagnosticoComponent implements OnInit {
           ...this.diagnosticoForm.value,
           odontograma,
           historia_clinica_id: this.historia_clinica_id,
+          alumno_id: this.alumno_id,
+          tratamiento_id: ''
         };
 
         this.apiSevice.createDiagnostico(item).subscribe(

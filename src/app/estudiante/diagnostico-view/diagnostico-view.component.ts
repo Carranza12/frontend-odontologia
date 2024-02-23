@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from 'src/app/api.service';
 import { asignaturaService } from 'src/app/asignatura.service';
 import { PerfilEstudiantesService } from 'src/app/empleado/services/perfil_estudiantes.service';
@@ -18,11 +18,13 @@ export class DiagnosticoViewComponent {
 
   public item: any;
   public diagnosticoItem:any;
+  public haveTratamiento: boolean = false;
   constructor(
     private formBuilder: FormBuilder,
     private apiSevice: ApiService,
     private _general: GeneralService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private _router: Router
   ) {}
 
   ngOnInit(): void {
@@ -35,13 +37,13 @@ export class DiagnosticoViewComponent {
         .getDiagnostico(diagnostico_id)
         .subscribe((res: any) => {
           this.diagnosticoItem = res.item;
-          console.log('DIAGNOSTICO ITEM:', this.diagnosticoItem);
-
+          if(this.diagnosticoItem.tratamiento_id){
+            this.haveTratamiento = true;
+          }
           this.apiSevice
           .getHistoriaClinica(this.diagnosticoItem.historia_clinica_id)
           .subscribe((res: any) => {
             this.item = res.item;
-            console.log('HISTORIA CLINICA ITEM:', this.item);
           });
         });
 
@@ -51,6 +53,10 @@ export class DiagnosticoViewComponent {
 
   public viewEvidencia(url: string) {
     window.open(url, '_blank');
+  }
+
+  public openTratamientoForm(){
+    this._router.navigateByUrl(`estudiante/tratamientos/${this.diagnosticoItem.historia_clinica_id}/${this.diagnosticoItem._id}`)
   }
 
 }

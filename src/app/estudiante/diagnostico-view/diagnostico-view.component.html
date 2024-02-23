@@ -1,6 +1,11 @@
 <app-sidebar></app-sidebar>
 <main class="main_container">
   <app-page-title [title]="'Diagnostico'"></app-page-title>
+  
+  <div class="alert alert-warning custom-alert" role="alert" *ngIf="!haveTratamiento" >
+    No se han creado un <strong>tratamiento</strong> aun, crea uno dando clic <span (click)="openTratamientoForm()" style="text-decoration: underline;cursor: pointer;"><strong>Aqui</strong></span>
+  </div>
+
   <form class="login-form">
     <div class="historia_clinica" *ngIf="item">
       <h3

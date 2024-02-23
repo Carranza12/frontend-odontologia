@@ -1,11 +1,14 @@
 <app-sidebar></app-sidebar>
 <main class="main_container">
   <app-page-title [title]="'Diagnostico'"></app-page-title>
+ 
   <form
     class="login-form"
     [formGroup]="diagnosticoForm"
     (ngSubmit)="onSubmit()"
   >
+ 
+
     <div class="historia_clinica" *ngIf="item">
       <h3 style="text-transform: uppercase;margin-bottom: 20px; color: #b21e36;">Informacion del paciente</h3>
      
