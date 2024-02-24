@@ -7,20 +7,23 @@
       <thead>
         <tr>
           <th>Fecha</th>
-          <th>Semestre</th>
-          <th>Materia</th>
-          <th>Estado</th>
-          <th>Maestro</th>
+          <th>Matricula</th>
+          <th>Obervaciones</th>
+          <th>Tratamiento</th>
+          <th>ESTADO</th>
+          <th>Abrir</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let practica of misPracticasList">
-          <td>{{ practica.fecha_consulta }}</td>
-          <td>{{ practica.estudiante.semestre_Actual }}</td>
-          <td>{{ practica.practica_para_la_materia.text }}</td>
-          <td>{{ practica.aprobado }}</td>
-          <td>{{ practica.maestro.nombre }}</td>
-          
+          <td>{{ practica.fecha_tratamiento }}</td>
+          <td>{{ practica.matricula }}</td>
+          <td>{{ practica.observaciones }}</td>
+          <td>{{ practica.tratamiento }}</td>
+          <td *ngIf="practica.maestro_id && practica.maestro_id ==='RECHAZADO'">RECHAZADA</td>
+          <td *ngIf="practica.maestro_id && practica.maestro_id !=='RECHAZADO'">APROBADA</td>
+          <td *ngIf="!practica.maestro_id">SIN REVISAR</td>
+          <td><button type="button" (click)="openPractica(practica.diagnostico_id, practica._id)" class="btn_primary">Abrir</button></td>
         </tr>
       </tbody>
     </table>

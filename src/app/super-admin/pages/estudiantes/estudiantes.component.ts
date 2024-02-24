@@ -23,8 +23,8 @@ export class EstudiantesComponent {
   ngOnInit(): void {
     this.apiService.getUsers().subscribe(
       (data: any) => {
-        if (Array.isArray(data)) {
-          this.estudiantesList = data.filter((item) => item.role_default === "estudiante");
+        if (Array.isArray(data.items)) {
+          this.estudiantesList = data.items.filter((item:any) => item.role_default === "estudiante");
         }
       },
       (error: any) => {

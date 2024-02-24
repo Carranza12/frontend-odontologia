@@ -28,6 +28,7 @@ export class TratamientosComponent {
     evidencia3: new FormControl(''),
     evidencia4: new FormControl(''),
     evidencia5: new FormControl(''),
+    motivo_rechazo: new FormControl('')
   });
   public async onSubmit() {
     const result = await Swal.fire({
@@ -44,7 +45,8 @@ export class TratamientosComponent {
           historia_clinica_id: this.historia_clinica_id,
           diagnostico_id: this.diagnostico_id,
           maestro_id: "",
-          alumno_id: this.alumno_id
+          alumno_id: this.alumno_id,
+          motivo_rechazo: ''
         };
 
         this.apiSevice.createTratamiento(item).subscribe(

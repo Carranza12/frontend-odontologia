@@ -16,6 +16,8 @@ export class ApiService {
   private GET_HISTORIA_AND_PATIENT_URL_API =
     environment.backendHost+'/api/patients/historia_clinica';
 
+    private PERFIL_MAESTROS_URL = environment.backendHost+'/api/perfil/maestros';
+
 
     private USER_URLE_MAIL_API = environment.backendHost+'/api/auth/user/email';
   constructor(private http: HttpClient) {}
@@ -35,6 +37,17 @@ export class ApiService {
     }
     return false;
   }
+  getMaestroPerfil(id:string): any {
+    const token = localStorage.getItem('token');
+    if (token) {
+      const headers = new HttpHeaders({
+        Authorization: `Bearer ${token}`,
+      });
+      return this.http.get(`${this.PERFIL_MAESTROS_URL}/${id}`, { headers });
+    }
+    return false;
+  }
+
 
   registerUser(user: any): any {
     const token = localStorage.getItem('token');
@@ -161,6 +174,19 @@ export class ApiService {
     return false;
   }
 
+  getTratamientosByAlumno(alumno_id: string) :any{
+    const token = localStorage.getItem('token');
+    if (token) {
+      const headers = new HttpHeaders({
+        Authorization: `Bearer ${token}`,
+      });
+      return this.http.get(`${this.CRETAE_PATIENT_HISTORIA_URL_API}/tratamientos/alumno/${alumno_id}`, {
+        headers,
+      });
+    }
+    return false;
+  }
+
   getHistoriaClinicaByEstudiante(id_estudiante: string) :any{
     const token = localStorage.getItem('token');
     if (token) {
@@ -260,6 +286,20 @@ export class ApiService {
       });
       console.log("BODY PARA EL BACKEND:", body)
       return this.http.put(`${this.CRETAE_PATIENT_HISTORIA_URL_API}/${id}`, body, {
+        headers,
+      });
+    }
+    return false;
+  }
+
+  updateTratamiento(id:any, body:any):any {
+    const token = localStorage.getItem('token');
+    if (token) {
+      const headers = new HttpHeaders({
+        Authorization: `Bearer ${token}`,
+      });
+      console.log("BODY PARA EL BACKEND:", body)
+      return this.http.put(`${this.CRETAE_PATIENT_HISTORIA_URL_API}/tratamientos/update/${id}`, body, {
         headers,
       });
     }

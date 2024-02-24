@@ -92,7 +92,7 @@
                 <td>{{diagnostico.diagnostico}}</td>
                 <td>{{diagnostico.tratamiento_id ? 'Ya cuenta con tratamiento': 'Aun no tiene tratamiento' }}</td>
                 <td>{{diagnostico.observaciones}}</td>
-                <td><input (click)="OpenDiagnosticoViewForm(diagnostico._id)" type="button" class="" value="Ver"></td>
+                <td><input *ngIf="usuarioLogeado.role_default ==='estudiante'" (click)="OpenDiagnosticoViewForm(diagnostico._id)" type="button" class="" value="Ver"></td>
               </tr>
               <!-- Puedes agregar más filas si es necesario -->
             </tbody>
@@ -102,6 +102,11 @@
           <div class="encabezado-container">
             <h3>Hoja de Observaciones y Evolucion:</h3>
             </div>
+
+            <div class="alert alert-warning custom-alert" role="alert" *ngIf="tratamientosList.length == 0">
+              No se han creado tratamientos aun, crea uno desde el detalle del diagnostico.
+            </div>
+
             <table class="mi-tabla"  *ngIf="tratamientosList.length > 0">
               <thead>
                 <tr>
@@ -119,10 +124,14 @@
                   <td>{{tratamiento.fecha_tratamiento }}</td>
                   <td>{{tratamiento.tratamiento}}</td>
                   <td>{{tratamiento.alumno}}</td>
-                  <td>{{tratamiento.maestro_id ? 'REVISADO': 'SIN REVISAR' }}</td>
+                  <td *ngIf="tratamiento.maestro_id && tratamiento.maestro_id !== 'RECHAZADO' ">REVISADO por {{ tratamiento.maestroData.name}}  {{tratamiento.maestroData.last_name}}
+                  <br/><img [src]="tratamiento.maestroData.firma" width="120px" height="60px" alt="">
+                  </td>
+                  <td *ngIf="!tratamiento.maestro_id ">SIN REVISAR</td>
+                  <td *ngIf="tratamiento.maestro_id && tratamiento.maestro_id === 'RECHAZADO' ">RECHAZADO por: {{tratamiento.motivo_rechazo}}</td>
                   <td>{{tratamiento.diagnosticoItem.diagnostico}}</td>
                   <td>{{tratamiento.observaciones}}</td>
-                  <td><input (click)="OpenDiagnosticoViewForm(tratamiento.diagnosticoItem._id)" type="button" class="" value="Ver"></td>
+                  <td><input (click)="OpenDiagnosticoViewForm(tratamiento.diagnosticoItem._id, tratamiento._id)" type="button" class="" value="Ver"></td>
                 </tr>
                
               </tbody>
@@ -1615,7 +1624,7 @@
             <div class="concentimiento" *ngIf="esMenordeEdad && !isEditHistoria">
               <div class="nombre">
                 <label for="nombrePaciente">NOMBRE DEL PADRE O TUTOR:</label>
-                <input type="text" formControlName="nombre_tutor" class="form_input">
+                <input type="text" formControlName="nombre_tutor" class="form_input"  [readonly]="isAprobadoAnyConsulta">
               </div>
               
               <div class="firma-placeholder">
@@ -1633,7 +1642,7 @@
               <div class="concentimiento" *ngIf="esMenordeEdad && isEditHistoria">
                 <div class="nombre">
                   <label for="nombrePaciente">NOMBRE DEL PADRE O TUTOR:</label>
-                  <input type="text" formControlName="nombre_tutor" class="form_input">
+                  <input type="text" formControlName="nombre_tutor" class="form_input"  [readonly]="isAprobadoAnyConsulta">
                 </div>
 
                 <div class="firma-placeholder">

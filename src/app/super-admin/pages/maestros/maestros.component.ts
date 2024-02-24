@@ -20,10 +20,13 @@ export class MaestrosComponent {
   ) {}
 
   ngOnInit(): void {
+    console.log("maestros...")
     this.apiService.getUsers().subscribe(
       (data: any) => {
-        if (Array.isArray(data)) {
-          this.maestrosList = data.filter((item) => item.role_default === "maestro");
+        console.log("data:", data)
+        if (Array.isArray(data.items)) {
+          
+          this.maestrosList = data.items.filter((item:any) => item.role_default === "maestro");
         }
       },
       (error: any) => {

@@ -22,6 +22,7 @@ export class DiagnosticoComponent implements OnInit {
 
   public diagnosticoForm = this.formBuilder.group({
     motivos_de_la_consulta: new FormControl(''),
+    clinica: new FormControl(''),
     fecha_de_la_consulta: new FormControl(''),
     comentarios_sobre_la_consulta: new FormControl(''),
     cabeza_craneo: new FormControl(''),

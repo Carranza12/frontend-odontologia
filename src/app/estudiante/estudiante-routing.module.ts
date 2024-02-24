@@ -19,7 +19,7 @@ const routes: Routes = [
   { path: 'abrir-historia-estudiante', canActivate: [EstudianteGuard], component: AbrirHistoriaEstudianteComponent },
   { path: 'tratamientos/:historia_clinica_id/:diagnostico_id', canActivate: [EstudianteGuard], component: TratamientosComponent },
   { path: 'diagnostico/:id', canActivate: [EstudianteGuard], component: DiagnosticoComponent },
-  { path: 'diagnostico-view/:id', canActivate: [EstudianteGuard], component: DiagnosticoViewComponent },
+  { path: 'diagnostico-view/:id', canActivate: [historiaGuard], component: DiagnosticoViewComponent },
 ];
 
 @NgModule({

@@ -19,6 +19,8 @@ export class HistoriaClinicaEditComponent implements OnInit{
   public esMayorDeEdad: boolean = false;
   public esMenordeEdad: boolean = false;
 
+  public isBlockedHistoriaInfo:boolean = false;
+
   public diagnosticosList:any[] = [];
   public tratamientosList:any[] = [];
 /*Elementos de la firma*/ 
@@ -29,6 +31,7 @@ export class HistoriaClinicaEditComponent implements OnInit{
   public showEditFirma: boolean = false;
   public isEditHistoria: boolean = false;
 
+  public usuarioLogeado:any;
 
   public user_id!: string;
   public perfilForm = this.formBuilder.group({
@@ -311,8 +314,8 @@ export class HistoriaClinicaEditComponent implements OnInit{
   ngOnInit(): void {
     let user:any = localStorage.getItem("user")
     user = JSON.parse(user)
-    
-
+    this.usuarioLogeado = user;
+    console.log("this.usuarioLogeado:", this.usuarioLogeado)
     this._route.params.subscribe((param) => {
       this.historia_clinica_id = param['id']
       if(this.historia_clinica_id){
@@ -485,15 +488,51 @@ export class HistoriaClinicaEditComponent implements OnInit{
           this.apiSevice.getDiagnosticosByHistoriaClinicaID(this.historia_clinica_id).subscribe((respuesta:any) => {
             console.log("DIASGNOSTICOS:", respuesta)
             this.diagnosticosList = respuesta.items;
+            if(this.diagnosticosList.length > 0){
+              this.isAprobadoAnyConsulta = true;
+            }
           })
 
           this.apiSevice.getTratamientosByHistoriaClinicaID(this.historia_clinica_id).subscribe((respuesta:any)=> {
             this.tratamientosList = respuesta.items;
-            this.tratamientosList = this.tratamientosList.map((tratamiento) => ({
-              ...tratamiento,
-              diagnosticoItem: this.diagnosticosList.find((d:any) => d._id === tratamiento.diagnostico_id)
-            }))
-            console.log("this.tratamientosList:", this.tratamientosList)
+            let nuevosTratamientos:any = []
+         
+            this.tratamientosList = this.tratamientosList.map((tratamiento) => {
+              let maestroData = {}
+                if(tratamiento.maestro_id && tratamiento.maestro_id !== 'RECHAZADO'){
+                  this.apiSevice.getMaestroPerfil(tratamiento.maestro_id).subscribe((res:any) => {
+                    if(res){
+                      maestroData = res;
+                     this.apiSevice.getUser(tratamiento.maestro_id).subscribe((resUser:any) => {
+                  
+                      maestroData = {
+                        ...maestroData,
+                        ...resUser
+                      }
+                      nuevosTratamientos.push({
+                        ...tratamiento,
+                        diagnosticoItem: this.diagnosticosList.find((d:any) => d._id === tratamiento.diagnostico_id),
+                        maestroData
+                      })
+                      return;
+                     })
+                    }
+                  })
+                }else{
+                  nuevosTratamientos.push({
+                    ...tratamiento,
+                    diagnosticoItem: this.diagnosticosList.find((d:any) => d._id === tratamiento.diagnostico_id),
+                    maestroData 
+                  })
+                return;
+                }
+               
+              return;
+             
+            })
+
+            console.log("nuevosTratamientos:", nuevosTratamientos)
+            this.tratamientosList = nuevosTratamientos;
           })
           },
           (error: any) => {
@@ -798,7 +837,12 @@ this.historiaClinicaForm.controls.fecha_de_nacimiento.valueChanges.subscribe((va
     this._router.navigateByUrl(`estudiante/diagnostico/${this.historia_clinica_id}`)
   }
 
-  public OpenDiagnosticoViewForm(diagnostico_id:string){
-    this._router.navigateByUrl(`estudiante/diagnostico-view/${diagnostico_id}`)
+  public OpenDiagnosticoViewForm(diagnostico_id:string, tratamiento_id?:string){
+    if(!tratamiento_id){
+      this._router.navigateByUrl(`estudiante/diagnostico-view/${diagnostico_id}`)
+    }
+    if(tratamiento_id){
+      this._router.navigateByUrl(`estudiante/diagnostico-view/${diagnostico_id}?tratamiento=${tratamiento_id}`)
+    }
   }
 }

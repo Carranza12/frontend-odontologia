@@ -125,7 +125,18 @@
         height="600"
         alt=""
       />
-
+      <h3>CLINICA:</h3>
+      <div class="form_control" >
+                <label for="" class="label_input">Cual?:</label>
+                <input
+                  class="form_input"
+                  type="text"
+                  placeholder=""
+                  readonly
+                  [value]="diagnosticoItem.clinica"
+                  autocomplete="off"
+                />
+              </div>
       <h3>CABEZA:</h3>
       <div class="form_control">
         <label for="" class="label_input">Craneo:</label>
@@ -343,8 +354,9 @@
 
      <div *ngIf="tratamientoItem">
       <h3 style="margin-bottom: 20px;">DETALES DEL TRATAMIENTO REALIZADO
-      <span *ngIf="!tratamientoItem.maestro_id"><strong>(Pendiente de aprobar)</strong></span>
-      <span *ngIf="tratamientoItem.maestro_id"><strong>(Aprobado)</strong></span>
+      <span *ngIf="!tratamientoItem.maestro_id "><strong>(Pendiente de aprobar)</strong></span>
+      <span *ngIf="tratamientoItem.maestro_id ==='RECHAZADO' "><strong>(Rechazado)</strong></span>
+      <span *ngIf="tratamientoItem.maestro_id && tratamientoItem.maestro_id !=='RECHAZADO'"><strong>(Aprobado)</strong></span>
       </h3>
 
       <div>
@@ -401,12 +413,39 @@
             </div>
       </div>
      </div>
-     <button type="button" class="btn_primary" >
-      Aprobar tratamiento
-    </button>
-    <button type="button" class="btn_primary" >
-      Rechazar tratamiento
-    </button>
+
+    <div *ngIf="usuarioLogeado.role_default === 'maestro' && !isRechazado && !tratamientoItem.maestro_id" >
+      <button type="button" class="btn_primary" (click)="aprobarTratamiento()">
+        Aprobar tratamiento
+      </button>
+      <button type="button" class="btn_primary" (click)="rechazarTratamiento()" >
+        Rechazar tratamiento
+      </button>
+
+      <div class="form_control">
+        <label for="" class="label_input">Motivo del rechazo (contestar solo en caso de rechazar tratamiento):</label>
+        <textarea
+          class="form_input form_textarea"
+          [formControl]="motivo_rechazo"
+        ></textarea>
+      </div>
+      </div>
+
+  
+      <div *ngIf="isRechazado">
+        <div class="form_control">
+          <label for="" class="label_input">Motivo del rechazo:</label>
+          <textarea
+            class="form_input form_textarea"
+            readonly
+            [value]="tratamientoItem.motivo_rechazo"
+          ></textarea>
+        </div>
+
+        <button *ngIf="usuarioLogeado.role_default === 'estudiante'" type="button" class="btn_primary" (click)="nuevoTratamiento()" >
+          Crear nuevo tratamiento
+        </button>
+      </div>
     </div>
   </form>
   <div></div>

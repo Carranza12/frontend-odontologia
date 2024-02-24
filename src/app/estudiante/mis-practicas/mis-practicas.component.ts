@@ -30,25 +30,15 @@ export class MisPracticasComponent {
     let user :any= localStorage.getItem('user');
     user = JSON.parse(user);
     if(user){
-      this.apiService.getHistoriaClinicaByEstudiante(user.user_id).subscribe(async (data: any) => {
-   
-        data.items.forEach((historia:any) => {
-          historia.consultas.forEach((consulta:any) => {
-            if(consulta.estudiante.id_estudiante === user.user_id){
-              this.misPracticasList.push(consulta)
-            }
-          })
-        })
+      this.apiService.getTratamientosByAlumno(user.user_id).subscribe(async (data: any) => {
+        this.misPracticasList = data;
         console.log("this.misPracticasList:", this.misPracticasList)
      })
     }
-      
-  
-    //this._perfil_estudiante.getPerfil()
-/* 
-     this._asignaturas.getAll().subscribe((data:any) => {
-       
-        this.misProfesoresList = data
-     }) */
   }
+
+  public openPractica(diagnostico_id:string, tratamiento_id:string){
+    this.router.navigateByUrl(`/estudiante/diagnostico-view/${diagnostico_id}?tratamiento=${tratamiento_id}`)
+  }  
+  
 }
