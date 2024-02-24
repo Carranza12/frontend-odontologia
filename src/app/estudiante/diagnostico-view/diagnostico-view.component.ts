@@ -19,6 +19,7 @@ export class DiagnosticoViewComponent {
   public item: any;
   public diagnosticoItem:any;
   public haveTratamiento: boolean = false;
+  public tratamientoItem!:any;
   constructor(
     private formBuilder: FormBuilder,
     private apiSevice: ApiService,
@@ -39,13 +40,20 @@ export class DiagnosticoViewComponent {
           this.diagnosticoItem = res.item;
           if(this.diagnosticoItem.tratamiento_id){
             this.haveTratamiento = true;
+            this.apiSevice.getTratamiento(this.diagnosticoItem.tratamiento_id).subscribe((tratamientoRes:any) => {
+              this.tratamientoItem = tratamientoRes.item;
+              console.log(" this.tratamientoItem:",  this.tratamientoItem)
+            })
           }
+          
           this.apiSevice
           .getHistoriaClinica(this.diagnosticoItem.historia_clinica_id)
           .subscribe((res: any) => {
             this.item = res.item;
           });
         });
+
+        
 
       
     });

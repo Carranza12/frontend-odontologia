@@ -80,6 +80,7 @@
                 <th>Fecha de Consulta</th>
                 <th>Motivo de la Consulta</th>
                 <th>Diagnostico</th>
+                <th>Tratamiento</th>
                 <th>Observaciones</th>
                 <th>Ver</th>
               </tr>
@@ -89,6 +90,7 @@
                 <td>{{diagnostico.fecha_de_la_consulta | date }}</td>
                 <td>{{diagnostico.motivos_de_la_consulta}}</td>
                 <td>{{diagnostico.diagnostico}}</td>
+                <td>{{diagnostico.tratamiento_id ? 'Ya cuenta con tratamiento': 'Aun no tiene tratamiento' }}</td>
                 <td>{{diagnostico.observaciones}}</td>
                 <td><input (click)="OpenDiagnosticoViewForm(diagnostico._id)" type="button" class="" value="Ver"></td>
               </tr>
@@ -100,7 +102,7 @@
           <div class="encabezado-container">
             <h3>Hoja de Observaciones y Evolucion:</h3>
             </div>
-            <table class="mi-tabla">
+            <table class="mi-tabla"  *ngIf="tratamientosList.length > 0">
               <thead>
                 <tr>
                   <th>Fecha de Tratamiento</th>
@@ -108,17 +110,21 @@
                   <th>Quien lo elabora</th>
                   <th>Quien lo revisa</th>
                   <th>Diagnostico</th>
+                  <th>Obervaciones</th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>...</td>
-                  <td>...</td>
-                  <td>...</td>
-                  <td>...</td>
-                  <td>...</td>
+                <tr *ngFor="let tratamiento of tratamientosList">
+                  <td>{{tratamiento.fecha_tratamiento }}</td>
+                  <td>{{tratamiento.tratamiento}}</td>
+                  <td>{{tratamiento.alumno}}</td>
+                  <td>{{tratamiento.maestro_id ? 'REVISADO': 'SIN REVISAR' }}</td>
+                  <td>{{tratamiento.diagnosticoItem.diagnostico}}</td>
+                  <td>{{tratamiento.observaciones}}</td>
+                  <td><input (click)="OpenDiagnosticoViewForm(tratamiento.diagnosticoItem._id)" type="button" class="" value="Ver"></td>
                 </tr>
-                <!-- Puedes agregar más filas si es necesario -->
+               
               </tbody>
             </table>
 

@@ -57,10 +57,10 @@
         <a><i class="fas fa-home"></i>Estudiantes</a>
       </li>
 
-      <li [ngClass]="{ active_session: actual_path === 'mis-materias' }" *ngIf="userData.role_default === 'estudiante'"
+      <!-- <li [ngClass]="{ active_session: actual_path === 'mis-materias' }" *ngIf="userData.role_default === 'estudiante'"
         (click)="navigateBy('/estudiante/mis-materias')">
         <a><i class="fas fa-home"></i>Mis Materias</a>
-      </li>
+      </li> -->
 
       <li [ngClass]="{ active_session: actual_path === 'abrir-historia-estudiante' }"
         *ngIf="userData.role_default === 'estudiante'" (click)="navigateBy('/estudiante/abrir-historia-estudiante')">
@@ -72,10 +72,10 @@
         <a><i class="fas fa-home"></i>Mis practicas</a>
       </li>
 
-      <li [ngClass]="{ active_session: actual_path === 'tratamientos' }" *ngIf="userData.role_default === 'estudiante'"
+      <!-- <li [ngClass]="{ active_session: actual_path === 'tratamientos' }" *ngIf="userData.role_default === 'estudiante'"
         (click)="navigateBy('/estudiante/tratamientos')">
         <a><i class="fas fa-home"></i>Tratamientos</a>
-      </li>
+      </li> -->
 
     </ul>
     <div class="social_media">

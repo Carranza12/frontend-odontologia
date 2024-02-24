@@ -109,6 +109,19 @@ export class ApiService {
     return false;
   }
 
+  getTratamiento(id: string) :any{
+    const token = localStorage.getItem('token');
+    if (token) {
+      const headers = new HttpHeaders({
+        Authorization: `Bearer ${token}`,
+      });
+      return this.http.get(`${this.CRETAE_PATIENT_HISTORIA_URL_API}/tratamientos/${id}`, {
+        headers,
+      });
+    }
+    return false;
+  }
+
   getDiagnosticosByHistoriaClinicaID(id: string) :any{
     const token = localStorage.getItem('token');
     if (token) {
@@ -116,6 +129,19 @@ export class ApiService {
         Authorization: `Bearer ${token}`,
       });
       return this.http.get(`${this.CRETAE_PATIENT_HISTORIA_URL_API}/diagnostico-historia-clinica/${id}`, {
+        headers,
+      });
+    }
+    return false;
+  }
+
+  getTratamientosByHistoriaClinicaID(id: string) :any{
+    const token = localStorage.getItem('token');
+    if (token) {
+      const headers = new HttpHeaders({
+        Authorization: `Bearer ${token}`,
+      });
+      return this.http.get(`${this.CRETAE_PATIENT_HISTORIA_URL_API}/tratamientos-historia-clinica/${id}`, {
         headers,
       });
     }

@@ -20,7 +20,7 @@ export class HistoriaClinicaEditComponent implements OnInit{
   public esMenordeEdad: boolean = false;
 
   public diagnosticosList:any[] = [];
-  
+  public tratamientosList:any[] = [];
 /*Elementos de la firma*/ 
   @ViewChild('signature') signature!: NgxSignaturePadComponent;
   public firmaImagen: any = null;
@@ -485,6 +485,15 @@ export class HistoriaClinicaEditComponent implements OnInit{
           this.apiSevice.getDiagnosticosByHistoriaClinicaID(this.historia_clinica_id).subscribe((respuesta:any) => {
             console.log("DIASGNOSTICOS:", respuesta)
             this.diagnosticosList = respuesta.items;
+          })
+
+          this.apiSevice.getTratamientosByHistoriaClinicaID(this.historia_clinica_id).subscribe((respuesta:any)=> {
+            this.tratamientosList = respuesta.items;
+            this.tratamientosList = this.tratamientosList.map((tratamiento) => ({
+              ...tratamiento,
+              diagnosticoItem: this.diagnosticosList.find((d:any) => d._id === tratamiento.diagnostico_id)
+            }))
+            console.log("this.tratamientosList:", this.tratamientosList)
           })
           },
           (error: any) => {

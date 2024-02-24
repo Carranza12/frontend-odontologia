@@ -3,7 +3,7 @@
   <app-page-title [title]="'Diagnostico'"></app-page-title>
   
   <div class="alert alert-warning custom-alert" role="alert" *ngIf="!haveTratamiento" >
-    No se han creado un <strong>tratamiento</strong> aun, crea uno dando clic <span (click)="openTratamientoForm()" style="text-decoration: underline;cursor: pointer;"><strong>Aqui</strong></span>
+    <strong>NO</strong> se ha creado un <strong>tratamiento</strong> aun, crea uno dando clic <span (click)="openTratamientoForm()" style="text-decoration: underline;cursor: pointer;"><strong>Aqui</strong></span>
   </div>
 
   <form class="login-form">
@@ -101,6 +101,20 @@
           >
         </div>
       </div>
+    </div>
+
+    <div *ngIf="diagnosticoItem" style="margin-top: 30px; margin-bottom: 30px;">
+      <h3 style="margin-bottom: 10px;">DIAGNOSTICO</h3>
+    <div  style="
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    background-color: #ddd;
+    padding: 20px;
+    border-radius: 13px;
+  ">
+  {{ diagnosticoItem.diagnostico}}
+    </div>
     </div>
     <div class="tabs" *ngIf="diagnosticoItem">
       <h3>ODONTROGRAMA</h3>
@@ -326,6 +340,73 @@
               </div>
         </div>
       </div>
+
+     <div *ngIf="tratamientoItem">
+      <h3 style="margin-bottom: 20px;">DETALES DEL TRATAMIENTO REALIZADO
+      <span *ngIf="!tratamientoItem.maestro_id"><strong>(Pendiente de aprobar)</strong></span>
+      <span *ngIf="tratamientoItem.maestro_id"><strong>(Aprobado)</strong></span>
+      </h3>
+
+      <div>
+        <label class="label_input" for="fecha_tratamiento">Fecha del tratamiento:</label><br>
+        <input class="form_input" type="date" id="fecha_tratamiento" [value]="tratamientoItem.fecha_tratamiento" readonly>
+      </div>    
+        <div>
+          <label class="label_input" for="tratamiento">Tratamiento:</label><br>
+          <textarea class="form_input form_textarea" id="tratamiento" [value]="tratamientoItem.tratamiento" readonly rows="4" cols="50"
+            style="resize: none;"></textarea>
+        </div>
+        <div>
+          <label class="label_input" for="alumno">Alumno:</label><br>
+          <input class="form_input" type="text" id="alumno" [value]="tratamientoItem.alumno" readonly maxlength="50" readonly autocomplete="on">
+        </div>
+        <div>
+          <label class="label_input" for="matricula">Matrícula:</label><br>
+          <input class="form_input" type="text" id="matricula" [value]="tratamientoItem.matricula" readonly maxlength="8" pattern="[0-9]*">
+        </div>
+        <div>
+          <label class="label_input" for="expediente">No. de expediente:</label><br>
+          <input class="form_input" type="text" id="expediente" [value]="tratamientoItem.expediente" readonly maxlength="50">
+        </div>
+        <div>
+          <label class="label_input" for="observaciones">Observaciones:</label><br>
+          <textarea class="form_input form_textarea" id="observaciones" [value]="tratamientoItem.observaciones" readonly rows="4" cols="50"
+            style="resize: none;"></textarea>
+        </div>
+
+        <div class="evidencias" style="display: flex; gap: 20px;flex-wrap: wrap;">
+          <div class="form_control">
+              <label class="label_input" for="file1">Evidencia 1:</label>
+              <img [src]="tratamientoItem.evidencia1" width="300" height="300" alt="Sin evidencia" >
+            </div>
+    
+            <div class="form_control">
+              <label class="label_input" for="file2">Evidencia 2:</label>
+              <img [src]="tratamientoItem.evidencia2" width="300" height="300" alt="Sin evidencia">
+            </div>
+    
+            <div class="form_control">
+              <label class="label_input" for="file3">Evidencia 3:</label>
+              <img [src]="tratamientoItem.evidencia3" width="300" height="300" alt="Sin evidencia">
+            </div>
+    
+            <div class="form_control">
+              <label class="label_input" for="file4">Evidencia 4:</label>
+              <img [src]="tratamientoItem.evidencia4" width="300" height="300" alt="Sin evidencia">
+            </div>
+    
+            <div class="form_control">
+              <label class="label_input" for="file5">Evidencia 5:</label>
+              <img  [src]="tratamientoItem.evidencia5" width="300" height="300" alt="Sin evidencia">
+            </div>
+      </div>
+     </div>
+     <button type="button" class="btn_primary" >
+      Aprobar tratamiento
+    </button>
+    <button type="button" class="btn_primary" >
+      Rechazar tratamiento
+    </button>
     </div>
   </form>
   <div></div>

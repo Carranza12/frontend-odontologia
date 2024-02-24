@@ -98,6 +98,8 @@ export class TratamientosComponent {
         });
     });
   }
+  
+
   public fileToBase64(file: File): Promise<string> {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -112,6 +114,7 @@ export class TratamientosComponent {
       reader.readAsDataURL(file);
     });
   }
+
   async onFileSelected(event: Event, type: String) {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
@@ -137,4 +140,6 @@ export class TratamientosComponent {
         );
     }
   }
+ 
+
 }

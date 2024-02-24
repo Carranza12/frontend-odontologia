@@ -95,30 +95,55 @@
           style="resize: none;"></textarea>
       </div>
       <h3>Evidencias del tratamiento</h3>
+   
       <div class="form_control">
         <label class="label_input" for="file1">Evidencia 1:</label>
-        <input class="form_input" type="file" id="file1" formControlName="evidencia1"
-        (change)="onFileSelected($event, 'evidencia1')"><br>
+        <input
+          class="form_input"
+          type="file"
+          id="file1"
+          (change)="onFileSelected($event, 'evidencia1')"
+        /><br />
       </div>
+
       <div class="form_control">
         <label class="label_input" for="file2">Evidencia 2:</label>
-        <input class="form_input" type="file" id="file2" formControlName="evidencia2"
-        (change)="onFileSelected($event, 'evidencia2')">
+        <input
+          class="form_input"
+          type="file"
+          id="file2"
+          (change)="onFileSelected($event, 'evidencia2')"
+        />
       </div>
+
       <div class="form_control">
         <label class="label_input" for="file3">Evidencia 3:</label>
-        <input class="form_input" type="file" id="file3" formControlName="evidencia3"
-        (change)="onFileSelected($event, 'evidencia3')">
+        <input
+          class="form_input"
+          type="file"
+          id="file3"
+          (change)="onFileSelected($event, 'evidencia3')"
+        />
       </div>
+
       <div class="form_control">
         <label class="label_input" for="file4">Evidencia 4:</label>
-        <input class="form_input" type="file" id="file4" formControlName="evidencia4"
-        (change)="onFileSelected($event, 'evidencia4')"><br>
+        <input
+          class="form_input"
+          type="file"
+          id="file4"
+          (change)="onFileSelected($event, 'evidencia4')"
+        /><br />
       </div>
+
       <div class="form_control">
         <label class="label_input" for="file5">Evidencia 5:</label>
-        <input class="form_input" type="file" id="file5" formControlName="evidencia5"
-        (change)="onFileSelected($event, 'evidencia5')"><br>
+        <input
+          class="form_input"
+          type="file"
+          id="file5"
+          (change)="onFileSelected($event, 'evidencia5')"
+        /><br />
       </div>
       <div>
       <button type="button" (click)="onSubmit()" class="btn_primary">
