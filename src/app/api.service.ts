@@ -37,6 +37,22 @@ export class ApiService {
     }
     return false;
   }
+
+  getMaestros(page?:string): any {
+    const token = localStorage.getItem('token');
+    if (token) {
+      const headers = new HttpHeaders({
+        Authorization: `Bearer ${token}`,
+      });
+      if(page){
+        return this.http.get(`${this.USERS_URL_API}/maestros?page=${page}`, { headers });
+      }
+      if(!page){
+        return this.http.get(`${this.USERS_URL_API}/maestros`, { headers });
+      }
+    }
+    return false;
+  }
   getMaestroPerfil(id:string): any {
     const token = localStorage.getItem('token');
     if (token) {

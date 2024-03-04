@@ -23,12 +23,14 @@ export class MaestrosComponent {
 
   ngOnInit(): void {
     console.log("maestros...")
-    this.apiService.getUsers().subscribe(
+    this.apiService.getMaestros().subscribe(
       (data: any) => {
         console.log("data:", data)
         if (Array.isArray(data.items)) {
+          this.maestrosList = data.items;
+          this.totalPages = data.totalPages;
+          this.currentPage = Number(data.currentPage);
           
-          this.maestrosList = data.items.filter((item:any) => item.role_default === "maestro");
         }
       },
       (error: any) => {
@@ -49,13 +51,12 @@ export class MaestrosComponent {
     }
   }
   async searchInApi(page:string){
-    this.apiService.getUsers(page).subscribe(
+    this.apiService.getMaestros(page).subscribe(
       (data:any) => {
         if(Array.isArray(data.items)){
           this.maestrosList = data.items;
           this.totalPages = data.totalPages;
           this.currentPage = Number(data.currentPage);
-          console.log(this.maestrosList);
         }
       },
       (error:any) => {
