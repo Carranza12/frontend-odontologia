@@ -67,6 +67,13 @@ export class UsuariosComponent implements OnInit {
   }
     
   }
+  search() {
+    // Aquí puedes agregar la lógica de búsqueda basada en searchTerm
+    console.log('Búsqueda por:', this.searchTerm);
+  }
+  searchTerm(arg0: string, searchTerm: any) {
+    throw new Error('Method not implemented.');
+  }
 
   changePage(page:number){
     if (page !== 0 && page <= this.totalPages.length) {
