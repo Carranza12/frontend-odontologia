@@ -72,17 +72,49 @@
     </div>
     <div class="tabs">
       <h3>ODONTROGRAMA</h3>
+      <div>
+        <div style="float: left; width: 70%;">
+          <canvas
+            [width]="canvasWidth"
+            [height]="canvasHeight"
+            #canvas
+            width="500"
+            height="500"
+            (mousedown)="startDrawing($event)"
+            (mousemove)="draw($event)"
+            (mouseup)="endDrawing()"
+          ></canvas>
+        </div>
+      
+        <div style="clear: both;"></div> <!-- Añadimos esto para limpiar el flotante -->
+      
+        <div class="menu-bar">
+          <div>
+            <h2>Barra de Menú</h2>
+            <div class="clear-button"> 
+              <input type="button" value="Limpiar Odontograma" (click)="clearCanvas()">
+                <input type="button" value="Regresar" (click)="regresarUltimoTrazo()">
+            </div>
 
-      <canvas
-        [width]="canvasWidth"
-        [height]="canvasHeight"
-        #canvas
-        width="500"
-        height="500"
-        (mousedown)="startDrawing($event)"
-        (mousemove)="draw($event)"
-        (mouseup)="endDrawing()"
-      ></canvas>
+            <div class="pen-thickness-container">
+              <h3>Grosor del Lápiz:</h3>
+              <input type="button" value="Fino" (click)="seleccionarGrosor(1)">
+              <input type="button" value="Mediano" (click)="seleccionarGrosor(3)">
+              <input type="button" value="Grueso" (click)="seleccionarGrosor(5)">
+            </div>
+
+            <div class="colors">
+              <h3>Colores Disponibles</h3>
+              <input type="button" value="Rojo" class="color-button_red" (click)="seleccionarColor('red')">
+              <input type="button" value="Azul" class="color-button_blue" (click)="seleccionarColor('blue')">
+              <input type="button" value="Verde" class="color-button_green" (click)="seleccionarColor('green')">
+              <input type="button" value="Morado" class="color-button_purple" (click)="seleccionarColor('purple')">
+              <input type="button" value="Negro" class="color-button_black" (click)="seleccionarColor('black')">
+              <input type="button" value="Gris" class="color-button_gray" (click)="seleccionarColor('gray')">
+            </div>
+          </div>
+        </div>
+      </div>
 
 
       <h3>CLINICA:</h3>

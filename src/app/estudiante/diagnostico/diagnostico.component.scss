@@ -195,3 +195,81 @@ h3{
     padding: 15px;
     margin-bottom: 20px;
   }
+
+  .menu-bar{
+    border: 1px solid black;
+    padding: 10px;
+    background-color: #f0f0f0;
+    width: 90%;
+    margin-top: 10px;
+    display: flex;
+  }
+  
+  .menu-bar h2 {
+    margin-bottom: 10px;
+  }
+  
+  .menu-bar button {
+    margin-right: 10px;
+  }
+  .clear-button{
+    padding-right: 10px;
+  }
+  .clear-button input {
+    background-color: #b21e36;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px; 
+  }
+ 
+  .colors h3{
+    margin-bottom: 10px;
+  }
+  .colors input{
+  border: 1px solid #ccc; 
+  color: white; 
+  padding: 5px 10px; 
+  margin-right: 10px; 
+  cursor: pointer; 
+  border-radius: 5px;
+  }
+
+  .color-button_red{
+    background-color: red;
+  }
+  .color-button_blue{
+    background-color: blue;
+  }
+  .color-button_green{
+    background-color: green;
+  }
+  .color-button_purple{
+    background-color: purple;
+  }
+  .color-button_black{
+    background-color: black;
+  }
+  .color-button_gray{
+    background-color: gray;
+  }
+
+  .pen-thickness-container input[type="button"] {
+    background-color: #b21e36;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px; 
+  }
