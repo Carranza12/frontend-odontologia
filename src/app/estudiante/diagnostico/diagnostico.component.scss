@@ -187,6 +187,12 @@ h3{
 .odontograma{
     border: 2px soldi black;
 }
+
+
+.contenido-menu{
+  display: flex;
+  width: 100%;
+}
 .custom-alert {
     background-color: #fcf8e3;
     border-color: #faebcc;
@@ -197,12 +203,12 @@ h3{
   }
 
   .menu-bar{
-    border: 1px solid black;
     padding: 10px;
-    background-color: #f0f0f0;
-    width: 90%;
+    background-color: #e7e3e3;
+    width: 30%;
     margin-top: 10px;
     display: flex;
+    border-radius: 13px;
   }
   
   .menu-bar h2 {
