@@ -509,6 +509,12 @@ export class HistoriaClinicaEditComponent implements OnInit{
                         ...maestroData,
                         ...resUser
                       }
+                      console.log("si existe tratamiento...")
+                      console.log("BODY:", {
+                        ...tratamiento,
+                        diagnosticoItem: this.diagnosticosList.find((d:any) => d._id === tratamiento.diagnostico_id),
+                        maestroData
+                      })
                       nuevosTratamientos.push({
                         ...tratamiento,
                         diagnosticoItem: this.diagnosticosList.find((d:any) => d._id === tratamiento.diagnostico_id),
