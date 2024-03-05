@@ -12,6 +12,8 @@ import Swal from 'sweetalert2';
 })
 export class EstudiantesComponent {
   public estudiantesList: any = [];
+  public totalPages!:[];
+  public currentPage!:number;
 
   constructor(
     private apiService: ApiService,
@@ -21,10 +23,14 @@ export class EstudiantesComponent {
   ) {}
 
   ngOnInit(): void {
-    this.apiService.getUsers().subscribe(
+    this.apiService.getMaestros().subscribe(
       (data: any) => {
+        console.log("data:", data)
         if (Array.isArray(data.items)) {
-          this.estudiantesList = data.items.filter((item:any) => item.role_default === "estudiante");
+          this.estudiantesList = data.items;
+          this.totalPages = data.totalPages;
+          this.currentPage = Number(data.currentPage);
+          
         }
       },
       (error: any) => {
@@ -69,5 +75,29 @@ export class EstudiantesComponent {
         console.error(error);
       }
     }
+  }
+  changePage(page:number){
+    if (page !== 0 && page <= this.totalPages.length) {
+      console.log("page:", page);
+      const pageFinal = page.toString();
+      this.searchInApi(pageFinal);
+    } else {
+      console.log("Página no válida");
+    }
+  }
+  async searchInApi(page:string){
+    this.apiService.getEstudiantes(page).subscribe(
+      (data:any) => {
+        if(Array.isArray(data.items)){
+          this.estudiantesList = data.items;
+          this.totalPages = data.totalPages;
+          this.currentPage = Number(data.currentPage);
+        }
+      },
+      (error:any) => {
+        console.error(error);
+        this.auth.logout()
+      }
+    );
   }
 }
