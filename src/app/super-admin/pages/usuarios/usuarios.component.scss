@@ -42,4 +42,15 @@ h3 {
   color: #333; 
 }
 
-  
+.search-container {
+  display: flex;
+  align-items: center;
+
+}
+
+.search-input {
+  padding: 8px;
+  margin-right: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
