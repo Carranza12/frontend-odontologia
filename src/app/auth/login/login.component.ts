@@ -45,6 +45,7 @@ export class LoginComponent implements OnInit {
         'error'
       )
     }
+    console.log("MEME PUNETAS:", this.loginForm)
     if (this.loginForm.valid) {
       const formData: any = this.loginForm.value;
       this.authService.login(formData).subscribe(
