@@ -63,6 +63,22 @@ export class ApiService {
     }
     return false;
   }
+  
+  getEstudiantes(page?:string): any {
+    const token = localStorage.getItem('token');
+    if (token) {
+      const headers = new HttpHeaders({
+        Authorization: `Bearer ${token}`,
+      });
+      if(page){
+        return this.http.get(`${this.USERS_URL_API}/estudiantes?page=${page}`, { headers });
+      }
+      if(!page){
+        return this.http.get(`${this.USERS_URL_API}/estudiantes`, { headers });
+      }
+    }
+    return false;
+  }
 
 
   registerUser(user: any): any {
