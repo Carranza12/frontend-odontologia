@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/api.service';
@@ -16,9 +16,14 @@ export class DiagnosticoComponent implements OnInit {
   @ViewChild('canvas') canvas: any;
   ctx: any;
   isDrawing: boolean = false;
-
+  context: CanvasRenderingContext2D | null = null;
+  penColor = '#000000';  
+  penThickness: number = 0;
+  selectedTool = 'pen';
   canvasWidth: number = 800;
   canvasHeight: number = 600;
+  trazos: Path2D[] = []; // Almacena los trazos realizados
+  undoStack: Path2D[] = []; // Almacena el estado del contexto después de cada trazo
 
   public diagnosticoForm = this.formBuilder.group({
     motivos_de_la_consulta: new FormControl(''),
@@ -59,8 +64,11 @@ export class DiagnosticoComponent implements OnInit {
     private formBuilder: FormBuilder,
     private apiSevice: ApiService,
     private _general: GeneralService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private cd: ChangeDetectorRef
   ) {}
+
+  
 
   ngOnInit(): void {
     let user: any = localStorage.getItem('user');
@@ -81,9 +89,8 @@ export class DiagnosticoComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
+    this.context = this.canvas.nativeElement.getContext('2d');
     this.ctx = this.canvas.nativeElement.getContext('2d');
-    this.ctx.lineWidth = 1.2;
-    this.ctx.strokeStyle = 'gray';
     const backgroundImage = new Image();
     backgroundImage.src = '../../../assets/logos/odontograma.jpg';
     backgroundImage.onload = () => {
@@ -95,6 +102,43 @@ export class DiagnosticoComponent implements OnInit {
         this.canvas.nativeElement.height
       );
     };
+   
+  }
+
+//Funcion para limpiar el canva
+  clearCanvas() {
+    if (this.context) {
+      this.context.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
+      const backgroundImage = new Image();
+      backgroundImage.src = '../../../assets/logos/odontograma.jpg';
+      backgroundImage.onload = () => {
+        this.ctx.drawImage(
+          backgroundImage,
+          0,
+          0,
+          this.canvas.nativeElement.width,
+          this.canvas.nativeElement.height
+        );
+      };
+    }
+  }
+
+  cambiarGrosor(nuevoGrosor: number): void {
+    this.penThickness = nuevoGrosor;
+    this.ctx.lineWidth = this.penThickness;
+  }
+  
+  seleccionarGrosor(grosor: number): void {
+    this.cambiarGrosor(grosor);
+  }
+
+  cambiarColor(nuevoColor: string): void {
+    this.penColor = nuevoColor;
+    this.ctx.strokeStyle = this.penColor;
+  }
+  
+  seleccionarColor(color: string): void {
+    this.cambiarColor(color);
   }
 
   startDrawing(event: MouseEvent): void {
@@ -105,13 +149,44 @@ export class DiagnosticoComponent implements OnInit {
 
   draw(event: MouseEvent): void {
     if (this.isDrawing) {
-      this.ctx.lineTo(event.offsetX, event.offsetY);
-      this.ctx.stroke();
-    }
+      if (this.isDrawing) {
+        this.ctx.lineWidth = this.penThickness;
+        this.ctx.lineTo(event.offsetX, event.offsetY);
+        this.ctx.stroke();
+      }
   }
+}
 
   endDrawing(): void {
     this.isDrawing = false;
+    const currentContextState = new Path2D(this.ctx);
+    this.undoStack.push(currentContextState);
+  }
+
+  regresarUltimoTrazo(): void {
+    // Verifica que haya al menos un trazo para deshacer
+    if (this.undoStack.length > 1) {
+      // Limpia el lienzo
+      this.ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
+  
+      // Elimina el último estado del contexto del stack
+      this.undoStack.pop();
+  
+      // Restaura el contexto al estado anterior
+      const previousContextState = this.undoStack[this.undoStack.length - 1];
+      this.ctx.stroke(previousContextState);
+    }
+    const backgroundImage = new Image();
+    backgroundImage.src = '../../../assets/logos/odontograma.jpg';
+    backgroundImage.onload = () => {
+      this.ctx.drawImage(
+        backgroundImage,
+        0,
+        0,
+        this.canvas.nativeElement.width,
+        this.canvas.nativeElement.height
+      );
+    };
   }
 
   public viewEvidencia(url: string) {
