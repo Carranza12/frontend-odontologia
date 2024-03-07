@@ -499,6 +499,7 @@ export class HistoriaClinicaEditComponent implements OnInit{
          
             this.tratamientosList = this.tratamientosList.map((tratamiento) => {
               let maestroData = {}
+              console.log("TRATAMIENTO:", tratamiento)
                 if(tratamiento.maestro_id && tratamiento.maestro_id !== 'RECHAZADO'){
                   this.apiSevice.getMaestroPerfil(tratamiento.maestro_id).subscribe((res:any) => {
                     if(res){
@@ -509,6 +510,12 @@ export class HistoriaClinicaEditComponent implements OnInit{
                         ...maestroData,
                         ...resUser
                       }
+                      console.log("si existe tratamiento...")
+                      console.log("BODY:",{
+                        ...tratamiento,
+                        diagnosticoItem: this.diagnosticosList.find((d:any) => d._id === tratamiento.diagnostico_id),
+                        maestroData
+                      } )
                       nuevosTratamientos.push({
                         ...tratamiento,
                         diagnosticoItem: this.diagnosticosList.find((d:any) => d._id === tratamiento.diagnostico_id),
