@@ -23,7 +23,6 @@ export class DiagnosticoComponent implements OnInit {
   canvasWidth: number = 800;
   canvasHeight: number = 600;
   trazos: Path2D[] = []; // Almacena los trazos realizados
-  undoStack: Path2D[] = []; // Almacena el estado del contexto después de cada trazo
 
   public diagnosticoForm = this.formBuilder.group({
     motivos_de_la_consulta: new FormControl(''),
@@ -143,50 +142,50 @@ export class DiagnosticoComponent implements OnInit {
 
   startDrawing(event: MouseEvent): void {
     this.isDrawing = true;
-    this.ctx.beginPath();
-    this.ctx.moveTo(event.offsetX, event.offsetY);
+    const nuevoTrazo = new Path2D();
+    nuevoTrazo.moveTo(event.offsetX, event.offsetY);
+    this.trazos.push(nuevoTrazo);
   }
 
   draw(event: MouseEvent): void {
     if (this.isDrawing) {
-      if (this.isDrawing) {
-        this.ctx.lineWidth = this.penThickness;
-        this.ctx.lineTo(event.offsetX, event.offsetY);
-        this.ctx.stroke();
-      }
-  }
+      const trazoActual = this.trazos[this.trazos.length - 1];
+      trazoActual.lineTo(event.offsetX, event.offsetY);
+      this.ctx.stroke(trazoActual);
+    }
 }
 
   endDrawing(): void {
     this.isDrawing = false;
-    const currentContextState = new Path2D(this.ctx);
-    this.undoStack.push(currentContextState);
   }
 
   regresarUltimoTrazo(): void {
     // Verifica que haya al menos un trazo para deshacer
-    if (this.undoStack.length > 1) {
-      // Limpia el lienzo
+    if (this.trazos.length > 0) {
+      // Elimina el último trazo de la lista
+      this.trazos.pop();
+  
+      // Limpia el lienzo antes de volver a dibujar la imagen de fondo
       this.ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
   
-      // Elimina el último estado del contexto del stack
-      this.undoStack.pop();
+      // Dibuja la imagen de fondo
+      const backgroundImage = new Image();
+      backgroundImage.src = '../../../assets/logos/odontograma.jpg';
+      backgroundImage.onload = () => {
+        this.ctx.drawImage(
+          backgroundImage,
+          0,
+          0,
+          this.canvas.nativeElement.width,
+          this.canvas.nativeElement.height
+        );
   
-      // Restaura el contexto al estado anterior
-      const previousContextState = this.undoStack[this.undoStack.length - 1];
-      this.ctx.stroke(previousContextState);
+        // Dibuja los trazos restantes encima de la imagen de fondo
+        this.trazos.forEach(trazo => {
+          this.ctx.stroke(trazo);
+        });
+      };
     }
-    const backgroundImage = new Image();
-    backgroundImage.src = '../../../assets/logos/odontograma.jpg';
-    backgroundImage.onload = () => {
-      this.ctx.drawImage(
-        backgroundImage,
-        0,
-        0,
-        this.canvas.nativeElement.width,
-        this.canvas.nativeElement.height
-      );
-    };
   }
 
   public viewEvidencia(url: string) {

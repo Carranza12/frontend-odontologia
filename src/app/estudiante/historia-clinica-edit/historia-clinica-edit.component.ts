@@ -648,7 +648,7 @@ this.historiaClinicaForm.controls.fecha_de_nacimiento.valueChanges.subscribe((va
       (ahora.getMonth() === fechaNacimiento.getMonth() &&
         ahora.getDate() < fechaNacimiento.getDate())
     ) {
-      return edad - 1; // Restar 1 año si el cumpleaños aún no ha llegado este año
+      return edad - 1; 
     } else {
       return edad;
     }
