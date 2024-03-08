@@ -203,6 +203,52 @@ export class DiagnosticoComponent implements OnInit {
 
     if (result.isConfirmed) {
       try {
+
+        if(!this.diagnosticoForm.controls.clinica.value){
+          Swal.fire(
+            'Oops...',
+            'El campo Clinica es obligatorio...',
+            'error'
+          )
+          return;
+        }
+
+        if(!this.diagnosticoForm.controls.observaciones.value){
+          Swal.fire(
+            'Oops...',
+            'El campo observaciones es obligatorio...',
+            'error'
+          )
+          return;
+        }
+
+        if(!this.diagnosticoForm.controls.diagnostico.value){
+          Swal.fire(
+            'Oops...',
+            'El campo diagnostico es obligatorio...',
+            'error'
+          )
+          return;
+        }
+
+        if(!this.diagnosticoForm.controls.motivos_de_la_consulta.value){
+          Swal.fire(
+            'Oops...',
+            'El campo Motivo de la consulta es obligatorio...',
+            'error'
+          )
+          return;
+        }
+
+        if(!this.diagnosticoForm.controls.fecha_de_la_consulta.value){
+          Swal.fire(
+            'Oops...',
+            'El campo Fecha de la consulta es obligatorio...',
+            'error'
+          )
+          return;
+        }
+        
         const odontograma = this.canvas.nativeElement.toDataURL('image/png');
 
         const item = {

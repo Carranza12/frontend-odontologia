@@ -766,6 +766,14 @@ this.historiaClinicaForm.controls.fecha_de_nacimiento.valueChanges.subscribe((va
     this.showAntecedentesInfoTab = true;
   }
 
+  public nextPasoAutorizacion(){
+    this.showPacienteInfoTab = false;
+    this.showExploracionInfoTab = false;
+    this.showAparatosInfoTab = false;
+    this.showAntecedentesInfoTab = false;
+    this.showAutorizacionInfoTab = true;
+  }
+
   public nextPaso3(){
     this.showPacienteInfoTab = false;
       this.showExploracionInfoTab = false;

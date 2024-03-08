@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormControl } from '@angular/forms';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/api.service';
 import { GeneralService } from 'src/app/general.service';
@@ -17,12 +17,12 @@ export class TratamientosComponent {
   public alumno_id!:string;
 
   public tratamientoForm = this.formBuilder.group({
-    tratamiento: new FormControl(''),
+    tratamiento: new FormControl('', [Validators.required]),
     alumno: new FormControl(''),
-    matricula: new FormControl(''),
-    expediente: new FormControl(''),
-    fecha_tratamiento: new FormControl(''),
-    observaciones: new FormControl(''),
+    matricula: new FormControl('', [Validators.required]),
+    expediente: new FormControl('', [Validators.required]),
+    fecha_tratamiento: new FormControl('', [Validators.required]),
+    observaciones: new FormControl('', [Validators.required]),
     evidencia1: new FormControl(''),
     evidencia2: new FormControl(''),
     evidencia3: new FormControl(''),
@@ -40,6 +40,47 @@ export class TratamientosComponent {
     });
     if (result.isConfirmed) {
       try {
+        if(!this.tratamientoForm.controls.tratamiento.value){
+          Swal.fire(
+            'Oops...',
+            'El campo tratamiento es obligatorio...',
+            'error'
+          )
+          return;
+        }
+        if(!this.tratamientoForm.controls.matricula.value){
+          Swal.fire(
+            'Oops...',
+            'El campo matricula es obligatorio...',
+            'error'
+          )
+          return;
+        }
+        if(!this.tratamientoForm.controls.expediente.value){
+          Swal.fire(
+            'Oops...',
+            'El campo expediente es obligatorio...',
+            'error'
+          )
+          return;
+        }
+        if(!this.tratamientoForm.controls.fecha_tratamiento.value){
+          Swal.fire(
+            'Oops...',
+            'El campo Fecha de tratamiento es obligatorio...',
+            'error'
+          )
+          return;
+        }
+        if(!this.tratamientoForm.controls.observaciones.value){
+          Swal.fire(
+            'Oops...',
+            'El campo Observaciones es obligatorio...',
+            'error'
+          )
+          return;
+        }
+        
         const item = {
           ...this.tratamientoForm.value,
           historia_clinica_id: this.historia_clinica_id,

@@ -71,11 +71,33 @@
     <div>
       <label class="label_input" for="fecha_tratamiento">Fecha del tratamiento:</label><br>
       <input class="form_input" type="date" id="fecha_tratamiento" formControlName="fecha_tratamiento">
+      <div
+      *ngIf="
+        tratamientoForm
+          .get('fecha_tratamiento')
+          ?.hasError('required') &&
+          tratamientoForm.get('fecha_tratamiento')?.touched
+      "
+      class="error-message"
+    >
+      La fecha de tratamiento es requerida.
+    </div>
     </div>    
       <div>
         <label class="label_input" for="tratamiento">Tratamiento:</label><br>
         <textarea class="form_input form_textarea" id="tratamiento" formControlName="tratamiento" rows="4" cols="50"
           style="resize: none;"></textarea>
+          <div
+          *ngIf="
+            tratamientoForm
+              .get('tratamiento')
+              ?.hasError('required') &&
+              tratamientoForm.get('tratamiento')?.touched
+          "
+          class="error-message"
+        >
+          El tratamiento es requerido.
+        </div>
       </div>
       <div>
         <label class="label_input" for="alumno">Alumno:</label><br>
@@ -84,15 +106,48 @@
       <div>
         <label class="label_input" for="matricula">Matrícula:</label><br>
         <input class="form_input" type="text" id="matricula" formControlName="matricula" maxlength="8" pattern="[0-9]*">
+        <div
+        *ngIf="
+          tratamientoForm
+            .get('matricula')
+            ?.hasError('required') &&
+            tratamientoForm.get('matricula')?.touched
+        "
+        class="error-message"
+      >
+        La matricula es requerida.
+      </div>
       </div>
       <div>
         <label class="label_input" for="expediente">No. de expediente:</label><br>
         <input class="form_input" type="text" id="expediente" formControlName="expediente" maxlength="50">
+        <div
+        *ngIf="
+          tratamientoForm
+            .get('expediente')
+            ?.hasError('required') &&
+            tratamientoForm.get('expediente')?.touched
+        "
+        class="error-message"
+      >
+        El expediente es requerido.
+      </div>
       </div>
       <div>
         <label class="label_input" for="observaciones">Observaciones:</label><br>
         <textarea class="form_input form_textarea" id="observaciones" formControlName="observaciones" rows="4" cols="50"
           style="resize: none;"></textarea>
+          <div
+        *ngIf="
+          tratamientoForm
+            .get('observaciones')
+            ?.hasError('required') &&
+            tratamientoForm.get('observaciones')?.touched
+        "
+        class="error-message"
+      >
+       Las observaciones son requeridas.
+      </div>
       </div>
       <h3>Evidencias del tratamiento</h3>
    
