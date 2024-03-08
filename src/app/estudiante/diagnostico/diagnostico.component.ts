@@ -22,7 +22,9 @@ export class DiagnosticoComponent implements OnInit {
   selectedTool = 'pen';
   canvasWidth: number = 800;
   canvasHeight: number = 600;
-  trazos: Path2D[] = []; // Almacena los trazos realizados
+  selectedColor: string = '#000000';
+  trazos: {color: string, grosor: number, trazo: Path2D  }[] = [];
+  backgroundImage: HTMLImageElement = new Image();
 
   public diagnosticoForm = this.formBuilder.group({
     motivos_de_la_consulta: new FormControl(''),
@@ -70,6 +72,18 @@ export class DiagnosticoComponent implements OnInit {
   
 
   ngOnInit(): void {
+    //madre del canvas
+    this.backgroundImage.src = '../../../assets/logos/odontograma.jpg';
+    this.backgroundImage.onload = () => {
+    this.ctx.drawImage(
+      this.backgroundImage,
+      0,
+      0,
+      this.canvas.nativeElement.width,
+      this.canvas.nativeElement.height
+    );
+  };
+
     let user: any = localStorage.getItem('user');
     user = JSON.parse(user);
     if(user){
@@ -119,6 +133,7 @@ export class DiagnosticoComponent implements OnInit {
           this.canvas.nativeElement.height
         );
       };
+      this.trazos = [];
     }
   }
 
@@ -132,7 +147,7 @@ export class DiagnosticoComponent implements OnInit {
   }
 
   cambiarColor(nuevoColor: string): void {
-    this.penColor = nuevoColor;
+    this.selectedColor = nuevoColor;
     this.ctx.strokeStyle = this.penColor;
   }
   
@@ -140,18 +155,20 @@ export class DiagnosticoComponent implements OnInit {
     this.cambiarColor(color);
   }
 
-  startDrawing(event: MouseEvent): void {
-    this.isDrawing = true;
-    const nuevoTrazo = new Path2D();
-    nuevoTrazo.moveTo(event.offsetX, event.offsetY);
-    this.trazos.push(nuevoTrazo);
+  startDrawing(event: MouseEvent, color: string, grosor: number): void {
+  this.isDrawing = true;
+  const nuevoTrazo = new Path2D();
+  nuevoTrazo.moveTo(event.offsetX, event.offsetY);
+  this.trazos.push({ trazo: nuevoTrazo, color: color, grosor: grosor });
   }
 
   draw(event: MouseEvent): void {
     if (this.isDrawing) {
       const trazoActual = this.trazos[this.trazos.length - 1];
-      trazoActual.lineTo(event.offsetX, event.offsetY);
-      this.ctx.stroke(trazoActual);
+      trazoActual.trazo.lineTo(event.offsetX, event.offsetY);
+      this.ctx.strokeStyle = trazoActual.color; // Aplicar el color correcto al lápiz
+      this.ctx.lineWidth = trazoActual.grosor; // Establecer el grosor correcto
+      this.ctx.stroke(trazoActual.trazo);
     }
 }
 
@@ -160,32 +177,34 @@ export class DiagnosticoComponent implements OnInit {
   }
 
   regresarUltimoTrazo(): void {
-    // Verifica que haya al menos un trazo para deshacer
-    if (this.trazos.length > 0) {
-      // Elimina el último trazo de la lista
-      this.trazos.pop();
-  
-      // Limpia el lienzo antes de volver a dibujar la imagen de fondo
-      this.ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
-  
-      // Dibuja la imagen de fondo
-      const backgroundImage = new Image();
-      backgroundImage.src = '../../../assets/logos/odontograma.jpg';
-      backgroundImage.onload = () => {
-        this.ctx.drawImage(
-          backgroundImage,
-          0,
-          0,
-          this.canvas.nativeElement.width,
-          this.canvas.nativeElement.height
-        );
-  
-        // Dibuja los trazos restantes encima de la imagen de fondo
-        this.trazos.forEach(trazo => {
-          this.ctx.stroke(trazo);
-        });
-      };
-    }
+  // Verifica que haya al menos un trazo para deshacer
+  if (this.trazos.length > 0) {
+    // Elimina el último trazo de la lista
+    this.trazos.pop();
+
+    // Limpia el lienzo antes de volver a dibujar la imagen de fondo
+    this.ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
+
+    // Dibuja la imagen de fondo
+    const backgroundImage = new Image();
+    backgroundImage.src = '../../../assets/logos/odontograma.jpg';
+    backgroundImage.onload = () => {
+      this.ctx.drawImage(
+        backgroundImage,
+        0,
+        0,
+        this.canvas.nativeElement.width,
+        this.canvas.nativeElement.height
+      );
+
+      // Dibuja los trazos restantes encima de la imagen de fondo
+      this.trazos.forEach(trazoData => {
+        this.ctx.strokeStyle = trazoData.color;
+        this.ctx.lineWidth = trazoData.grosor;
+        this.ctx.stroke(trazoData.trazo);
+      });
+    };
+  }
   }
 
   public viewEvidencia(url: string) {

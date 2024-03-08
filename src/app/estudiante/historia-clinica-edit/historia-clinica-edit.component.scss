@@ -1,6 +1,6 @@
 .tabs {
     width: 100%;
-    margin: auto;
+    margin:auto;
     cursor: pointer;
 }
 .alerts{
@@ -11,10 +11,60 @@
 
 
 .tabs__nav {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  margin: 0 auto;
 }
 
+.tabs__nav-btn {
+  padding: 10px;
+  text-align: center;
+  color: #fff;
+  background-color: #b21e36;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.tabs__nav-btn:last-child {
+  border-right: none;
+}
+
+.tabs__nav-btn:hover {
+  background-color: #ddd;
+  color: #b21e36;
+}
+
+.tabs__nav-btn.active {
+  background-color: #a01129;
+  border-right-color: #b21e36;
+  color: #fff;
+}
+
+.tabs__content form{
+  display: grid;
+  gap: 10px;
+  margin: 0 auto;
+  background-color: #fff;
+  max-width: max-content;
+  
+}
+.tabs__content label{
+  display: block;
+  width: 100%;
+}
+.tabs__content input {
+  padding: 5px;
+  margin-top: 5px;
+  padding: 10px;
+}
+
+.tabs__item {
+  display: none;
+}
+
+.tabs__item.active {
+  display: block;
+}
 .form_container{
     margin-top: 20px;
     display: grid;
@@ -30,45 +80,6 @@ h3{
 .btn_primary{
     margin-bottom: 10px!important;
 }
-
-
-
-.tabs__nav-btn {
-    padding: 15px 30px;
-    font-size: 14px;
-    background-color: #f5f5f5;
-    border: 0;
-    border-right: 1px solid #ddd;
-    cursor: pointer;
-    text-align: center;
-
-}
-.deshabilitado {
-    pointer-events: none; 
-  }
-  
-  /* Estilos responsivos */
-  @media (max-width: 768px) {
-    .tabs {
-      grid-template-columns: 1fr;
-      margin: 0 auto;
-    }
-  }
-
-.tabs__nav-btn:last-child {
-    border-right: none;
-}
-
-.tabs__nav-btn:hover {
-    background-color: #ddd;
-}
-
-.tabs__nav-btn.active {
-    background-color: #b21e36;
-    border-right-color: #b21e36;
-    color: #fff;
-}
-
 .tabs__content form{
     display: grid;
     gap: 10px;
