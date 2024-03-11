@@ -187,7 +187,7 @@ export class UsuarioEditComponent {
         formData.append('departamento', formUser.departamento);
         formData.append('puesto', formUser.puesto);
       }
-
+      console.log("formData:", formData)
       this.apiService.EditUser(formData, this.idParam).subscribe(
         (response: any) => {
           console.log('Usuario actualizado con éxito', response);
