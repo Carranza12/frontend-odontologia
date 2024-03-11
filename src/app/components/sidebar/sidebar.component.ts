@@ -22,7 +22,7 @@ export class SidebarComponent implements OnInit {
     const user_json = localStorage.getItem('user');
     if (user_json) {
       this.userData = JSON.parse(user_json);
-      this.profile_picture = this.userData.img
+      this.profile_picture = "/"+this.userData.img
     }
 
 
