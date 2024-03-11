@@ -81,7 +81,7 @@
             #canvas
             width="500"
             height="500"
-            (mousedown)="startDrawing($event)"
+            (mousedown)="startDrawing($event, selectedColor, penThickness)"
             (mousemove)="draw($event)"
             (mouseup)="endDrawing()"
           ></canvas>
@@ -106,12 +106,12 @@
 
             <div class="colors">
               <h3>Colores Disponibles</h3>
-              <input type="button" value="Rojo" class="color-button_red" (click)="seleccionarColor('red')">
-              <input type="button" value="Azul" class="color-button_blue" (click)="seleccionarColor('blue')">
-              <input type="button" value="Verde" class="color-button_green" (click)="seleccionarColor('green')">
-              <input type="button" value="Morado" class="color-button_purple" (click)="seleccionarColor('purple')">
-              <input type="button" value="Negro" class="color-button_black" (click)="seleccionarColor('black')">
-              <input type="button" value="Gris" class="color-button_gray" (click)="seleccionarColor('gray')">
+              <input type="button" value="" class="color-button_red" (click)="seleccionarColor('red')">
+              <input type="button" value="" class="color-button_blue" (click)="seleccionarColor('blue')">
+              <input type="button" value="" class="color-button_green" (click)="seleccionarColor('green')">
+              <input type="button" value="" class="color-button_purple" (click)="seleccionarColor('purple')">
+              <input type="button" value="" class="color-button_black" (click)="seleccionarColor('black')">
+              <input type="button" value="" class="color-button_gray" (click)="seleccionarColor('gray')">
             </div>
           </div>
         </div>

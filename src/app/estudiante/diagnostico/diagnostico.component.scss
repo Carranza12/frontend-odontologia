@@ -240,11 +240,16 @@ h3{
   }
   .colors input{
   border: 1px solid #ccc; 
-  color: white; 
   padding: 5px 10px; 
   margin-right: 10px; 
   cursor: pointer; 
-  border-radius: 5px;
+  border-radius: 100px;
+  width: 50px;
+  height: 50px; 
+  background-image: url('/src/assets/iconos/icons8-brocha-50.png');
+  background-position: left center;
+  background-repeat: no-repeat;
+  background-size: contain; 
   }
 
   .color-button_red{
