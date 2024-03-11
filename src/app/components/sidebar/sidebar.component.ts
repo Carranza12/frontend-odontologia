@@ -23,7 +23,7 @@ export class SidebarComponent implements OnInit {
     if (user_json) {
       this.userData = JSON.parse(user_json);
       console.log("this.userData.img:", this.userData.img)
-      this.profile_picture = "/"+this.userData.img
+      this.profile_picture = "http://"+this.userData.img
       console.log("this.profile_picture:", this.profile_picture)
     }
 
