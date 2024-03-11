@@ -125,7 +125,7 @@ export class UsuarioEditComponent {
     this.userForm.get('last_name')?.setValue(user.last_name);
     this.userForm.get('role_default')?.setValue(user.role_default);
     this.userForm.get('email')?.setValue(user.email);
-    this.img_path = user.profileImage;
+    this.img_path = "http://"+ user.profileImage;
     
 
     
