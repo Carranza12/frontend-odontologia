@@ -125,7 +125,7 @@
                   <td>{{tratamiento.tratamiento}}</td>
                   <td>{{tratamiento.alumno}}</td>
                   <td *ngIf="tratamiento.maestro_id && tratamiento.maestro_id !== 'RECHAZADO' ">REVISADO por {{ tratamiento.maestroData.name}}  {{tratamiento.maestroData.last_name}}
-                  <br/><img [src]="tratamiento.maestroData.firma" width="120px" height="60px" alt="">
+                  <br/><img [src]="'http://'+tratamiento.maestroData.firma" width="120px" height="60px" alt="">
                   </td>
                   <td *ngIf="!tratamiento.maestro_id ">SIN REVISAR</td>
                   <td *ngIf="tratamiento.maestro_id && tratamiento.maestro_id === 'RECHAZADO' ">RECHAZADO por: {{tratamiento.motivo_rechazo}}</td>
