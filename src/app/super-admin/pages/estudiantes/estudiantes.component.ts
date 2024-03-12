@@ -23,7 +23,7 @@ export class EstudiantesComponent {
   ) {}
 
   ngOnInit(): void {
-    this.apiService.getMaestros().subscribe(
+    this.apiService.getEstudiantes().subscribe(
       (data: any) => {
         console.log("data:", data)
         if (Array.isArray(data.items)) {
