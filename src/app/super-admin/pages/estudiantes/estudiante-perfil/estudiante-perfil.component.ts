@@ -71,41 +71,13 @@ export class EstudiantePerfilComponent {
       this.semestre_param = valor;
     });
 
-    this.perfilForm.get('carrera')?.valueChanges.subscribe((valor) => {
-      this.carrera_param = valor;
-      this._perfil_estudiante
-        .getAsigntaturasBySemestre(this.carrera_param, this.semestre_param)
-        .subscribe((data: any) => {
-         this.materiasAvailableList = data;
-          this.materiasAvailableList = this.materiasAvailableList.map(
-            (item: any) => ({
-              ...item,
-              selected: this.materias_id_edit_list.find(
-                (materia: any) => materia.materia_id === item._id
-              )
-                ? true
-                : false,
-            })
-          );
-          this.materiasSelectedList = this.materiasAvailableList.filter(
-            (materia: any) => materia.selected
-          );
-        });
-
-
-        console.log("materias:", this.materiasSelectedList)
-    });
+    
   }
 
   async onSubmit() {
     if (this.perfilForm.valid) {
       let item: any = this.perfilForm.value;
-      item.materias = this.materiasSelectedList.map(
-        (materia: any) =>({
-          materia_id:  materia._id,
-          practicas_realizadas: 0
-        })
-      );
+      item.materias = []
       item.id_user = this.user_id;
       this._perfil_estudiante.post_perfil(item).subscribe(
         (response: any) => {
@@ -121,23 +93,5 @@ export class EstudiantePerfilComponent {
     }
   }
 
-  public selectmateria(materia: any) {
-    console.log('materiasSelectedList:ANTES', this.materiasSelectedList);
-
-    const indexMatch = this.materiasAvailableList.findIndex(
-      (item: any) => item._id === materia._id
-    );
-    this.materiasAvailableList[indexMatch].selected =
-      !this.materiasAvailableList[indexMatch].selected;
-    if (this.materiasAvailableList[indexMatch].selected) {
-      this.materiasSelectedList.push(this.materiasAvailableList[indexMatch]);
-    }
-    if (!this.materiasAvailableList[indexMatch].selected) {
-      const indexDelete = this.materiasSelectedList.findIndex(
-        (item: any) =>
-          item.value === this.materiasAvailableList[indexMatch].value
-      );
-      this.materiasSelectedList.splice(indexDelete, 1);
-    }
-  }
+ 
 }
