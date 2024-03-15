@@ -74,13 +74,12 @@
       <div class="contenedor-odontograma">
       <h3>ODONTROGRAMA</h3>
       <div class="contenido-menu">
-        <div style="float: left; width: 70%;">
+        <div >
           <canvas
             [width]="canvasWidth"
             [height]="canvasHeight"
             #canvas
-            width="500"
-            height="500"
+           
             (mousedown)="startDrawing($event, selectedColor, penThickness)"
             (mousemove)="draw($event)"
             (mouseup)="endDrawing()"
@@ -93,12 +92,14 @@
           <div>
             <h2>Barra de Menú</h2>
             <div class="clear-button"> 
-              <input type="button" value="Limpiar Odontograma" (click)="clearCanvas()">
-                <input type="button" value="Regresar" (click)="regresarUltimoTrazo()">
+              <button type="button" (click)="clearCanvas()"> <img src="../../../assets//iconos/corner-down-left.svg" alt=""></button>
+              <button type="button"  (click)="regresarUltimoTrazo()"> <img src="../../../assets//iconos/trash.svg" alt=""></button>
+          
+         
             </div>
 
             <div class="pen-thickness-container">
-              <h3>Grosor del Lápiz:</h3>
+              <h3>Grosor <br/> del Lápiz:</h3>
               <input type="button" value="Fino" (click)="seleccionarGrosor(1)">
               <input type="button" value="Mediano" (click)="seleccionarGrosor(3)">
               <input type="button" value="Grueso" (click)="seleccionarGrosor(5)">

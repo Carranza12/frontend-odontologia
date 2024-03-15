@@ -70,7 +70,7 @@ body{
   background: #b21e36;
   padding: 30px 0px;
   position: fixed;
-   @media (max-width: 752px) {
+   @media (max-width: 1024px) {
       display: none;
   } 
 }
@@ -89,7 +89,7 @@ body{
 
 .sidebar_movil{
   display:none;
-  @media (max-width: 752px) {
+  @media (max-width: 1024px) {
     display: flex;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     justify-content: center;

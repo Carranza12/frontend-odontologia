@@ -1,7 +1,9 @@
 <app-sidebar></app-sidebar>
 <main class="main_container">
   <app-page-title [title]="'Historias clinicas'"></app-page-title>
-  <div style="display: flex; flex-direction: column; gap: 20px; max-width: 600px;">
+  <div
+    style="display: flex; flex-direction: column; gap: 20px; max-width: 600px"
+  >
     <article class="welcome__article">
       <h2>¡Consulta las historias clinicas de tus alumnos:</h2>
       <p class="welcome__text">
@@ -14,7 +16,7 @@
       <div class="form_control">
         <label for="" class="label_input">Codigo:</label>
         <input
-            style="width: 100%;"
+          style="width: 100%"
           class="form_input"
           type="text"
           placeholder="Escribe el codigo aqui..."
@@ -30,8 +32,114 @@
         </div>
       </div>
     </div>
-    <button type="button" class="btn_primary" (click)="submit()">
-        Abrir
-      </button>
+    <button type="button" class="btn_primary" (click)="submit()">Abrir</button>
+    <button type="button" class="btn_primary" (click)="openModal()">
+      Buscar por datos del paciente
+    </button>
+  </div>
+
+  <div id="myModal" class="modal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="selectEmpleadoLabel">
+            Seleccionar Paciente
+          </h5>
+          <button
+            (click)="closeModal()"
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <form class="row" id="formSearchEmployee">
+            <div class="d-flex flex-wrap">
+
+              <div class="col-12 col-md-6 p-3">
+                <label for="id_employee" class="form-label"
+                  >Nombre Completo</label
+                >
+                <input
+                  type="text"
+                  id="id_employee"
+                  name="id_employee"
+                  class="form-control"
+                />
+              </div>
+              <div class="col-12 col-md-6 p-3">
+                <label for="name_ascii" class="form-label">Telefono</label>
+                <input
+                  type="text"
+                  id="name_ascii"
+                  name="name_ascii"
+                  class="form-control"
+                />
+              </div>
+        
+ 
+                <div class="col-12 col-md-6 p-3">
+                  <label for="last_name_ascii" class="form-label">Nombre del contacto de emergencia</label>
+                  <input
+                    type="text"
+                    id="last_name_ascii"
+                    name="last_name_ascii"
+                    class="form-control"
+                  />
+                </div>
+                <div class="col-12 col-md-6 p-3">
+                  <label for="plant_ascii" class="form-label">Telefono del contacto de emergencia</label>
+                  <input
+                    type="text"
+                    id="plant_ascii"
+                    name="plant_ascii"
+                    class="form-control"
+                  />
+                </div>
+              </div>
+         
+            <div class="col my-2">
+              <button
+                type="button"
+                onclick="searchEmployees()"
+                class="btn btn_primary"
+              >
+                Buscar
+              </button>
+            </div>
+          </form>
+
+          <strong
+            >Se mostrarán los primeras 10 coincidencias, te sugerimos agregar
+            mas datos en la búsqueda</strong
+          >
+          <div class="row mt-3">
+            <table class="table table-light" id="tablaEmpleados">
+              <thead>
+                <tr>
+                  <th scope="col">Nombre Completo</th>
+                  <th scope="col">Telefono</th>
+                  <th scope="col">Genero</th>
+                  <th scope="col">Opciones</th>
+                </tr>
+              </thead>
+              <tbody id="bodyEmpleados"></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            (click)="closeModal()"
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+          <!-- <button type="button" class="btn btn-primary"></button> -->
+        </div>
+      </div>
+    </div>
   </div>
 </main>

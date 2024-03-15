@@ -191,7 +191,11 @@ h3{
 
 .contenido-menu{
   display: flex;
-  width: 100%;
+  gap: 20px;
+  flex-wrap: no-wrap;
+  background-color: #ddd;
+  padding: 20px;
+  border-radius: 13px;
 }
 .custom-alert {
     background-color: #fcf8e3;
@@ -221,7 +225,7 @@ h3{
   .clear-button{
     padding-right: 10px;
   }
-  .clear-button input {
+  .clear-button button {
     background-color: #b21e36;
     border: none;
     color: white;

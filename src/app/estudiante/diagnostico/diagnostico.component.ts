@@ -20,7 +20,7 @@ export class DiagnosticoComponent implements OnInit {
   penColor = '#000000';  
   penThickness: number = 0;
   selectedTool = 'pen';
-  canvasWidth: number = 800;
+  canvasWidth: number = 700;
   canvasHeight: number = 600;
   selectedColor: string = '#000000';
   trazos: {color: string, grosor: number, trazo: Path2D  }[] = [];

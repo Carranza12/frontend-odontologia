@@ -16,6 +16,16 @@ export class AbrirHistoriaEstudianteComponent {
 
   ngOnInit(): void {}
 
+  openModal() {
+    const modal:any = document.getElementById('myModal');
+    modal.style.display = 'block';
+  }
+
+  closeModal() {
+    const modal:any = document.getElementById('myModal');
+    modal.style.display = 'none';
+  }
+
   submit() {
     if (!this.codigoControl.value) {
       Swal.fire(
