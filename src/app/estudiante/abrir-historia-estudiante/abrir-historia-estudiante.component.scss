@@ -1,3 +1,10 @@
+.background_modal_opened{
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.749);
+    z-index: 999;
+    width: 100vw;
+    height: 100vh;
+}
 .welcome__article{
     background-color: #f1f1f1;
     display: flex;

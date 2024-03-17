@@ -1,4 +1,5 @@
-<app-sidebar></app-sidebar>
+<div class="background_modal_opened" *ngIf="modalIsOpen">
+</div><app-sidebar></app-sidebar>
 <main class="main_container">
   <app-page-title [title]="'Historias clinicas'"></app-page-title>
   <div style="display: flex; flex-direction: column; gap: 20px; max-width: 600px;">
@@ -33,5 +34,118 @@
     <button type="button" class="btn_primary" (click)="submit()">
         Abrir
       </button>
+      <button type="button" class="btn_primary" (click)="openModal()">
+        Buscar por datos del paciente
+      </button>
+  </div>
+
+  <div id="myModal" class="modal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="selectEmpleadoLabel">
+            Seleccionar Paciente
+          </h5>
+          <button
+            (click)="closeModal()"
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Cerrar"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <form class="row" id="formSearchEmployee">
+            <div class="d-flex flex-wrap">
+
+              <div class="col-12 col-md-6 p-3">
+                <label for="id_employee" class="form-label"
+                  >Nombre Completo</label
+                >
+                <input
+                  type="text"
+                  [formControl]="nombre_completo"
+                  class="form-control"
+                />
+              </div>
+              <div class="col-12 col-md-6 p-3">
+                <label for="name_ascii" class="form-label">Telefono</label>
+                <input
+                  type="text"
+                  [formControl]="telefono"
+                  class="form-control"
+                />
+              </div>
+        
+ 
+                <div class="col-12 col-md-6 p-3">
+                  <label class="form-label">Nombre del contacto de emergencia</label>
+                  <input
+                    type="text"
+                    [formControl]="nombre_contacto_emergencia"
+                    class="form-control"
+                  />
+                </div>
+                <div class="col-12 col-md-6 p-3">
+                  <label for="plant_ascii" class="form-label">Telefono del contacto de emergencia</label>
+                  <input
+                    type="text"
+                    [formControl]="telefono_contacto_emergencia"
+                    class="form-control"
+                  />
+                </div>
+              </div>
+         
+            <div class="col my-2">
+              <button
+                type="button"
+                (click)="searchPatients()"
+                class="btn btn_primary"
+              >
+                Buscar
+              </button>
+            </div>
+          </form>
+
+          <strong
+            >Se mostrarán los primeras 10 coincidencias, te sugerimos agregar
+            mas datos en la búsqueda</strong
+          >
+          <div *ngIf="patientsResults.length == 0">{{searchPatientsResultsMesagges}}</div>
+          <div class="row mt-3" *ngIf="patientsResults.length > 0">
+            <table class="table table-light" id="tablaEmpleados">
+              <thead>
+                <tr>
+                  <th scope="col">Nombre Completo</th>
+                  <th scope="col">Telefono</th>
+                  <th scope="col">Genero</th>
+                  <th scope="col">Opciones</th>
+                </tr>
+              </thead>
+              <tbody id="bodyEmpleados" *ngIf="patientsResults">
+                <tr *ngFor="let patient of patientsResults">
+                  <td>{{patient.nombre_completo}}</td>
+                  <td>{{patient.telefono}}</td>
+                  <td>{{patient.genero}}</td>
+                  <td><button class="btn_primary" (click)="openHistorialClinico(patient.historia_clinica_id)">Ver historia clinica</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+
+            (click)="closeModal()"
+            type="button"
+            class="btn_primary"
+            data-bs-dismiss="modal"
+          >
+            Cerrar
+          </button>
+          <!-- <button type="button" class="btn btn-primary"></button> -->
+        </div>
+      </div>
+    </div>
   </div>
 </main>

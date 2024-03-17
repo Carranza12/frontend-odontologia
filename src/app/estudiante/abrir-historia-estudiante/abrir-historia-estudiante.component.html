@@ -1,5 +1,7 @@
-<app-sidebar></app-sidebar>
-<main class="main_container">
+<div class="background_modal_opened" *ngIf="modalIsOpen">
+</div>
+  <app-sidebar></app-sidebar>
+<main class="main_container" >
   <app-page-title [title]="'Historias clinicas'"></app-page-title>
   <div
     style="display: flex; flex-direction: column; gap: 20px; max-width: 600px"
@@ -63,8 +65,7 @@
                 >
                 <input
                   type="text"
-                  id="id_employee"
-                  name="id_employee"
+                  [formControl]="nombre_completo"
                   class="form-control"
                 />
               </div>
@@ -72,19 +73,17 @@
                 <label for="name_ascii" class="form-label">Telefono</label>
                 <input
                   type="text"
-                  id="name_ascii"
-                  name="name_ascii"
+                  [formControl]="telefono"
                   class="form-control"
                 />
               </div>
         
  
                 <div class="col-12 col-md-6 p-3">
-                  <label for="last_name_ascii" class="form-label">Nombre del contacto de emergencia</label>
+                  <label class="form-label">Nombre del contacto de emergencia</label>
                   <input
                     type="text"
-                    id="last_name_ascii"
-                    name="last_name_ascii"
+                    [formControl]="nombre_contacto_emergencia"
                     class="form-control"
                   />
                 </div>
@@ -92,8 +91,7 @@
                   <label for="plant_ascii" class="form-label">Telefono del contacto de emergencia</label>
                   <input
                     type="text"
-                    id="plant_ascii"
-                    name="plant_ascii"
+                    [formControl]="telefono_contacto_emergencia"
                     class="form-control"
                   />
                 </div>
@@ -102,7 +100,7 @@
             <div class="col my-2">
               <button
                 type="button"
-                onclick="searchEmployees()"
+                (click)="searchPatients()"
                 class="btn btn_primary"
               >
                 Buscar
@@ -114,7 +112,8 @@
             >Se mostrarán los primeras 10 coincidencias, te sugerimos agregar
             mas datos en la búsqueda</strong
           >
-          <div class="row mt-3">
+          <div *ngIf="patientsResults.length == 0">{{searchPatientsResultsMesagges}}</div>
+          <div class="row mt-3" *ngIf="patientsResults.length > 0">
             <table class="table table-light" id="tablaEmpleados">
               <thead>
                 <tr>
@@ -124,7 +123,14 @@
                   <th scope="col">Opciones</th>
                 </tr>
               </thead>
-              <tbody id="bodyEmpleados"></tbody>
+              <tbody id="bodyEmpleados" *ngIf="patientsResults">
+                <tr *ngFor="let patient of patientsResults">
+                  <td>{{patient.nombre_completo}}</td>
+                  <td>{{patient.telefono}}</td>
+                  <td>{{patient.genero}}</td>
+                  <td><button class="btn_primary" (click)="openHistorialClinico(patient.historia_clinica_id)">Ver historia clinica</button></td>
+                </tr>
+              </tbody>
             </table>
           </div>
         </div>
@@ -143,3 +149,4 @@
     </div>
   </div>
 </main>
+

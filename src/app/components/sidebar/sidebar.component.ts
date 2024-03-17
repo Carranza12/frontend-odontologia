@@ -16,23 +16,25 @@ export class SidebarComponent implements OnInit {
   public actual_path!: string;
   public showMenu: boolean = false;
 
-  constructor(private authService: AuthService, private _router: Router, private route: ActivatedRoute) { }
+  public modalIsOpen: boolean = false;
+
+  constructor(
+    private authService: AuthService,
+    private _router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     const user_json = localStorage.getItem('user');
     if (user_json) {
       this.userData = JSON.parse(user_json);
-      console.log("this.userData.img:", this.userData.img)
-      this.profile_picture = "http://"+this.userData.img
-      console.log("this.profile_picture:", this.profile_picture)
+      this.profile_picture = 'http://' + this.userData.img;
     }
 
-
-    this.route.url.subscribe(urlSegments => {
+    this.route.url.subscribe((urlSegments) => {
       if (urlSegments[0]) {
         this.actual_path = urlSegments[0].path;
       }
-
     });
 
     const token = localStorage.getItem('token');
@@ -54,7 +56,7 @@ export class SidebarComponent implements OnInit {
       showCancelButton: true,
       confirmButtonText: 'Sí',
       cancelButtonText: 'Cancelar',
-      icon: 'question'
+      icon: 'question',
     });
 
     if (result.isConfirmed) {
@@ -64,18 +66,19 @@ export class SidebarComponent implements OnInit {
         console.error(error);
       }
     }
-
   }
 
   public navigateBy(url: string) {
     this._router.navigateByUrl(url);
   }
 
-  public openMenu(){
+  public openMenu() {
     this.showMenu = true;
+    this.modalIsOpen = true;
   }
 
-  public closeMenu(){
+  public closeMenu() {
     this.showMenu = false;
+    this.modalIsOpen = false;
   }
 }

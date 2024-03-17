@@ -1,0 +1,75 @@
+<app-sidebar></app-sidebar>
+<main class="main_container">
+  <app-page-title [title]="'Dashboard de salud'"></app-page-title>
+
+  <div class="dashboard">
+    <div class="cardd">
+      <h2>Total de Historias Clínicas</h2>
+      <h3>{{ data.totalHistoriasClinicas }}</h3>
+    </div>
+    <div class="cardd">
+      <h2>Total de Pacientes con Diabetes</h2>
+      <h3>{{ data.totalPacientesDiabetes }}</h3>
+    </div>
+    <div class="cardd">
+      <h2>Total de Pacientes</h2>
+      <h3>{{ data.totalPacientes }}</h3>
+    </div>
+    <div class="cardd">
+      <h2>Total de Diagnósticos</h2>
+      <h3>{{ data.totalDiagnosticos }}</h3>
+    </div>
+    <div class="cardd">
+      <h2>Diagnósticos sin Tratamiento</h2>
+      <h3>{{ data.diagnosticosSinTratamiento }}</h3>
+    </div>
+  </div>
+  <h3>Porcentaje de pacientes por genero</h3>
+  <canvas id="diagnosticosChart"></canvas>
+
+  <h3>Pacientes recientes:</h3>
+  <p>Se muestran los ultimos 10 pacientes que crearon su historial clinico.</p>
+  <div class="table-responsive" *ngIf="data.pacientesRecientes.length > 0">
+    <table>
+      <thead>
+        <tr>
+          <th>Nombre Completo</th>
+          <th>Fecha de Nacimiento</th>
+          <th>Género</th>
+          <th>Estado Civil</th>
+          <th>Ocupación</th>
+          <th>Domicilio</th>
+          <th>Teléfono</th>
+          <th>Ciudad Origen</th>
+          <th>Estado Origen</th>
+          <th>País Origen</th>
+          <th>Ciudad Actual</th>
+          <th>Nombre Contacto Emergencia</th>
+          <th>Parentesco Contacto Emergencia</th>
+          <th>Teléfono Contacto Emergencia</th>
+          <th>Historial Clinico</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let patient of data.pacientesRecientes">
+          <td>{{patient.nombre_completo}}</td>
+          <td>{{patient.fecha_de_nacimiento}}</td>
+          <td>{{patient.genero}}</td>
+          <td>{{patient.estado_civil}}</td>
+          <td>{{patient.ocupacion}}</td>
+          <td>{{patient.domicilio}}</td>
+          <td>{{patient.telefono}}</td>
+          <td>{{patient.ciudad_origen}}</td>
+          <td>{{patient.estado_origen}}</td>
+          <td>{{patient.pais_origen}}</td>
+          <td>{{patient.ciudad_Actual}}</td>
+          <td>{{patient.nombre_contacto_emergencia}}</td>
+          <td>{{patient.parentesco_contacto_emergencia}}</td>
+          <td>{{patient.telefono_contacto_emergencia}}</td>
+          <td><button class="btn_primary" type="button" (click)="openHistorialClinico(patient.historia_clinica_id)">VER</button></td>
+        </tr>
+        <!-- Aquí van los datos de los otros pacientes -->
+      </tbody>
+    </table>
+  </div>
+</main>

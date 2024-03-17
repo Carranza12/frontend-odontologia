@@ -57,11 +57,9 @@ export class HistoriaClinicaEditComponent implements OnInit{
   };
 
   onBeginSign(): void {
-    console.log('on begin sing');
   }
 
   onEndSign(): void {
-    console.log("this.signature:", this.signature)
     if (this.signature) {
       this.firmaImagen = this.signature.toDataURL();
     }
@@ -315,7 +313,7 @@ export class HistoriaClinicaEditComponent implements OnInit{
     let user:any = localStorage.getItem("user")
     user = JSON.parse(user)
     this.usuarioLogeado = user;
-    console.log("this.usuarioLogeado:", this.usuarioLogeado)
+
     this._route.params.subscribe((param) => {
       this.historia_clinica_id = param['id']
       if(this.historia_clinica_id){
@@ -323,7 +321,6 @@ export class HistoriaClinicaEditComponent implements OnInit{
           (response: any) => {
 
            this.historiaClinicaForm.get("nombre_completo")?.setValue(response?.item?.paciente?.nombre_completo)
-           
            /*Valor de la fecha de nacimiento*/ 
            const fechaNacimiento = response?.item?.paciente?.fecha_de_nacimiento;
            const edad= this.calcularEdad(fechaNacimiento);
@@ -486,7 +483,7 @@ export class HistoriaClinicaEditComponent implements OnInit{
            this.historiaClinicaForm.get("exploracion_fisica_peso")?.setValue(response?.item?.historia_clinica?.exploracion_fisica_peso)
           
           this.apiSevice.getDiagnosticosByHistoriaClinicaID(this.historia_clinica_id).subscribe((respuesta:any) => {
-            console.log("DIASGNOSTICOS:", respuesta)
+      
             this.diagnosticosList = respuesta.items;
             if(this.diagnosticosList.length > 0){
               this.isAprobadoAnyConsulta = true;
@@ -499,7 +496,7 @@ export class HistoriaClinicaEditComponent implements OnInit{
          
             this.tratamientosList = this.tratamientosList.map((tratamiento) => {
               let maestroData = {}
-              console.log("TRATAMIENTO:", tratamiento)
+            
                 if(tratamiento.maestro_id && tratamiento.maestro_id !== 'RECHAZADO'){
                   this.apiSevice.getMaestroPerfil(tratamiento.maestro_id).subscribe((res:any) => {
                     if(res){
@@ -510,12 +507,8 @@ export class HistoriaClinicaEditComponent implements OnInit{
                         ...maestroData,
                         ...resUser
                       }
-                      console.log("si existe tratamiento...")
-                      console.log("BODY:",{
-                        ...tratamiento,
-                        diagnosticoItem: this.diagnosticosList.find((d:any) => d._id === tratamiento.diagnostico_id),
-                        maestroData
-                      } )
+                    
+                    
                       nuevosTratamientos.push({
                         ...tratamiento,
                         diagnosticoItem: this.diagnosticosList.find((d:any) => d._id === tratamiento.diagnostico_id),
@@ -538,7 +531,7 @@ export class HistoriaClinicaEditComponent implements OnInit{
              
             })
 
-            console.log("nuevosTratamientos:", nuevosTratamientos)
+         
             this.tratamientosList = nuevosTratamientos;
           })
           },
@@ -553,7 +546,7 @@ export class HistoriaClinicaEditComponent implements OnInit{
 this.historiaClinicaForm.controls.fecha_de_nacimiento.valueChanges.subscribe((valor:any)=>{
   const fechaNacimiento = valor;
   const edad= this.calcularEdad(fechaNacimiento);
-  console.log(edad);
+
   if(edad!=-1){
    if (edad < 18) {
      this.esMayorDeEdad =false;
@@ -693,7 +686,7 @@ this.historiaClinicaForm.controls.fecha_de_nacimiento.valueChanges.subscribe((va
 
     this.apiSevice.updateHistoriaClinica(this.historia_clinica_id, item).subscribe(
       (response: any) => {
-        console.log('historia clinica guardada con exito', response);
+  
         this.historiaClinicaForm.reset();
         Swal.fire(
           'Historia clinica actualizada con exito',
