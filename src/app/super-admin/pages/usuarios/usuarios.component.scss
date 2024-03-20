@@ -54,3 +54,63 @@ h3 {
   border: 1px solid #ccc;
   border-radius: 4px;
 }
+
+/* Estilo para el contenedor de filtros */
+.filtros {
+  border: 1px solid #ccc;
+  padding: 20px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  display: flex; 
+  flex-wrap: wrap; 
+  align-items: center;
+  width: 99%;
+}
+
+/* Estilo para el título "Filtros de búsqueda" */
+.filtros h3 {
+  margin-top: 0;
+  margin-bottom: 0; 
+  flex: 1; 
+}
+
+/* Estilo para el botón */
+.filtros input[type="button"] {
+  margin-left: auto; 
+  margin-right: 10px; 
+  background-color: #b21e36;
+  color: #fff;
+  border: 0;
+  width: 100px;
+  border-radius: 30px;
+  padding: 10px;
+}
+
+/* Estilo para los elementos dentro del contenedor */
+.input-group {
+  margin-right: 10px; 
+  flex: 1; 
+}
+
+/* Estilo para los labels */
+.input-group label {
+  display: block; 
+  margin-bottom: 5px; 
+}
+
+/* Estilo para inputs y selects */
+.input-group input[type="text"],
+.input-group select {
+  width: 100%; 
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+/* Estilo para la línea divisoria */
+.filtros hr {
+  border: 0;
+  border-top: 1px solid #ccc;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  width: 100%; 
+}
