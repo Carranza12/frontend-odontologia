@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ApiService } from 'src/app/api.service';
 import { AuthService } from 'src/app/auth/auth.service';
 import { GeneralService } from 'src/app/general.service';
+import { FormBuilder, FormControl, FormControlDirective, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -14,12 +15,26 @@ export class UsuariosComponent implements OnInit {
   public usuariosList:any = [];
   public totalPages!:[];
   public currentPage!:number;
-  constructor(private apiService: ApiService, public _general: GeneralService, public router: Router, private auth:AuthService, private cdr:ChangeDetectorRef) {}
+  
+  
+  constructor(private apiService: ApiService, public _general: GeneralService,private formBuilder: FormBuilder, public router: Router, private auth:AuthService, private cdr:ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.searchInApi('1')
   }
 
+  public filtrosForm = this.formBuilder.group({
+    nombre:[''],
+    apellido: [''],
+    email: [''],
+    genero: [''],
+    rol: [''] 
+  });
+  
+  onSubmit(): void {
+    // Aquí puedes agregar la lógica para procesar el formulario
+    console.log('Formulario enviado');
+  }
   async deleteUser(id:string){
     const result = await Swal.fire({
       title: '¿Estás seguro de cancelar la finalizacion?',

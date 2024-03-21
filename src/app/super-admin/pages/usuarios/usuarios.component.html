@@ -1,22 +1,30 @@
 <app-sidebar></app-sidebar>
 <main class="main_container">
   <app-page-title [title]="'Usuarios'"></app-page-title>
-  
+  <form
+    class="login-form"
+    [formGroup]="filtrosForm"
+    (ngSubmit)="onSubmit()"
+  >
   <div class="filtros">
     <h3>Filtros de búsqueda</h3>
     <input type="button" value="Buscar">
     <hr>
     <div class="input-group">
-        <label for="nombre">Nombre completo:</label>
-        <input type="text" id="nombre" name="nombre">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" formControlName="nombre">
     </div>
     <div class="input-group">
+      <label for="nombre">Apellido:</label>
+      <input type="text" id="apellido" name="apellido" formControlName="apellido">
+  </div>
+    <div class="input-group">
         <label for="correo">Correo electrónico:</label>
-        <input type="text" id="correo" name="correo">
+        <input type="text" id="correo" name="correo" formControlName="email">
     </div>
     <div class="input-group">
         <label for="genero">Género:</label>
-        <select id="genero" name="genero">
+        <select id="genero" name="genero" formControlName="genero">
             <option value="masculino">Masculino</option>
             <option value="femenino">Femenino</option>
             <option value="otro">Otro</option>
@@ -24,7 +32,7 @@
     </div>
     <div class="input-group">
         <label for="rol">Rol:</label>
-        <select id="rol" name="rol">
+        <select id="rol" name="rol" formControlName="rol">
             <option value="admin">SuperAdmin</option>
             <option value="usuario">Maestro</option>
             <option value="invitado">Estudiante</option>
@@ -32,7 +40,7 @@
         </select>
     </div>
 </div>
-
+  </form>
   <div>
     <button
       type="button"
