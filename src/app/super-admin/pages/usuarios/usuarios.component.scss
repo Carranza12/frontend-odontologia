@@ -55,60 +55,73 @@ h3 {
   border-radius: 4px;
 }
 
+/* Estilo para el contenedor de filtros */
 .filtros {
   border: 1px solid #ccc;
   padding: 20px;
   border-radius: 5px;
   margin-bottom: 20px;
-  display: flex; 
-  flex-wrap: wrap; 
-  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch; /* Ajustar la altura de los elementos para que coincidan */
   width: 99%;
+  flex-direction: column;
 }
 
-.filtros h3 {
-  margin-top: 0;
-  margin-bottom: 0; 
-  flex: 1; 
+/* Estilo para el contenedor de inputs */
+.inputs-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+  width: 100%; /* Ocupar todo el ancho disponible */
 }
 
-.filtros input[type="button"] {
-  margin-left: auto; 
-  margin-right: 10px; 
-  background-color: #b21e36;
-  color: #fff;
-  border: 0;
-  width: 100px;
-  border-radius: 30px;
-  padding: 10px;
-}
-
+/* Estilo para los grupos de input */
 .input-group {
-  margin-right: 10px; 
-  flex: 1; 
+  margin-right: 10px;
+  flex: 1;
 }
 
+/* Estilo para el grupo de botón */
+.button-group {
+  align-self: flex-end;
+  margin-top: 10px;
+}
 
+/* Estilo para los labels */
 .input-group label {
-  display: block; 
-  margin-bottom: 5px; 
+  display: block;
+  margin-bottom: 5px;
 }
 
-
+/* Estilo para los inputs de texto y selects */
 .input-group input[type="text"],
 .input-group select {
-  width: 100%; 
+  width: calc(100% - 10px); /* Restar el margen derecho para evitar desbordamiento */
   padding: 5px;
   margin-bottom: 10px;
-  border: none; 
-  border-radius: 5px; 
+  border: none;
+  border-radius: 5px;
   background-color: #f2f2f2;
 }
 
+/* Estilo para la línea divisoria */
 .filtros hr {
   border: 0;
   border-top: 1px solid #ccc;
   margin-top: 10px;
   margin-bottom: 20px;
-  width: 100%; 
+  width: 100%;
+}
+
+/* Estilo para el botón */
+.filtros input[type="button"] {
+  margin-left: auto;
+  margin-right: 30px;
+  background-color: #b21e36;
+  color: #fff;
+  border: 0;
+  width: 100px;
+  border-radius: 20px;
+  padding: 10px;
 }

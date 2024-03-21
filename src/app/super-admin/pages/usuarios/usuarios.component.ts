@@ -24,11 +24,10 @@ export class UsuariosComponent implements OnInit {
   }
 
   public filtrosForm = this.formBuilder.group({
-    nombre:[''],
-    apellido: [''],
+    name:[''],
+    lastname: [''],
     email: [''],
-    genero: [''],
-    rol: [''] 
+    role_default: ['todos'] 
   });
   
   onSubmit(): void {
