@@ -31,7 +31,7 @@ export class SidebarComponent implements OnInit {
       console.log("this.userData.img:", this.userData.img)     
       let srcImage = this.userData.img;
       srcImage = srcImage.replace("148.212.195.49", "192.168.27.1")
-      this.profile_picture = 'http://' + this.userData.img;
+      this.profile_picture = 'http://' + srcImage;
       console.log("this.profile_picture:", this.profile_picture)
     }
 
