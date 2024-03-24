@@ -30,7 +30,7 @@ export class SidebarComponent implements OnInit {
       this.userData = JSON.parse(user_json);
       console.log("this.userData.img:", this.userData.img)     
       let srcImage = this.userData.img;
-      srcImage = srcImage.replace("148.212.195.49", "192.168.27.1")
+      srcImage = srcImage.replace("148.212.195.49", "192.168.1.27")
       this.profile_picture = 'http://' + srcImage;
       console.log("this.profile_picture:", this.profile_picture)
     }
