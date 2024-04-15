@@ -32,7 +32,7 @@ export class HistoriaClinicaEditComponent implements OnInit{
   public isEditHistoria: boolean = false;
 
   public usuarioLogeado:any;
-
+  public ciudades: any = []
   public user_id!: string;
   public perfilForm = this.formBuilder.group({
     expediente: ['', Validators.required],
@@ -609,6 +609,15 @@ export class HistoriaClinicaEditComponent implements OnInit{
           }
         );
       }
+
+
+      this.historiaClinicaForm.controls.estado_origen.valueChanges.subscribe((res:any) => {
+        console.log("res:", res)
+        const find = this.estadosMexico.find((r) => r.value === res)
+        if(find){
+          this.ciudades = find.municipios
+        }
+      })
     })
 
   

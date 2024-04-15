@@ -348,57 +348,63 @@
               </div>
             </div>
 
-
-         
-
-      
             <div class="form_control">
               <label for="" class="label_input">Ciudad:</label>
-              <input
-                [readonly]="isAprobadoAnyConsulta"
+              <select
                 class="form_input"
-                type="text"
-                placeholder="Ciudad de origen"
                 formControlName="ciudad_origen"
-                name="telefono"
-                autocomplete="off"
-              />
+                name="ciudad_origen"
+                [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+              >
+                <option value="">Selecciona la ciudad de origen</option>
+                <option
+                  [value]="country"
+                  *ngFor="let country of ciudades"
+                >
+                  {{ country}}
+                </option>
+              </select>
               <div
                 *ngIf="
-                  historiaClinicaForm
-                    .get('ciudad_origen')
-                    ?.hasError('required') &&
+                  historiaClinicaForm.get('ciudad_origen')?.hasError('required') &&
                   historiaClinicaForm.get('ciudad_origen')?.touched
                 "
                 class="error-message"
               >
-                La ciudad de origen es requerido.
+                La  ciudad es requerida.
               </div>
             </div>
+         
 
             <div class="form_control">
               <label for="" class="label_input">Ciudad:</label>
-              <input
-                [readonly]="isAprobadoAnyConsulta"
+              <select
                 class="form_input"
-                type="text"
-                placeholder="Ciudad actual"
                 formControlName="ciudad_Actual"
-                name="telefono"
-                autocomplete="off"
-              />
+                name="ciudad_Actual"
+                [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+              >
+                <option value="">Selecciona la ciudad actual</option>
+                <option
+                  [value]="country"
+                  *ngFor="let country of ciudades"
+                >
+                  {{ country}}
+                </option>
+              </select>
               <div
                 *ngIf="
-                  historiaClinicaForm
-                    .get('ciudad_Actual')
-                    ?.hasError('required') &&
+                  historiaClinicaForm.get('ciudad_Actual')?.hasError('required') &&
                   historiaClinicaForm.get('ciudad_Actual')?.touched
                 "
                 class="error-message"
               >
-                La ciudad actual es requerido.
+                La  ciudad es requerida.
               </div>
             </div>
+          
+
+           
 
             <div class="form_control">
               <label for="" class="label_input">Ocupacion:</label>
