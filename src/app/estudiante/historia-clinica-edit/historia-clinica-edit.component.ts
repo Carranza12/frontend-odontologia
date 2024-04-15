@@ -90,6 +90,75 @@ export class HistoriaClinicaEditComponent implements OnInit{
     },
   ];
 
+  public paises = [
+    { value: 'México', text: 'México' },
+  ]
+
+  public estadosMexico = [
+    {
+      value: 'Coahuila',
+      text: 'Coahuila',
+      municipios: [
+        'Abasolo',
+        'Acuña',
+        'Allende',
+        'Arteaga',
+        'Candela',
+        'Castaños',
+        'Cuatro Ciénegas',
+        'Escobedo',
+        'Francisco I. Madero',
+        'Frontera',
+        'General Cepeda',
+        'Guerrero',
+        'Hidalgo',
+        'Jiménez',
+        'Juárez',
+        'Lamadrid',
+        'Matamoros',
+        'Monclova',
+        'Morelos',
+        'Múzquiz',
+        'Nadadores',
+        'Nava',
+        'Ocampo',
+        'Parras',
+        'Piedras Negras',
+        'Progreso',
+        'Ramos Arizpe',
+        'Sabinas',
+        'Sacramento',
+        'Saltillo',
+        'San Buenaventura',
+        'San Juan de Sabinas',
+        'San Pedro',
+        'Sierra Mojada',
+        'Torreón',
+        'Viesca',
+        'Villa Unión',
+        'Zaragoza'
+      ]
+    },
+    {
+      value: 'Aguascalientes',
+      text: 'Aguascalientes',
+      municipios: [
+        'Aguascalientes',
+        'Asientos',
+        'Calvillo',
+        'Cosío',
+        'Jesús María',
+        'Pabellón de Arteaga',
+        'Rincón de Romos',
+        'San José de Gracia',
+        'Tepezalá',
+        'El Llano',
+        'San Francisco de los Romo'
+      ]
+    }
+  ];
+  
+
   public status_options = [
     {
       value: 'Soltero/a',
