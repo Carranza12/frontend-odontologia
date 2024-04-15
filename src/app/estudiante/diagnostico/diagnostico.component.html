@@ -11,8 +11,8 @@
 
     <div class="historia_clinica" *ngIf="item">
       <h3 style="text-transform: uppercase;margin-bottom: 20px; color: #b21e36;">Informacion del paciente</h3>
-     
-      <div class="alerts">
+
+  
         <app-alert
           enfermedad="Este paciente tiene diabetes."
           *ngIf="item.historia_clinica.Diabeticos"
@@ -42,7 +42,7 @@
         enfermedad="Este paciente sufre problemas cardiovasculares."
         *ngIf="item.historia_clinica.Enfermedades_Cardiovasculares"
       ></app-alert>
-      </div> 
+    
       <div class="contenedor" style="display: flex;gap: 20px;flex-wrap: wrap;background-color: #ddd;padding: 20px;border-radius: 13px">
       <div>
         <label for=""><strong>Nombre Completo:</strong> {{item.paciente.nombre_completo}}</label>
@@ -69,6 +69,10 @@
         <label for=""><strong>Estado civil: </strong> {{item.paciente.estado_civil}}</label>
       </div>
      </div>
+
+
+
+     
     </div>
     <div class="tabs">
       <div class="contenedor-odontograma">
@@ -189,7 +193,7 @@
         ></textarea>
       </div>
 
-      <h3>ATM:</h3>
+      <label class="label_input">ATM:</label>
       <div class="form_control">
         <label for="" class="label_input"></label>
         <textarea
