@@ -206,13 +206,13 @@ export class ApiService {
     return false;
   }
 
-  getTratamientosByAlumno(alumno_id: string) :any{
+  getTratamientosByAlumno(alumno_id: string, page: number, limit:number) :any{
     const token = localStorage.getItem('token');
     if (token) {
       const headers = new HttpHeaders({
         Authorization: `Bearer ${token}`,
       });
-      return this.http.get(`${this.CRETAE_PATIENT_HISTORIA_URL_API}/tratamientos/alumno/${alumno_id}`, {
+      return this.http.get(`${this.CRETAE_PATIENT_HISTORIA_URL_API}/tratamientos/alumno/${alumno_id}/${page}/${limit}`, {
         headers,
       });
     }

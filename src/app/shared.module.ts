@@ -5,10 +5,23 @@ import { PageTitleComponent } from './components/page-title/page-title.component
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { QRCodeModule } from 'angularx-qrcode';
 import { AlertComponent } from './components/alert/alert.component';
-
+import { PaginatorComponent } from './components/paginator/paginator.component';
 @NgModule({
-  declarations: [SidebarComponent, PageTitleComponent, AlertComponent],
-  imports: [CommonModule,ReactiveFormsModule,FormsModule, QRCodeModule],
-  exports: [SidebarComponent, PageTitleComponent,ReactiveFormsModule,FormsModule,QRCodeModule, AlertComponent],
+  declarations: [
+    SidebarComponent,
+    PageTitleComponent,
+    AlertComponent,
+    PaginatorComponent,
+  ],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, QRCodeModule],
+  exports: [
+    SidebarComponent,
+    PageTitleComponent,
+    ReactiveFormsModule,
+    FormsModule,
+    QRCodeModule,
+    AlertComponent,
+    PaginatorComponent,
+  ],
 })
 export class SharedModule {}

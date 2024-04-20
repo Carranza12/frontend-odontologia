@@ -10,35 +10,57 @@ import { GeneralService } from 'src/app/general.service';
 @Component({
   selector: 'app-mis-practicas',
   templateUrl: './mis-practicas.component.html',
-  styleUrls: ['./mis-practicas.component.scss']
+  styleUrls: ['./mis-practicas.component.scss'],
 })
 export class MisPracticasComponent {
-  public misPracticasList:any = []
+  public misPracticasList: any = [];
+  public totalPages: any = ['1'];
+  public currentPage = 1;
 
   constructor(
-    private apiService: ApiService, 
-    public _asignaturas:asignaturaService,
-    public _perfil_estudiante:PerfilEstudiantesService,
-    public _perfil_maestro:PerfilMaestroService,
+    private apiService: ApiService,
+    public _asignaturas: asignaturaService,
+    public _perfil_estudiante: PerfilEstudiantesService,
+    public _perfil_maestro: PerfilMaestroService,
     public _general: GeneralService,
-    public router: Router, 
-    private auth:AuthService, 
-    private cdr:ChangeDetectorRef) {}
-
+    public router: Router,
+    private auth: AuthService,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
-    let user :any= localStorage.getItem('user');
+   this.searchInApi('1');
+  }
+
+  public openPractica(diagnostico_id: string, tratamiento_id: string) {
+    this.router.navigateByUrl(
+      `/estudiante/diagnostico-view/${diagnostico_id}?tratamiento=${tratamiento_id}`
+    );
+  }
+
+  async searchInApi(page: string) {
+    let user: any = localStorage.getItem('user');
     user = JSON.parse(user);
-    if(user){
-      this.apiService.getTratamientosByAlumno(user.user_id).subscribe(async (data: any) => {
-        this.misPracticasList = data;
-        console.log("this.misPracticasList:", this.misPracticasList)
-     })
+    if (user) {
+      this.apiService
+        .getTratamientosByAlumno(user.user_id, Number(page), 5)
+        .subscribe(
+          (data: any) => {
+            if (Array.isArray(data.items)) {
+              this.misPracticasList = data.items;
+              this.totalPages = data.totalPages;
+              this.currentPage = Number(data.currentPage);
+            }
+          },
+          (error: any) => {
+            console.log("EROR",error);
+            this.auth.logout();
+          }
+        );
     }
   }
 
-  public openPractica(diagnostico_id:string, tratamiento_id:string){
-    this.router.navigateByUrl(`/estudiante/diagnostico-view/${diagnostico_id}?tratamiento=${tratamiento_id}`)
-  }  
-  
+  changePage(event:string){
+    this.searchInApi(event)
+  }
 }

@@ -75,14 +75,8 @@ export class UsuariosComponent implements OnInit {
     throw new Error('Method not implemented.');
   }
 
-  changePage(page:number){
-    if (page !== 0 && page <= this.totalPages.length) {
-      console.log("page:", page);
-      const pageFinal = page.toString();
-      this.searchInApi(pageFinal);
-    } else {
-      console.log("Página no válida");
-    }
+  changePage(event:string){
+    this.searchInApi(event)
   }
 
   async searchInApi(page:string){

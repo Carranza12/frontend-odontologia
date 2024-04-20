@@ -27,5 +27,7 @@
         </tr>
       </tbody>
     </table>
+
+    <app-paginator [currentPage]="currentPage" [totalPages]="totalPages" (change)="changePage($event)"></app-paginator>
   </div>
 </main>
