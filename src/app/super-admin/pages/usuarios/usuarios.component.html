@@ -29,14 +29,14 @@
                 <option value="maestro">Maestro</option>
                 <option value="estudiante">Estudiante</option>
                 <option value="trabajador">Trabajador</option>
-                <option value="todos" selected>Todos</option>
+                <option value="" selected>Todos</option>
             </select>
         </div>
     </div>
     <div class="button-group">
-        <input type="button" value="Buscar">
+        <input type="button" value="Buscar" (click)="search()">
     </div>
-</div>
+  </div>
   </form>
   <div>
     <button
@@ -46,10 +46,7 @@
     >
       Nuevo usuario
     </button>
-    <!-- <div class="search-container">
-      <input class="search-input" type="text" placeholder="Buscar por nombre" [(ngModel)]="searchTerm">
-      <button class="btn_primary" (click)="search()">Buscar</button>
-    </div>     -->
+  
     <table class="table_grid">
       <thead>
         <tr>

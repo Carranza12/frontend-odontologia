@@ -1,59 +1,76 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { environment } from '../environment'
+import { environment } from '../environment';
 @Injectable({
   providedIn: 'root',
 })
 export class ApiService {
-  private USERS_URL_API = environment.backendHost+'/api/auth/users';
-  private USER_URL_API = environment.backendHost+'/api/auth/user';
-  private REGSITER_USER_URL_API = environment.backendHost+'/api/auth/register';
-  private EDIT_USER_URL_API = environment.backendHost+'/api/auth/users';
-  private DELETE_USER_URL_API = environment.backendHost+'/api/auth/users';
+  private USERS_URL_API = environment.backendHost + '/api/auth/users';
+  private USER_URL_API = environment.backendHost + '/api/auth/user';
+  private REGSITER_USER_URL_API =
+    environment.backendHost + '/api/auth/register';
+  private EDIT_USER_URL_API = environment.backendHost + '/api/auth/users';
+  private DELETE_USER_URL_API = environment.backendHost + '/api/auth/users';
   private CRETAE_PATIENT_HISTORIA_URL_API =
-    environment.backendHost+'/api/patients';
+    environment.backendHost + '/api/patients';
   private GET_HISTORIA_AND_PATIENT_URL_API =
-    environment.backendHost+'/api/patients/historia_clinica';
+    environment.backendHost + '/api/patients/historia_clinica';
 
-    private PERFIL_MAESTROS_URL = environment.backendHost+'/api/perfil/maestros';
+  private PERFIL_MAESTROS_URL =
+    environment.backendHost + '/api/perfil/maestros';
 
-
-    private USER_URLE_MAIL_API = environment.backendHost+'/api/auth/user/email';
+  private USER_URLE_MAIL_API = environment.backendHost + '/api/auth/user/email';
   constructor(private http: HttpClient) {}
 
-  getUsers(page?:string): any {
+  getUsers(page?: string, filters?:any): any {
     const token = localStorage.getItem('token');
     if (token) {
       const headers = new HttpHeaders({
         Authorization: `Bearer ${token}`,
       });
-      if(page){
+      let query = '';
+      for (const filter of filters) {
+        if (filter.value) {
+          if (!query) {
+            query += `?${filter.name}=${filter.value}`;
+          }else{
+            query += `&${filter.name}=${filter.value}`;
+          }
+        }
+      }
+      console.log("query:", query)
+      if (page && query) {
+        return this.http.get(`${this.USERS_URL_API}${query}&page=${page}`, { headers });
+      }
+      if (page && !query) {
         return this.http.get(`${this.USERS_URL_API}?page=${page}`, { headers });
       }
-      if(!page){
-        return this.http.get(`${this.USERS_URL_API}`, { headers });
+      if (!page) {
+        return this.http.get(`${this.USERS_URL_API}${query}`, { headers });
       }
     }
     return false;
   }
 
-  getMaestros(page?:string): any {
+  getMaestros(page?: string): any {
     const token = localStorage.getItem('token');
     if (token) {
       const headers = new HttpHeaders({
         Authorization: `Bearer ${token}`,
       });
-      if(page){
-        return this.http.get(`${this.USERS_URL_API}/maestros?page=${page}`, { headers });
+      if (page) {
+        return this.http.get(`${this.USERS_URL_API}/maestros?page=${page}`, {
+          headers,
+        });
       }
-      if(!page){
+      if (!page) {
         return this.http.get(`${this.USERS_URL_API}/maestros`, { headers });
       }
     }
     return false;
   }
-  getMaestroPerfil(id:string): any {
+  getMaestroPerfil(id: string): any {
     const token = localStorage.getItem('token');
     if (token) {
       const headers = new HttpHeaders({
@@ -63,23 +80,24 @@ export class ApiService {
     }
     return false;
   }
-  
-  getEstudiantes(page?:string): any {
+
+  getEstudiantes(page?: string): any {
     const token = localStorage.getItem('token');
     if (token) {
       const headers = new HttpHeaders({
         Authorization: `Bearer ${token}`,
       });
-      if(page){
-        return this.http.get(`${this.USERS_URL_API}/estudiantes?page=${page}`, { headers });
+      if (page) {
+        return this.http.get(`${this.USERS_URL_API}/estudiantes?page=${page}`, {
+          headers,
+        });
       }
-      if(!page){
+      if (!page) {
         return this.http.get(`${this.USERS_URL_API}/estudiantes`, { headers });
       }
     }
     return false;
   }
-
 
   registerUser(user: any): any {
     const token = localStorage.getItem('token');
@@ -122,13 +140,15 @@ export class ApiService {
       const headers = new HttpHeaders({
         Authorization: `Bearer ${token}`,
       });
-      const respuesta = this.http.get(`${this.USER_URLE_MAIL_API}/${email}`, { headers });
-      return respuesta
+      const respuesta = this.http.get(`${this.USER_URLE_MAIL_API}/${email}`, {
+        headers,
+      });
+      return respuesta;
     }
     return false;
   }
 
-  getHistoriaClinica(id: string) :any{
+  getHistoriaClinica(id: string): any {
     const token = localStorage.getItem('token');
     if (token) {
       const headers = new HttpHeaders({
@@ -141,98 +161,119 @@ export class ApiService {
     return false;
   }
 
-  getDiagnostico(id: string) :any{
+  getDiagnostico(id: string): any {
     const token = localStorage.getItem('token');
     if (token) {
       const headers = new HttpHeaders({
         Authorization: `Bearer ${token}`,
       });
-      return this.http.get(`${this.CRETAE_PATIENT_HISTORIA_URL_API}/diagnostico/${id}`, {
-        headers,
-      });
+      return this.http.get(
+        `${this.CRETAE_PATIENT_HISTORIA_URL_API}/diagnostico/${id}`,
+        {
+          headers,
+        }
+      );
     }
     return false;
   }
 
-  getTratamiento(id: string) :any{
+  getTratamiento(id: string): any {
     const token = localStorage.getItem('token');
     if (token) {
       const headers = new HttpHeaders({
         Authorization: `Bearer ${token}`,
       });
-      return this.http.get(`${this.CRETAE_PATIENT_HISTORIA_URL_API}/tratamientos/${id}`, {
-        headers,
-      });
+      return this.http.get(
+        `${this.CRETAE_PATIENT_HISTORIA_URL_API}/tratamientos/${id}`,
+        {
+          headers,
+        }
+      );
     }
     return false;
   }
 
-  getDiagnosticosByHistoriaClinicaID(id: string) :any{
+  getDiagnosticosByHistoriaClinicaID(id: string): any {
     const token = localStorage.getItem('token');
     if (token) {
       const headers = new HttpHeaders({
         Authorization: `Bearer ${token}`,
       });
-      return this.http.get(`${this.CRETAE_PATIENT_HISTORIA_URL_API}/diagnostico-historia-clinica/${id}`, {
-        headers,
-      });
+      return this.http.get(
+        `${this.CRETAE_PATIENT_HISTORIA_URL_API}/diagnostico-historia-clinica/${id}`,
+        {
+          headers,
+        }
+      );
     }
     return false;
   }
 
-  getTratamientosByHistoriaClinicaID(id: string) :any{
+  getTratamientosByHistoriaClinicaID(id: string): any {
     const token = localStorage.getItem('token');
     if (token) {
       const headers = new HttpHeaders({
         Authorization: `Bearer ${token}`,
       });
-      return this.http.get(`${this.CRETAE_PATIENT_HISTORIA_URL_API}/tratamientos-historia-clinica/${id}`, {
-        headers,
-      });
+      return this.http.get(
+        `${this.CRETAE_PATIENT_HISTORIA_URL_API}/tratamientos-historia-clinica/${id}`,
+        {
+          headers,
+        }
+      );
     }
     return false;
   }
 
-  getHistoriaClinicaByMateria(materia_id: string) :any{
+  getHistoriaClinicaByMateria(materia_id: string): any {
     const token = localStorage.getItem('token');
     if (token) {
       const headers = new HttpHeaders({
         Authorization: `Bearer ${token}`,
       });
-      return this.http.get(`${this.GET_HISTORIA_AND_PATIENT_URL_API}/materia/${materia_id}`, {
-        headers,
-      });
+      return this.http.get(
+        `${this.GET_HISTORIA_AND_PATIENT_URL_API}/materia/${materia_id}`,
+        {
+          headers,
+        }
+      );
     }
     return false;
   }
 
-  getTratamientosByAlumno(alumno_id: string, page: number, limit:number) :any{
+  getTratamientosByAlumno(alumno_id: string, page: number, limit: number): any {
     const token = localStorage.getItem('token');
     if (token) {
       const headers = new HttpHeaders({
         Authorization: `Bearer ${token}`,
       });
-      return this.http.get(`${this.CRETAE_PATIENT_HISTORIA_URL_API}/tratamientos/alumno/${alumno_id}/${page}/${limit}`, {
-        headers,
-      });
+      return this.http.get(
+        `${this.CRETAE_PATIENT_HISTORIA_URL_API}/tratamientos/alumno/${alumno_id}/${page}/${limit}`,
+        {
+          headers,
+        }
+      );
     }
     return false;
   }
 
-  getHistoriaClinicaByEstudiante(id_estudiante: string) :any{
+  getHistoriaClinicaByEstudiante(id_estudiante: string): any {
     const token = localStorage.getItem('token');
     if (token) {
       const headers = new HttpHeaders({
         Authorization: `Bearer ${token}`,
       });
-      return this.http.get(`${this.GET_HISTORIA_AND_PATIENT_URL_API}/estudiante/${id_estudiante}`, {
-        headers,
-      });
+      return this.http.get(
+        `${this.GET_HISTORIA_AND_PATIENT_URL_API}/estudiante/${id_estudiante}`,
+        {
+          headers,
+        }
+      );
     }
     return false;
   }
 
-  getSemestreList(){
+  getSemestreList() {
     return [
       {
         value: '1',
@@ -273,7 +314,7 @@ export class ApiService {
     ];
   }
 
-  getCarrerasList(){
+  getCarrerasList() {
     return [
       {
         value: 'Lic en odontologia',
@@ -310,60 +351,75 @@ export class ApiService {
     return false;
   }
 
-  updateHistoriaClinica(id:any, body:any):any {
+  updateHistoriaClinica(id: any, body: any): any {
     const token = localStorage.getItem('token');
     if (token) {
       const headers = new HttpHeaders({
         Authorization: `Bearer ${token}`,
       });
-      console.log("BODY PARA EL BACKEND:", body)
-      return this.http.put(`${this.CRETAE_PATIENT_HISTORIA_URL_API}/${id}`, body, {
-        headers,
-      });
+      console.log('BODY PARA EL BACKEND:', body);
+      return this.http.put(
+        `${this.CRETAE_PATIENT_HISTORIA_URL_API}/${id}`,
+        body,
+        {
+          headers,
+        }
+      );
     }
     return false;
   }
 
-  updateTratamiento(id:any, body:any):any {
+  updateTratamiento(id: any, body: any): any {
     const token = localStorage.getItem('token');
     if (token) {
       const headers = new HttpHeaders({
         Authorization: `Bearer ${token}`,
       });
-      console.log("BODY PARA EL BACKEND:", body)
-      return this.http.put(`${this.CRETAE_PATIENT_HISTORIA_URL_API}/tratamientos/update/${id}`, body, {
-        headers,
-      });
+      console.log('BODY PARA EL BACKEND:', body);
+      return this.http.put(
+        `${this.CRETAE_PATIENT_HISTORIA_URL_API}/tratamientos/update/${id}`,
+        body,
+        {
+          headers,
+        }
+      );
     }
     return false;
   }
 
-  createDiagnostico(body:any):any {
+  createDiagnostico(body: any): any {
     const token = localStorage.getItem('token');
     if (token) {
       const headers = new HttpHeaders({
         Authorization: `Bearer ${token}`,
       });
-      console.log("BODY PARA EL BACKEND:", body)
-      return this.http.post(`${this.CRETAE_PATIENT_HISTORIA_URL_API}/diagnostico`, body, {
-        headers,
-      });
+      console.log('BODY PARA EL BACKEND:', body);
+      return this.http.post(
+        `${this.CRETAE_PATIENT_HISTORIA_URL_API}/diagnostico`,
+        body,
+        {
+          headers,
+        }
+      );
     }
     return false;
   }
 
-  createTratamiento(body:any):any {
+  createTratamiento(body: any): any {
     const token = localStorage.getItem('token');
     if (token) {
       const headers = new HttpHeaders({
         Authorization: `Bearer ${token}`,
       });
-      console.log("BODY PARA EL BACKEND:", body)
-      return this.http.post(`${this.CRETAE_PATIENT_HISTORIA_URL_API}/tratamientos`, body, {
-        headers,
-      });
+      console.log('BODY PARA EL BACKEND:', body);
+      return this.http.post(
+        `${this.CRETAE_PATIENT_HISTORIA_URL_API}/tratamientos`,
+        body,
+        {
+          headers,
+        }
+      );
     }
     return false;
   }
 }
-

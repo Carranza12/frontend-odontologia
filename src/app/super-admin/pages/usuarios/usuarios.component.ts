@@ -20,14 +20,14 @@ export class UsuariosComponent implements OnInit {
   constructor(private apiService: ApiService, public _general: GeneralService,private formBuilder: FormBuilder, public router: Router, private auth:AuthService, private cdr:ChangeDetectorRef) {}
 
   ngOnInit(): void {
-    this.searchInApi('1')
+    this.searchInApi('1',[])
   }
 
   public filtrosForm = this.formBuilder.group({
     name:[''],
     lastname: [''],
     email: [''],
-    role_default: ['todos'] 
+    role_default: [''] 
   });
   
   onSubmit(): void {
@@ -53,7 +53,7 @@ export class UsuariosComponent implements OnInit {
               '',
               'success'
             )
-            this.apiService.getUsers().subscribe(
+            this.apiService.getUsers('1',[]).subscribe(
               (data:any) => {
                 if(Array.isArray(data)){
                   this.usuariosList = data;
@@ -82,19 +82,36 @@ export class UsuariosComponent implements OnInit {
     
   }
   search() {
-    // Aquí puedes agregar la lógica de búsqueda basada en searchTerm
-    console.log('Búsqueda por:', this.searchTerm);
+    
+    console.log("form:", this.filtrosForm.value)
+    let filters = [
+      {
+        name: "name",
+        value: this.filtrosForm.controls.name.value
+      },
+      {
+        name: "lastname",
+        value: this.filtrosForm.controls.lastname.value
+      },
+      {
+        name: "email",
+        value: this.filtrosForm.controls.email.value
+      },
+      {
+        name: "role_default",
+        value: this.filtrosForm.controls.role_default.value
+      },
+    ]
+    this.searchInApi(this.currentPage.toString(), filters)
   }
-  searchTerm(arg0: string, searchTerm: any) {
-    throw new Error('Method not implemented.');
-  }
+  
 
   changePage(event:string){
-    this.searchInApi(event)
+    this.searchInApi(event, [])
   }
 
-  async searchInApi(page:string){
-    this.apiService.getUsers(page).subscribe(
+  async searchInApi(page:string, filters:any[]){
+    this.apiService.getUsers(page, filters).subscribe(
       (data:any) => {
         if(Array.isArray(data.items)){
           this.usuariosList = data.items;
