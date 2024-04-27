@@ -1,6 +1,34 @@
 <app-sidebar></app-sidebar>
 <main class="main_container">
   <app-page-title [title]="'Maestros'"></app-page-title>
+  <form
+  class=""
+  [formGroup]="filtrosForm"
+  (ngSubmit)="onSubmit()"
+>
+<div class="filtros">
+  <h3>Filtros de búsqueda</h3>
+  <hr>
+  <div class="inputs-container">
+      <div class="input-group">
+          <label for="nombre">Nombre:</label>
+          <input type="text" id="nombre" name="name" formControlName="name">
+      </div>
+      <div class="input-group">
+          <label for="apellido">Apellido:</label>
+          <input type="text" id="apellido" name="last_name" formControlName="last_name">
+      </div>
+      <div class="input-group">
+          <label for="correo">Correo electrónico:</label>
+          <input type="text" id="correo" name="email" formControlName="email">
+      </div>
+      
+  </div>
+  <div class="button-group">
+      <input type="button" value="Buscar" (click)="search()">
+  </div>
+</div>
+</form>
   <div>
    
     <table class="table_grid">

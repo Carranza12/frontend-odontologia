@@ -53,19 +53,33 @@ export class ApiService {
     return false;
   }
 
-  getMaestros(page?: string): any {
+  getMaestros(page?: string, filters?:any): any {
     const token = localStorage.getItem('token');
     if (token) {
       const headers = new HttpHeaders({
         Authorization: `Bearer ${token}`,
       });
-      if (page) {
-        return this.http.get(`${this.USERS_URL_API}/maestros?page=${page}`, {
+      let query = '';
+      for (const filter of filters) {
+        if (filter.value) {
+          if (!query) {
+            query += `?${filter.name}=${filter.value}`;
+          }else{
+            query += `&${filter.name}=${filter.value}`;
+          }
+        }
+      }
+      console.log("query:", query)
+      if (page && query) {
+        return this.http.get(`${this.USERS_URL_API}/maestros${query}&page=${page}`, {
           headers,
         });
       }
+      if (page && !query) {
+        return this.http.get(`${this.USERS_URL_API}/maestros?page=${page}`, { headers });
+      }
       if (!page) {
-        return this.http.get(`${this.USERS_URL_API}/maestros`, { headers });
+        return this.http.get(`${this.USERS_URL_API}/maestros${query}`, { headers });
       }
     }
     return false;
@@ -81,13 +95,29 @@ export class ApiService {
     return false;
   }
 
-  getEstudiantes(page?: string): any {
+  getEstudiantes(page?: string, filters?:any): any {
     const token = localStorage.getItem('token');
     if (token) {
       const headers = new HttpHeaders({
         Authorization: `Bearer ${token}`,
       });
-      if (page) {
+      let query = '';
+      for (const filter of filters) {
+        if (filter.value) {
+          if (!query) {
+            query += `?${filter.name}=${filter.value}`;
+          }else{
+            query += `&${filter.name}=${filter.value}`;
+          }
+        }
+      }
+      console.log("query:", query)
+      if (page && query) {
+        return this.http.get(`${this.USERS_URL_API}/estudiantes${query}&page=${page}`, {
+          headers,
+        });
+      }
+      if (page && !query) {
         return this.http.get(`${this.USERS_URL_API}/estudiantes?page=${page}`, {
           headers,
         });

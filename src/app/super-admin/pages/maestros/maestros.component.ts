@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/api.service';
 import { AuthService } from 'src/app/auth/auth.service';
@@ -14,16 +15,25 @@ export class MaestrosComponent {
   public maestrosList: any = [];
   public totalPages!:[];
   public currentPage!:number;
+
+  public filtrosForm = this.formBuilder.group({
+    name:[''],
+    last_name: [''],
+    email: [''],
+    role_default: [''] 
+  });
+
   constructor(
     private apiService: ApiService,
     public _general: GeneralService,
     public router: Router,
-    private auth: AuthService
+    private auth: AuthService,
+    private formBuilder: FormBuilder
   ) {}
 
   ngOnInit(): void {
     console.log("maestros...")
-    this.apiService.getMaestros().subscribe(
+    this.apiService.getMaestros('1',[]).subscribe(
       (data: any) => {
         console.log("data:", data)
         if (Array.isArray(data.items)) {
@@ -40,12 +50,19 @@ export class MaestrosComponent {
     );
   }
 
+  onSubmit(): void {
+    // Aquí puedes agregar la lógica para procesar el formulario
+    console.log('Formulario enviado');
+  }
+
+
   
   changePage(event:string){
-    this.searchInApi(event)
+    this.searchInApi(event, [])
   }
-  async searchInApi(page:string){
-    this.apiService.getMaestros(page).subscribe(
+  async searchInApi(page:string, filters:any[]){
+    console.log("filters:", filters)
+    this.apiService.getMaestros(page, filters).subscribe(
       (data:any) => {
         if(Array.isArray(data.items)){
           this.maestrosList = data.items;
@@ -59,6 +76,28 @@ export class MaestrosComponent {
       }
     );
   }
+
+  search() {
+    
+    console.log("form:", this.filtrosForm.value)
+    let filters = [
+      {
+        name: "name",
+        value: this.filtrosForm.controls.name.value
+      },
+      {
+        name: "last_name",
+        value: this.filtrosForm.controls.last_name.value
+      },
+      {
+        name: "email",
+        value: this.filtrosForm.controls.email.value
+      },
+    ]
+    this.searchInApi(this.currentPage.toString(), filters)
+  }
+  
+
 
   async deleteUser(id: string) {
     const result = await Swal.fire({

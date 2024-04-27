@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/api.service';
 import { AuthService } from 'src/app/auth/auth.service';
@@ -15,15 +16,24 @@ export class EstudiantesComponent {
   public totalPages!:[];
   public currentPage!:number;
 
+  public filtrosForm = this.formBuilder.group({
+    name:[''],
+    last_name: [''],
+    email: [''],
+    role_default: [''] 
+  });
+
+
   constructor(
     private apiService: ApiService,
     public _general: GeneralService,
     public router: Router,
-    private auth: AuthService
+    private auth: AuthService,
+    private formBuilder: FormBuilder
   ) {}
 
   ngOnInit(): void {
-    this.apiService.getEstudiantes().subscribe(
+    this.apiService.getEstudiantes('1', []).subscribe(
       (data: any) => {
         console.log("data:", data)
         if (Array.isArray(data.items)) {
@@ -77,10 +87,10 @@ export class EstudiantesComponent {
     }
   }
   changePage(event:string){
-    this.searchInApi(event)
+    this.searchInApi(event, [])
   }
-  async searchInApi(page:string){
-    this.apiService.getEstudiantes(page).subscribe(
+  async searchInApi(page:string, filters:any[]){
+    this.apiService.getEstudiantes(page, filters).subscribe(
       (data:any) => {
         if(Array.isArray(data.items)){
           this.estudiantesList = data.items;
@@ -93,5 +103,25 @@ export class EstudiantesComponent {
         this.auth.logout()
       }
     );
+  }
+
+  search() {
+    
+    console.log("form:", this.filtrosForm.value)
+    let filters = [
+      {
+        name: "name",
+        value: this.filtrosForm.controls.name.value
+      },
+      {
+        name: "last_name",
+        value: this.filtrosForm.controls.last_name.value
+      },
+      {
+        name: "email",
+        value: this.filtrosForm.controls.email.value
+      },
+    ]
+    this.searchInApi(this.currentPage.toString(), filters)
   }
 }
