@@ -23,7 +23,7 @@ export class ApiService {
   private USER_URLE_MAIL_API = environment.backendHost + '/api/auth/user/email';
   constructor(private http: HttpClient) {}
 
-  getUsers(page?: string, filters?:any): any {
+  getUsers(page?: string, filters?: any): any {
     const token = localStorage.getItem('token');
     if (token) {
       const headers = new HttpHeaders({
@@ -34,14 +34,16 @@ export class ApiService {
         if (filter.value) {
           if (!query) {
             query += `?${filter.name}=${filter.value}`;
-          }else{
+          } else {
             query += `&${filter.name}=${filter.value}`;
           }
         }
       }
-      console.log("query:", query)
+      console.log('query:', query);
       if (page && query) {
-        return this.http.get(`${this.USERS_URL_API}${query}&page=${page}`, { headers });
+        return this.http.get(`${this.USERS_URL_API}${query}&page=${page}`, {
+          headers,
+        });
       }
       if (page && !query) {
         return this.http.get(`${this.USERS_URL_API}?page=${page}`, { headers });
@@ -53,7 +55,17 @@ export class ApiService {
     return false;
   }
 
-  getMaestros(page?: string, filters?:any): any {
+  getAllUsers(): any {
+    const token = localStorage.getItem('token');
+    if (token) {
+      const headers = new HttpHeaders({
+        Authorization: `Bearer ${token}`,
+      });
+      return this.http.get(`${this.USERS_URL_API}/all`, { headers });
+    }
+  }
+
+  getMaestros(page?: string, filters?: any): any {
     const token = localStorage.getItem('token');
     if (token) {
       const headers = new HttpHeaders({
@@ -64,22 +76,29 @@ export class ApiService {
         if (filter.value) {
           if (!query) {
             query += `?${filter.name}=${filter.value}`;
-          }else{
+          } else {
             query += `&${filter.name}=${filter.value}`;
           }
         }
       }
-      console.log("query:", query)
+      console.log('query:', query);
       if (page && query) {
-        return this.http.get(`${this.USERS_URL_API}/maestros${query}&page=${page}`, {
+        return this.http.get(
+          `${this.USERS_URL_API}/maestros${query}&page=${page}`,
+          {
+            headers,
+          }
+        );
+      }
+      if (page && !query) {
+        return this.http.get(`${this.USERS_URL_API}/maestros?page=${page}`, {
           headers,
         });
       }
-      if (page && !query) {
-        return this.http.get(`${this.USERS_URL_API}/maestros?page=${page}`, { headers });
-      }
       if (!page) {
-        return this.http.get(`${this.USERS_URL_API}/maestros${query}`, { headers });
+        return this.http.get(`${this.USERS_URL_API}/maestros${query}`, {
+          headers,
+        });
       }
     }
     return false;
@@ -95,7 +114,7 @@ export class ApiService {
     return false;
   }
 
-  getEstudiantes(page?: string, filters?:any): any {
+  getEstudiantes(page?: string, filters?: any): any {
     const token = localStorage.getItem('token');
     if (token) {
       const headers = new HttpHeaders({
@@ -106,16 +125,19 @@ export class ApiService {
         if (filter.value) {
           if (!query) {
             query += `?${filter.name}=${filter.value}`;
-          }else{
+          } else {
             query += `&${filter.name}=${filter.value}`;
           }
         }
       }
-      console.log("query:", query)
+      console.log('query:', query);
       if (page && query) {
-        return this.http.get(`${this.USERS_URL_API}/estudiantes${query}&page=${page}`, {
-          headers,
-        });
+        return this.http.get(
+          `${this.USERS_URL_API}/estudiantes${query}&page=${page}`,
+          {
+            headers,
+          }
+        );
       }
       if (page && !query) {
         return this.http.get(`${this.USERS_URL_API}/estudiantes?page=${page}`, {
