@@ -17,7 +17,7 @@ export class UsuarioNewComponent implements OnInit {
     password: ['', Validators.required],
     role_default: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
-    profileImage: [''],
+    profileImage: ['', Validators.required],
   });
 
   public departamento: FormControl = new FormControl('', Validators.required);

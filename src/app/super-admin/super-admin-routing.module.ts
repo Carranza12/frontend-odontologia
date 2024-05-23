@@ -15,6 +15,8 @@ import { AsignaturasEditComponent } from './pages/asignaturas/asignaturas-edit/a
 import { EstudianteComponent } from '../estudiante/estudiante.component';
 import { EstudiantesComponent } from './pages/estudiantes/estudiantes.component';
 import { EstudiantePerfilComponent } from './pages/estudiantes/estudiante-perfil/estudiante-perfil.component';
+import { RespaldosComponent } from './pages/respaldos/respaldos.component';
+import { ImportarComponent } from './pages/importar/importar.component';
 
 const routes: Routes = [
   { path: '',  canActivate: [SuperAdminGuard],component: SuperAdminComponent },
@@ -29,6 +31,8 @@ const routes: Routes = [
   { path: 'maestros/perfil-maestro/:id', canActivate: [SuperAdminGuard], component: PerfilComponent },
   { path: 'estudiantes', canActivate: [SuperAdminGuard], component: EstudiantesComponent },
   { path: 'estudiantes/perfil-estudiante/:id', canActivate: [SuperAdminGuard], component: EstudiantePerfilComponent },
+  { path: 'respaldos', canActivate: [SuperAdminGuard], component: RespaldosComponent },
+  { path: 'respaldos/importar', canActivate: [SuperAdminGuard], component: ImportarComponent },
 ];
 
 @NgModule({

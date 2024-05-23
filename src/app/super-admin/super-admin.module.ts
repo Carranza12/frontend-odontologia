@@ -17,6 +17,8 @@ import { AsignaturasNewComponent } from './pages/asignaturas/asignaturas-new/asi
 import { AsignaturasEditComponent } from './pages/asignaturas/asignaturas-edit/asignaturas-edit.component';
 import { EstudiantesComponent } from './pages/estudiantes/estudiantes.component';
 import { EstudiantePerfilComponent } from './pages/estudiantes/estudiante-perfil/estudiante-perfil.component';
+import { RespaldosComponent } from './pages/respaldos/respaldos.component';
+import { ImportarComponent } from './pages/importar/importar.component';
 
 
 @NgModule({
@@ -33,7 +35,9 @@ import { EstudiantePerfilComponent } from './pages/estudiantes/estudiante-perfil
     AsignaturasNewComponent,
     AsignaturasEditComponent,
     EstudiantesComponent,
-    EstudiantePerfilComponent
+    EstudiantePerfilComponent,
+    RespaldosComponent,
+    ImportarComponent
   ],
   imports: [
     CommonModule,

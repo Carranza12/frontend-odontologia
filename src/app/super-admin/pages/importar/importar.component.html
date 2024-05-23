@@ -1,0 +1,36 @@
+<app-sidebar></app-sidebar>
+<main class="main_container">
+  <app-page-title [title]="'Importar JSON'"></app-page-title>
+  <div class="container">
+    <form class="login-form" [formGroup]="importarForm" (ngSubmit)="onSubmit()">
+     
+
+        <div>
+            <p>Selecciona el formulario para importar los datos</p>
+            <select
+              class="form_input"
+              formControlName="formulario"
+              name="formulario"
+            >
+            <option value="">Selecciona</option>
+              <option [value]="formulario.dataset" *ngFor="let formulario of formulariosList">{{formulario.name}}</option>
+            </select>
+            <div
+              *ngIf="
+                importarForm.get('formulario')?.hasError('required') &&
+                importarForm.get('formulario')?.touched
+              "
+              class="error-message"
+            >
+              El formulario es requerido.
+            </div>
+          </div>
+
+          <input type="file"  id="fileInput" class="input-file" (change)="onFileSelected($event)" name="jsonToImport" >
+          <label for="fileInput" class="custom-file-button">Seleccionar archivo</label> 
+      
+    
+      <button type="button" (click)="onSubmit()" [disabled]="importarForm.invalid" class="btn_primary">Crear</button>
+    </form>
+  </div>
+</main>

@@ -4,7 +4,7 @@
   <div class="container">
     <form class="login-form" [formGroup]="userForm" (ngSubmit)="onSubmit()">
       <div>
-        <p>Nombre del usuario</p>
+        <p>Nombre del usuario <span style="color: red;">*</span> </p>
         <input
         class="form_input"
         type="text"
@@ -25,7 +25,7 @@
       </div>
       </div>
       <div>
-        <p>Apellidos</p>
+        <p>Apellidos <span style="color: red;">*</span></p>
         <input
         class="form_input"
         type="text"
@@ -46,7 +46,7 @@
       </div>
       </div>
       <div>
-        <p>Correo electronico</p>
+        <p>Correo electronico <span style="color: red;">*</span></p>
         <input
         class="form_input"
         type="email"
@@ -75,7 +75,17 @@
       El correo electrónico no es válido.
     </div>
     <input type="file"  id="fileInput" class="input-file" (change)="onFileSelected($event)" name="profileImage" >
-    <label for="fileInput" class="custom-file-button">Seleccionar archivo</label>
+    <label for="fileInput" class="custom-file-button">Seleccionar archivo</label> 
+    <div
+    *ngIf="
+      userForm.get('profileImage')?.hasError('required')
+    "
+    class="error-message"
+  >
+    La foto de perfil es requerida.
+  </div>
+
+
       </div>
       <div>
         <p>Contraseña</p>
@@ -175,7 +185,7 @@
           </div>
         </div>
       </div>
-      <button type="button" (click)="onSubmit()" class="btn_primary">Crear</button>
+      <button type="button" (click)="onSubmit()" [disabled]="userForm.invalid" class="btn_primary">Crear</button>
     </form>
   </div>
 </main>

@@ -15,10 +15,7 @@
     </div>
 
     <ul>
-      <!-- <li [ngClass]="{ active_session: actual_path === 'estadisticas' }" *ngIf="userData.role_default === 'superAdmin'"
-        (click)="navigateBy('/superAdmin/estadisticas')">
-        <a><i class="fas fa-home"></i>Estadisticas</a>
-      </li> -->
+     
       <li [ngClass]="{ active_session: actual_path === 'usuarios' }" *ngIf="userData.role_default === 'superAdmin'"
         (click)="navigateBy('/superAdmin/usuarios')">
         <a><i class="fas fa-home"></i>Usuarios</a>
@@ -27,26 +24,22 @@
         (click)="navigateBy('/superAdmin/maestros')">
         <a><i class="fas fa-home"></i>Maestros</a>
       </li>
-      <!-- <li [ngClass]="{ active_session: actual_path === 'asignaturas' }" *ngIf="userData.role_default === 'superAdmin'"
-        (click)="navigateBy('/superAdmin/asignaturas')">
-        <a><i class="fas fa-home"></i>Asignaturas</a>
-      </li> -->
+
+      <li [ngClass]="{ active_session: actual_path === 'estudiantes' }" *ngIf="userData.role_default === 'superAdmin'"
+        (click)="navigateBy('/superAdmin/estudiantes')">
+        <a><i class="fas fa-home"></i>Estudiantes</a>
+      </li>
+
+      <li [ngClass]="{ active_session: actual_path === 'respaldos' }" *ngIf="userData.role_default === 'superAdmin'"
+        (click)="navigateBy('/superAdmin/respaldos')">
+        <a><i class="fas fa-home"></i>Respaldos</a>
+      </li>
+      
       <li [ngClass]="{ active_session: actual_path === 'consultas' }" *ngIf="userData.role_default === 'trabajador'"
         (click)="navigateBy('/trabajador/consultas')">
         <a><i class="fas fa-home"></i>Consultas</a>
       </li>
-      <!--   <li
-        [ngClass]="{ active_session: actual_path === 'perfil-maestro' }"
-        *ngIf="userData.role_default === 'maestro'"
-        (click)="navigateBy('/maestro/perfil-maestro')"
-      >
-        <a><i class="fas fa-home"></i>Perfil Maestro</a>
-      </li> -->
-
-      <!-- <li [ngClass]="{ active_session: actual_path === 'mis-materias' }" *ngIf="userData.role_default === 'maestro'"
-        (click)="navigateBy('/maestro/mis-materias')">
-        <a><i class="fas fa-home"></i>Materias impartidas</a>
-      </li> -->
+     
 
       <li [ngClass]="{ active_session: actual_path === 'abrir-historia' }" *ngIf="userData.role_default === 'maestro'"
         (click)="navigateBy('/maestro/abrir-historia')">
@@ -58,15 +51,9 @@
       <a><i class="fas fa-home"></i>Dashboard</a>
     </li>
 
-      <li [ngClass]="{ active_session: actual_path === 'estudiantes' }" *ngIf="userData.role_default === 'superAdmin'"
-        (click)="navigateBy('/superAdmin/estudiantes')">
-        <a><i class="fas fa-home"></i>Estudiantes</a>
-      </li>
+      
 
-      <!-- <li [ngClass]="{ active_session: actual_path === 'mis-materias' }" *ngIf="userData.role_default === 'estudiante'"
-        (click)="navigateBy('/estudiante/mis-materias')">
-        <a><i class="fas fa-home"></i>Mis Materias</a>
-      </li> -->
+    
 
       <li [ngClass]="{ active_session: actual_path === 'abrir-historia-estudiante' }"
         *ngIf="userData.role_default === 'estudiante'" (click)="navigateBy('/estudiante/abrir-historia-estudiante')">
@@ -78,11 +65,7 @@
         <a><i class="fas fa-home"></i>Mis practicas</a>
       </li>
 
-      <!-- <li [ngClass]="{ active_session: actual_path === 'tratamientos' }" *ngIf="userData.role_default === 'estudiante'"
-        (click)="navigateBy('/estudiante/tratamientos')">
-        <a><i class="fas fa-home"></i>Tratamientos</a>
-      </li> -->
-
+    
     </ul>
     <div class="social_media">
       <a (click)="logout()">Cerrar sesion</a>
@@ -105,10 +88,7 @@
     </div>
 
     <ul>
-      <!-- <li [ngClass]="{ active_session: actual_path === 'estadisticas' }" *ngIf="userData.role_default === 'superAdmin'"
-        (click)="navigateBy('/superAdmin/estadisticas')">
-        <a><i class="fas fa-home"></i>Estadisticas</a>
-      </li> -->
+
       <li [ngClass]="{ active_session: actual_path === 'usuarios' }" *ngIf="userData.role_default === 'superAdmin'"
         (click)="navigateBy('/superAdmin/usuarios')">
         <a><i class="fas fa-home"></i>Usuarios</a>
@@ -117,26 +97,11 @@
         (click)="navigateBy('/superAdmin/maestros')">
         <a><i class="fas fa-home"></i>Maestros</a>
       </li>
-      <!-- <li [ngClass]="{ active_session: actual_path === 'asignaturas' }" *ngIf="userData.role_default === 'superAdmin'"
-        (click)="navigateBy('/superAdmin/asignaturas')">
-        <a><i class="fas fa-home"></i>Asignaturas</a>
-      </li> -->
+ 
       <li [ngClass]="{ active_session: actual_path === 'consultas' }" *ngIf="userData.role_default === 'trabajador'"
         (click)="navigateBy('/trabajador/consultas')">
         <a><i class="fas fa-home"></i>Consultas</a>
       </li>
-      <!--   <li
-        [ngClass]="{ active_session: actual_path === 'perfil-maestro' }"
-        *ngIf="userData.role_default === 'maestro'"
-        (click)="navigateBy('/maestro/perfil-maestro')"
-      >
-        <a><i class="fas fa-home"></i>Perfil Maestro</a>
-      </li> -->
-
-      <!-- <li [ngClass]="{ active_session: actual_path === 'mis-materias' }" *ngIf="userData.role_default === 'maestro'"
-        (click)="navigateBy('/maestro/mis-materias')">
-        <a><i class="fas fa-home"></i>Materias impartidas</a>
-      </li> -->
 
       <li [ngClass]="{ active_session: actual_path === 'abrir-historia' }" *ngIf="userData.role_default === 'maestro'"
         (click)="navigateBy('/maestro/abrir-historia')">
@@ -154,11 +119,11 @@
         <a><i class="fas fa-home"></i>Estudiantes</a>
       </li>
 
-      <!-- <li [ngClass]="{ active_session: actual_path === 'mis-materias' }" *ngIf="userData.role_default === 'estudiante'"
-        (click)="navigateBy('/estudiante/mis-materias')">
-        <a><i class="fas fa-home"></i>Mis Materias</a>
-      </li> -->
-
+      <li [ngClass]="{ active_session: actual_path === 'respaldos' }" *ngIf="userData.role_default === 'superAdmin'"
+      (click)="navigateBy('/superAdmin/respaldos')">
+      <a><i class="fas fa-home"></i>Respaldos</a>
+    </li>
+    
       <li [ngClass]="{ active_session: actual_path === 'abrir-historia-estudiante' }"
         *ngIf="userData.role_default === 'estudiante'" (click)="navigateBy('/estudiante/abrir-historia-estudiante')">
         <a><i class="fas fa-home"></i>Historias clinicas</a>
@@ -168,11 +133,6 @@
         (click)="navigateBy('/estudiante/mis-practicas')">
         <a><i class="fas fa-home"></i>Mis practicas</a>
       </li>
-
-      <!-- <li [ngClass]="{ active_session: actual_path === 'tratamientos' }" *ngIf="userData.role_default === 'estudiante'"
-        (click)="navigateBy('/estudiante/tratamientos')">
-        <a><i class="fas fa-home"></i>Tratamientos</a>
-      </li> -->
 
     </ul>
     <div class="social_media">
