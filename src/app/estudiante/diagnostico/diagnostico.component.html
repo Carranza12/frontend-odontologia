@@ -11,8 +11,6 @@
 
     <div class="historia_clinica" *ngIf="item">
       <h3 style="text-transform: uppercase;margin-bottom: 20px; color: #b21e36;">Informacion del paciente</h3>
-
-  
         <app-alert
           enfermedad="Este paciente tiene diabetes."
           *ngIf="item.historia_clinica.Diabeticos"

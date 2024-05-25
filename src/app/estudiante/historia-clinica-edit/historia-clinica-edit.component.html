@@ -60,7 +60,27 @@
 
 
       </div>
-      <app-page-title [title]="'Historia Clinica'"></app-page-title>
+
+      <!--Datos del paciente siempr en pantalla-->
+      <div class="filtros">
+        <h3>Historia Clinica</h3>
+    <hr>
+    <div class="inputs-container">
+        <div class="input-group">
+            <label for="nombre"><strong>Nombre: </strong>{{historiaClinicaForm.controls.nombre_completo.value}}</label>
+        </div>
+        <div class="input-group">
+            <label for="apellido"><strong>Genero: </strong>{{historiaClinicaForm.controls.genero.value ==='m'?'Masculino':'Femenino'}}</label>
+        </div>
+        <div class="input-group">
+            <label for="correo"><strong>Telefono: </strong>{{historiaClinicaForm.controls.telefono.value}}</label>
+        </div>
+
+        <div class="input-group">
+          <label for="correo"><strong>Ciudad: </strong>{{historiaClinicaForm.controls.ciudad_origen.value}}</label>
+      </div>
+       </div>
+      </div>   
 <!--Contenido de Diagnosticos-->
       <div class="tabs__content">
         <div *ngIf="showDiagnosticosInfoTab" class="tablas_diagnostico">
@@ -155,6 +175,7 @@
                 name="nombre_completo"
                 autocomplete="off"
                 [readonly]="isAprobadoAnyConsulta"
+                style="width: 440px!important;"
               />
               <div
                 *ngIf="
@@ -168,7 +189,7 @@
                 El nombre completo es requerido.
               </div>
             </div>
-
+            <br>
             <div class="form_control">
               <label for="" class="label_input">Fecha de nacimiento:</label>
               <input
@@ -429,6 +450,7 @@
                 La ocupacion es requerida.
               </div>
             </div>
+            <br>
             <div class="form_control">
               <label for="" class="label_input"
                 >Nombre del contacto de emergencia:</label
@@ -441,6 +463,7 @@
                 formControlName="nombre_contacto_emergencia"
                 name="nombre_contacto_emergencia"
                 autocomplete="off"
+                style="width: 440px!important;"
               />
               <div
                 *ngIf="
@@ -454,7 +477,7 @@
                 El Nombre contacto de emergencia es requerido.
               </div>
             </div>
-
+            <br>
             <div class="form_control">
               <label for="" class="label_input"
                 >Parentesco del contacto de emergencia:</label
