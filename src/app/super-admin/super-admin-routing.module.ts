@@ -17,6 +17,7 @@ import { EstudiantesComponent } from './pages/estudiantes/estudiantes.component'
 import { EstudiantePerfilComponent } from './pages/estudiantes/estudiante-perfil/estudiante-perfil.component';
 import { RespaldosComponent } from './pages/respaldos/respaldos.component';
 import { ImportarComponent } from './pages/importar/importar.component';
+import { ClinicasComponent } from './pages/clinicas/clinicas.component';
 
 const routes: Routes = [
   { path: '',  canActivate: [SuperAdminGuard],component: SuperAdminComponent },
@@ -33,6 +34,7 @@ const routes: Routes = [
   { path: 'estudiantes/perfil-estudiante/:id', canActivate: [SuperAdminGuard], component: EstudiantePerfilComponent },
   { path: 'respaldos', canActivate: [SuperAdminGuard], component: RespaldosComponent },
   { path: 'respaldos/importar', canActivate: [SuperAdminGuard], component: ImportarComponent },
+  { path: 'clinicas', canActivate: [SuperAdminGuard], component: ClinicasComponent },
 ];
 
 @NgModule({

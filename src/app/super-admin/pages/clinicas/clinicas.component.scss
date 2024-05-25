@@ -1,0 +1,123 @@
+.paginator {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .prev,
+  .next,
+  .page-number {
+    padding: 15px 20px;
+    margin: 5px;
+    border: 2px solid #b21e36; 
+    cursor: pointer;
+    background-color: #fff; 
+    color: #b21e36; 
+    border-radius: 12px;
+    transition: background-color 0.3s, color 0.3s; 
+  }
+  
+  .prev:hover,
+  .next:hover,
+  .page-number:hover,
+  .page-number.active {
+    background-color: #b21e36; 
+    color: #fff; 
+  }
+  
+  .page-numbers {
+    display: flex;
+  }
+  
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px; 
+  }
+  
+  h3 {
+    margin-top: 10px; 
+    font-size: 18px; 
+    color: #333; 
+  }
+  
+  .search-container {
+    display: flex;
+    align-items: center;
+  
+  }
+  
+  .search-input {
+    padding: 8px;
+    margin-right: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .filtros {
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch; 
+    width: 99%;
+    flex-direction: column;
+  }
+  
+  .inputs-container {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+    width: 100%; 
+  }
+  
+  .input-group {
+    margin-right: 10px;
+    flex: 1;
+  }
+  
+  .button-group {
+    align-self: flex-end;
+    margin-top: 10px;
+  }
+  
+  .input-group label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .input-group input[type="text"],
+  .input-group select {
+    width: calc(100% - 10px); 
+    padding: 5px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #f2f2f2;
+  }
+  
+  .filtros hr {
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    width: 100%;
+  }
+  
+  .filtros input[type="button"] {
+    margin-left: auto;
+    margin-right: 30px;
+    background-color: #b21e36;
+    color: #fff;
+    border: 0;
+    width: 100px;
+    border-radius: 20px;
+    padding: 10px;
+  }
+  .buttons{
+    display: flex;
+    margin-bottom: 20px;
+  }

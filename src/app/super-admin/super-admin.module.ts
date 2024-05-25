@@ -19,6 +19,7 @@ import { EstudiantesComponent } from './pages/estudiantes/estudiantes.component'
 import { EstudiantePerfilComponent } from './pages/estudiantes/estudiante-perfil/estudiante-perfil.component';
 import { RespaldosComponent } from './pages/respaldos/respaldos.component';
 import { ImportarComponent } from './pages/importar/importar.component';
+import { ClinicasComponent } from './pages/clinicas/clinicas.component';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import { ImportarComponent } from './pages/importar/importar.component';
     EstudiantesComponent,
     EstudiantePerfilComponent,
     RespaldosComponent,
-    ImportarComponent
+    ImportarComponent,
+    ClinicasComponent
   ],
   imports: [
     CommonModule,
