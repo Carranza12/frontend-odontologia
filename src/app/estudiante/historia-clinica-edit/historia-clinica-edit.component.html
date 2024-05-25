@@ -1,6 +1,5 @@
 <app-sidebar></app-sidebar>
 <main class="main_container">
-  <app-page-title [title]="'Historia Clinica'"></app-page-title>
   <form
     class="login-form"
     [formGroup]="historiaClinicaForm"
@@ -61,6 +60,7 @@
 
 
       </div>
+      <app-page-title [title]="'Historia Clinica'"></app-page-title>
 <!--Contenido de Diagnosticos-->
       <div class="tabs__content">
         <div *ngIf="showDiagnosticosInfoTab" class="tablas_diagnostico">
