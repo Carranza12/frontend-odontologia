@@ -1,36 +1,196 @@
 <app-sidebar></app-sidebar>
 <main class="main_container">
-  <app-page-title [title]="'Importar JSON'"></app-page-title>
+  <app-page-title [title]="'Importar Datos'"></app-page-title>
   <div class="container">
-    <form class="login-form" [formGroup]="importarForm" (ngSubmit)="onSubmit()">
-     
+    <form class="login-form" [formGroup]="importarForm">
+      <div *ngIf="!isImported">
+        <p>
+          Selecciona el formulario para importar los datos
+          <span style="color: red">*</span>
+        </p>
+        <select
+          class="form_input"
+          formControlName="formulario"
+          name="formulario"
+        >
+          <option value="">Selecciona</option>
+          <option
+            [value]="formulario.dataset"
+            *ngFor="let formulario of formulariosList"
+          >
+            {{ formulario.name }}
+          </option>
+        </select>
+        <div
+          *ngIf="
+            importarForm.get('formulario')?.hasError('required') &&
+            importarForm.get('formulario')?.touched
+          "
+          class="error-message"
+        >
+          El formulario es requerido.
+        </div>
+      </div>
 
-        <div>
-            <p>Selecciona el formulario para importar los datos</p>
-            <select
-              class="form_input"
-              formControlName="formulario"
-              name="formulario"
-            >
-            <option value="">Selecciona</option>
-              <option [value]="formulario.dataset" *ngFor="let formulario of formulariosList">{{formulario.name}}</option>
-            </select>
-            <div
-              *ngIf="
-                importarForm.get('formulario')?.hasError('required') &&
-                importarForm.get('formulario')?.touched
-              "
-              class="error-message"
-            >
-              El formulario es requerido.
-            </div>
-          </div>
+      <input
+        *ngIf="!isImported"
+        type="file"
+        id="fileInput"
+        class="input-file"
+        (change)="onFileSelected($event)"
+        name="jsonToImport"
+      />
+      <p *ngIf="!isImported">
+        Selecciona el archivo JSON que deseas importar
+        <span style="color: red">*</span>
+      </p>
+      <label *ngIf="!isImported" for="fileInput" class="custom-file-button"
+        >{{ buttonText }}
+      </label>
+      <div
+        *ngIf="
+          importarForm.get('jsonToImport')?.hasError('required') &&
+          importarForm.get('jsonToImport')?.touched
+        "
+        class="error-message"
+      >
+        El archivo JSON es obligatorio.
+      </div>
+      <div
+        *ngIf="
+          importarForm.get('jsonToImport')?.hasError('invalidFileType') &&
+          importarForm.get('jsonToImport')?.touched
+        "
+        class="error-message"
+      >
+        El archivo debe ser de tipo JSON.
+      </div>
+      <div
+        *ngIf="
+          importarForm.get('jsonToImport')?.hasError('parseError') &&
+          importarForm.get('jsonToImport')?.touched
+        "
+        class="error-message"
+      >
+        Error al parsear el archivo JSON.
+      </div>
+      <div
+        *ngIf="
+          !importarForm.get('jsonToImport')?.valid &&
+          importarForm.get('jsonToImport')?.touched
+        "
+        class="error-message"
+      >
+        Archivo JSON no válido.
+      </div>
 
-          <input type="file"  id="fileInput" class="input-file" (change)="onFileSelected($event)" name="jsonToImport" >
-          <label for="fileInput" class="custom-file-button">Seleccionar archivo</label> 
-      
-    
-      <button type="button" (click)="onSubmit()" [disabled]="importarForm.invalid" class="btn_primary">Crear</button>
+      <button
+        *ngIf="!isImported"
+        type="button"
+        style="margin-top: 20px"
+        (click)="onSubmit()"
+        [ngClass]="{ 'btn-disabled': importarForm.invalid }"
+        class="btn_primary"
+      >
+        Importar
+      </button>
+
+      <p class="messageReportImport" *ngIf="showTableUsers">
+        {{ userImportInfo.message }}
+      </p>
+
+      <div *ngIf="showTableUsers">
+        <p style="font-size: 16px; font-weight: 700">
+          Usuarios <span style="color: red !important">NO</span> importados:
+        </p>
+        <table>
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>ID</th>
+              <th>Email</th>
+              <th>Motivo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let usuario of userImportInfo.registrosNoSubidos">
+              <td>{{ usuario.nombre }}</td>
+              <td>{{ usuario.id }}</td>
+              <td>{{ usuario.email }}</td>
+              <td>Usuario ya existe en la BD</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div *ngIf="showTableUsers">
+        <p style="font-size: 16px; font-weight: 700">Usuarios importados:</p>
+        <table>
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>ID</th>
+              <th>Email</th>
+              <th>Contraseña</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let usuario of userImportInfo.registrosSubidos">
+              <td>{{ usuario.nombre }}</td>
+              <td>{{ usuario.id }}</td>
+              <td>{{ usuario.email }}</td>
+              <td>
+                La contraseña de este usuario ha cambiado a:
+                <strong>{{ usuario.password }}</strong>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="messageReportImport" *ngIf="showTableItems">
+        {{ itemImportInfo.message }}
+      </p>
+
+      <div *ngIf="showTableItems">
+        <p style="font-size: 16px; font-weight: 700">
+          {{ collectionReportInfo }}
+          <span style="color: red !important">NO</span> importados:
+        </p>
+        <table >
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Motivo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of itemImportInfo.registrosNoSubidos">
+              <td>{{ item.id }}</td>
+              <td>Ya existe en la BD</td>
+            </tr>
+          </tbody>
+        </table>
+       
+      </div>
+
+      <div *ngIf="showTableItems">
+        <p style="font-size: 16px; font-weight: 700">
+          {{ collectionReportInfo }} importados:
+        </p>
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of itemImportInfo.registrosSubidos">
+              <td>{{ item.id }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </form>
   </div>
 </main>

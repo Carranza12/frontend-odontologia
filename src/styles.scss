@@ -88,6 +88,12 @@ body {
   cursor: pointer;
 }
 
+.btn-disabled {
+  background: rgba(178, 30, 54, 0.5); 
+  color: rgba(255, 255, 255, 0.7); 
+  cursor: not-allowed; 
+}
+
 .btn_download_csv {
   margin: 5px;
   border-radius: 30px;
