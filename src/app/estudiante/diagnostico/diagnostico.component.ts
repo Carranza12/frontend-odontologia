@@ -352,6 +352,39 @@ export class DiagnosticoComponent implements OnInit {
     });
   }
 
+  async compressImage(file: File, quality: number): Promise<string> {
+    const image = await this.loadImage(URL.createObjectURL(file));
+    const canvas = document.createElement('canvas');
+    const ctx:any = canvas.getContext('2d');
+    canvas.width = image.width;
+    canvas.height = image.height;
+    ctx.drawImage(image, 0, 0, image.width, image.height);
+    const compressedBase64 = canvas.toDataURL('image/jpeg', quality); // Cambia 'jpeg' por 'png' si necesitas un formato diferente
+    return compressedBase64;
+  }
+
+  async loadImage(url: string): Promise<HTMLImageElement> {
+    return new Promise<HTMLImageElement>((resolve, reject) => {
+      const image = new Image();
+      image.onload = () => resolve(image);
+      image.onerror = reject;
+      image.src = url;
+    });
+  }
+
+  async convertImageToBase64(file: File, maxWidth: number, maxHeight: number, quality: number): Promise<string> {
+    const compressedBase64 = await this.compressImage(file, quality);
+    const img = new Image();
+    img.src = compressedBase64;
+    const canvas = document.createElement('canvas');
+    const ctx:any = canvas.getContext('2d');
+    canvas.width = img.width;
+    canvas.height = img.height;
+    ctx.drawImage(img, 0, 0, img.width, img.height);
+    const resizedBase64 = canvas.toDataURL('image/jpeg', quality); // Cambia 'jpeg' por 'png' si necesitas un formato diferente
+    return resizedBase64;
+  }
+
   async onFileSelected(event: any) {
     const listaDeFiles = event.target.files;
     for await(const file of listaDeFiles) {
@@ -359,12 +392,14 @@ export class DiagnosticoComponent implements OnInit {
         Swal.fire('Oops...', 'Solo se admiten imagenes como evidencias', 'warning');
         return;
       }
-      const base64 = await this.fileToBase64(file)
+
+      const compressedBase64 = await this.compressImage(file, 0.1); // Cambia 0.5 por el nivel de compresión deseado (entre 0 y 1)
+
 
       const evidencia = {
         title: "",
         description: "",
-        image: base64
+        image: compressedBase64
       }
       this.evidencias.push(evidencia)
     }
