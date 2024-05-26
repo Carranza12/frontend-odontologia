@@ -1,0 +1,68 @@
+<app-sidebar></app-sidebar>
+<main class="main_container">
+  <app-page-title [title]="'Nueva clínica'"></app-page-title>
+  <div class="container">
+    <form class="login-form" [formGroup]="clinicaForm" (ngSubmit)="onSubmit()">
+      <div style="margin-bottom: 20px">
+        <p>Nombre:<span style="color: red"> *</span></p>
+        <input
+          class="form_input"
+          type="text"
+          placeholder="Nombre"
+          formControlName="name"
+          autocomplete="off"
+        />
+        <div
+          *ngIf="
+            clinicaForm.get('name')?.hasError('required') &&
+            clinicaForm.get('name')?.touched
+          "
+          class="error-message"
+        >
+          El nombre es requerido.
+        </div>
+      </div>
+
+      <p>Nivel:<span style="color: red"> *</span></p>
+      <div class="custom-radio-group" style="margin-bottom: 20px">
+        <label class="custom-radio">
+          <input type="radio" formControlName="level" value="Licenciatura" />
+          <span class="custom-radio-label">Licenciatura</span>
+        </label>
+        <label class="custom-radio">
+          <input type="radio" formControlName="level" value="Maestría" />
+          <span class="custom-radio-label">Maestría</span>
+        </label>
+      </div>
+
+      <div style="margin-bottom: 20px">
+        <p>Teléfono:<span style="color: red"> *</span></p>
+        <input
+          class="form_input"
+          type="number"
+          placeholder="Teléfono"
+          formControlName="telefono"
+          autocomplete="off"
+        />
+        <div
+          *ngIf="
+            clinicaForm.get('telefono')?.hasError('required') &&
+            clinicaForm.get('telefono')?.touched
+          "
+          class="error-message"
+        >
+          El teléfono es requerido.
+        </div>
+      </div>
+
+      <button
+        type="button"
+        (click)="onSubmit()"
+        [disabled]="clinicaForm.invalid"
+        class="btn_primary"
+      >
+        Crear
+      </button>
+    </form>
+  </div>
+</main>

@@ -11,6 +11,7 @@ import {
 } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { CsvService } from 'src/app/services/csv.service';
+import { PacienteService } from 'src/app/empleado/services/paciente.service';
 
 @Component({
   selector: 'app-clinicas',
@@ -18,7 +19,7 @@ import { CsvService } from 'src/app/services/csv.service';
   styleUrls: ['./clinicas.component.scss'],
 })
 export class ClinicasComponent implements OnInit {
-  public usuariosList: any = [];
+  public clinicasList: any = [];
   public totalPages!: [];
   public currentPage!: number;
 
@@ -28,8 +29,7 @@ export class ClinicasComponent implements OnInit {
     private formBuilder: FormBuilder,
     public router: Router,
     private auth: AuthService,
-    private cdr: ChangeDetectorRef,
-    private _csvService: CsvService
+    private patientService: PacienteService
   ) {}
 
   ngOnInit(): void {
@@ -38,9 +38,8 @@ export class ClinicasComponent implements OnInit {
 
   public filtrosForm = this.formBuilder.group({
     name: [''],
-    lastname: [''],
-    email: [''],
-    role_default: [''],
+    level: [''],
+    telefono: [''],
   });
 
   onSubmit(): void {
@@ -48,41 +47,11 @@ export class ClinicasComponent implements OnInit {
     console.log('Formulario enviado');
   }
 
-  downloadCSVWithPagination() {
-    const usuariosFormateados = this.mapUsuarios(this.usuariosList);
-    this._csvService.downloadWithPagination(usuariosFormateados, 'usuarios');
-  }
 
-  downloadCSVAll() {
-    this.apiService.getAllUsers().subscribe(
-      (data: any) => {
-        if (Array.isArray(data.items)) {
-          const usuariosFormateados = this.mapUsuarios(data.items);
-          this._csvService.downloadWithPagination(
-            usuariosFormateados,
-            'usuarios'
-          );
-        }
-      },
-      (error: any) => {
-        console.error(error);
-        this.auth.logout();
-      }
-    );
-  }
 
-  mapUsuarios(usuarios: any[]) {
-    return usuarios.map((user: any) => ({
-      Nombres: user.name,
-      Apellidos: user.last_name,
-      Email: user.email,
-      Roles: user.roles.join(','),
-    }));
-  }
-
-  async deleteUser(id: string) {
+  async deleteClinica(id: string) {
     const result = await Swal.fire({
-      title: '¿Estás seguro de cancelar la finalizacion?',
+      title: '¿Estás seguro de eliminar la clínica?',
       showCancelButton: true,
       confirmButtonText: 'Sí',
       cancelButtonText: 'Cancelar',
@@ -90,14 +59,15 @@ export class ClinicasComponent implements OnInit {
 
     if (result.isConfirmed) {
       try {
-        this.apiService.deleteUser(id).subscribe(
+        this.patientService.deleteClinica(id).subscribe(
           (response: any) => {
-            console.log('Usuario eliminado con éxito', response);
-            Swal.fire('Usuario eliminado con éxito', '', 'success');
-            this.apiService.getUsers('1', []).subscribe(
+            console.log('clinica eliminado con éxito', response);
+            Swal.fire('Clínica eliminada con éxito', '', 'success');
+            this.patientService.getClinicas('1', []).subscribe(
               (data: any) => {
-                if (Array.isArray(data)) {
-                  this.usuariosList = data;
+                console.log("data:", data)
+                if (Array.isArray(data.items)) {
+                  this.clinicasList = data.items;
                 }
               },
               (error: any) => {
@@ -107,8 +77,8 @@ export class ClinicasComponent implements OnInit {
             );
           },
           (error: any) => {
-            console.error('Error al eliminar el usuario', error);
-            Swal.fire(`Error al eliminar el usuario: ${error}`, '', 'error');
+            console.error('Error al eliminar la clinica', error);
+            Swal.fire(`Error al eliminar la clínica: ${error}`, '', 'error');
           }
         );
       } catch (error) {
@@ -116,6 +86,8 @@ export class ClinicasComponent implements OnInit {
       }
     }
   }
+
+
   search() {
     console.log('form:', this.filtrosForm.value);
     let filters = [
@@ -124,17 +96,14 @@ export class ClinicasComponent implements OnInit {
         value: this.filtrosForm.controls.name.value,
       },
       {
-        name: 'lastname',
-        value: this.filtrosForm.controls.lastname.value,
+        name: 'level',
+        value: this.filtrosForm.controls.level.value,
       },
       {
-        name: 'email',
-        value: this.filtrosForm.controls.email.value,
+        name: 'telefono',
+        value: this.filtrosForm.controls.telefono.value,
       },
-      {
-        name: 'role_default',
-        value: this.filtrosForm.controls.role_default.value,
-      },
+      
     ];
     this.searchInApi(this.currentPage.toString(), filters);
   }
@@ -144,17 +113,18 @@ export class ClinicasComponent implements OnInit {
   }
 
   async searchInApi(page: string, filters: any[]) {
-    this.apiService.getUsers(page, filters).subscribe(
+    this.patientService.getClinicas(page, filters).subscribe(
       (data: any) => {
+        console.log("data:", data)
         if (Array.isArray(data.items)) {
-          this.usuariosList = data.items;
+          this.clinicasList = data.items;
           this.totalPages = data.totalPages;
           this.currentPage = Number(data.currentPage);
         }
       },
       (error: any) => {
-        console.error(error);
-        this.auth.logout();
+        console.log("ERROR:",error);
+      //  this.auth.logout();
       }
     );
   }

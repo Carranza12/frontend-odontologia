@@ -125,18 +125,15 @@
         height="600"
         alt=""
       />
-      <h3>CLINICA:</h3>
-      <div class="form_control" >
-                <label for="" class="label_input">Cual?:</label>
-                <input
-                  class="form_input"
-                  type="text"
-                  placeholder=""
-                  readonly
-                  [value]="diagnosticoItem.clinica"
-                  autocomplete="off"
-                />
-              </div>
+      <h3>Clínica:</h3>
+      <div class="clinic-grid">
+        <div *ngFor="let clinic of clinics"
+             [ngClass]="{'selected': isClinicSelected(clinic._id)}"
+      
+             class="clinic-item">
+          {{ clinic.name }}
+        </div>
+      </div>
       <h3>CABEZA:</h3>
       <div class="form_control">
         <label for="" class="label_input">Craneo:</label>

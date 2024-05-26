@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from 'src/app/api.service';
 import { asignaturaService } from 'src/app/asignatura.service';
+import { PacienteService } from 'src/app/empleado/services/paciente.service';
 import { PerfilEstudiantesService } from 'src/app/empleado/services/perfil_estudiantes.service';
 import { GeneralService } from 'src/app/general.service';
 import Swal from 'sweetalert2';
@@ -13,7 +14,11 @@ import Swal from 'sweetalert2';
   styleUrls: ['./diagnostico-view.component.scss']
 })
 export class DiagnosticoViewComponent {
- 
+  clinics:any = [
+  
+  ];
+
+  selectedClinicIds: string[] = [];
   
 
   public item: any;
@@ -30,19 +35,41 @@ export class DiagnosticoViewComponent {
     private apiSevice: ApiService,
     private _general: GeneralService,
     private route: ActivatedRoute,
-    private _router: Router
+    private _router: Router,
+    private pacienteService: PacienteService
   ) {}
 
   ngOnInit(): void {
     let user: any = localStorage.getItem('user');
     user = JSON.parse(user);
     this.usuarioLogeado = user;
+
+    this.pacienteService.getAllClinicas().subscribe(
+      (data: any) => {
+        if (Array.isArray(data.items)) {
+         this.clinics = data.items
+        }
+      },
+      (error: any) => {
+        console.error(error);
+
+      }
+    );
+
+
     this.route.params.subscribe((params) => {
       const diagnostico_id = params['id'];
       this.apiSevice
         .getDiagnostico(diagnostico_id)
         .subscribe((res: any) => {
           this.diagnosticoItem = res.item;
+
+          const clinicas = JSON.parse(this.diagnosticoItem.clinica) || []
+
+          for(const clinica of clinicas){
+            this.toggleSelection(clinica)
+          }
+         
           let idParaAPi = this.diagnosticoItem.tratamiento_id;
           if(this.diagnosticoItem.tratamiento_id){
             this.haveTratamiento = true;
@@ -76,8 +103,25 @@ export class DiagnosticoViewComponent {
     });
   }
 
+  toggleSelection(clinicId: string): void {
+    const index = this.selectedClinicIds.indexOf(clinicId);
+    if (index === -1) {
+      this.selectedClinicIds.push(clinicId);
+    } else {
+      this.selectedClinicIds.splice(index, 1);
+    }
+
+    console.log("CLINICAS SELECCIONADAS:", this.selectedClinicIds)
+    
+  }
+
+
   public viewEvidencia(url: string) {
     window.open(url, '_blank');
+  }
+
+  isClinicSelected(clinicId: string): boolean {
+    return this.selectedClinicIds.includes(clinicId);
   }
 
   public openTratamientoForm(){

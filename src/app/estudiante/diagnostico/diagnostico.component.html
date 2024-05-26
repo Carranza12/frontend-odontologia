@@ -94,8 +94,8 @@
           <div>
             <h2>Barra de Menú</h2>
             <div class="clear-button"> 
-              <button type="button" (click)="clearCanvas()"> <img src="../../../assets//iconos/corner-down-left.svg" alt=""></button>
-              <button type="button"  (click)="regresarUltimoTrazo()"> <img src="../../../assets//iconos/trash.svg" alt=""></button>
+              <button type="button" (click)="regresarUltimoTrazo()"> <img src="../../../assets//iconos/corner-down-left.svg" alt=""></button>
+              <button type="button" (click)="clearCanvas()"  > <img src="../../../assets//iconos/trash.svg" alt=""></button>
           
          
             </div>
@@ -121,17 +121,15 @@
       </div>
 
     </div>
-      <h3>CLINICA:</h3>
-      <div class="form_control" >
-                <label for="" class="label_input">Cual?:</label>
-                <input
-                  class="form_input"
-                  type="text"
-                  placeholder=""
-                  formControlName="clinica"
-                  autocomplete="off"
-                />
-              </div>
+      <h3>Clínica:</h3>
+      <div class="clinic-grid">
+        <div *ngFor="let clinic of clinics"
+             [ngClass]="{'selected': isClinicSelected(clinic._id)}"
+             (click)="toggleSelection(clinic._id)"
+             class="clinic-item">
+          {{ clinic.name }}
+        </div>
+      </div>
       <h3>CABEZA:</h3>
       <div class="form_control">
         <label for="" class="label_input">Craneo:</label>

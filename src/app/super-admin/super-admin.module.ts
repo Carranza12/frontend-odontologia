@@ -20,6 +20,8 @@ import { EstudiantePerfilComponent } from './pages/estudiantes/estudiante-perfil
 import { RespaldosComponent } from './pages/respaldos/respaldos.component';
 import { ImportarComponent } from './pages/importar/importar.component';
 import { ClinicasComponent } from './pages/clinicas/clinicas.component';
+import { ClinicaNewComponent } from './pages/clinicas/clinica-new/clinica-new.component';
+import { ClinicaEditComponent } from './pages/clinicas/clinica-edit/clinica-edit.component';
 
 
 @NgModule({
@@ -39,7 +41,9 @@ import { ClinicasComponent } from './pages/clinicas/clinicas.component';
     EstudiantePerfilComponent,
     RespaldosComponent,
     ImportarComponent,
-    ClinicasComponent
+    ClinicasComponent,
+    ClinicaNewComponent,
+    ClinicaEditComponent
   ],
   imports: [
     CommonModule,

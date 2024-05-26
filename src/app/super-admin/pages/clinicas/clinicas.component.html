@@ -1,6 +1,6 @@
 <app-sidebar></app-sidebar>
 <main class="main_container">
-  <app-page-title [title]="'clínicas'"></app-page-title>
+  <app-page-title [title]="'Clínicas'"></app-page-title>
   <form
     class=""
     [formGroup]="filtrosForm"
@@ -15,20 +15,14 @@
             <input type="text" id="nombre" name="name" formControlName="name">
         </div>
         <div class="input-group">
-            <label for="apellido">Apellido:</label>
-            <input type="text" id="apellido" name="lastname" formControlName="lastname">
+            <label for="correo">Teléfono:</label>
+            <input type="text" id="telefono" name="telefono" formControlName="telefono">
         </div>
         <div class="input-group">
-            <label for="correo">Correo electrónico:</label>
-            <input type="text" id="correo" name="email" formControlName="email">
-        </div>
-        <div class="input-group">
-            <label for="rol">Rol:</label>
-            <select id="rol" name="role_default" formControlName="role_default">
-                <option value="superAdmin">SuperAdmin</option>
-                <option value="maestro">Maestro</option>
-                <option value="estudiante">Estudiante</option>
-                <option value="trabajador">Trabajador</option>
+            <label for="level">Nivel:</label>
+            <select id="level" name="level" formControlName="level">
+                <option value="Licenciatura">Licenciatura</option>
+                <option value="Maestría">Maestría</option>
                 <option value="" selected>Todos</option>
             </select>
         </div>
@@ -43,45 +37,31 @@
       <button
       type="button"
       class="btn_primary"
-      (click)="_general.navigateBy('/superAdmin/usuarios/nuevo')"
+      (click)="_general.navigateBy('/superAdmin/clinicas/nuevo')"
     >
-      Nuevo usuario
+      Nueva clínica 
     </button>
-    <button
-    type="button"
-    class="btn_download_csv"
-    (click)="downloadCSVAll()"
-  >
-    Descargar todos los datos en CSV
-  </button>
-  <button
-  type="button"
-  class="btn_download_csv"
-  (click)="downloadCSVWithPagination()"
->
-  Descargar paginacion actual en CSV
-</button>
+   
+  
     </div>
   
     <table class="table_grid">
       <thead>
         <tr>
-          <th>Nombres</th>
-          <th>Apellidos</th>
-          <th>Email</th>
-          <th>Roles</th>
+          <th>Nombre</th>
+          <th>Nivel</th>
+          <th>Teléfono</th>
           <th>Opciones</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let user of usuariosList">
-          <td>{{ user.name }}</td>
-          <td>{{ user.last_name }}</td>
-          <td>{{ user.email }}</td>
-          <td><p *ngFor="let role of user.roles">{{role}}</p></td>
+        <tr *ngFor="let clinica of clinicasList">
+          <td>{{ clinica.name }}</td>
+          <td>{{ clinica.level }}</td>
+          <td>{{ clinica.telefono }}</td>
           <td class="icon_container">
-            <button type="button" class="btn_icon" (click)="_general.navigateBy('/superAdmin/usuarios/edicion/'+user._id)">✎</button>
-            <button type="button" class="btn_icon" (click)="deleteUser(user._id)">✘</button>
+            <button type="button" class="btn_icon" (click)="_general.navigateBy('/superAdmin/clinicas/edicion/'+clinica._id)">✎</button>
+            <button type="button" class="btn_icon" (click)="deleteClinica(clinica._id)">✘</button>
           </td>
         </tr>
       </tbody>

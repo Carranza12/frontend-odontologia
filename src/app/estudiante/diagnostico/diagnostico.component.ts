@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/api.service';
 import { asignaturaService } from 'src/app/asignatura.service';
+import { PacienteService } from 'src/app/empleado/services/paciente.service';
 import { PerfilEstudiantesService } from 'src/app/empleado/services/perfil_estudiantes.service';
 import { GeneralService } from 'src/app/general.service';
 import Swal from 'sweetalert2';
@@ -25,6 +26,12 @@ export class DiagnosticoComponent implements OnInit {
   selectedColor: string = '#000000';
   trazos: {color: string, grosor: number, trazo: Path2D  }[] = [];
   backgroundImage: HTMLImageElement = new Image();
+
+  clinics:any = [
+  
+  ];
+
+  selectedClinicIds: string[] = [];
 
   public diagnosticoForm = this.formBuilder.group({
     motivos_de_la_consulta: new FormControl(''),
@@ -66,12 +73,44 @@ export class DiagnosticoComponent implements OnInit {
     private apiSevice: ApiService,
     private _general: GeneralService,
     private route: ActivatedRoute,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+    private pacienteService: PacienteService
   ) {}
 
   
+ toggleSelection(clinicId: string): void {
+    const index = this.selectedClinicIds.indexOf(clinicId);
+    if (index === -1) {
+      this.selectedClinicIds.push(clinicId);
+    } else {
+      this.selectedClinicIds.splice(index, 1);
+    }
+
+    console.log("CLINICAS SELECCIONADAS:", this.selectedClinicIds)
+    this.diagnosticoForm.controls.clinica.setValue(JSON.stringify(this.selectedClinicIds) || '')
+  }
+
+  isClinicSelected(clinicId: string): boolean {
+    return this.selectedClinicIds.includes(clinicId);
+  }
 
   ngOnInit(): void {
+
+
+    this.pacienteService.getAllClinicas().subscribe(
+      (data: any) => {
+        if (Array.isArray(data.items)) {
+         this.clinics = data.items
+        }
+      },
+      (error: any) => {
+        console.error(error);
+
+      }
+    );
+
+
+
     //madre del canvas
     this.backgroundImage.src = '../../../assets/logos/odontograma.jpg';
     this.backgroundImage.onload = () => {

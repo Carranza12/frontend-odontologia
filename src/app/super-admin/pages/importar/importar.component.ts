@@ -17,9 +17,9 @@ export class ImportarComponent {
   public showTableUsers = false;
   public showTableItems = false;
   public isImported = false;
-  public collectionReportInfo!:string;
-  public userImportInfo!:any;
-  public itemImportInfo!:any;
+  public collectionReportInfo!: string;
+  public userImportInfo!: any;
+  public itemImportInfo!: any;
   public formulariosList: any = [
     {
       name: 'Diagnosticos',
@@ -81,31 +81,37 @@ export class ImportarComponent {
     }
 
     this._general.showLoading();
-  
-    this._Respaldos.importDataInDBFromJSON(this.importedJson, this.importarForm.controls.formulario.value || '').subscribe(
-      (data: any) => {
-        console.log("DATA:", data)
-        this.isImported = true
-        if(data.collection === "users"){
-          this.showTableUsers = true;
-          this.userImportInfo = data;
-        }
-        if(data.collection !== "users"){
-          this.showTableItems = true;
-          this.itemImportInfo = data;
-          const findFormulario = this.formulariosList.find((f:any) => f.dataset === data.collection);
-          this.collectionReportInfo = findFormulario ? findFormulario.name : '';
-        }
-        setTimeout(() => {
-          this._general.hideLoading();
-        }, 2000);
-      },
-      (error: any) => {
-        console.error(error);
-        
-      }
-    );
 
+    this._Respaldos
+      .importDataInDBFromJSON(
+        this.importedJson,
+        this.importarForm.controls.formulario.value || ''
+      )
+      .subscribe(
+        (data: any) => {
+          this.isImported = true;
+          if (data.collection === 'users') {
+            this.showTableUsers = true;
+            this.userImportInfo = data;
+          }
+          if (data.collection !== 'users') {
+            this.showTableItems = true;
+            this.itemImportInfo = data;
+            const findFormulario = this.formulariosList.find(
+              (f: any) => f.dataset === data.collection
+            );
+            this.collectionReportInfo = findFormulario
+              ? findFormulario.name
+              : '';
+          }
+          setTimeout(() => {
+            this._general.hideLoading();
+          }, 2000);
+        },
+        (error: any) => {
+          console.error(error);
+        }
+      );
   }
 
   onFileSelected(event: any) {
@@ -166,7 +172,6 @@ export class ImportarComponent {
           this.importarForm.get('jsonToImport')?.setErrors({ required: true });
           this.importarForm.get('jsonToImport')?.markAsTouched();
         }
-        console.log('JSON importado:', this.importedJson);
       } catch (error) {
         console.error('Error al parsear el JSON:', error);
         Swal.fire({
