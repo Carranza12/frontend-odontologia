@@ -166,4 +166,27 @@ export class ValidateJsonService {
     }
     return true;
   }
+
+  validateCamposClinicas(clinicas: any[]): boolean {
+    const requiredAttributes = [
+      '_id',
+      'name',
+      'level',
+      'telefono',
+    ];
+
+    for (const clinica of clinicas) {
+      for (const attribute of requiredAttributes) {
+        if (!clinica.hasOwnProperty(attribute)) {
+          Swal.fire({
+            icon: 'warning',
+            title: 'Algo ha salido mal',
+            text: `La estructura del JSON no corresponde a la colección clinicas de nuestra base de datos, vuelva a intentarlo con el JSON correcto.`,
+          });
+          return false;
+        }
+      }
+    }
+    return true;
+  }
 }

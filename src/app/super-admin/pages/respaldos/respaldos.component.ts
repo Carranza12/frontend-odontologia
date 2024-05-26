@@ -55,6 +55,10 @@ export class RespaldosComponent implements OnInit{
         name: "Usuarios",
         dataset: "users",
       },
+      {
+        name: "Clinicas",
+        dataset: "clinicas",
+      },
     ]
   }
 

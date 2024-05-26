@@ -26,6 +26,10 @@ export class ImportarComponent {
       dataset: 'diagnosticos',
     },
     {
+      name: 'Clinicas',
+      dataset: 'clinicas',
+    },
+    {
       name: 'Historias clinicas',
       dataset: 'historiaclinicas',
     },
@@ -168,7 +172,14 @@ export class ImportarComponent {
             this.importedJson = json;
             this.buttonText = 'JSON cargado';
           }
-        } else {
+        } else if (
+          this.importarForm.controls.formulario.value === 'clinicas'
+        ) {
+          if (this.validateJsonService.validateCamposClinicas(json)) {
+            this.importedJson = json;
+            this.buttonText = 'JSON cargado';
+          }
+        }else {
           this.importarForm.get('jsonToImport')?.setErrors({ required: true });
           this.importarForm.get('jsonToImport')?.markAsTouched();
         }
