@@ -20,7 +20,8 @@ export class DiagnosticoViewComponent {
 
   selectedClinicIds: string[] = [];
   
-
+  public evidencias:any = []
+  public evidenciasTratamiento:any = []
   public item: any;
   public diagnosticoItem:any;
   public haveTratamiento: boolean = false;
@@ -63,7 +64,7 @@ export class DiagnosticoViewComponent {
         .getDiagnostico(diagnostico_id)
         .subscribe((res: any) => {
           this.diagnosticoItem = res.item;
-
+          this.evidencias = this.diagnosticoItem.evidencias
           const clinicas = JSON.parse(this.diagnosticoItem.clinica) || []
 
           for(const clinica of clinicas){
@@ -83,6 +84,7 @@ export class DiagnosticoViewComponent {
             console.log("idParaAPi:", idParaAPi)
             this.apiSevice.getTratamiento(idParaAPi).subscribe((tratamientoRes:any) => {
               this.tratamientoItem = tratamientoRes.item;
+              this.evidenciasTratamiento = this.tratamientoItem.evidencias
               console.log(" this.tratamientoItem:",  this.tratamientoItem)
               if(this.tratamientoItem.maestro_id === 'RECHAZADO' && this.tratamientoItem.motivo_rechazo){
                 this.isRechazado = true;

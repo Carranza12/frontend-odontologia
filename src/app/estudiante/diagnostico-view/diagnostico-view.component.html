@@ -320,32 +320,16 @@
         </textarea>
 
         <!--Los fuckin inputs de tipo file-->
-
-        <div class="evidencias" style="display: flex; gap: 20px;flex-wrap: wrap;">
-            <div class="form_control">
-                <label class="label_input" for="file1">Evidencia 1:</label>
-                <img [src]="diagnosticoItem.evidencia1" width="300" height="300" alt="Sin evidencia" >
+        <h3>Evidencias del diagnostico</h3>
+        <div class="gallery-container">
+          <div class="gallery-grid">
+            <div class="gallery-item" *ngFor="let evidencia of evidencias; let i = index">
+              <img [src]="evidencia.image" [alt]="evidencia.title" />
+              <div class="overlay" >
+                <div class="text">{{evidencia.title}}: {{evidencia.description}}</div>
               </div>
-      
-              <div class="form_control">
-                <label class="label_input" for="file2">Evidencia 2:</label>
-                <img [src]="diagnosticoItem.evidencia2" width="300" height="300" alt="Sin evidencia">
-              </div>
-      
-              <div class="form_control">
-                <label class="label_input" for="file3">Evidencia 3:</label>
-                <img [src]="diagnosticoItem.evidencia3" width="300" height="300" alt="Sin evidencia">
-              </div>
-      
-              <div class="form_control">
-                <label class="label_input" for="file4">Evidencia 4:</label>
-                <img [src]="diagnosticoItem.evidencia4" width="300" height="300" alt="Sin evidencia">
-              </div>
-      
-              <div class="form_control">
-                <label class="label_input" for="file5">Evidencia 5:</label>
-                <img  [src]="diagnosticoItem.evidencia5" width="300" height="300" alt="Sin evidencia">
-              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -383,32 +367,17 @@
             style="resize: none;"></textarea>
         </div>
 
-        <div class="evidencias" style="display: flex; gap: 20px;flex-wrap: wrap;">
-          <div class="form_control">
-              <label class="label_input" for="file1">Evidencia 1:</label>
-              <img [src]="tratamientoItem.evidencia1" width="300" height="300" alt="Sin evidencia" >
+        <h3>Evidencias del tratamiento</h3>
+        <div class="gallery-container">
+          <div class="gallery-grid">
+            <div class="gallery-item" *ngFor="let evidencia of evidenciasTratamiento; let i = index">
+              <img [src]="evidencia.image" [alt]="evidencia.title" />
+              <div class="overlay" >
+                <div class="text">{{evidencia.title}}: {{evidencia.description}}</div>
+              </div>
             </div>
-    
-            <div class="form_control">
-              <label class="label_input" for="file2">Evidencia 2:</label>
-              <img [src]="tratamientoItem.evidencia2" width="300" height="300" alt="Sin evidencia">
-            </div>
-    
-            <div class="form_control">
-              <label class="label_input" for="file3">Evidencia 3:</label>
-              <img [src]="tratamientoItem.evidencia3" width="300" height="300" alt="Sin evidencia">
-            </div>
-    
-            <div class="form_control">
-              <label class="label_input" for="file4">Evidencia 4:</label>
-              <img [src]="tratamientoItem.evidencia4" width="300" height="300" alt="Sin evidencia">
-            </div>
-    
-            <div class="form_control">
-              <label class="label_input" for="file5">Evidencia 5:</label>
-              <img  [src]="tratamientoItem.evidencia5" width="300" height="300" alt="Sin evidencia">
-            </div>
-      </div>
+          </div>
+        </div>
      </div>
 
     <div *ngIf="usuarioLogeado.role_default === 'maestro' && !isRechazado && !tratamientoItem.maestro_id" >

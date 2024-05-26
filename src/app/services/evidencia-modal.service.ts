@@ -8,6 +8,7 @@ import { Subject } from 'rxjs';
 export class EvidenciaModalService {
   private evidenciaSubject = new Subject<any>();
   evidencia$ = this.evidenciaSubject.asObservable();
+
   constructor(
     private resolver: ComponentFactoryResolver,
     private injector: Injector,

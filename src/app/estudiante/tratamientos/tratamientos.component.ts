@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/api.service';
 import { GeneralService } from 'src/app/general.service';
+import { EvidenciaModalService } from 'src/app/services/evidencia-modal.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -15,6 +16,7 @@ export class TratamientosComponent {
   public historia_clinica_id!:string;
   public diagnostico_id!:string;
   public alumno_id!:string;
+  public evidencias: any = [];
 
   public tratamientoForm = this.formBuilder.group({
     tratamiento: new FormControl('', [Validators.required]),
@@ -23,11 +25,6 @@ export class TratamientosComponent {
     expediente: new FormControl('', [Validators.required]),
     fecha_tratamiento: new FormControl('', [Validators.required]),
     observaciones: new FormControl('', [Validators.required]),
-    evidencia1: new FormControl(''),
-    evidencia2: new FormControl(''),
-    evidencia3: new FormControl(''),
-    evidencia4: new FormControl(''),
-    evidencia5: new FormControl(''),
     motivo_rechazo: new FormControl('')
   });
   public async onSubmit() {
@@ -87,7 +84,8 @@ export class TratamientosComponent {
           diagnostico_id: this.diagnostico_id,
           maestro_id: "",
           alumno_id: this.alumno_id,
-          motivo_rechazo: ''
+          motivo_rechazo: '',
+          evidencias: this.evidencias
         };
 
         this.apiSevice.createTratamiento(item).subscribe(
@@ -120,7 +118,8 @@ export class TratamientosComponent {
     private formBuilder: FormBuilder,
     private apiSevice: ApiService,
     private _general: GeneralService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private evidenciaModal: EvidenciaModalService,
   ) {}
 
   ngOnInit(): void {
@@ -158,30 +157,51 @@ export class TratamientosComponent {
     });
   }
 
-  async onFileSelected(event: Event, type: String) {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files.length > 0) {
-      if (type === 'evidencia1')
-        this.tratamientoForm.controls['evidencia1'].setValue(
-          await this.fileToBase64(input.files[0])
-        );
-      if (type === 'evidencia2')
-        this.tratamientoForm.controls['evidencia2'].setValue(
-          await this.fileToBase64(input.files[0])
-        );
-      if (type === 'evidencia3')
-        this.tratamientoForm.controls['evidencia3'].setValue(
-          await this.fileToBase64(input.files[0])
-        );
-      if (type === 'evidencia4')
-        this.tratamientoForm.controls['evidencia4'].setValue(
-          await this.fileToBase64(input.files[0])
-        );
-      if (type === 'evidencia5')
-        this.tratamientoForm.controls['evidencia5'].setValue(
-          await this.fileToBase64(input.files[0])
-        );
+  async onFileSelected(event: any) {
+    const listaDeFiles = event.target.files;
+    for await(const file of listaDeFiles) {
+      if (!file.type.startsWith('image/')) {
+        Swal.fire('Oops...', 'Solo se admiten imagenes como evidencias', 'warning');
+        return;
+      }
+      const base64 = await this.fileToBase64(file)
+
+      const evidencia = {
+        title: "",
+        description: "",
+        image: base64
+      }
+      this.evidencias.push(evidencia)
     }
+  
+  }
+
+  openRellenarEvidencialModal(evidencia:any, index: number){
+
+    this.evidenciaModal.evidencia$.subscribe(respuesta => {
+      console.log('Evidencia recibida en el componente que genera el Swal:', respuesta);
+      this.evidencias[respuesta.id] = respuesta.evidencia
+    });
+
+    const domHTML = this.evidenciaModal.createHTMLModal(evidencia, index)
+
+
+    Swal.fire({
+      title: '',
+      text: '',
+      html: domHTML,
+      showCloseButton: true,
+      showCancelButton: false,
+      focusConfirm: false,
+      showConfirmButton: false,
+      width: '550px',
+      padding: '0',
+      allowOutsideClick: false,
+      customClass: {
+        popup: 'custom-swal-modal'
+      },
+      
+    });
   }
  
 
