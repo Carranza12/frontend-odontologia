@@ -6,12 +6,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { QRCodeModule } from 'angularx-qrcode';
 import { AlertComponent } from './components/alert/alert.component';
 import { PaginatorComponent } from './components/paginator/paginator.component';
+import { EvidenciaModalComponent } from './components/evidencia-modal/evidencia-modal.component';
 @NgModule({
   declarations: [
     SidebarComponent,
     PageTitleComponent,
     AlertComponent,
     PaginatorComponent,
+    EvidenciaModalComponent,
   ],
   imports: [CommonModule, ReactiveFormsModule, FormsModule, QRCodeModule],
   exports: [

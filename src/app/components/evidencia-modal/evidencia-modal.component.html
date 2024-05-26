@@ -1,0 +1,36 @@
+<form class="login-form" [formGroup]="evidenciaForm" (ngSubmit)="onSubmit()">
+<div class="container" style="display: flex; flex-direction: column;overflow-x: hidden!important;">
+    <div>
+        <p>Titulo de la evidencia<span style="color: red;">*</span> </p>
+        <input
+        class="form_input"
+        type="text"
+        formControlName="title"
+        autocomplete="off"
+      />
+      <div
+        *ngIf="
+          evidenciaForm.get('title')?.hasError('required') &&
+          evidenciaForm.get('title')?.touched
+        "
+        class="error-message"
+      >
+        El titulo de la evidencia es requerida.
+      </div>
+      </div>
+      <div *ngIf="image" style="margin-top: 10px;margin-bottom: 10px;">
+        <img [src]="image" width="350px" height="350px" style="object-fit: contain;" alt="evidencia">
+      </div>
+      <div class="form_control">
+        <label for="" class="label_input">Descripcion de la evidencia:</label>
+    
+        <textarea
+         
+          class="form_input form_textarea"
+          formControlName="description"
+        >
+        </textarea>
+      </div>
+</div>
+<button style="margin-top: 10px;" type="submit" [disabled]="buttonText == 'Evidencia enviada'"  [ngClass]="{ 'btn-disabled': buttonText == 'Evidencia enviada' }" class="btn_primary">{{buttonText}}</button>
+</form>

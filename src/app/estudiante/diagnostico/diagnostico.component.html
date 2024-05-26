@@ -308,54 +308,33 @@
         <!--Los fuckin inputs de tipo file-->
 
         <div class="form_control">
-          <label class="label_input" for="file1">Evidencia 1:</label>
+          <label class="label_input" for="file1">Evidencias:</label>
           <input
-            class="form_input"
+            multiple
+            class="input-file"
+            id="evidencias"
             type="file"
-            id="file1"
-            (change)="onFileSelected($event, 'evidencia1')"
+            (change)="onFileSelected($event)"
           /><br />
+          <label for="evidencias" style="margin-bottom: 20px;"  class="custom-file-button"
+          >Sube las evidencias
+        </label>
         </div>
 
-        <div class="form_control">
-          <label class="label_input" for="file2">Evidencia 2:</label>
-          <input
-            class="form_input"
-            type="file"
-            id="file2"
-            (change)="onFileSelected($event, 'evidencia2')"
-          />
-        </div>
 
-        <div class="form_control">
-          <label class="label_input" for="file3">Evidencia 3:</label>
-          <input
-            class="form_input"
-            type="file"
-            id="file3"
-            (change)="onFileSelected($event, 'evidencia3')"
-          />
-        </div>
+        <h3>Vista previa de evidencias:</h3>
 
-        <div class="form_control">
-          <label class="label_input" for="file4">Evidencia 4:</label>
-          <input
-            class="form_input"
-            type="file"
-            id="file4"
-            (change)="onFileSelected($event, 'evidencia4')"
-          /><br />
+        <div class="gallery-container">
+          <div class="gallery-grid">
+            <div class="gallery-item" *ngFor="let evidencia of evidencias; let i = index">
+              <img [src]="evidencia.image" [alt]="evidencia.title" />
+              <div class="overlay" (click)="openRellenarEvidencialModal(evidencia, i)">
+                <div class="text">Rellenar evidencia</div>
+              </div>
+            </div>
+          </div>
         </div>
-
-        <div class="form_control">
-          <label class="label_input" for="file5">Evidencia 5:</label>
-          <input
-            class="form_input"
-            type="file"
-            id="file5"
-            (change)="onFileSelected($event, 'evidencia5')"
-          /><br />
-        </div>
+        
       </div>
 
       <button type="button" (click)="onSubmit()" class="btn_primary">

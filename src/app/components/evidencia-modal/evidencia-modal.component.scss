@@ -1,0 +1,29 @@
+
+  
+  .container {
+    text-align: left;
+    margin: 0px;
+    display: flex;
+    overflow: none;
+    width: 100%;
+    padding: 0;
+    justify-content: center;
+    align-items: center;
+    .form_input,
+  
+    .btn_primary {
+      margin: 0;
+      width: 400px;
+    }
+  }
+  .img_path {
+    width: 200px;
+  }
+  .user_selected {
+    background-color: #b21e36;
+    color: white;
+  }
+  .swal2-container .swal2-html-container {
+    display: flex !important;
+    overflow-y: hidden !important;
+  }

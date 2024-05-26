@@ -1,11 +1,19 @@
-import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/api.service';
 import { asignaturaService } from 'src/app/asignatura.service';
+import { EvidenciaModalComponent } from 'src/app/components/evidencia-modal/evidencia-modal.component';
 import { PacienteService } from 'src/app/empleado/services/paciente.service';
 import { PerfilEstudiantesService } from 'src/app/empleado/services/perfil_estudiantes.service';
 import { GeneralService } from 'src/app/general.service';
+import { EvidenciaModalService } from 'src/app/services/evidencia-modal.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -18,18 +26,16 @@ export class DiagnosticoComponent implements OnInit {
   ctx: any;
   isDrawing: boolean = false;
   context: CanvasRenderingContext2D | null = null;
-  penColor = '#000000';  
+  penColor = '#000000';
   penThickness: number = 0;
   selectedTool = 'pen';
   canvasWidth: number = 700;
   canvasHeight: number = 600;
   selectedColor: string = '#000000';
-  trazos: {color: string, grosor: number, trazo: Path2D  }[] = [];
+  trazos: { color: string; grosor: number; trazo: Path2D }[] = [];
   backgroundImage: HTMLImageElement = new Image();
 
-  clinics:any = [
-  
-  ];
+  clinics: any = [];
 
   selectedClinicIds: string[] = [];
 
@@ -57,12 +63,8 @@ export class DiagnosticoComponent implements OnInit {
     diagnostico: new FormControl(''),
     observaciones: new FormControl(''),
     paciente_referido_clinica: new FormControl(''),
-    evidencia1: new FormControl(''),
-    evidencia2: new FormControl(''),
-    evidencia3: new FormControl(''),
-    evidencia4: new FormControl(''),
-    evidencia5: new FormControl(''),
   });
+  public evidencias: any = [];
 
   public historia_clinica_id: any = '';
   public alumno_id: any = '';
@@ -74,11 +76,11 @@ export class DiagnosticoComponent implements OnInit {
     private _general: GeneralService,
     private route: ActivatedRoute,
     private cd: ChangeDetectorRef,
-    private pacienteService: PacienteService
+    private pacienteService: PacienteService,
+    private evidenciaModal: EvidenciaModalService,
   ) {}
 
-  
- toggleSelection(clinicId: string): void {
+  toggleSelection(clinicId: string): void {
     const index = this.selectedClinicIds.indexOf(clinicId);
     if (index === -1) {
       this.selectedClinicIds.push(clinicId);
@@ -86,8 +88,10 @@ export class DiagnosticoComponent implements OnInit {
       this.selectedClinicIds.splice(index, 1);
     }
 
-    console.log("CLINICAS SELECCIONADAS:", this.selectedClinicIds)
-    this.diagnosticoForm.controls.clinica.setValue(JSON.stringify(this.selectedClinicIds) || '')
+    console.log('CLINICAS SELECCIONADAS:', this.selectedClinicIds);
+    this.diagnosticoForm.controls.clinica.setValue(
+      JSON.stringify(this.selectedClinicIds) || ''
+    );
   }
 
   isClinicSelected(clinicId: string): boolean {
@@ -95,38 +99,33 @@ export class DiagnosticoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-
     this.pacienteService.getAllClinicas().subscribe(
       (data: any) => {
         if (Array.isArray(data.items)) {
-         this.clinics = data.items
+          this.clinics = data.items;
         }
       },
       (error: any) => {
         console.error(error);
-
       }
     );
-
-
 
     //madre del canvas
     this.backgroundImage.src = '../../../assets/logos/odontograma.jpg';
     this.backgroundImage.onload = () => {
-    this.ctx.drawImage(
-      this.backgroundImage,
-      0,
-      0,
-      this.canvas.nativeElement.width,
-      this.canvas.nativeElement.height
-    );
-  };
+      this.ctx.drawImage(
+        this.backgroundImage,
+        0,
+        0,
+        this.canvas.nativeElement.width,
+        this.canvas.nativeElement.height
+      );
+    };
 
     let user: any = localStorage.getItem('user');
     user = JSON.parse(user);
-    if(user){
-      this.alumno_id = user.user_id
+    if (user) {
+      this.alumno_id = user.user_id;
     }
 
     this.route.params.subscribe((params) => {
@@ -154,10 +153,9 @@ export class DiagnosticoComponent implements OnInit {
         this.canvas.nativeElement.height
       );
     };
-   
   }
 
-//Funcion para limpiar el canva
+  //Funcion para limpiar el canva
   clearCanvas() {
     if (this.context) {
       this.context.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
@@ -180,7 +178,7 @@ export class DiagnosticoComponent implements OnInit {
     this.penThickness = nuevoGrosor;
     this.ctx.lineWidth = this.penThickness;
   }
-  
+
   seleccionarGrosor(grosor: number): void {
     this.cambiarGrosor(grosor);
   }
@@ -189,16 +187,16 @@ export class DiagnosticoComponent implements OnInit {
     this.selectedColor = nuevoColor;
     this.ctx.strokeStyle = this.penColor;
   }
-  
+
   seleccionarColor(color: string): void {
     this.cambiarColor(color);
   }
 
   startDrawing(event: MouseEvent, color: string, grosor: number): void {
-  this.isDrawing = true;
-  const nuevoTrazo = new Path2D();
-  nuevoTrazo.moveTo(event.offsetX, event.offsetY);
-  this.trazos.push({ trazo: nuevoTrazo, color: color, grosor: grosor });
+    this.isDrawing = true;
+    const nuevoTrazo = new Path2D();
+    nuevoTrazo.moveTo(event.offsetX, event.offsetY);
+    this.trazos.push({ trazo: nuevoTrazo, color: color, grosor: grosor });
   }
 
   draw(event: MouseEvent): void {
@@ -209,41 +207,41 @@ export class DiagnosticoComponent implements OnInit {
       this.ctx.lineWidth = trazoActual.grosor; // Establecer el grosor correcto
       this.ctx.stroke(trazoActual.trazo);
     }
-}
+  }
 
   endDrawing(): void {
     this.isDrawing = false;
   }
 
   regresarUltimoTrazo(): void {
-  // Verifica que haya al menos un trazo para deshacer
-  if (this.trazos.length > 0) {
-    // Elimina el último trazo de la lista
-    this.trazos.pop();
+    // Verifica que haya al menos un trazo para deshacer
+    if (this.trazos.length > 0) {
+      // Elimina el último trazo de la lista
+      this.trazos.pop();
 
-    // Limpia el lienzo antes de volver a dibujar la imagen de fondo
-    this.ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
+      // Limpia el lienzo antes de volver a dibujar la imagen de fondo
+      this.ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
 
-    // Dibuja la imagen de fondo
-    const backgroundImage = new Image();
-    backgroundImage.src = '../../../assets/logos/odontograma.jpg';
-    backgroundImage.onload = () => {
-      this.ctx.drawImage(
-        backgroundImage,
-        0,
-        0,
-        this.canvas.nativeElement.width,
-        this.canvas.nativeElement.height
-      );
+      // Dibuja la imagen de fondo
+      const backgroundImage = new Image();
+      backgroundImage.src = '../../../assets/logos/odontograma.jpg';
+      backgroundImage.onload = () => {
+        this.ctx.drawImage(
+          backgroundImage,
+          0,
+          0,
+          this.canvas.nativeElement.width,
+          this.canvas.nativeElement.height
+        );
 
-      // Dibuja los trazos restantes encima de la imagen de fondo
-      this.trazos.forEach(trazoData => {
-        this.ctx.strokeStyle = trazoData.color;
-        this.ctx.lineWidth = trazoData.grosor;
-        this.ctx.stroke(trazoData.trazo);
-      });
-    };
-  }
+        // Dibuja los trazos restantes encima de la imagen de fondo
+        this.trazos.forEach((trazoData) => {
+          this.ctx.strokeStyle = trazoData.color;
+          this.ctx.lineWidth = trazoData.grosor;
+          this.ctx.stroke(trazoData.trazo);
+        });
+      };
+    }
   }
 
   public viewEvidencia(url: string) {
@@ -252,7 +250,8 @@ export class DiagnosticoComponent implements OnInit {
 
   public async onSubmit() {
     const result = await Swal.fire({
-      title: '¿Estás seguro de crear el diagnostico? una vez creado, NO podra ser editado.',
+      title:
+        '¿Estás seguro de crear el diagnostico? una vez creado, NO podra ser editado.',
       showCancelButton: true,
       confirmButtonText: 'Sí',
       cancelButtonText: 'Cancelar',
@@ -261,52 +260,47 @@ export class DiagnosticoComponent implements OnInit {
 
     if (result.isConfirmed) {
       try {
-
-        if(!this.diagnosticoForm.controls.clinica.value){
-          Swal.fire(
-            'Oops...',
-            'El campo Clinica es obligatorio...',
-            'error'
-          )
+        if (!this.diagnosticoForm.controls.clinica.value) {
+          Swal.fire('Oops...', 'El campo Clinica es obligatorio...', 'error');
           return;
         }
 
-        if(!this.diagnosticoForm.controls.observaciones.value){
+        if (!this.diagnosticoForm.controls.observaciones.value) {
           Swal.fire(
             'Oops...',
             'El campo observaciones es obligatorio...',
             'error'
-          )
+          );
           return;
         }
 
-        if(!this.diagnosticoForm.controls.diagnostico.value){
+        if (!this.diagnosticoForm.controls.diagnostico.value) {
           Swal.fire(
             'Oops...',
             'El campo diagnostico es obligatorio...',
             'error'
-          )
+          );
           return;
         }
 
-        if(!this.diagnosticoForm.controls.motivos_de_la_consulta.value){
+        if (!this.diagnosticoForm.controls.motivos_de_la_consulta.value) {
           Swal.fire(
             'Oops...',
             'El campo Motivo de la consulta es obligatorio...',
             'error'
-          )
+          );
           return;
         }
 
-        if(!this.diagnosticoForm.controls.fecha_de_la_consulta.value){
+        if (!this.diagnosticoForm.controls.fecha_de_la_consulta.value) {
           Swal.fire(
             'Oops...',
             'El campo Fecha de la consulta es obligatorio...',
             'error'
-          )
+          );
           return;
         }
-        
+
         const odontograma = this.canvas.nativeElement.toDataURL('image/png');
 
         const item = {
@@ -314,7 +308,8 @@ export class DiagnosticoComponent implements OnInit {
           odontograma,
           historia_clinica_id: this.historia_clinica_id,
           alumno_id: this.alumno_id,
-          tratamiento_id: ''
+          tratamiento_id: '',
+          evidencias: this.evidencias
         };
 
         this.apiSevice.createDiagnostico(item).subscribe(
@@ -357,29 +352,51 @@ export class DiagnosticoComponent implements OnInit {
     });
   }
 
-  async onFileSelected(event: Event, type: String) {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files.length > 0) {
-      if (type === 'evidencia1')
-        this.diagnosticoForm.controls['evidencia1'].setValue(
-          await this.fileToBase64(input.files[0])
-        );
-      if (type === 'evidencia2')
-        this.diagnosticoForm.controls['evidencia2'].setValue(
-          await this.fileToBase64(input.files[0])
-        );
-      if (type === 'evidencia3')
-        this.diagnosticoForm.controls['evidencia3'].setValue(
-          await this.fileToBase64(input.files[0])
-        );
-      if (type === 'evidencia4')
-        this.diagnosticoForm.controls['evidencia4'].setValue(
-          await this.fileToBase64(input.files[0])
-        );
-      if (type === 'evidencia5')
-        this.diagnosticoForm.controls['evidencia5'].setValue(
-          await this.fileToBase64(input.files[0])
-        );
+  async onFileSelected(event: any) {
+    const listaDeFiles = event.target.files;
+    for await(const file of listaDeFiles) {
+      if (!file.type.startsWith('image/')) {
+        Swal.fire('Oops...', 'Solo se admiten imagenes como evidencias', 'warning');
+        return;
+      }
+      const base64 = await this.fileToBase64(file)
+
+      const evidencia = {
+        title: "",
+        description: "",
+        image: base64
+      }
+      this.evidencias.push(evidencia)
     }
+  
   }
+
+  openRellenarEvidencialModal(evidencia:any, index: number){
+
+    this.evidenciaModal.evidencia$.subscribe(respuesta => {
+      console.log('Evidencia recibida en el componente que genera el Swal:', respuesta);
+      this.evidencias[respuesta.id] = respuesta.evidencia
+    });
+
+    const domHTML = this.evidenciaModal.createHTMLModal(evidencia, index)
+
+
+    Swal.fire({
+      title: '',
+      text: '',
+      html: domHTML,
+      showCloseButton: true,
+      showCancelButton: false,
+      focusConfirm: false,
+      showConfirmButton: false,
+      width: '550px',
+      padding: '0',
+      allowOutsideClick: false,
+      customClass: {
+        popup: 'custom-swal-modal'
+      },
+      
+    });
+  }
+  
 }
