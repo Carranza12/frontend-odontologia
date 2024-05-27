@@ -14,10 +14,12 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
   margin: 0 auto;
+  
 }
 
 .tabs__nav-btn {
   padding: 10px;
+  height: 100px;
   text-align: center;
   color: #fff;
   background-color: #b21e36;
@@ -27,6 +29,14 @@
 }
 .tabs__nav-btn:last-child {
   border-right: none;
+}
+
+.componente_fijo{
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+  width: 90%;
+  background-color: #fff;
 }
 
 .tabs__nav-btn:hover {
@@ -47,8 +57,13 @@
   margin: 0 auto;
   background-color: #fff;
   max-width: max-content;
-  
 }
+
+.tabs__content{
+  padding-top: 150px;
+  background-color: #fff;
+}
+
 .tabs__content label{
   display: block;
   width: 100%;
@@ -342,4 +357,27 @@ font-family: Arial, sans-serif;
 .input-group {
   margin-right: 10px;
   flex: 1;
+}
+
+.comentario_aparatos {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px; 
+}
+
+.comentario_aparatos textarea {
+  width: 70%; 
+  height: 150px; 
+  padding: 10px;
+  resize: none; 
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  font-family: Arial, sans-serif;
+  box-sizing: border-box; 
+}
+
+.comentario_aparatos textarea::placeholder {
+  color: #999;
 }
