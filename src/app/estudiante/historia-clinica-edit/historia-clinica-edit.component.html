@@ -97,7 +97,13 @@
             No se han creado diagnosticos aun, crea uno presionando el boton <strong>"Nuevo Diagnostico"</strong>
           </div>
 
-          
+          <div class="carta_bloqueada">
+            <div class="lock-icon">🔒</div>
+            <div class="message">Para poder crear un diagnostico es necesario que firmes la carta de autorizacion</div>
+            <div class="sub-message"><strong>*Autorizacion Requerida*</strong></div>
+            <button class="button">Ir a la carta de autorizacion</button>
+          </div>
+
           <table class="mi-tabla" *ngIf="diagnosticosList.length > 0">
             <thead>
               <tr>
@@ -1574,16 +1580,16 @@
               />
             </div>
           </div>
-          <button type="button" class="btn_primary" (click)="nextPasoAutorizacion()">
-            Siguiente paso
+          <button type="submit" class="btn_primary" (click)="onSubmit()" >
+            Actualizar Información De Historia Clínica  
           </button>
          
         </div>
         
 
         <!--Carta de autorizacion-->
-        <div *ngIf="showAutorizacionInfoTab" class="contenedor_carta">
-          <div>
+      <div *ngIf="showAutorizacionInfoTab" class="contenedor_carta">
+        <div class="carta_autorizacion">
           <h3>AUTORIZACION PARA TRATAMIENTO DENTAL</h3>
           <p>Por medio de la presente concedo autorizacion al Personal Medico Odontologico y Asistente Dental
           de esta Facultad de Odontologia para administrar anestesicos y otros medicamentos, asi como emplear 
@@ -1671,10 +1677,17 @@
                 </div>
               </div>
             </div>
-            <button type="submit" class="btn_primary" >
-              crear
+            <button type="button  " class="btn_firma" (click)="firma_showConfirmDialog()">
+              FIRMAR CARTA DE AUTORIZACION
             </button>
-        </div>
+            <div class="carta_bloqueada">
+              <div class="lock-icon">🔒</div>
+              <div class="message">Para poder firmar la carta de autorización es necesario que contestes los siguientes campos.</div>
+              <div class="sub-message"><strong>*Fecha de Nacimiento*</strong></div>
+              <button class="button">Ir a información general</button>
+            </div>
+        </div>  
+
       </div>
     </div>
     

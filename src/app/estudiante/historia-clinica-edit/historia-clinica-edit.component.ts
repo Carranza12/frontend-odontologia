@@ -2006,9 +2006,29 @@ this.historiaClinicaForm.controls.fecha_de_nacimiento.valueChanges.subscribe((va
 
   }
 
-  
-
-
+  //madre de la alerta, si funciona pero no se que cagadero tenga la de actualizar
+  firma_showConfirmDialog() {
+    Swal.fire({
+      title: '¿Estás seguro de que deseas firmar la carta de autorizacion?',
+      text: "Una vez firmada, no podrá editar la información general ni los antecedentes. ¿Desea continuar? No podrás revertir esto!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, firmar ahora',
+      cancelButtonText: 'Cancelar',
+      allowOutsideClick: false,
+      allowEscapeKey: false   
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire(
+          'Firmado!',
+          'Tu firma ha sido registrada.',
+          'success'
+        )
+      }
+    });
+  }
 
 
   public viewEvidencia(url:string){
@@ -2018,7 +2038,7 @@ this.historiaClinicaForm.controls.fecha_de_nacimiento.valueChanges.subscribe((va
 
   public onSubmit() {
    
-
+    
     const item = {
      ...this.historiaClinicaForm.value,
      firmaPaciente: this.firmaImagen,
@@ -2041,6 +2061,7 @@ this.historiaClinicaForm.controls.fecha_de_nacimiento.valueChanges.subscribe((va
 
       }
     };
+
 
     this.apiSevice.updateHistoriaClinica(this.historia_clinica_id, item).subscribe(
       (response: any) => {
