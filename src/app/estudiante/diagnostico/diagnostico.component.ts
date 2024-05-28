@@ -14,6 +14,7 @@ import { PacienteService } from 'src/app/empleado/services/paciente.service';
 import { PerfilEstudiantesService } from 'src/app/empleado/services/perfil_estudiantes.service';
 import { GeneralService } from 'src/app/general.service';
 import { EvidenciaModalService } from 'src/app/services/evidencia-modal.service';
+
 import Swal from 'sweetalert2';
 
 @Component({
@@ -25,6 +26,8 @@ export class DiagnosticoComponent implements OnInit {
   @ViewChild('canvas') canvas: any;
   ctx: any;
   isDrawing: boolean = false;
+  showOtherReason = false;
+  options: string[] = [];
   context: CanvasRenderingContext2D | null = null;
   penColor = '#000000';
   penThickness: number = 0;
@@ -38,6 +41,14 @@ export class DiagnosticoComponent implements OnInit {
   clinics: any = [];
 
   selectedClinicIds: string[] = [];
+
+
+  experienceOptions = {
+    agradable: ['Respetuoso', 'Cooperativo', 'Buena comunicación'],
+    ni_agradable_ni_desagradable: ['Indiferente', 'Poco cooperativo', 'Poca comunicación'],
+    desagradable: ['Grosero', 'Nada cooperativo', 'Comunicación deficiente'],
+    muy_desagradable: ['Agresivo', 'Comportamiento Sexual Inapropiado', 'Vandalismo']
+  };
 
   public diagnosticoForm = this.formBuilder.group({
     motivos_de_la_consulta: new FormControl(''),
@@ -63,6 +74,13 @@ export class DiagnosticoComponent implements OnInit {
     diagnostico: new FormControl(''),
     observaciones: new FormControl(''),
     paciente_referido_clinica: new FormControl(''),
+    experience: [''],
+    reason1: [false],
+    reason2: [false],
+    reason3: [false],
+    otherReason: [false],
+    otherReasonText: ['']
+
   });
   public evidencias: any = [];
 
@@ -78,7 +96,7 @@ export class DiagnosticoComponent implements OnInit {
     private cd: ChangeDetectorRef,
     private pacienteService: PacienteService,
     private evidenciaModal: EvidenciaModalService,
-  ) {}
+  ) { }
 
   toggleSelection(clinicId: string): void {
     const index = this.selectedClinicIds.indexOf(clinicId);
@@ -97,6 +115,7 @@ export class DiagnosticoComponent implements OnInit {
   isClinicSelected(clinicId: string): boolean {
     return this.selectedClinicIds.includes(clinicId);
   }
+
 
   ngOnInit(): void {
     this.pacienteService.getAllClinicas().subscribe(
@@ -137,7 +156,12 @@ export class DiagnosticoComponent implements OnInit {
           console.log('ITEM:', this.item);
         });
     });
+
+    this.diagnosticoForm.get('experience')?.valueChanges.subscribe(value => {
+      this.updateOptions(value ?? '');
+    });
   }
+
 
   ngAfterViewInit(): void {
     this.context = this.canvas.nativeElement.getContext('2d');
@@ -248,6 +272,42 @@ export class DiagnosticoComponent implements OnInit {
     window.open(url, '_blank');
   }
 
+  updateOptions(value: string): void {
+    switch (value) {
+      case 'Agradable':
+        this.options = this.experienceOptions.agradable;
+        break;
+      case 'Ni agradable ni desagradable':
+        this.options = this.experienceOptions.ni_agradable_ni_desagradable;
+        break;
+      case 'Desagradable':
+        this.options = this.experienceOptions.desagradable;
+        break;
+      case 'Muy desagradable':
+        this.options = this.experienceOptions.muy_desagradable;
+        break;
+      default:
+        this.options = [];
+    }
+    // Reset the reason checkboxes when experience changes
+    this.diagnosticoForm.patchValue({
+      reason1: false,
+      reason2: false,
+      reason3: false,
+      otherReason: false,
+      otherReasonText: ''
+    });
+    this.showOtherReason = false;
+  }
+
+  toggleOtherReason(event: any) {
+    this.showOtherReason = event.target.checked;
+    if (!this.showOtherReason) {
+      this.diagnosticoForm.get('otherReasonText')?.setValue('');
+    }
+  }
+
+
   public async onSubmit() {
     const result = await Swal.fire({
       title:
@@ -355,7 +415,7 @@ export class DiagnosticoComponent implements OnInit {
   async compressImage(file: File, quality: number): Promise<string> {
     const image = await this.loadImage(URL.createObjectURL(file));
     const canvas = document.createElement('canvas');
-    const ctx:any = canvas.getContext('2d');
+    const ctx: any = canvas.getContext('2d');
     canvas.width = image.width;
     canvas.height = image.height;
     ctx.drawImage(image, 0, 0, image.width, image.height);
@@ -377,7 +437,7 @@ export class DiagnosticoComponent implements OnInit {
     const img = new Image();
     img.src = compressedBase64;
     const canvas = document.createElement('canvas');
-    const ctx:any = canvas.getContext('2d');
+    const ctx: any = canvas.getContext('2d');
     canvas.width = img.width;
     canvas.height = img.height;
     ctx.drawImage(img, 0, 0, img.width, img.height);
@@ -387,7 +447,7 @@ export class DiagnosticoComponent implements OnInit {
 
   async onFileSelected(event: any) {
     const listaDeFiles = event.target.files;
-    for await(const file of listaDeFiles) {
+    for await (const file of listaDeFiles) {
       if (!file.type.startsWith('image/')) {
         Swal.fire('Oops...', 'Solo se admiten imagenes como evidencias', 'warning');
         return;
@@ -403,10 +463,10 @@ export class DiagnosticoComponent implements OnInit {
       }
       this.evidencias.push(evidencia)
     }
-  
+
   }
 
-  openRellenarEvidencialModal(evidencia:any, index: number){
+  openRellenarEvidencialModal(evidencia: any, index: number) {
 
     this.evidenciaModal.evidencia$.subscribe(respuesta => {
       console.log('Evidencia recibida en el componente que genera el Swal:', respuesta);
@@ -430,8 +490,8 @@ export class DiagnosticoComponent implements OnInit {
       customClass: {
         popup: 'custom-swal-modal'
       },
-      
+
     });
   }
-  
+
 }

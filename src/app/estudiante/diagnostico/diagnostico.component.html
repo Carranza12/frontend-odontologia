@@ -334,6 +334,43 @@
             </div>
           </div>
         </div>
+
+        <h3>Conducta del paciente:</h3>
+        <div>
+          <label>¿Cómo fue tu experiencia?</label>
+          <div>
+            <input type="radio" formControlName="experience" value="Agradable" /> Agradable
+          </div>
+          <div>
+            <input type="radio" formControlName="experience" value="Ni agradable ni desagradable" /> Ni agradable ni desagradable
+          </div>
+          <div>
+            <input type="radio" formControlName="experience" value="Desagradable" /> Desagradable
+          </div>
+          <div>
+            <input type="radio" formControlName="experience" value="Muy desagradable" /> Muy desagradable
+          </div>
+        </div>
+      
+        <div *ngIf="diagnosticoForm.get('experience')?.value">
+          <label>¿La razón es una de las siguientes?</label>
+          <div>
+            <input type="checkbox" formControlName="reason1" /> {{ options[0] }}
+          </div>
+          <div>
+            <input type="checkbox" formControlName="reason2" /> {{ options[1] }}
+          </div>
+          <div>
+            <input type="checkbox" formControlName="reason3" /> {{ options[2] }}
+          </div>
+          <div>
+            <input type="checkbox" formControlName="otherReason" (change)="toggleOtherReason($event)" /> Otro
+            <div *ngIf="showOtherReason">
+              <input type="text" formControlName="otherReasonText" placeholder="Especifique la razón" />
+            </div>
+          </div>
+        </div>
+      
         
       </div>
 
