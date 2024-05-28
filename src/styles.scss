@@ -189,6 +189,9 @@ body {
 .input-file {
   display: none;
 }
+.deshabilitado {
+  pointer-events: none; 
+}
 
 /* Estilo del botón personalizado */
 .custom-file-button {

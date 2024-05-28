@@ -1644,8 +1644,8 @@ export class HistoriaClinicaEditComponent implements OnInit{
 
   public estudianteData:any = {}
 
-  public isAprobadoAnyConsulta:boolean = false;
-
+  public isAprobadoAnyConsulta:boolean = true;
+  public isFirmadaAutorizacion:boolean = false;
 
   public historia_clinica_id:any = ''
   constructor(
@@ -1668,7 +1668,7 @@ export class HistoriaClinicaEditComponent implements OnInit{
       if(this.historia_clinica_id){
         this.apiSevice.getHistoriaClinica(this.historia_clinica_id).subscribe(
           (response: any) => {
-
+            this.isFirmadaAutorizacion = response?.item?.historia_clinica?.isFirmadaAutorizacion ? response?.item?.historia_clinica?.isFirmadaAutorizacion : false
            this.historiaClinicaForm.get("nombre_completo")?.setValue(response?.item?.paciente?.nombre_completo)
            /*Valor de la fecha de nacimiento*/ 
            const fechaNacimiento = response?.item?.paciente?.fecha_de_nacimiento;
@@ -1834,9 +1834,9 @@ export class HistoriaClinicaEditComponent implements OnInit{
           this.apiSevice.getDiagnosticosByHistoriaClinicaID(this.historia_clinica_id).subscribe((respuesta:any) => {
       
             this.diagnosticosList = respuesta.items;
-            if(this.diagnosticosList.length > 0){
+            /* if(this.diagnosticosList.length > 0){
               this.isAprobadoAnyConsulta = true;
-            }
+            } */
           })
 
           this.apiSevice.getTratamientosByHistoriaClinicaID(this.historia_clinica_id).subscribe((respuesta:any)=> {
@@ -2021,11 +2021,8 @@ this.historiaClinicaForm.controls.fecha_de_nacimiento.valueChanges.subscribe((va
       allowEscapeKey: false   
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire(
-          'Firmado!',
-          'Tu firma ha sido registrada.',
-          'success'
-        )
+        this.isFirmadaAutorizacion = true;
+        this.onSubmit()
       }
     });
   }
@@ -2041,6 +2038,7 @@ this.historiaClinicaForm.controls.fecha_de_nacimiento.valueChanges.subscribe((va
     
     const item = {
      ...this.historiaClinicaForm.value,
+     isFirmadaAutorizacion: this.isFirmadaAutorizacion,
      firmaPaciente: this.firmaImagen,
       paciente: {
         nombre_completo: this.historiaClinicaForm.get("nombre_completo")?.value,

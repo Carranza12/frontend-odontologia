@@ -87,8 +87,17 @@
       </div> 
 <!--Contenido de Diagnosticos-->
       <div class="tabs__content">
-        <div *ngIf="showDiagnosticosInfoTab" class="tablas_diagnostico">
-          <div class="encabezado-container">
+        <div *ngIf="showDiagnosticosInfoTab && !isFirmadaAutorizacion" class="carta_bloqueada" style="margin-top:150px" >
+          <div class="lock-icon">🔒</div>
+          <div class="message">Para poder crear un diagnostico es necesario que firmes la carta de autorizacion</div>
+          <div class="sub-message"><strong>*Autorizacion Requerida*</strong></div>
+          <button class="button" (click)="changeTab('carta')">Ir a la carta de autorizacion</button>
+        </div>
+        <div *ngIf="showDiagnosticosInfoTab && isFirmadaAutorizacion" class="tablas_diagnostico">
+
+          
+
+          <div class="encabezado-container" style="margin-top: 120px;">
           <h3>Diagnosticos del Paciente:</h3>
           <input *ngIf="usuarioLogeado.role_default ==='estudiante'" type="button" value="Nuevo Diagnostico" class="btn_primary" (click)="OpenDiagnosticoForm()">
           </div>
@@ -97,12 +106,7 @@
             No se han creado diagnosticos aun, crea uno presionando el boton <strong>"Nuevo Diagnostico"</strong>
           </div>
 
-          <div class="carta_bloqueada">
-            <div class="lock-icon">🔒</div>
-            <div class="message">Para poder crear un diagnostico es necesario que firmes la carta de autorizacion</div>
-            <div class="sub-message"><strong>*Autorizacion Requerida*</strong></div>
-            <button class="button">Ir a la carta de autorizacion</button>
-          </div>
+         
 
           <table class="mi-tabla" *ngIf="diagnosticosList.length > 0">
             <thead>
@@ -184,7 +188,7 @@
                 formControlName="nombre_completo"
                 name="nombre_completo"
                 autocomplete="off"
-                [readonly]="isAprobadoAnyConsulta"
+                [readonly]="isFirmadaAutorizacion"
                 style="width: 440px!important;"
               />
               <div
@@ -209,7 +213,7 @@
                 formControlName="fecha_de_nacimiento"
                 name="fecha_de_nacimiento"
                 autocomplete="off"
-                [readonly]="isAprobadoAnyConsulta"
+                [readonly]="isFirmadaAutorizacion"
               />
               <div
                 *ngIf="
@@ -230,7 +234,7 @@
                 class="form_input"
                 formControlName="genero"
                 name="genero"
-                [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
               >
                 <option value="">Selecciona el genero</option>
                 <option
@@ -254,7 +258,7 @@
             <div class="form_control">
               <label for="" class="label_input">Estado civil:</label>
               <select
-                [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                 class="form_input"
                 formControlName="estado_civil"
                 name="estado_civil"
@@ -283,7 +287,7 @@
             <div class="form_control">
               <label for="" class="label_input">Domicilio:</label>
               <input
-                [readonly]="isAprobadoAnyConsulta"
+                [readonly]="isFirmadaAutorizacion"
                 class="form_input"
                 type="text"
                 placeholder="Domicilio"
@@ -305,7 +309,7 @@
             <div class="form_control">
               <label for="" class="label_input">Telefono:</label>
               <input
-                [readonly]="isAprobadoAnyConsulta"
+                [readonly]="isFirmadaAutorizacion"
                 class="form_input"
                 type="number"
                 placeholder="Telefono"
@@ -331,7 +335,7 @@
                 class="form_input"
                 formControlName="pais_origen"
                 name="pais_origen"
-                [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
               >
                 <option value="">Selecciona el pais</option>
                 <option
@@ -358,7 +362,7 @@
                 class="form_input"
                 formControlName="estado_origen"
                 name="estado_origen"
-                [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
               >
                 <option value="">Selecciona el Estado</option>
                 <option
@@ -386,7 +390,7 @@
                 class="form_input"
                 formControlName="ciudad_origen"
                 name="ciudad_origen"
-                [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
               >
                 <option value="">Selecciona la ciudad de origen</option>
                 <option
@@ -415,7 +419,7 @@
                 class="form_input"
                 formControlName="ciudad_Actual"
                 name="ciudad_Actual"
-                [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
               >
                 <option value="">Selecciona la ciudad actual</option>
                 <option
@@ -442,7 +446,7 @@
             <div class="form_control">
               <label for="" class="label_input">Ocupacion:</label>
               <input
-                [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                 class="form_input"
                 type="text"
                 placeholder="Ocupacion"
@@ -467,7 +471,7 @@
               >
               <input
                 class="form_input"
-                [readonly]="isAprobadoAnyConsulta"
+                [readonly]="isFirmadaAutorizacion"
                 type="text"
                 placeholder="Nombre contacto de emergencia"
                 formControlName="nombre_contacto_emergencia"
@@ -493,7 +497,7 @@
                 >Parentesco del contacto de emergencia:</label
               >
               <select
-                [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                 class="form_input"
                 formControlName="parentesco_contacto_emergencia"
                 name="parentesco_contacto_emergencia"
@@ -526,7 +530,7 @@
               >
               <input
                 class="form_input"
-                [readonly]="isAprobadoAnyConsulta"
+                [readonly]="isFirmadaAutorizacion"
                 type="number"
                 placeholder="Telefono Contacto de emergencia"
                 formControlName="telefono_contacto_emergencia"
@@ -557,7 +561,7 @@
             <label for="" class="label_input">Antecedentes hereditarios:</label>
             <p>Padres, Hermanos,Conyuge,Hijos,Colaterales.</p>
             <textarea
-              [readonly]="isAprobadoAnyConsulta"
+              [readonly]="isFirmadaAutorizacion"
               class="form_input form_textarea"
               formControlName="antecedentes_hereditarios"
             >
@@ -574,7 +578,7 @@
               <div>
                 <label for="" class="form_label">Alcoholismo:</label>
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   formControlName="alcoholismo"
                   class="checkbox_input"
@@ -583,7 +587,7 @@
               <div>
                 <label for="" class="form_label">tabaquismo:</label>
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   formControlName="tabaquismo"
                   class="checkbox_input"
@@ -592,7 +596,7 @@
               <div>
                 <label for="" class="form_label">toxicomanias:</label>
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   formControlName="toxicomanias"
                   class="checkbox_input"
@@ -601,7 +605,7 @@
               <div>
                 <label for="" class="form_label">higiene: </label>
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   formControlName="higiene"
                   class="checkbox_input"
@@ -610,7 +614,7 @@
               <div>
                 <label for="" class="form_label">alimentacion: </label>
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   formControlName="alimentacion"
                   class="checkbox_input"
@@ -619,7 +623,7 @@
               <div>
                 <label for="" class="form_label">condicion:</label>
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   formControlName="condicion"
                   class="checkbox_input"
@@ -628,7 +632,7 @@
               <div>
                 <label for="" class="form_label">socioconomia:</label>
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   formControlName="socioconomia"
                   class="checkbox_input"
@@ -637,7 +641,7 @@
               <div>
                 <label for="" class="form_label"> habitos:</label>
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   formControlName="habitos"
                   class="checkbox_input"
@@ -648,7 +652,7 @@
               <label for="" class="label_input">Comentarios:</label>
 
               <textarea
-                [readonly]="isAprobadoAnyConsulta"
+                [readonly]="isFirmadaAutorizacion"
                 class="form_input form_textarea"
                 formControlName="ant_personales_otros_textarea"
               >
@@ -669,7 +673,7 @@
                   >Enfermedades propias de la infancia:</label
                 >
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   formControlName="enf_infancia"
                   class="checkbox_input"
@@ -678,7 +682,7 @@
               <div>
                 <label for="" class="form_label">Fimicos:</label>
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   formControlName="Fimicos"
                   class="checkbox_input"
@@ -687,7 +691,7 @@
               <div>
                 <label for="" class="form_label">Lueticos:</label>
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   formControlName="Lueticos"
                   class="checkbox_input"
@@ -696,7 +700,7 @@
               <div>
                 <label for="" class="form_label">Diabeticos: </label>
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   formControlName="Diabeticos"
                   class="checkbox_input"
@@ -705,7 +709,7 @@
               <div>
                 <label for="" class="form_label">Quirurgicos: </label>
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   formControlName="Quirurgicos"
                   class="checkbox_input"
@@ -714,7 +718,7 @@
               <div>
                 <label for="" class="form_label">Traumaticos:</label>
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   formControlName="Traumaticos"
                   class="checkbox_input"
@@ -723,7 +727,7 @@
               <div>
                 <label for="" class="form_label">Ictericos:</label>
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   formControlName="Ictericos"
                   class="checkbox_input"
@@ -732,7 +736,7 @@
               <div>
                 <label for="" class="form_label"> Epilepticos:</label>
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   formControlName="Epilepticos"
                   class="checkbox_input"
@@ -742,7 +746,7 @@
               <div>
                 <label for="" class="form_label"> Alergicos:</label>
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   formControlName="Alergicos"
                   class="checkbox_input"
@@ -752,7 +756,7 @@
               <div>
                 <label for="" class="form_label"> Reumaticos:</label>
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   formControlName="Reumaticos"
                   class="checkbox_input"
@@ -762,7 +766,7 @@
               <div>
                 <label for="" class="form_label"> Transfusiones:</label>
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   formControlName="Transfusiones"
                   class="checkbox_input"
@@ -774,7 +778,7 @@
                   Enfermedades Cardiovasculares:</label
                 >
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   formControlName="Enfermedades_Cardiovasculares"
                   class="checkbox_input"
@@ -787,7 +791,7 @@
                   Odontologicas:</label
                 >
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   formControlName="Incidencia_de_Infecciones_Bucales"
                   class="checkbox_input"
@@ -797,7 +801,7 @@
               <div>
                 <label for="" class="form_label"> Neoplasticas:</label>
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   formControlName="Neoplasticas"
                   class="checkbox_input"
@@ -807,7 +811,7 @@
               <div>
                 <label for="" class="form_label"> SIDA:</label>
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   formControlName="SIDA"
                   class="checkbox_input"
@@ -818,7 +822,7 @@
               <label for="" class="label_input">Comentarios:</label>
 
               <textarea
-                [readonly]="isAprobadoAnyConsulta"
+                [readonly]="isFirmadaAutorizacion"
                 class="form_input form_textarea"
                 formControlName="ant_personales_p_otros_textarea"
               >
@@ -831,7 +835,7 @@
               >
 
               <textarea
-                [readonly]="isAprobadoAnyConsulta"
+                [readonly]="isFirmadaAutorizacion"
                 class="form_input form_textarea"
                 formControlName="padecimiento_principio"
               >
@@ -844,7 +848,7 @@
               >
 
               <textarea
-                [readonly]="isAprobadoAnyConsulta"
+                [readonly]="isFirmadaAutorizacion"
                 class="form_input form_textarea"
                 formControlName="padecimiento_evolucion"
               >
@@ -857,7 +861,7 @@
               >
 
               <textarea
-                [readonly]="isAprobadoAnyConsulta"
+                [readonly]="isFirmadaAutorizacion"
                 class="form_input form_textarea"
                 formControlName="padecimiento_estado_actual"
               >
@@ -876,7 +880,7 @@
               <div>
                 <label for="" class="form_label">Apetito:</label>
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   formControlName="aparatos_sistemas_digestivo_apetito"
                   class="checkbox_input"
@@ -885,7 +889,7 @@
               <div>
                 <label for="" class="form_label">Masticacion:</label>
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   formControlName="aparatos_sistemas_digestivo_Masticacion"
                   class="checkbox_input"
@@ -894,7 +898,7 @@
               <div>
                 <label for="" class="form_label">Deglucion:</label>
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   formControlName="aparatos_sistemas_digestivo_Deglucion"
                   class="checkbox_input"
@@ -903,7 +907,7 @@
               <div>
                 <label for="" class="form_label">Disfagia:</label>
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   formControlName="aparatos_sistemas_digestivo_Disfagia"
                   class="checkbox_input"
@@ -912,7 +916,7 @@
               <div>
                 <label for="" class="form_label">Nuaseas:</label>
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   formControlName="aparatos_sistemas_digestivo_Nauseas"
                   class="checkbox_input"
@@ -921,7 +925,7 @@
               <div>
                 <label for="" class="form_label">Vomito:</label>
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   formControlName="aparatos_sistemas_digestivo_Vomito"
                   class="checkbox_input"
@@ -930,7 +934,7 @@
               <div>
                 <label for="" class="form_label">Dolor abdominal:</label>
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   formControlName="aparatos_sistemas_digestivo_Dolor_Abdominal"
                   class="checkbox_input"
@@ -939,7 +943,7 @@
               <div>
                 <label for="" class="form_label">Hematemsis:</label>
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   formControlName="aparatos_sistemas_digestivo_Hematemsis"
                   class="checkbox_input"
@@ -948,7 +952,7 @@
               <div>
                 <label for="" class="form_label">Pirosis:</label>
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   formControlName="aparatos_sistemas_digestivo_Pirosis"
                   class="checkbox_input"
@@ -957,7 +961,7 @@
               <div>
                 <label for="" class="form_label">Meteorismo:</label>
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   formControlName="aparatos_sistemas_digestivo_Meteorismo"
                   class="checkbox_input"
@@ -966,7 +970,7 @@
               <div>
                 <label for="" class="form_label">Diarrea:</label>
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   formControlName="aparatos_sistemas_digestivo_Diarrea"
                   class="checkbox_input"
@@ -975,7 +979,7 @@
               <div>
                 <label for="" class="form_label">Estrenimiento:</label>
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   formControlName="aparatos_sistemas_digestivo_Estrenimiento"
                   class="checkbox_input"
@@ -984,7 +988,7 @@
               <div>
                 <label for="" class="form_label">Melena:</label>
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   formControlName="aparatos_sistemas_digestivo_Melena"
                   class="checkbox_input"
@@ -993,7 +997,7 @@
               <div>
                 <label for="" class="form_label">Rectorragia:</label>
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   formControlName="aparatos_sistemas_digestivo_Rectorragia"
                   class="checkbox_input"
@@ -1002,7 +1006,7 @@
               <div>
                 <label for="" class="form_label">Otro:</label>
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   class="checkbox_input"
                   formControlName="aparatos_sistemas_digestivo_Otros"
@@ -1025,7 +1029,7 @@
               <div>
                 <label for="" class="form_label">Epistasis:</label>
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   formControlName="aparatos_sistemas_respiratorio_Epistasis"
                   class="checkbox_input"
@@ -1034,7 +1038,7 @@
               <div>
                 <label for="" class="form_label">Tos:</label>
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   formControlName="aparatos_sistemas_respiratorio_Tos"
                   class="checkbox_input"
@@ -1043,7 +1047,7 @@
               <div>
                 <label for="" class="form_label">Disnea:</label>
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   formControlName="aparatos_sistemas_respiratorio_Disnea"
                   class="checkbox_input"
@@ -1052,7 +1056,7 @@
               <div>
                 <label for="" class="form_label">Expectoracion:</label>
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   formControlName="aparatos_sistemas_respiratorio_Expectoracion"
                   class="checkbox_input"
@@ -1061,7 +1065,7 @@
               <div>
                 <label for="" class="form_label">Asma:</label>
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   formControlName="aparatos_sistemas_respiratorio_Asma"
                   class="checkbox_input"
@@ -1070,7 +1074,7 @@
               <div>
                 <label for="" class="form_label">Dolor al respirar:</label>
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   formControlName="aparatos_sistemas_respiratorio_Dolor_al_respirar"
                   class="checkbox_input"
@@ -1079,7 +1083,7 @@
               <div>
                 <label for="" class="form_label">Disfonia:</label>
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   formControlName="aparatos_sistemas_respiratorio_Disfonia"
                   class="checkbox_input"
@@ -1088,7 +1092,7 @@
               <div>
                 <label for="" class="form_label">Gripa frecuente:</label>
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   formControlName="aparatos_sistemas_respiratorio_Gripa_frecuente"
                   class="checkbox_input"
@@ -1098,7 +1102,7 @@
               <div>
                 <label for="" class="form_label">Otro:</label>
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   class="checkbox_input"
                   formControlName="aparatos_sistemas_respiratorio_Otros"
@@ -1119,7 +1123,7 @@
               <div>
                 <label for="" class="form_label">Disnea del esfuerzo:</label>
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   formControlName="aparatos_sistemas_circulatorio_Disnea_del_esfuerzo"
                   class="checkbox_input"
@@ -1128,7 +1132,7 @@
               <div>
                 <label for="" class="form_label">Dolor retroesternal:</label>
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   formControlName="aparatos_sistemas_circulatorio_Dolor_retroesternal"
                   class="checkbox_input"
@@ -1137,7 +1141,7 @@
               <div>
                 <label for="" class="form_label">Palpitaciones:</label>
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   formControlName="aparatos_sistemas_circulatorio_Palpitaciones"
                   class="checkbox_input"
@@ -1146,7 +1150,7 @@
               <div>
                 <label for="" class="form_label">Edema:</label>
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   formControlName="aparatos_sistemas_circulatorio_Edema"
                   class="checkbox_input"
@@ -1155,7 +1159,7 @@
               <div>
                 <label for="" class="form_label">Lipotimias:</label>
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   formControlName="aparatos_sistemas_circulatorio_Lipotimias"
                   class="checkbox_input"
@@ -1164,7 +1168,7 @@
               <div>
                 <label for="" class="form_label">Calambres:</label>
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   formControlName="aparatos_sistemas_circulatorio_Calambres"
                   class="checkbox_input"
@@ -1173,7 +1177,7 @@
               <div>
                 <label for="" class="form_label">Cianosis:</label>
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   formControlName="aparatos_sistemas_circulatorio_Cianosis"
                   class="checkbox_input"
@@ -1182,7 +1186,7 @@
               <div>
                 <label for="" class="form_label">Acufenos:</label>
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   formControlName="aparatos_sistemas_circulatorio_Acufenos"
                   class="checkbox_input"
@@ -1191,7 +1195,7 @@
               <div>
                 <label for="" class="form_label">Fosfenos:</label>
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   formControlName="aparatos_sistemas_circulatorio_Fosfenos"
                   class="checkbox_input"
@@ -1200,7 +1204,7 @@
               <div>
                 <label for="" class="form_label">Otro:</label>
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   class="checkbox_input"
                   formControlName="aparatos_sistemas_circulatorio_Otros"
@@ -1225,7 +1229,7 @@
                   >Frecuencia de micciones:</label
                 >
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   formControlName="aparatos_sistemas_genito_urinario_Frecuencia_de_micciones"
                   class="checkbox_input"
@@ -1234,7 +1238,7 @@
               <div>
                 <label for="" class="form_label">Color:</label>
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   formControlName="aparatos_sistemas_genito_urinario_Color"
                   class="checkbox_input"
@@ -1243,7 +1247,7 @@
               <div>
                 <label for="" class="form_label">Diuria:</label>
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   formControlName="aparatos_sistemas_genito_urinario_Diuria"
                   class="checkbox_input"
@@ -1252,7 +1256,7 @@
               <div>
                 <label for="" class="form_label">Nicturia:</label>
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   formControlName="aparatos_sistemas_genito_urinario_Nicturia"
                   class="checkbox_input"
@@ -1261,7 +1265,7 @@
               <div>
                 <label for="" class="form_label">Hematuria:</label>
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   formControlName="aparatos_sistemas_genito_urinario_Hematuria"
                   class="checkbox_input"
@@ -1270,7 +1274,7 @@
               <div>
                 <label for="" class="form_label">Poliuria:</label>
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   formControlName="aparatos_sistemas_genito_urinario_Poliuria"
                   class="checkbox_input"
@@ -1279,7 +1283,7 @@
               <div>
                 <label for="" class="form_label">Otro:</label>
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   class="checkbox_input"
                   formControlName="aparatos_sistemas_genito_urinario_Otros"
@@ -1302,7 +1306,7 @@
               <div>
                 <label for="" class="form_label">Ansiedad:</label>
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   formControlName="aparatos_sistemas_sist_nervioso_Ansiedad"
                   class="checkbox_input"
@@ -1311,7 +1315,7 @@
               <div>
                 <label for="" class="form_label">Temor:</label>
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   formControlName="aparatos_sistemas_sist_nervioso_Temor"
                   class="checkbox_input"
@@ -1320,7 +1324,7 @@
               <div>
                 <label for="" class="form_label">Convulciones:</label>
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   formControlName="aparatos_sistemas_sist_nervioso_Convulciones"
                   class="checkbox_input"
@@ -1329,7 +1333,7 @@
               <div>
                 <label for="" class="form_label">Paralisis:</label>
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   formControlName="aparatos_sistemas_sist_nervioso_Paralisis"
                   class="checkbox_input"
@@ -1338,7 +1342,7 @@
               <div>
                 <label for="" class="form_label">Temblores:</label>
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   formControlName="aparatos_sistemas_sist_nervioso_Temblores"
                   class="checkbox_input"
@@ -1347,7 +1351,7 @@
               <div>
                 <label for="" class="form_label">Tics:</label>
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   formControlName="aparatos_sistemas_sist_nervioso_Tics"
                   class="checkbox_input"
@@ -1356,7 +1360,7 @@
               <div>
                 <label for="" class="form_label">Vista:</label>
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   formControlName="aparatos_sistemas_sist_nervioso_Vista"
                   class="checkbox_input"
@@ -1365,7 +1369,7 @@
               <div>
                 <label for="" class="form_label">Oido:</label>
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   formControlName="aparatos_sistemas_sist_nervioso_Oido"
                   class="checkbox_input"
@@ -1374,7 +1378,7 @@
               <div>
                 <label for="" class="form_label">Tacto:</label>
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   formControlName="aparatos_sistemas_sist_nervioso_Tacto"
                   class="checkbox_input"
@@ -1383,7 +1387,7 @@
               <div>
                 <label for="" class="form_label">Otro:</label>
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   class="checkbox_input"
                   formControlName="aparatos_sistemas_sist_nervioso_Otros"
@@ -1406,7 +1410,7 @@
               <div>
                 <label for="" class="form_label">Variacion de peso:</label>
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   formControlName="aparatos_sistemas_sintomas_generales_Variacion_de_peso"
                   class="checkbox_input"
@@ -1415,7 +1419,7 @@
               <div>
                 <label for="" class="form_label">Astenia:</label>
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   formControlName="aparatos_sistemas_sintomas_generales_Astenia"
                   class="checkbox_input"
@@ -1424,7 +1428,7 @@
               <div>
                 <label for="" class="form_label">Adinamia:</label>
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   formControlName="aparatos_sistemas_sintomas_generales_Adinamia"
                   class="checkbox_input"
@@ -1433,7 +1437,7 @@
               <div>
                 <label for="" class="form_label">Fiebre:</label>
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   formControlName="aparatos_sistemas_sintomas_generales_Fiebre"
                   class="checkbox_input"
@@ -1442,7 +1446,7 @@
               <div>
                 <label for="" class="form_label">Escalofrios:</label>
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   formControlName="aparatos_sistemas_sintomas_generales_Escalofrios"
                   class="checkbox_input"
@@ -1453,7 +1457,7 @@
                   >Cambio de coloracion en piel y mucosa:</label
                 >
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   formControlName="aparatos_sistemas_sintomas_generales_Cambio_de_coloracaion_en_piel_y_mucosa"
                   class="checkbox_input"
@@ -1462,7 +1466,7 @@
               <div>
                 <label for="" class="form_label">Anorexia:</label>
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   formControlName="aparatos_sistemas_sintomas_generales_Anorexia"
                   class="checkbox_input"
@@ -1471,7 +1475,7 @@
               <div>
                 <label for="" class="form_label">Otro:</label>
                 <input
-                  [ngClass]="{ deshabilitado: isAprobadoAnyConsulta }"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
                   class="checkbox_input"
                   formControlName="aparatos_sistemas_sintomas_generales_otros"
@@ -1501,7 +1505,7 @@
                 >Raza, Sexo, Edad Aparente, Facies, Estado de Conciencia:</label
               >
               <textarea
-                [readonly]="isAprobadoAnyConsulta"
+                [readonly]="isFirmadaAutorizacion"
                 class="form_input form_textarea"
                 formControlName="exploracion_fisica_raza_sexo_edad_facies_estado_conciencia"
               >
@@ -1513,7 +1517,7 @@
                 Anormales:</label
               >
               <textarea
-                [readonly]="isAprobadoAnyConsulta"
+                [readonly]="isFirmadaAutorizacion"
                 class="form_input form_textarea"
                 formControlName="exploracion_fisica_actitud_constitucion_marcha_movimientos_anormales"
               >
@@ -1522,7 +1526,7 @@
             <div class="form_control">
               <label for="" class="label_input">Signos Vitales:</label>
               <input
-                [readonly]="isAprobadoAnyConsulta"
+                [readonly]="isFirmadaAutorizacion"
                 class="form_input"
                 type="text"
                 placeholder=""
@@ -1534,7 +1538,7 @@
             <div class="form_control">
               <label for="" class="label_input">T/A:</label>
               <input
-                [readonly]="isAprobadoAnyConsulta"
+                [readonly]="isFirmadaAutorizacion"
                 class="form_input"
                 type="text"
                 placeholder=""
@@ -1546,7 +1550,7 @@
             <div class="form_control">
               <label for="" class="label_input">Frec Respiratoria:</label>
               <input
-                [readonly]="isAprobadoAnyConsulta"
+                [readonly]="isFirmadaAutorizacion"
                 class="form_input"
                 type="text"
                 placeholder=""
@@ -1558,7 +1562,7 @@
             <div class="form_control">
               <label for="" class="label_input">Temperatura:</label>
               <input
-                [readonly]="isAprobadoAnyConsulta"
+                [readonly]="isFirmadaAutorizacion"
                 class="form_input"
                 type="text"
                 placeholder=""
@@ -1570,7 +1574,7 @@
             <div class="form_control">
               <label for="" class="label_input">Peso:</label>
               <input
-                [readonly]="isAprobadoAnyConsulta"
+                [readonly]="isFirmadaAutorizacion"
                 class="form_input"
                 type="text"
                 placeholder=""
@@ -1588,7 +1592,7 @@
         
 
         <!--Carta de autorizacion-->
-      <div *ngIf="showAutorizacionInfoTab" class="contenedor_carta">
+      <div  class="contenedor_carta" *ngIf="historiaClinicaForm.controls.fecha_de_nacimiento.value && showAutorizacionInfoTab">
         <div class="carta_autorizacion">
           <h3>AUTORIZACION PARA TRATAMIENTO DENTAL</h3>
           <p>Por medio de la presente concedo autorizacion al Personal Medico Odontologico y Asistente Dental
@@ -1642,7 +1646,7 @@
             <div class="concentimiento" *ngIf="esMenordeEdad && !isEditHistoria">
               <div class="nombre">
                 <label for="nombrePaciente">NOMBRE DEL PADRE O TUTOR:</label>
-                <input type="text" formControlName="nombre_tutor" class="form_input"  [readonly]="isAprobadoAnyConsulta">
+                <input type="text" formControlName="nombre_tutor" class="form_input"  [readonly]="isFirmadaAutorizacion">
               </div>
               
               <div class="firma-placeholder">
@@ -1660,7 +1664,7 @@
               <div class="concentimiento" *ngIf="esMenordeEdad && isEditHistoria">
                 <div class="nombre">
                   <label for="nombrePaciente">NOMBRE DEL PADRE O TUTOR:</label>
-                  <input type="text" formControlName="nombre_tutor" class="form_input"  [readonly]="isAprobadoAnyConsulta">
+                  <input type="text" formControlName="nombre_tutor" class="form_input"  [readonly]="isFirmadaAutorizacion">
                 </div>
 
                 <div class="firma-placeholder">
@@ -1677,16 +1681,18 @@
                 </div>
               </div>
             </div>
-            <button type="button  " class="btn_firma" (click)="firma_showConfirmDialog()">
+            <button type="button" class="btn_firma" (click)="firma_showConfirmDialog()" *ngIf="!isFirmadaAutorizacion">
               FIRMAR CARTA DE AUTORIZACION
             </button>
-            <div class="carta_bloqueada">
-              <div class="lock-icon">🔒</div>
-              <div class="message">Para poder firmar la carta de autorización es necesario que contestes los siguientes campos.</div>
-              <div class="sub-message"><strong>*Fecha de Nacimiento*</strong></div>
-              <button class="button">Ir a información general</button>
-            </div>
-        </div>  
+           
+        </div> 
+        
+        <div class="carta_bloqueada" *ngIf="!historiaClinicaForm.controls.fecha_de_nacimiento.value && showAutorizacionInfoTab">
+          <div class="lock-icon">🔒</div>
+          <div class="message">Para poder firmar la carta de autorización es necesario que contestes los siguientes campos.</div>
+          <div class="sub-message"><strong>*Fecha de Nacimiento*</strong></div>
+          <button class="button"  (click)="changeTab('informacion_general_del_paciente')">Ir a información general</button>
+        </div>
 
       </div>
     </div>
