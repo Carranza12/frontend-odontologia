@@ -5,82 +5,86 @@
     [formGroup]="historiaClinicaForm"
     (ngSubmit)="onSubmit()"
   >
+ 
+  
+  
     <div class="tabs">
-      <div class="tabs__nav">
-        <button
-          class="tabs__nav-btn"
-          [ngClass]="{ active: showPacienteInfoTab }"
-          type="button"
-          (click)="changeTab('informacion_general_del_paciente')"
-        >
-          Ficha de identificacion
-        </button>
-        <button
-          class="tabs__nav-btn"
-          [ngClass]="{ active: showAntecedentesInfoTab }"
-          type="button"
-          (click)="changeTab('antecedentes')"
-        >
-          Antecedentes
-        </button>
-        <button
-          class="tabs__nav-btn"
-          [ngClass]="{ active: showAparatosInfoTab }"
-          type="button"
-          (click)="changeTab('aparatos_y_sistemas')"
-        >
-          Aparatos y sistemas
-        </button>
-        <button
-          class="tabs__nav-btn"
-          [ngClass]="{ active: showExploracionInfoTab }"
-          type="button"
-          (click)="changeTab('exploracion_fisica')"
-        >
-          Exploracion Fisica
-        </button>
-
-        <button
-          class="tabs__nav-btn"
-          [ngClass]="{ active: showAutorizacionInfoTab }"
-          type="button"
-          (click)="changeTab('carta')"
-        >
-          Carta de Consentimiento
-        </button>
-<!--Nuevo apartado en historia clinica "Diagnosticos y tratamientos"-->
-        <button
-          class="tabs__nav-btn"
-          [ngClass]="{ active: showDiagnosticosInfoTab }"
-          type="button"
-          (click)="changeTab('diagnosticos_tratamientos')"
-        >
-          Diagnosticos y Tratamientos
-        </button>
-
-
-      </div>
-
-      <!--Datos del paciente siempr en pantalla-->
-      <div class="filtros">
-        <h3>Historia Clinica</h3>
-    <hr>
-    <div class="inputs-container">
-        <div class="input-group">
-            <label for="nombre"><strong>Nombre: </strong>{{historiaClinicaForm.controls.nombre_completo.value}}</label>
+      <div class="componente_fijo">
+        <div class="tabs__nav">
+          <button
+            class="tabs__nav-btn"
+            [ngClass]="{ active: showPacienteInfoTab }"
+            type="button"
+            (click)="changeTab('informacion_general_del_paciente')"
+          >
+            Ficha de identificacion
+          </button>
+          <button
+            class="tabs__nav-btn"
+            [ngClass]="{ active: showAntecedentesInfoTab }"
+            type="button"
+            (click)="changeTab('antecedentes')"
+          >
+            Antecedentes
+          </button>
+          <button
+            class="tabs__nav-btn"
+            [ngClass]="{ active: showAparatosInfoTab }"
+            type="button"
+            (click)="changeTab('aparatos_y_sistemas')"
+          >
+            Aparatos y sistemas
+          </button>
+          <button
+            class="tabs__nav-btn"
+            [ngClass]="{ active: showExploracionInfoTab }"
+            type="button"
+            (click)="changeTab('exploracion_fisica')"
+          >
+            Exploracion Fisica
+          </button>
+    
+          <button
+            class="tabs__nav-btn"
+            [ngClass]="{ active: showAutorizacionInfoTab }"
+            type="button"
+            (click)="changeTab('carta')"
+          >
+            Carta de Consentimiento
+          </button>
+    <!--Nuevo apartado en historia clinica "Diagnosticos y tratamientos"-->
+          <button
+            class="tabs__nav-btn"
+            [ngClass]="{ active: showDiagnosticosInfoTab }"
+            type="button"
+            (click)="changeTab('diagnosticos_tratamientos')"
+          >
+            Diagnosticos y Tratamientos
+          </button>
+    
+    
         </div>
-        <div class="input-group">
-            <label for="apellido"><strong>Genero: </strong>{{historiaClinicaForm.controls.genero.value ==='m'?'Masculino':'Femenino'}}</label>
+        <!--Datos del paciente siempr en pantalla-->
+        <div class="filtros">
+          <h3>Historia Clinica</h3>
+      <hr>
+      <div class="inputs-container">
+          <div class="input-group">
+              <label for="nombre"><strong>Nombre: </strong>{{historiaClinicaForm.controls.nombre_completo.value}}</label>
+          </div>
+          <div class="input-group">
+              <label for="apellido"><strong>Genero: </strong>{{historiaClinicaForm.controls.genero.value ==='m'?'Masculino':'Femenino'}}</label>
+          </div>
+          <div class="input-group">
+              <label for="correo"><strong>Telefono: </strong>{{historiaClinicaForm.controls.telefono.value}}</label>
+          </div>
+    
+          <div class="input-group">
+            <label for="correo"><strong>Ciudad: </strong>{{historiaClinicaForm.controls.ciudad_origen.value}}</label>
         </div>
-        <div class="input-group">
-            <label for="correo"><strong>Telefono: </strong>{{historiaClinicaForm.controls.telefono.value}}</label>
+         </div>
         </div>
-
-        <div class="input-group">
-          <label for="correo"><strong>Ciudad: </strong>{{historiaClinicaForm.controls.ciudad_origen.value}}</label>
-      </div>
-       </div>
-      </div>   
+      </div> 
 <!--Contenido de Diagnosticos-->
       <div class="tabs__content">
         <div *ngIf="showDiagnosticosInfoTab" class="tablas_diagnostico">
@@ -999,19 +1003,15 @@
                   (click)="otroCheckbox()"
                 />
               </div>
-              <div class="form_control" *ngIf="showDigestivoOtroTextarea">
-                <label for="" class="label_input">Cual?:</label>
-                <input
-                  [readonly]="isAprobadoAnyConsulta"
-                  class="form_input"
-                  type="text"
-                  placeholder=""
-                  formControlName="aparatos_sistemas_digestivo_Otros_textarea"
-                  name="aparatos_sistemas_digestivo_Otros_textarea"
-                  autocomplete="off"
-                />
-              </div>
             </div>
+    <!--Area de comentarios para aparatos y sistemas-->
+            <div class="comentario_aparatos">
+              <textarea placeholder="Coloque sus comentarios de ser necesario"
+              formControlName="aparatos_sistemas_digestivo_Otros_textarea"
+                  name="aparatos_sistemas_digestivo_Otros_textarea"
+                  autocomplete="off"></textarea>
+            </div>
+
           </div>
           <div class="respiratorio_container" style="margin-top: 20px">
             <h3 style="margin-bottom: 10px; color: #b21e36">Respiratorio:</h3>
@@ -1099,18 +1099,12 @@
                   (click)="otroCheckbox()"
                 />
               </div>
-              <div class="form_control" *ngIf="showRespiratorioOtroTextarea">
-                <label for="" class="label_input">Cual?:</label>
-                <input
-                  [readonly]="isAprobadoAnyConsulta"
-                  class="form_input"
-                  type="text"
-                  placeholder=""
-                  formControlName="aparatos_sistemas_respiratorio_Otros_textarea"
+            </div>
+            <div class="comentario_aparatos">
+              <textarea placeholder="Coloque sus comentarios de ser necesario"
+              formControlName="aparatos_sistemas_respiratorio_Otros_textarea"
                   name="aparatos_sistemas_respiratorio_Otros_textarea"
-                  autocomplete="off"
-                />
-              </div>
+                  autocomplete="off"></textarea>
             </div>
           </div>
           <div class="circulatorio_container" style="margin-top: 20px">
@@ -1207,18 +1201,12 @@
                   (click)="otroCheckbox()"
                 />
               </div>
-              <div class="form_control" *ngIf="showCirculatorioOtroTextarea">
-                <label for="" class="label_input">Cual?:</label>
-                <input
-                  [readonly]="isAprobadoAnyConsulta"
-                  class="form_input"
-                  type="text"
-                  placeholder=""
-                  formControlName="aparatos_sistemas_circulatorio_Otros_textarea"
+            </div>
+            <div class="comentario_aparatos">
+              <textarea placeholder="Coloque sus comentarios de ser necesario"
+              formControlName="aparatos_sistemas_circulatorio_Otros_textarea"
                   name="aparatos_sistemas_circulatorio_Otros_textarea"
-                  autocomplete="off"
-                />
-              </div>
+                  autocomplete="off"></textarea>
             </div>
           </div>
           <div class="genito_urinario_container" style="margin-top: 20px">
@@ -1292,18 +1280,12 @@
                   (click)="otroCheckbox()"
                 />
               </div>
-              <div class="form_control" *ngIf="showGenitoUrinarioOtroTextarea">
-                <label for="" class="label_input">Cual?:</label>
-                <input
-                  [readonly]="isAprobadoAnyConsulta"
-                  class="form_input"
-                  type="text"
-                  placeholder=""
-                  formControlName="aparatos_sistemas_genito_urinario_Otros_textarea"
+            </div>
+            <div class="comentario_aparatos">
+              <textarea placeholder="Coloque sus comentarios de ser necesario"
+              formControlName="aparatos_sistemas_genito_urinario_Otros_textarea"
                   name="aparatos_sistemas_genito_urinario_Otros_textarea"
-                  autocomplete="off"
-                />
-              </div>
+                  autocomplete="off"></textarea>
             </div>
           </div>
           <div class="sistema_nervioso_container" style="margin-top: 20px">
@@ -1402,18 +1384,12 @@
                   (click)="otroCheckbox()"
                 />
               </div>
-              <div class="form_control" *ngIf="showSistNerviosoOtroTextarea">
-                <label for="" class="label_input">Cual?:</label>
-                <input
-                  [readonly]="isAprobadoAnyConsulta"
-                  class="form_input"
-                  type="text"
-                  placeholder=""
-                  formControlName="aparatos_sistemas_sist_nervioso_Otros_textarea"
+            </div>
+            <div class="comentario_aparatos">
+              <textarea placeholder="Coloque sus comentarios de ser necesario"
+              formControlName="aparatos_sistemas_sist_nervioso_Otros_textarea"
                   name="aparatos_sistemas_sist_nervioso_Otros_textarea"
-                  autocomplete="off"
-                />
-              </div>
+                  autocomplete="off"></textarea>
             </div>
           </div>
           <div class="sintomas_generales_container" style="margin-top: 20px">
@@ -1496,21 +1472,12 @@
                   (click)="otroCheckbox()"
                 />
               </div>
-              <div
-                class="form_control"
-                *ngIf="showSintomasGeneralesOtroTextarea"
-              >
-                <label for="" class="label_input">Cual?:</label>
-                <input
-                  [readonly]="isAprobadoAnyConsulta"
-                  class="form_input"
-                  type="text"
-                  placeholder=""
-                  formControlName="aparatos_sistemas_sintomas_generales_otros_textarea"
+            </div>
+            <div class="comentario_aparatos">
+              <textarea placeholder="Coloque sus comentarios de ser necesario"
+              formControlName="aparatos_sistemas_sintomas_generales_otros_textarea"
                   name="aparatos_sistemas_sintomas_generales_otros_textarea"
-                  autocomplete="off"
-                />
-              </div>
+                  autocomplete="off"></textarea>
             </div>
           </div>
           <button type="button" class="btn_primary" (click)="nextPaso4()">
