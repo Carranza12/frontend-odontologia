@@ -2008,6 +2008,36 @@ this.historiaClinicaForm.controls.fecha_de_nacimiento.valueChanges.subscribe((va
 
   //madre de la alerta, si funciona pero no se que cagadero tenga la de actualizar
   firma_showConfirmDialog() {
+    if(!this.firmaImagen){
+      Swal.fire({
+        title: 'Advertencia',
+        text: 'No puedes continuar si no has firmado la carta de autorización.',
+        icon: 'warning',
+        confirmButtonText: 'Entendido',
+        customClass: {
+          confirmButton: 'btn btn-warning',
+        },
+        buttonsStyling: false,
+      });
+      return;
+    }
+    if(this.esMenordeEdad){
+      if(!this.historiaClinicaForm.controls.nombre_tutor.value){
+        Swal.fire({
+          title: 'Advertencia',
+          text: 'No puedes continuar si no has rellenado el campo: NOMBRE DEL PADRE O TUTOR:.',
+          icon: 'warning',
+          confirmButtonText: 'Entendido',
+          customClass: {
+            confirmButton: 'btn btn-warning',
+          },
+          buttonsStyling: false,
+        });
+        return;
+      } 
+    }
+
+    
     Swal.fire({
       title: '¿Estás seguro de que deseas firmar la carta de autorizacion?',
       text: "Una vez firmada, no podrá editar la información general ni los antecedentes. ¿Desea continuar? No podrás revertir esto!",
