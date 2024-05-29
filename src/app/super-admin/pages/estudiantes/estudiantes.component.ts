@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ApiService } from 'src/app/api.service';
 import { AuthService } from 'src/app/auth/auth.service';
 import { GeneralService } from 'src/app/general.service';
+import { LoadingService } from 'src/app/services/loading.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -29,10 +30,12 @@ export class EstudiantesComponent {
     public _general: GeneralService,
     public router: Router,
     private auth: AuthService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private loadingService: LoadingService
   ) {}
 
   ngOnInit(): void {
+    this.loadingService.show()
     this.apiService.getEstudiantes('1', []).subscribe(
       (data: any) => {
         console.log("data:", data)
@@ -40,12 +43,13 @@ export class EstudiantesComponent {
           this.estudiantesList = data.items;
           this.totalPages = data.totalPages;
           this.currentPage = Number(data.currentPage);
-          
+          this.loadingService.hide()
         }
       },
       (error: any) => {
         console.error(error);
         this.auth.logout();
+        this.loadingService.hide()
       }
     );
   }
@@ -60,19 +64,23 @@ export class EstudiantesComponent {
 
     if (result.isConfirmed) {
       try {
+        this.loadingService.show()
         this.apiService.deleteUser(id).subscribe(
           (response: any) => {
-            console.log('Usuario eliminado con éxito', response);
+
             Swal.fire('Usuario eliminado con éxito', '', 'success');
+            this.loadingService.hide()
             this.apiService.getUsers().subscribe(
               (data: any) => {
                 if (Array.isArray(data)) {
                   this.estudiantesList = data;
+                  this.loadingService.hide()
                 }
               },
               (error: any) => {
                 console.error(error);
                 this.auth.logout();
+                this.loadingService.hide()
               }
             );
           },
@@ -90,24 +98,25 @@ export class EstudiantesComponent {
     this.searchInApi(event, [])
   }
   async searchInApi(page:string, filters:any[]){
+    this.loadingService.show()
     this.apiService.getEstudiantes(page, filters).subscribe(
       (data:any) => {
         if(Array.isArray(data.items)){
           this.estudiantesList = data.items;
           this.totalPages = data.totalPages;
           this.currentPage = Number(data.currentPage);
+          this.loadingService.hide()
         }
       },
       (error:any) => {
         console.error(error);
         this.auth.logout()
+        this.loadingService.hide()
       }
     );
   }
 
   search() {
-    
-    console.log("form:", this.filtrosForm.value)
     let filters = [
       {
         name: "name",

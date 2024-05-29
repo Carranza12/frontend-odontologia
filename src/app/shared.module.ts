@@ -7,6 +7,7 @@ import { QRCodeModule } from 'angularx-qrcode';
 import { AlertComponent } from './components/alert/alert.component';
 import { PaginatorComponent } from './components/paginator/paginator.component';
 import { EvidenciaModalComponent } from './components/evidencia-modal/evidencia-modal.component';
+import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
 @NgModule({
   declarations: [
     SidebarComponent,
@@ -14,6 +15,7 @@ import { EvidenciaModalComponent } from './components/evidencia-modal/evidencia-
     AlertComponent,
     PaginatorComponent,
     EvidenciaModalComponent,
+    LoadingSpinnerComponent,
   ],
   imports: [CommonModule, ReactiveFormsModule, FormsModule, QRCodeModule],
   exports: [
@@ -24,6 +26,7 @@ import { EvidenciaModalComponent } from './components/evidencia-modal/evidencia-
     QRCodeModule,
     AlertComponent,
     PaginatorComponent,
+    LoadingSpinnerComponent,
   ],
 })
 export class SharedModule {}

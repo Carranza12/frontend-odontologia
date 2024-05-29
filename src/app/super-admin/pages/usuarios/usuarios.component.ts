@@ -11,6 +11,7 @@ import {
 } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { CsvService } from 'src/app/services/csv.service';
+import { LoadingService } from 'src/app/services/loading.service';
 
 @Component({
   selector: 'app-usuarios',
@@ -29,7 +30,8 @@ export class UsuariosComponent implements OnInit {
     public router: Router,
     private auth: AuthService,
     private cdr: ChangeDetectorRef,
-    private _csvService: CsvService
+    private _csvService: CsvService,
+    private loadingService: LoadingService
   ) {}
 
   ngOnInit(): void {
@@ -144,17 +146,20 @@ export class UsuariosComponent implements OnInit {
   }
 
   async searchInApi(page: string, filters: any[]) {
+    this.loadingService.show();
     this.apiService.getUsers(page, filters).subscribe(
       (data: any) => {
         if (Array.isArray(data.items)) {
           this.usuariosList = data.items;
           this.totalPages = data.totalPages;
           this.currentPage = Number(data.currentPage);
+          this.loadingService.hide();
         }
       },
       (error: any) => {
         console.error(error);
         this.auth.logout();
+        this.loadingService.hide();
       }
     );
   }

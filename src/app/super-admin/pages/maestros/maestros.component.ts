@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ApiService } from 'src/app/api.service';
 import { AuthService } from 'src/app/auth/auth.service';
 import { GeneralService } from 'src/app/general.service';
+import { LoadingService } from 'src/app/services/loading.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -28,11 +29,12 @@ export class MaestrosComponent {
     public _general: GeneralService,
     public router: Router,
     private auth: AuthService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private loadingService: LoadingService
   ) {}
 
   ngOnInit(): void {
-    console.log("maestros...")
+    this.loadingService.show();
     this.apiService.getMaestros('1',[]).subscribe(
       (data: any) => {
         console.log("data:", data)
@@ -40,12 +42,13 @@ export class MaestrosComponent {
           this.maestrosList = data.items;
           this.totalPages = data.totalPages;
           this.currentPage = Number(data.currentPage);
-          
+          this.loadingService.hide();
         }
       },
       (error: any) => {
         console.error(error);
         this.auth.logout();
+        this.loadingService.hide();
       }
     );
   }
