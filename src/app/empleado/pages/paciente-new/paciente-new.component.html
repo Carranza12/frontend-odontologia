@@ -2,12 +2,19 @@
 <main class="main_container">
   <app-page-title [title]="'Nuevo Paciente'"></app-page-title>
   <div>
+    <div class="contenedor_alerta">
+      <div class="alert alert-warning" role="alert">
+        <strong>ATENCION!</strong> RECUERDA CAPTURAR BIEN LOS DATOS DEL PACIENTE.
+      </div>
+    </div>
     <form class="login-form" [formGroup]="pacienteForm" (ngSubmit)="onSubmit()">
-      <div>
+      <div class="contenedor_nombre">
+        <label class="nombreLabel">
+          Nombre completo del paciente
+        </label>
         <input
         class="form_input"
         type="text"
-        placeholder="Nombre completo"
         formControlName="nombre_completo"
         name="nombre_completo"
         appUppercase
@@ -24,6 +31,9 @@
       </div>
       </div>
       <div class="contendor_camara">
+        <div class="header-and-camera">
+          <h3>Fotografia del Paciente</h3>
+        </div>
         <div class="camera-interface">
           <button class="power-button" id="powerButton" type="button" [ngClass]="{'class_red_color':!isOnCamera, 'class_green_color':isOnCamera}" (click)="onCamera()">
             <i class="fa fa-power-off"></i>

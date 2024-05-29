@@ -1,9 +1,18 @@
 .contendor_camara{
-width: 100%;
-display: flex;
-justify-content: flex-start;
-align-items: start;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    margin: 10px;
+    border-radius: 10px;
+    padding: 10px;
 }
+
+.header-and-camera {
+    display: flex;
+    justify-content: start;
+    width: 100%;
+  }
 
 .camera-interface {
     display: flex;
@@ -13,8 +22,8 @@ align-items: start;
     border-radius: 10px;
     padding: 20px;
     width: 600px;
-    margin: 20px;
     position: relative;
+    
   }
   
   .camera-view {
@@ -79,4 +88,34 @@ align-items: start;
     background-color: green;
   }
 
+  .contenedor_nombre {
+    position: relative;
+    margin-bottom: 50px;
+    margin: 20px;
+    margin-top: 40px;
+  }
+  .contenedor_alerta{
+    position: relative;
+    margin-bottom: 50px;
+    margin: 20px;
+    width: 99%;
+  }
+  .nombreLabel {
+    position: absolute;
+    top: -30px; 
+    left: 0;
+    font-size: 18px;
+    color: #000000;
+    transition: all 0.3s ease;
+  }
+
+  .form_input {
+    width: 50%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+  }
   
