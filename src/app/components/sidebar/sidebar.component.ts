@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import jwtDecode from 'jwt-decode';
 import { AuthService } from 'src/app/auth/auth.service';
+import { LoadingService } from 'src/app/services/loading.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -21,18 +22,17 @@ export class SidebarComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private _router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private loadingService: LoadingService
   ) {}
 
   ngOnInit(): void {
     const user_json = localStorage.getItem('user');
     if (user_json) {
-      this.userData = JSON.parse(user_json);
-      console.log("this.userData.img:", this.userData.img)     
+      this.userData = JSON.parse(user_json);   
       let srcImage = this.userData.img;
       srcImage = srcImage.replace("148.212.195.49", "192.168.1.27")
       this.profile_picture = 'http://' + srcImage;
-      console.log("this.profile_picture:", this.profile_picture)
     }
 
     this.route.url.subscribe((urlSegments) => {
@@ -65,9 +65,13 @@ export class SidebarComponent implements OnInit {
 
     if (result.isConfirmed) {
       try {
+        this.loadingService.show()
+        await new Promise(resolve => setTimeout(resolve, 500));
         this.authService.logout();
+        this.loadingService.hide()
       } catch (error) {
         console.error(error);
+        this.loadingService.hide()
       }
     }
   }

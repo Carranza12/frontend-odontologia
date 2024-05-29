@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ApiService } from 'src/app/api.service';
 import { AuthService } from 'src/app/auth/auth.service';
 import { GeneralService } from 'src/app/general.service';
+import { LoadingService } from 'src/app/services/loading.service';
 import { RespaldosService } from 'src/app/services/respaldos.service';
 
 @Component({
@@ -26,10 +27,16 @@ export class RespaldosComponent implements OnInit{
     public router: Router,
     private auth: AuthService,
     private formBuilder: FormBuilder,
-    public _Respaldos: RespaldosService
+    public _Respaldos: RespaldosService,
+    private loadingService: LoadingService
+    
   ) {}
 
   ngOnInit(): void {
+    this.loadingService.show();
+    setTimeout(() => {
+      this.loadingService.hide();
+    }, 500);
     this.formulariosList = [
       {
         name: "Diagnosticos",
@@ -62,39 +69,23 @@ export class RespaldosComponent implements OnInit{
     ]
   }
 
-  changePage(event:string){
-    this.searchInApi(event, [])
-  }
-  async searchInApi(page:string, filters:any[]){
-    /* this.apiService.getEstudiantes(page, filters).subscribe(
-      (data:any) => {
-        if(Array.isArray(data.items)){
-          this.estudiantesList = data.items; 
-          this.totalPages = data.totalPages;
-          this.currentPage = Number(data.currentPage);
-        }
-      },
-      (error:any) => {
-        console.error(error);
-        this.auth.logout()
-      }
-    ); */
-  }
+
+  
 
   search(nameForm: string) {
-    this._general.showLoading();
+    this.loadingService.show()
   
     this._Respaldos.downloadRespaldoInJSON(nameForm).subscribe(
       (data: any) => {
         this.downloadJson(data);
-
         setTimeout(() => {
-          this._general.hideLoading();
+          this.loadingService.hide()
         }, 2000);
       },
       (error: any) => {
         console.error(error);
         this.auth.logout();
+        this.loadingService.hide()
       }
     );
   }

@@ -46,16 +46,18 @@ export class UsuariosComponent implements OnInit {
   });
 
   onSubmit(): void {
-    // Aquí puedes agregar la lógica para procesar el formulario
     console.log('Formulario enviado');
   }
 
   downloadCSVWithPagination() {
+    this.loadingService.show();
     const usuariosFormateados = this.mapUsuarios(this.usuariosList);
     this._csvService.downloadWithPagination(usuariosFormateados, 'usuarios');
+    this.loadingService.hide();
   }
 
-  downloadCSVAll() {
+  downloadCSVAll() {   
+    this.loadingService.show();
     this.apiService.getAllUsers().subscribe(
       (data: any) => {
         if (Array.isArray(data.items)) {
@@ -64,11 +66,13 @@ export class UsuariosComponent implements OnInit {
             usuariosFormateados,
             'usuarios'
           );
+          this.loadingService.hide();
         }
       },
       (error: any) => {
         console.error(error);
         this.auth.logout();
+        this.loadingService.hide();
       }
     );
   }
@@ -92,10 +96,11 @@ export class UsuariosComponent implements OnInit {
 
     if (result.isConfirmed) {
       try {
+        this.loadingService.show();
         this.apiService.deleteUser(id).subscribe(
           (response: any) => {
-            console.log('Usuario eliminado con éxito', response);
             Swal.fire('Usuario eliminado con éxito', '', 'success');
+            this.loadingService.hide();
             this.apiService.getUsers('1', []).subscribe(
               (data: any) => {
                 if (Array.isArray(data)) {
@@ -105,6 +110,7 @@ export class UsuariosComponent implements OnInit {
               (error: any) => {
                 console.error(error);
                 this.auth.logout();
+                this.loadingService.hide();
               }
             );
           },
@@ -119,7 +125,6 @@ export class UsuariosComponent implements OnInit {
     }
   }
   search() {
-    console.log('form:', this.filtrosForm.value);
     let filters = [
       {
         name: 'name',

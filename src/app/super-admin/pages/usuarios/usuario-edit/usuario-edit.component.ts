@@ -4,7 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from 'src/app/api.service';
 import { AuthService } from 'src/app/auth/auth.service';
 import { GeneralService } from 'src/app/general.service';
-
+import { LoadingService } from 'src/app/services/loading.service';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-usuario-edit',
   templateUrl: './usuario-edit.component.html',
@@ -57,10 +58,15 @@ export class UsuarioEditComponent {
     private authService: AuthService,
     private formBuilder: FormBuilder,
     private apiService: ApiService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private loadingService: LoadingService
   ) {}
 
   ngOnInit(): void {
+    this.loadingService.show();
+    setTimeout(() => {
+      this.loadingService.hide();
+    }, 500);
     this.userForm.get('role')?.valueChanges.subscribe((valor) => {
       if (valor === 'trabajador') {
         this.showTrabajadorInputs = true;
@@ -83,6 +89,8 @@ export class UsuarioEditComponent {
         }
       );
     });
+
+   
    
   }
 
@@ -158,8 +166,12 @@ export class UsuarioEditComponent {
   }
 
   onSubmit() {
-    console.log(this.userForm.value)
+    if(this.userForm.invalid){
+      this.userForm.markAllAsTouched()
+      return;
+    }
     if (this.userForm.valid) {
+      this.loadingService.show()
       let formUser: any = this.userForm.value;
       const formData = new FormData();
       formData.append('name', formUser.name);
@@ -187,15 +199,17 @@ export class UsuarioEditComponent {
         formData.append('departamento', formUser.departamento);
         formData.append('puesto', formUser.puesto);
       }
-      console.log("formData:", formData)
+
       this.apiService.EditUser(formData, this.idParam).subscribe(
         (response: any) => {
-          console.log('Usuario actualizado con éxito', response);
+          Swal.fire('Usuario actualizado con éxito', '', 'success');
           this.userForm.reset();
           this._general.navigateBy('/superAdmin/usuarios');
+          this.loadingService.hide()
         },
         (error: any) => {
           console.error('Error al actualizar el usuario', error);
+          this.loadingService.hide()
         }
       );
     } else {

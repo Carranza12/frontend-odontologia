@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/api.service';
 import { AuthService } from 'src/app/auth/auth.service';
 import { GeneralService } from 'src/app/general.service';
+import { LoadingService } from 'src/app/services/loading.service';
 import { RespaldosService } from 'src/app/services/respaldos.service';
 import { ValidateJsonService } from 'src/app/services/validate-json.service';
 import Swal from 'sweetalert2';
@@ -12,7 +13,7 @@ import Swal from 'sweetalert2';
   templateUrl: './importar.component.html',
   styleUrls: ['./importar.component.scss'],
 })
-export class ImportarComponent {
+export class ImportarComponent implements OnInit{
   public importedJson!: any;
   public showTableUsers = false;
   public showTableItems = false;
@@ -69,22 +70,35 @@ export class ImportarComponent {
     private formBuilder: FormBuilder,
     private apiService: ApiService,
     private validateJsonService: ValidateJsonService,
-    public _Respaldos: RespaldosService
+    public _Respaldos: RespaldosService,
+    private loadingService: LoadingService
   ) {}
 
+  ngOnInit(): void {
+    this.loadingService.show();
+    setTimeout(() => {
+      this.loadingService.hide();
+    }, 500);
+  }
+
   onSubmit() {
+    this.loadingService.show();
     if (this.importarForm.invalid || !this.importedJson) {
       if (this.importarForm.controls.formulario.invalid) {
         this.importarForm.controls.formulario.markAsTouched();
+        this.loadingService.hide();
+        return;
       }
       if (!this.importedJson) {
         this.importarForm.get('jsonToImport')?.setErrors({ required: true });
         this.importarForm.get('jsonToImport')?.markAsTouched();
+        this.loadingService.hide();
+        return;
       }
+      this.loadingService.hide();
       return;
     }
 
-    this._general.showLoading();
 
     this._Respaldos
       .importDataInDBFromJSON(
@@ -109,11 +123,12 @@ export class ImportarComponent {
               : '';
           }
           setTimeout(() => {
-            this._general.hideLoading();
+            this.loadingService.hide();
           }, 2000);
         },
         (error: any) => {
           console.error(error);
+          this.loadingService.hide();
         }
       );
   }

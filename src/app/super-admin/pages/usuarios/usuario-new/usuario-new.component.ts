@@ -4,7 +4,8 @@ import { Router } from '@angular/router';
 import { ApiService } from 'src/app/api.service';
 import { AuthService } from 'src/app/auth/auth.service';
 import { GeneralService } from 'src/app/general.service';
-
+import { LoadingService } from 'src/app/services/loading.service';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-usuario-new',
   templateUrl: './usuario-new.component.html',
@@ -52,7 +53,8 @@ export class UsuarioNewComponent implements OnInit {
     private router: Router,
     private authService: AuthService,
     private formBuilder: FormBuilder,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private loadingService: LoadingService
   ) {}
 
   public selectRole(role: any) {
@@ -81,7 +83,13 @@ export class UsuarioNewComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.loadingService.show();
+    setTimeout(() => {
+      this.loadingService.hide();
+    }, 500);
+
+  }
 
   onFileSelected(event: any) {
     const file = event.target.files[0];
@@ -89,7 +97,12 @@ export class UsuarioNewComponent implements OnInit {
   }
 
   onSubmit() {
+    if(this.userForm.invalid){
+      this.userForm.markAllAsTouched()
+      return;
+    }
     if (this.userForm.valid) {
+      this.loadingService.show()
       let formUser: any = this.userForm.value;
 
       const formData = new FormData();
@@ -119,11 +132,13 @@ export class UsuarioNewComponent implements OnInit {
 
       this.apiService.registerUser(formData).subscribe(
         (response: any) => {
-          console.log('Usuario registrado con éxito', response);
+          Swal.fire('Usuario registrado con éxito', '', 'success');
           this.userForm.reset();
           this._general.navigateBy('/superAdmin/usuarios');
+          this.loadingService.hide()
         },
         (error: any) => {
+          this.loadingService.hide()
           console.error('Error al registrar el usuario', error);
         }
       );
