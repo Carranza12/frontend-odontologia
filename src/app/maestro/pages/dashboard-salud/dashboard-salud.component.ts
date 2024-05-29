@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import Chart from 'chart.js/auto';
 import { PacienteService } from 'src/app/empleado/services/paciente.service';
+import { LoadingService } from 'src/app/services/loading.service';
 
 @Component({
   selector: 'app-dashboard-salud',
@@ -9,7 +10,7 @@ import { PacienteService } from 'src/app/empleado/services/paciente.service';
   styleUrls: ['./dashboard-salud.component.scss'],
 })
 export class DashboardSaludComponent {
-  data :any = {
+  data: any = {
     totalHistoriasClinicas: 0,
     totalPacientesDiabetes: 0,
     totalPacientes: 0,
@@ -19,16 +20,31 @@ export class DashboardSaludComponent {
       masculino: 0,
       femenino: 0,
     },
-    pacientesRecientes: []
+    pacientesRecientes: [],
   };
 
-  constructor(public _pacientes: PacienteService, public _router: Router) {}
+  constructor(
+    public _pacientes: PacienteService,
+    public _router: Router,
+    private loadingService: LoadingService
+  ) {}
 
-  openHistorialClinico(historia_clinica_id:string) {
-    this._router.navigateByUrl('/estudiante/historia-clinica/edicion/'+ historia_clinica_id)
+  openHistorialClinico(historia_clinica_id: string) {
+    this.loadingService.show();
+    setTimeout(() => {
+      this._router.navigateByUrl(
+        '/estudiante/historia-clinica/edicion/' + historia_clinica_id
+      );
+      this.loadingService.hide();
+    }, 500);
   }
 
   ngOnInit(): void {
+    this.loadingService.show();
+    setTimeout(() => {
+      this.loadingService.hide();
+    }, 500);
+
     this._pacientes.dashboardData().subscribe((res: any) => {
       this.data = res;
 

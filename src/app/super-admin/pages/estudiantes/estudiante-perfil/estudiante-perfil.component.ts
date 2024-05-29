@@ -7,7 +7,8 @@ import { AuthService } from 'src/app/auth/auth.service';
 import { PerfilEstudiantesService } from 'src/app/empleado/services/perfil_estudiantes.service';
 import { PerfilMaestroService } from 'src/app/empleado/services/perfil_maestros.service';
 import { GeneralService } from 'src/app/general.service';
-
+import { LoadingService } from 'src/app/services/loading.service';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-estudiante-perfil',
   templateUrl: './estudiante-perfil.component.html',
@@ -31,7 +32,8 @@ export class EstudiantePerfilComponent {
     private formBuilder: FormBuilder,
     private apiService: ApiService,
     private _perfil_estudiante: PerfilEstudiantesService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private loadingService: LoadingService
   ) {}
 
   public semestresList: any = [];
@@ -44,6 +46,12 @@ export class EstudiantePerfilComponent {
   public materias_id_edit_list: any = [];
 
   ngOnInit(): void {
+
+    this.loadingService.show();
+    setTimeout(() => {
+      this.loadingService.hide();
+    }, 500);
+
     this.semestresList = this.apiService.getSemestreList();
     this.carrerasList = this.apiService.getCarrerasList();
 
@@ -75,19 +83,25 @@ export class EstudiantePerfilComponent {
   }
 
   async onSubmit() {
+    this.loadingService.show()
+    if (this.perfilForm.invalid) {
+      this.perfilForm.markAllAsTouched()
+      this.loadingService.hide()
+      return;
+    }
     if (this.perfilForm.valid) {
       let item: any = this.perfilForm.value;
       item.materias = []
       item.id_user = this.user_id;
       this._perfil_estudiante.post_perfil(item).subscribe(
         (response: any) => {
-          // Manejar la respuesta exitosa aquí
-          console.log('Solicitud exitosa:', response);
+          Swal.fire('Perfil de estudiante configurado exitosamente', '', 'success');
           this.router.navigateByUrl('/superAdmin/estudiantes');
+          this.loadingService.hide()
         },
         (error: any) => {
-          // Manejar errores aquí
           console.error('Error en la solicitud:', error);
+          this.loadingService.hide()
         }
       );
     }
