@@ -9,7 +9,8 @@ import { ApiService } from 'src/app/api.service';
 import { AuthService } from 'src/app/auth/auth.service';
 import { PerfilMaestroService } from 'src/app/empleado/services/perfil_maestros.service';
 import { GeneralService } from 'src/app/general.service';
-
+import { LoadingService } from 'src/app/services/loading.service';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-perfil',
   templateUrl: './perfil.component.html',
@@ -50,9 +51,15 @@ export class PerfilComponent implements OnInit {
     private formBuilder: FormBuilder,
     private apiService: ApiService,
     private _perfil_maestro: PerfilMaestroService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private loadingService: LoadingService
   ) {}
   ngOnInit(): void {
+    this.loadingService.show();
+    setTimeout(() => {
+      this.loadingService.hide();
+    }, 500);
+
     this.route.params.subscribe((params) => {
       const id = params['id'];
       this.user_id = id;
@@ -83,23 +90,25 @@ export class PerfilComponent implements OnInit {
 
   private adjustWidthBasedOnScreenWidth() {
     const screenWidth =  document.documentElement.clientWidth;
-    console.log("screenWidth:", screenWidth)
     if (screenWidth <= 537 && screenWidth > 440) {
-      console.log("aqui 1")
       this.options.css.width = '400px';
     } 
     if (screenWidth <= 440  && screenWidth > 400) {
-      console.log("aqui 2")
       this.options.css.width = '360px';
     }
     if (screenWidth <= 400) {
-      console.log("aqui 3")
       this.options.css.width = '330px';
     } 
     
   }
 
   async onSubmit() {
+    this.loadingService.show()
+    if (this.perfilForm.invalid) {
+      this.perfilForm.markAllAsTouched()
+      this.loadingService.hide()
+      return;
+    }
     if (this.perfilForm.valid) {
       let formPerfil: any = this.perfilForm.value;
       let firmaBase64;
@@ -112,26 +121,20 @@ export class PerfilComponent implements OnInit {
         id_user: this.user_id,
         firma: this.firmaImagenShow
       };
-      console.log("this.firmaImagen:", this.firmaImagen)
       if (this.firmaImagen) {
-        console.log("estas enviando una firma")
-      
          firmaBase64 = await this.imageToBase64(this.firmaImagen);
          console.log("firmaBase64:", firmaBase64)
-         requestBody.firma = firmaBase64;
       }
 
-      
-    
       this._perfil_maestro.post_perfil(requestBody).subscribe(
         (response: any) => {
-          // Manejar la respuesta exitosa aquí
-          console.log('Solicitud exitosa:', response);
+          Swal.fire('Perfil de maestro configurado exitosamente', '', 'success');
+          this.loadingService.hide()
           this.router.navigateByUrl("/superAdmin/maestros")
         },
         (error: any) => {
-          // Manejar errores aquí
           console.error('Error en la solicitud:', error);
+          this.loadingService.hide()
         }
       );
     }

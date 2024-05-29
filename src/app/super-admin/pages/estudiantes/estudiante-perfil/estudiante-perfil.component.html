@@ -18,12 +18,12 @@
           />
           <div
             *ngIf="
-              perfilForm.get('expediente')?.hasError('required') &&
-              perfilForm.get('expediente')?.touched
+              perfilForm.get('Matricula')?.hasError('required') &&
+              perfilForm.get('Matricula')?.touched
             "
             class="error-message"
           >
-            El expediente es requerido.
+            La matricula es requerida.
           </div>
         </div>
         <div>
@@ -66,23 +66,6 @@
               La carrera es requerida.
             </div>
           </div>
-     <!--      <p>Selecciona las materias:</p>
-      <table class="table_grid table_grid2">
-        <thead>
-          <tr>
-            <th>Nombre</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let materia of materiasAvailableList">
-            <td   [ngClass]="{'user_selected': materia.selected}" (click)="selectmateria(materia)">{{ materia.nombre }}</td>
-          </tr>
-         
-        </tbody>
-      </table> -->
-
-        
-
         
         <button
           style="margin-top: 40px"
