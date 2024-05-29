@@ -42,14 +42,6 @@ export class DiagnosticoComponent implements OnInit {
 
   selectedClinicIds: string[] = [];
 
-
-  experienceOptions = {
-    agradable: ['Respetuoso', 'Cooperativo', 'Buena comunicación'],
-    ni_agradable_ni_desagradable: ['Indiferente', 'Poco cooperativo', 'Poca comunicación'],
-    desagradable: ['Grosero', 'Nada cooperativo', 'Comunicación deficiente'],
-    muy_desagradable: ['Agresivo', 'Comportamiento Sexual Inapropiado', 'Vandalismo']
-  };
-
   public diagnosticoForm = this.formBuilder.group({
     motivos_de_la_consulta: new FormControl(''),
     clinica: new FormControl(''),
@@ -74,13 +66,12 @@ export class DiagnosticoComponent implements OnInit {
     diagnostico: new FormControl(''),
     observaciones: new FormControl(''),
     paciente_referido_clinica: new FormControl(''),
-    experience: [''],
-    reason1: [false],
-    reason2: [false],
-    reason3: [false],
-    otherReason: [false],
-    otherReasonText: ['']
-
+    conducta_agradable: [false],
+    conducta_ansioso: [false],
+    conducta_reticente: [false],
+    conducta_hipocondriaco: [false],
+    conducta_desinformado: [false],
+    conducta_inapropiado: [false],
   });
   public evidencias: any = [];
 
@@ -155,10 +146,6 @@ export class DiagnosticoComponent implements OnInit {
           this.item = res.item;
           console.log('ITEM:', this.item);
         });
-    });
-
-    this.diagnosticoForm.get('experience')?.valueChanges.subscribe(value => {
-      this.updateOptions(value ?? '');
     });
   }
 
@@ -271,42 +258,6 @@ export class DiagnosticoComponent implements OnInit {
   public viewEvidencia(url: string) {
     window.open(url, '_blank');
   }
-
-  updateOptions(value: string): void {
-    switch (value) {
-      case 'Agradable':
-        this.options = this.experienceOptions.agradable;
-        break;
-      case 'Ni agradable ni desagradable':
-        this.options = this.experienceOptions.ni_agradable_ni_desagradable;
-        break;
-      case 'Desagradable':
-        this.options = this.experienceOptions.desagradable;
-        break;
-      case 'Muy desagradable':
-        this.options = this.experienceOptions.muy_desagradable;
-        break;
-      default:
-        this.options = [];
-    }
-    // Reset the reason checkboxes when experience changes
-    this.diagnosticoForm.patchValue({
-      reason1: false,
-      reason2: false,
-      reason3: false,
-      otherReason: false,
-      otherReasonText: ''
-    });
-    this.showOtherReason = false;
-  }
-
-  toggleOtherReason(event: any) {
-    this.showOtherReason = event.target.checked;
-    if (!this.showOtherReason) {
-      this.diagnosticoForm.get('otherReasonText')?.setValue('');
-    }
-  }
-
 
   public async onSubmit() {
     const result = await Swal.fire({

@@ -1,324 +1,216 @@
 <app-sidebar></app-sidebar>
 <main class="main_container">
   <app-page-title [title]="'Diagnostico'"></app-page-title>
- 
-  <form
-    class="login-form"
-    [formGroup]="diagnosticoForm"
-    (ngSubmit)="onSubmit()"
-  >
- 
+
+  <form class="login-form" [formGroup]="diagnosticoForm" (ngSubmit)="onSubmit()">
+
 
     <div class="historia_clinica" *ngIf="item">
       <h3 style="text-transform: uppercase;margin-bottom: 20px; color: #b21e36;">Informacion del paciente</h3>
-        <app-alert
-          enfermedad="Este paciente tiene diabetes."
-          *ngIf="item.historia_clinica.Diabeticos"
-        ></app-alert>
-        <app-alert
-          enfermedad="Este paciente es alcoholico."
-          *ngIf="item.historia_clinica.alcoholismo"
-        ></app-alert>
-        <app-alert
-          enfermedad="Este paciente es fumador."
-          *ngIf="item.historia_clinica.tabaquismo"
-        ></app-alert>
-        <app-alert
-          enfermedad="Este paciente sufre de epilepcia"
-          *ngIf="item.historia_clinica.Epilepticos"
-        ></app-alert>
-        <app-alert
-          enfermedad="Este paciente tiene antecedentes reumaticos."
-          *ngIf="item.historia_clinica.Reumaticos"
-        ></app-alert>
-        <app-alert
-          enfermedad="Este paciente sufre de alergias."
-          *ngIf="item.historia_clinica.Alergicos"
-        ></app-alert>
+      <app-alert enfermedad="Este paciente tiene diabetes." *ngIf="item.historia_clinica.Diabeticos"></app-alert>
+      <app-alert enfermedad="Este paciente es alcoholico." *ngIf="item.historia_clinica.alcoholismo"></app-alert>
+      <app-alert enfermedad="Este paciente es fumador." *ngIf="item.historia_clinica.tabaquismo"></app-alert>
+      <app-alert enfermedad="Este paciente sufre de epilepcia" *ngIf="item.historia_clinica.Epilepticos"></app-alert>
+      <app-alert enfermedad="Este paciente tiene antecedentes reumaticos."
+        *ngIf="item.historia_clinica.Reumaticos"></app-alert>
+      <app-alert enfermedad="Este paciente sufre de alergias." *ngIf="item.historia_clinica.Alergicos"></app-alert>
 
-        <app-alert
-        enfermedad="Este paciente sufre problemas cardiovasculares."
-        *ngIf="item.historia_clinica.Enfermedades_Cardiovasculares"
-      ></app-alert>
-    
-      <div class="contenedor" style="display: flex;gap: 20px;flex-wrap: wrap;background-color: #ddd;padding: 20px;border-radius: 13px">
-      <div>
-        <label for=""><strong>Nombre Completo:</strong> {{item.paciente.nombre_completo}}</label>
+      <app-alert enfermedad="Este paciente sufre problemas cardiovasculares."
+        *ngIf="item.historia_clinica.Enfermedades_Cardiovasculares"></app-alert>
+
+      <div class="contenedor"
+        style="display: flex;gap: 20px;flex-wrap: wrap;background-color: #ddd;padding: 20px;border-radius: 13px">
+        <div>
+          <label for=""><strong>Nombre Completo:</strong> {{item.paciente.nombre_completo}}</label>
+        </div>
+        <div>
+          <label for=""><strong>0cupacion: </strong>{{item.paciente.ocupacion}}</label>
+        </div>
+        <div>
+          <label for=""><strong>Genero:</strong> {{item.paciente.genero}}</label>
+        </div>
+        <div>
+          <label for=""><strong>Telefono:</strong> {{item.paciente.telefono}}</label>
+        </div>
+        <div>
+          <label for=""><strong>Fecha de nacimiento:</strong> {{item.paciente.fecha_de_nacimiento}}</label>
+        </div>
+        <div>
+          <label for=""><strong>Domicilio:</strong> {{item.paciente.domicilio}}</label>
+        </div>
+        <div>
+          <label for=""><strong>Ciudad actual:</strong> {{item.paciente.ciudad_Actual}}</label>
+        </div>
+        <div>
+          <label for=""><strong>Estado civil: </strong> {{item.paciente.estado_civil}}</label>
+        </div>
       </div>
-      <div>
-        <label for=""><strong>0cupacion: </strong>{{item.paciente.ocupacion}}</label>
-      </div>
-      <div>
-        <label for=""><strong>Genero:</strong> {{item.paciente.genero}}</label>
-      </div>
-      <div>
-        <label for=""><strong>Telefono:</strong> {{item.paciente.telefono}}</label>
-      </div>
-      <div>
-        <label for=""><strong>Fecha de nacimiento:</strong> {{item.paciente.fecha_de_nacimiento}}</label>
-      </div>
-      <div>
-        <label for=""><strong>Domicilio:</strong> {{item.paciente.domicilio}}</label>
-      </div>
-      <div>
-        <label for=""><strong>Ciudad actual:</strong> {{item.paciente.ciudad_Actual}}</label>
-      </div>
-      <div>
-        <label for=""><strong>Estado civil: </strong> {{item.paciente.estado_civil}}</label>
-      </div>
-     </div>
 
 
 
-     
+
     </div>
     <div class="tabs">
       <div class="contenedor-odontograma">
-      <h3>ODONTROGRAMA</h3>
-      <div class="contenido-menu">
-        <div >
-          <canvas
-            [width]="canvasWidth"
-            [height]="canvasHeight"
-            #canvas
-           
-            (mousedown)="startDrawing($event, selectedColor, penThickness)"
-            (mousemove)="draw($event)"
-            (mouseup)="endDrawing()"
-          ></canvas>
-        </div>
-      
-        <div style="clear: both;"></div> <!-- Añadimos esto para limpiar el flotante -->
-      
-        <div class="menu-bar">
+        <h3>ODONTROGRAMA</h3>
+        <div class="contenido-menu">
           <div>
-            <h2>Barra de Menú</h2>
-            <div class="clear-button"> 
-              <button type="button" (click)="regresarUltimoTrazo()"> <img src="../../../assets//iconos/corner-down-left.svg" alt=""></button>
-              <button type="button" (click)="clearCanvas()"  > <img src="../../../assets//iconos/trash.svg" alt=""></button>
-          
-         
-            </div>
+            <canvas [width]="canvasWidth" [height]="canvasHeight" #canvas
+              (mousedown)="startDrawing($event, selectedColor, penThickness)" (mousemove)="draw($event)"
+              (mouseup)="endDrawing()"></canvas>
+          </div>
 
-            <div class="pen-thickness-container">
-              <h3>Grosor <br/> del Lápiz:</h3>
-              <input type="button" value="Fino" (click)="seleccionarGrosor(1)">
-              <input type="button" value="Mediano" (click)="seleccionarGrosor(3)">
-              <input type="button" value="Grueso" (click)="seleccionarGrosor(5)">
-            </div>
+          <div style="clear: both;"></div> <!-- Añadimos esto para limpiar el flotante -->
 
-            <div class="colors">
-              <h3>Colores Disponibles</h3>
-              <input type="button" value="" class="color-button_red" (click)="seleccionarColor('red')">
-              <input type="button" value="" class="color-button_blue" (click)="seleccionarColor('blue')">
-              <input type="button" value="" class="color-button_green" (click)="seleccionarColor('green')">
-              <input type="button" value="" class="color-button_purple" (click)="seleccionarColor('purple')">
-              <input type="button" value="" class="color-button_black" (click)="seleccionarColor('black')">
-              <input type="button" value="" class="color-button_gray" (click)="seleccionarColor('gray')">
+          <div class="menu-bar">
+            <div>
+              <h2>Barra de Menú</h2>
+              <div class="clear-button">
+                <button type="button" (click)="regresarUltimoTrazo()"> <img
+                    src="../../../assets//iconos/corner-down-left.svg" alt=""></button>
+                <button type="button" (click)="clearCanvas()"> <img src="../../../assets//iconos/trash.svg"
+                    alt=""></button>
+
+
+              </div>
+
+              <div class="pen-thickness-container">
+                <h3>Grosor <br /> del Lápiz:</h3>
+                <input type="button" value="Fino" (click)="seleccionarGrosor(1)">
+                <input type="button" value="Mediano" (click)="seleccionarGrosor(3)">
+                <input type="button" value="Grueso" (click)="seleccionarGrosor(5)">
+              </div>
+
+              <div class="colors">
+                <h3>Colores Disponibles</h3>
+                <input type="button" value="" class="color-button_red" (click)="seleccionarColor('red')">
+                <input type="button" value="" class="color-button_blue" (click)="seleccionarColor('blue')">
+                <input type="button" value="" class="color-button_green" (click)="seleccionarColor('green')">
+                <input type="button" value="" class="color-button_purple" (click)="seleccionarColor('purple')">
+                <input type="button" value="" class="color-button_black" (click)="seleccionarColor('black')">
+                <input type="button" value="" class="color-button_gray" (click)="seleccionarColor('gray')">
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-    </div>
+      </div>
       <h3>Clínica:</h3>
       <div class="clinic-grid">
-        <div *ngFor="let clinic of clinics"
-             [ngClass]="{'selected': isClinicSelected(clinic._id)}"
-             (click)="toggleSelection(clinic._id)"
-             class="clinic-item">
+        <div *ngFor="let clinic of clinics" [ngClass]="{'selected': isClinicSelected(clinic._id)}"
+          (click)="toggleSelection(clinic._id)" class="clinic-item">
           {{ clinic.name }} - {{clinic.level}}
         </div>
       </div>
       <h3>CABEZA:</h3>
       <div class="form_control">
         <label for="" class="label_input">Craneo:</label>
-        <textarea
-          class="form_input form_textarea"
-          formControlName="cabeza_craneo"
-        ></textarea>
+        <textarea class="form_input form_textarea" formControlName="cabeza_craneo"></textarea>
       </div>
       <div class="form_control">
         <label for="" class="label_input">Cara:</label>
-        <textarea
-          class="form_input form_textarea"
-          formControlName="cabeza_cara"
-        ></textarea>
+        <textarea class="form_input form_textarea" formControlName="cabeza_cara"></textarea>
       </div>
       <h3>BOCA:</h3>
       <div class="form_control">
         <label for="" class="label_input">Labios:</label>
-        <textarea
-          class="form_input form_textarea"
-          formControlName="boca_labios"
-        ></textarea>
+        <textarea class="form_input form_textarea" formControlName="boca_labios"></textarea>
       </div>
       <div class="form_control">
         <label for="" class="label_input">Carillos:</label>
-        <textarea
-          class="form_input form_textarea"
-          formControlName="boca_carrillos"
-        ></textarea>
+        <textarea class="form_input form_textarea" formControlName="boca_carrillos"></textarea>
       </div>
       <div class="form_control">
         <label for="" class="label_input">Encia:</label>
-        <textarea
-          class="form_input form_textarea"
-          formControlName="boca_encia"
-        ></textarea>
+        <textarea class="form_input form_textarea" formControlName="boca_encia"></textarea>
       </div>
       <div class="form_control">
         <label for="" class="label_input">Piso de Boca:</label>
-        <textarea
-          class="form_input form_textarea"
-          formControlName="boca_piso_de_boca"
-        ></textarea>
+        <textarea class="form_input form_textarea" formControlName="boca_piso_de_boca"></textarea>
       </div>
       <div class="form_control">
         <label for="" class="label_input">Lengua:</label>
-        <textarea
-          class="form_input form_textarea"
-          formControlName="boca_lengua"
-        ></textarea>
+        <textarea class="form_input form_textarea" formControlName="boca_lengua"></textarea>
       </div>
       <div class="form_control">
         <label for="" class="label_input">Paladar:</label>
-        <textarea
-          class="form_input form_textarea"
-          formControlName="boca_paladar"
-        ></textarea>
+        <textarea class="form_input form_textarea" formControlName="boca_paladar"></textarea>
       </div>
 
       <label class="label_input">ATM:</label>
       <div class="form_control">
         <label for="" class="label_input"></label>
-        <textarea
-          class="form_input form_textarea"
-          formControlName="atm"
-        ></textarea>
+        <textarea class="form_input form_textarea" formControlName="atm"></textarea>
       </div>
       <div class="form_control">
         <label for="" class="label_input">Anexos:</label>
-        <textarea
-          class="form_input form_textarea"
-          formControlName="atm_anexos"
-        ></textarea>
+        <textarea class="form_input form_textarea" formControlName="atm_anexos"></textarea>
       </div>
       <div class="form_control">
-        <label for="" class="label_input"
-          >Macizo Oseo (Maxilares y Mandibula):</label
-        >
-        <textarea
-          class="form_input form_textarea"
-          formControlName="atm_macizo_oseo"
-        ></textarea>
+        <label for="" class="label_input">Macizo Oseo (Maxilares y Mandibula):</label>
+        <textarea class="form_input form_textarea" formControlName="atm_macizo_oseo"></textarea>
       </div>
       <div class="form_control">
         <label for="" class="label_input">CUELLO:</label>
-        <textarea
-          class="form_input form_textarea"
-          formControlName="cuello"
-        ></textarea>
+        <textarea class="form_input form_textarea" formControlName="cuello"></textarea>
       </div>
       <div class="form_control">
         <label for="" class="label_input">TORAX:</label>
-        <textarea
-          class="form_input form_textarea"
-          formControlName="torax"
-        ></textarea>
+        <textarea class="form_input form_textarea" formControlName="torax"></textarea>
       </div>
 
       <div class="form_control">
         <label for="" class="label_input">ABDOMEN:</label>
-        <textarea
-          class="form_input form_textarea"
-          formControlName="abdomen"
-        ></textarea>
+        <textarea class="form_input form_textarea" formControlName="abdomen"></textarea>
       </div>
       <div class="form_control">
         <label for="" class="label_input">EXTREMIDADES:</label>
-        <textarea
-          class="form_input form_textarea"
-          formControlName="extremidades"
-        ></textarea>
+        <textarea class="form_input form_textarea" formControlName="extremidades"></textarea>
       </div>
       <div class="form_control">
         <label for="" class="label_input">EXAMENES DE LABORATORIO:</label>
-        <textarea
-          class="form_input form_textarea"
-          formControlName="examenes_de_laboratorio"
-        ></textarea>
+        <textarea class="form_input form_textarea" formControlName="examenes_de_laboratorio"></textarea>
       </div>
       <div class="form_control">
         <label for="" class="label_input">DIAGNOSTICO:</label>
-        <textarea
-          class="form_input form_textarea"
-          formControlName="diagnostico"
-        ></textarea>
+        <textarea class="form_input form_textarea" formControlName="diagnostico"></textarea>
       </div>
       <div class="form_control">
         <label for="" class="label_input">OBSERVACIONES:</label>
-        <textarea
-          class="form_input form_textarea"
-          formControlName="observaciones"
-        ></textarea>
+        <textarea class="form_input form_textarea" formControlName="observaciones"></textarea>
       </div>
       <h3>INFORMACION</h3>
 
-      
+
 
       <div class="form_control">
         <label for="" class="label_input">Motivos de la consulta:</label>
-        <textarea
-          class="form_input form_textarea"
-          formControlName="motivos_de_la_consulta"
-        >
+        <textarea class="form_input form_textarea" formControlName="motivos_de_la_consulta">
         </textarea>
       </div>
       <div class="form_control">
         <label for="" class="label_input">Fecha de la consulta:</label>
-        <input
-          class="form_input"
-          type="date"
-          placeholder="Fecha de nacimiento"
-          formControlName="fecha_de_la_consulta"
-          name="fecha_de_nacimiento"
-          autocomplete="off"
-        />
-        <div
-          *ngIf="
+        <input class="form_input" type="date" placeholder="Fecha de nacimiento" formControlName="fecha_de_la_consulta"
+          name="fecha_de_nacimiento" autocomplete="off" />
+        <div *ngIf="
             diagnosticoForm.get('fecha_de_nacimiento')?.hasError('required') &&
             diagnosticoForm.get('fecha_de_nacimiento')?.touched
-          "
-          class="error-message"
-        >
+          " class="error-message">
           La fecha de nacimiento es requerida.
         </div>
       </div>
       <div class="form_control">
-        <label for="" class="label_input"
-          >Comentarios sobre la consulta, diagnostico y observaciones:</label
-        >
-        <textarea
-          class="form_input form_textarea"
-          formControlName="comentarios_sobre_la_consulta"
-        >
+        <label for="" class="label_input">Comentarios sobre la consulta, diagnostico y observaciones:</label>
+        <textarea class="form_input form_textarea" formControlName="comentarios_sobre_la_consulta">
         </textarea>
 
         <!--Los fuckin inputs de tipo file-->
 
         <div class="form_control">
           <label class="label_input" for="file1">Evidencias:</label>
-          <input
-            multiple
-            class="input-file"
-            id="evidencias"
-            type="file"
-            (change)="onFileSelected($event)"
-          /><br />
-          <label for="evidencias" style="margin-bottom: 20px;"  class="custom-file-button"
-          >Sube las evidencias
-        </label>
+          <input multiple class="input-file" id="evidencias" type="file" (change)="onFileSelected($event)" /><br />
+          <label for="evidencias" style="margin-bottom: 20px;" class="custom-file-button">Sube las evidencias
+          </label>
         </div>
 
 
@@ -336,42 +228,35 @@
         </div>
 
         <h3>Conducta del paciente:</h3>
-        <div>
-          <label>¿Cómo fue tu experiencia?</label>
-          <div>
-            <input type="radio" formControlName="experience" value="Agradable" /> Agradable
-          </div>
-          <div>
-            <input type="radio" formControlName="experience" value="Ni agradable ni desagradable" /> Ni agradable ni desagradable
-          </div>
-          <div>
-            <input type="radio" formControlName="experience" value="Desagradable" /> Desagradable
-          </div>
-          <div>
-            <input type="radio" formControlName="experience" value="Muy desagradable" /> Muy desagradable
-          </div>
-        </div>
-      
-        <div *ngIf="diagnosticoForm.get('experience')?.value">
-          <label>¿La razón es una de las siguientes?</label>
-          <div>
-            <input type="checkbox" formControlName="reason1" /> {{ options[0] }}
-          </div>
-          <div>
-            <input type="checkbox" formControlName="reason2" /> {{ options[1] }}
-          </div>
-          <div>
-            <input type="checkbox" formControlName="reason3" /> {{ options[2] }}
-          </div>
-          <div>
-            <input type="checkbox" formControlName="otherReason" (change)="toggleOtherReason($event)" /> Otro
-            <div *ngIf="showOtherReason">
-              <input type="text" formControlName="otherReasonText" placeholder="Especifique la razón" />
+        <div class="conducta-container">
+          <div class="checkboxes">
+            <label>¿Cómo fue el comportamiento del paciente?</label>
+            <div class="checkbox-container checkbox-green">
+              <input type="checkbox" formControlName="conducta_agradable" /> Agradable
+            </div>
+            <div class="checkbox-container checkbox-yellow">
+              <input type="checkbox" formControlName="conducta_ansioso" /> Ansioso
+            </div>
+            <div class="checkbox-container checkbox-orange">
+              <input type="checkbox" formControlName="conducta_reticente" /> Reticente
+            </div>
+            <div class="checkbox-container checkbox-blue">
+              <input type="checkbox" formControlName="conducta_desinformado" /> Desinformado
+            </div>
+            <div class="checkbox-container checkbox-red">
+              <input type="checkbox" formControlName="conducta_agresiva" /> Agresivo
+            </div>
+            <div class="checkbox-container checkbox-purple">
+              <input type="checkbox" formControlName="conducta_inapropiado" /> Comportamiento sexual inapropiado
             </div>
           </div>
         </div>
-      
-        
+
+
+
+
+
+
       </div>
 
       <button type="button" (click)="onSubmit()" class="btn_primary">

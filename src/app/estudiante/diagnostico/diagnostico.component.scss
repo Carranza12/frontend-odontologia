@@ -380,6 +380,62 @@ h3{
     display: flex !important;
   }
 
+
+  .checkbox-container {
+    position: relative;
+    margin-bottom: 10px;
+    padding-bottom: 2px;
+  }
+  
+  .checkbox-container input[type="checkbox"] {
+    position: relative;
+    z-index: 1;
+  }
+  
+  .checkbox-container::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 25%;
+    height: 2px;
+    z-index: 0;
+  }
+  
+  .checkbox-green::after {
+    background-color: green;
+  }
+  
+  .checkbox-yellow::after {
+    background-color: yellow;
+  }
+  
+  .checkbox-orange::after {
+    background-color: orange;
+  }
+  
+  .checkbox-blue::after {
+    background-color: blue;
+  }
+  
+  .checkbox-red::after {
+    background-color: red;
+  }
+  
+  .checkbox-purple::after {
+    background-color: purple;
+  }
+  
+  .info-box {
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    width: 100%;
+    max-width: 300px;
+  }
+
   div:where(.swal2-container) .swal2-html-container{
     overflow: none!important;
   }
