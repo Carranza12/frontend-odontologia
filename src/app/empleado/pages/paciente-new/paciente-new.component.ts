@@ -9,6 +9,9 @@ import { GeneralService } from 'src/app/general.service';
   styleUrls: ['./paciente-new.component.scss']
 })
 export class PacienteNewComponent {
+
+public isOnCamera:boolean=false;
+
   public gender_options = [
     {
       value: 'm',
@@ -137,6 +140,10 @@ export class PacienteNewComponent {
   })
 
   constructor(private formBuilder: FormBuilder, private apiSevice:ApiService, private _general:GeneralService){}
+
+  public onCamera(){
+    this.isOnCamera=!this.isOnCamera;
+  }
 
   public onSubmit(){
     if(this.pacienteForm.invalid){
