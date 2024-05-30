@@ -6,6 +6,7 @@ import { AuthService } from 'src/app/auth/auth.service';
 import { PerfilEstudiantesService } from 'src/app/empleado/services/perfil_estudiantes.service';
 import { PerfilMaestroService } from 'src/app/empleado/services/perfil_maestros.service';
 import { GeneralService } from 'src/app/general.service';
+import { LoadingService } from 'src/app/services/loading.service';
 
 @Component({
   selector: 'app-mis-practicas',
@@ -25,20 +26,26 @@ export class MisPracticasComponent {
     public _general: GeneralService,
     public router: Router,
     private auth: AuthService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private loadingService: LoadingService
   ) {}
 
   ngOnInit(): void {
-   this.searchInApi('1');
+    this.searchInApi('1');
   }
 
   public openPractica(diagnostico_id: string, tratamiento_id: string) {
-    this.router.navigateByUrl(
-      `/estudiante/diagnostico-view/${diagnostico_id}?tratamiento=${tratamiento_id}`
-    );
+    this.loadingService.show();
+    setTimeout(() => {
+      this.router.navigateByUrl(
+        `/estudiante/diagnostico-view/${diagnostico_id}?tratamiento=${tratamiento_id}`
+      );
+      this.loadingService.hide();
+    }, 500);
   }
 
   async searchInApi(page: string) {
+    this.loadingService.show();
     let user: any = localStorage.getItem('user');
     user = JSON.parse(user);
     if (user) {
@@ -51,16 +58,23 @@ export class MisPracticasComponent {
               this.totalPages = data.totalPages;
               this.currentPage = Number(data.currentPage);
             }
+            this.loadingService.hide();
+            return;
           },
+
           (error: any) => {
-            console.log("EROR",error);
-            this.auth.logout();
+            console.log('EROR', error);
+            this.loadingService.hide();
+            return;
           }
         );
+    } else {
+      this.loadingService.hide();
+      return;
     }
   }
 
-  changePage(event:string){
-    this.searchInApi(event)
+  changePage(event: string) {
+    this.searchInApi(event);
   }
 }

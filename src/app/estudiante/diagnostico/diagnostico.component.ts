@@ -14,6 +14,7 @@ import { PacienteService } from 'src/app/empleado/services/paciente.service';
 import { PerfilEstudiantesService } from 'src/app/empleado/services/perfil_estudiantes.service';
 import { GeneralService } from 'src/app/general.service';
 import { EvidenciaModalService } from 'src/app/services/evidencia-modal.service';
+import { LoadingService } from 'src/app/services/loading.service';
 
 import Swal from 'sweetalert2';
 
@@ -44,9 +45,9 @@ export class DiagnosticoComponent implements OnInit {
   selectedClinicIds: string[] = [];
 
   public diagnosticoForm = this.formBuilder.group({
-    motivos_de_la_consulta: new FormControl(''),
-    clinica: new FormControl(''),
-    fecha_de_la_consulta: new FormControl(''),
+    motivos_de_la_consulta: new FormControl('', Validators.required),
+    clinica: new FormControl('', Validators.required),
+    fecha_de_la_consulta: new FormControl('', Validators.required),
     comentarios_sobre_la_consulta: new FormControl(''),
     cabeza_craneo: new FormControl(''),
     cabeza_cara: new FormControl(''),
@@ -64,13 +65,13 @@ export class DiagnosticoComponent implements OnInit {
     abdomen: new FormControl(''),
     extremidades: new FormControl(''),
     examenes_de_laboratorio: new FormControl(''),
-    diagnostico: new FormControl(''),
-    observaciones: new FormControl(''),
+    diagnostico: new FormControl('', Validators.required),
+    observaciones: new FormControl('', Validators.required),
     paciente_referido_clinica: new FormControl(''),
     conducta_cooperativo: [false],
     conducta_ansioso: [false],
     conducta_reticente: [false],
-    conducta_hipocondriaco: [false],
+    conducta_agresiva: [false],
     conducta_desinformado: [false],
     conducta_acosador: [false],
   });
@@ -88,6 +89,7 @@ export class DiagnosticoComponent implements OnInit {
     private cd: ChangeDetectorRef,
     private pacienteService: PacienteService,
     private evidenciaModal: EvidenciaModalService,
+    private loadingService: LoadingService
   ) { }
 
   toggleSelection(clinicId: string): void {
@@ -102,6 +104,7 @@ export class DiagnosticoComponent implements OnInit {
     this.diagnosticoForm.controls.clinica.setValue(
       JSON.stringify(this.selectedClinicIds) || ''
     );
+    console.log("Clinica:",  this.diagnosticoForm.controls.clinica.value)
   }
 
   isClinicSelected(clinicId: string): boolean {
@@ -261,6 +264,24 @@ export class DiagnosticoComponent implements OnInit {
   }
 
   public async onSubmit() {
+    this.loadingService.show()
+    if(this.diagnosticoForm.invalid){
+      Swal.fire({
+        title: 'Campos requeridos',
+        text: 'Es necesario rellenar los campos en rojo.',
+        icon: 'warning',
+        confirmButtonText: 'Entendido',
+        customClass: {
+          confirmButton: 'btn btn_primary'
+        },
+        buttonsStyling: false
+      });
+      this.diagnosticoForm.markAllAsTouched()
+      this.loadingService.hide()
+      return;
+    }
+
+    this.loadingService.hide()
     const result = await Swal.fire({
       title:
         '¿Estás seguro de crear el diagnostico? una vez creado, NO podra ser editado.',
@@ -272,47 +293,8 @@ export class DiagnosticoComponent implements OnInit {
 
     if (result.isConfirmed) {
       try {
-        if (!this.diagnosticoForm.controls.clinica.value) {
-          Swal.fire('Oops...', 'El campo Clinica es obligatorio...', 'error');
-          return;
-        }
-
-        if (!this.diagnosticoForm.controls.observaciones.value) {
-          Swal.fire(
-            'Oops...',
-            'El campo observaciones es obligatorio...',
-            'error'
-          );
-          return;
-        }
-
-        if (!this.diagnosticoForm.controls.diagnostico.value) {
-          Swal.fire(
-            'Oops...',
-            'El campo diagnostico es obligatorio...',
-            'error'
-          );
-          return;
-        }
-
-        if (!this.diagnosticoForm.controls.motivos_de_la_consulta.value) {
-          Swal.fire(
-            'Oops...',
-            'El campo Motivo de la consulta es obligatorio...',
-            'error'
-          );
-          return;
-        }
-
-        if (!this.diagnosticoForm.controls.fecha_de_la_consulta.value) {
-          Swal.fire(
-            'Oops...',
-            'El campo Fecha de la consulta es obligatorio...',
-            'error'
-          );
-          return;
-        }
-
+      
+      
         const odontograma = this.canvas.nativeElement.toDataURL('image/png');
 
         const item = {
@@ -398,16 +380,14 @@ export class DiagnosticoComponent implements OnInit {
   }
 
   async onFileSelected(event: any) {
+    this.loadingService.show()
     const listaDeFiles = event.target.files;
     for await (const file of listaDeFiles) {
       if (!file.type.startsWith('image/')) {
         Swal.fire('Oops...', 'Solo se admiten imagenes como evidencias', 'warning');
         return;
       }
-
-      const compressedBase64 = await this.compressImage(file, 0.1); // Cambia 0.5 por el nivel de compresión deseado (entre 0 y 1)
-
-
+      const compressedBase64 = await this.compressImage(file, 0.1);
       const evidencia = {
         title: "",
         description: "",
@@ -415,18 +395,20 @@ export class DiagnosticoComponent implements OnInit {
       }
       this.evidencias.push(evidencia)
     }
-
+    this.loadingService.hide()
   }
 
   openRellenarEvidencialModal(evidencia: any, index: number) {
-
+    this.loadingService.show();
+    setTimeout(() => {
+      this.loadingService.hide();
+    }, 200);
     this.evidenciaModal.evidencia$.subscribe(respuesta => {
-      console.log('Evidencia recibida en el componente que genera el Swal:', respuesta);
       this.evidencias[respuesta.id] = respuesta.evidencia
     });
 
     const domHTML = this.evidenciaModal.createHTMLModal(evidencia, index)
-
+  
 
     Swal.fire({
       title: '',

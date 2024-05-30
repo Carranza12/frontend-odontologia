@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { EvidenciaModalService } from 'src/app/services/evidencia-modal.service';
+import { LoadingService } from 'src/app/services/loading.service';
 
 @Component({
   selector: 'app-evidencia-modal',
@@ -18,7 +19,8 @@ export class EvidenciaModalComponent implements OnInit{
   image = "Guardar evidencia"
   constructor(
     private formBuilder: FormBuilder,
-    private evidenciaModal: EvidenciaModalService
+    private evidenciaModal: EvidenciaModalService,
+    private loadingService: LoadingService
   ){}
 
   ngOnInit(): void {
@@ -29,12 +31,10 @@ export class EvidenciaModalComponent implements OnInit{
     if(this.evidencia.description){
       this.evidenciaForm.controls.description.setValue(this.evidencia.description)
     }
-    
-    console.log("input:", this.image)
-    console.log("index:", this.index)
   }
 
   onSubmit(){
+    this.loadingService.show()
     const evidencia = {
       title: this.evidenciaForm.controls.title.value,
       description: this.evidenciaForm.controls.description.value,
@@ -45,6 +45,6 @@ export class EvidenciaModalComponent implements OnInit{
       id: this.index
     });
     this.buttonText = "Evidencia enviada"
-
+    this.loadingService.hide()
   }
 }

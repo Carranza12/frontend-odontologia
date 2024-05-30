@@ -95,13 +95,24 @@
         </div>
 
       </div>
-      <h3>Clínica:</h3>
+      <h3>Clínica: <span style="color:red" >*</span></h3> 
       <div class="clinic-grid">
         <div *ngFor="let clinic of clinics" [ngClass]="{'selected': isClinicSelected(clinic._id)}"
           (click)="toggleSelection(clinic._id)" class="clinic-item">
           {{ clinic.name }} - {{clinic.level}}
         </div>
       </div>
+      <div
+      *ngIf="
+        diagnosticoForm
+          .get('clinica')
+          ?.hasError('required') &&
+          diagnosticoForm.get('clinica')?.touched
+      "
+      class="error-message"
+    >
+      Debe seleccionar al menos una.
+    </div>
       <h3>CABEZA:</h3>
       <div class="form_control">
         <label for="" class="label_input">Craneo:</label>
@@ -172,31 +183,63 @@
         <textarea class="form_input form_textarea" formControlName="examenes_de_laboratorio"></textarea>
       </div>
       <div class="form_control">
-        <label for="" class="label_input">DIAGNOSTICO:</label>
+        <label for="" class="label_input">DIAGNOSTICO: <span style="color:red" >*</span></label>
         <textarea class="form_input form_textarea" formControlName="diagnostico"></textarea>
       </div>
+      <div
+      *ngIf="
+        diagnosticoForm
+          .get('diagnostico')
+          ?.hasError('required') &&
+          diagnosticoForm.get('diagnostico')?.touched
+      "
+      class="error-message"
+    >
+      Este campo es obligatorio.
+    </div>
       <div class="form_control">
-        <label for="" class="label_input">OBSERVACIONES:</label>
+        <label for="" class="label_input">OBSERVACIONES: <span style="color:red" >*</span></label>
         <textarea class="form_input form_textarea" formControlName="observaciones"></textarea>
       </div>
+      <div
+      *ngIf="
+        diagnosticoForm
+          .get('observaciones')
+          ?.hasError('required') &&
+          diagnosticoForm.get('observaciones')?.touched
+      "
+      class="error-message"
+    >
+      Este campo es obligatorio.
+    </div>
       <h3>INFORMACION</h3>
 
 
 
       <div class="form_control">
-        <label for="" class="label_input">Motivos de la consulta:</label>
+        <label for="" class="label_input">Motivos de la consulta: <span style="color:red" >*</span></label> 
         <textarea class="form_input form_textarea" formControlName="motivos_de_la_consulta">
         </textarea>
       </div>
+      <div
+      *ngIf="
+        diagnosticoForm
+          .get('motivos_de_la_consulta')
+          ?.hasError('required') &&
+          diagnosticoForm.get('motivos_de_la_consulta')?.touched
+      "
+      class="error-message"
+    >
+      Este campo es obligatorio.
+    </div>
       <div class="form_control">
-        <label for="" class="label_input">Fecha de la consulta:</label>
-        <input class="form_input" type="date" placeholder="Fecha de nacimiento" formControlName="fecha_de_la_consulta"
-          name="fecha_de_nacimiento" autocomplete="off" />
+        <label for="" class="label_input">Fecha de la consulta: <span style="color:red" >*</span></label>
+        <input class="form_input" type="date" placeholder="Fecha de nacimiento" formControlName="fecha_de_la_consulta" autocomplete="off" />
         <div *ngIf="
-            diagnosticoForm.get('fecha_de_nacimiento')?.hasError('required') &&
-            diagnosticoForm.get('fecha_de_nacimiento')?.touched
+            diagnosticoForm.get('fecha_de_la_consulta')?.hasError('required') &&
+            diagnosticoForm.get('fecha_de_la_consulta')?.touched
           " class="error-message">
-          La fecha de nacimiento es requerida.
+         Este campo es obligatorio.
         </div>
       </div>
       <div class="form_control">
