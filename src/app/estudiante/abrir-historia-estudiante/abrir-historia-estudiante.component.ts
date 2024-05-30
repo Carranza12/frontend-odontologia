@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PacienteService } from 'src/app/empleado/services/paciente.service';
+import { LoadingService } from 'src/app/services/loading.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -23,7 +24,7 @@ export class AbrirHistoriaEstudianteComponent {
 
   public modalIsOpen:boolean = false;
 
-  constructor(public patientService: PacienteService, public router: Router) {}
+  constructor(public patientService: PacienteService, public router: Router, private loadingService: LoadingService) {}
 
   ngOnInit(): void {}
 
