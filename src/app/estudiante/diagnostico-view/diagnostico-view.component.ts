@@ -13,6 +13,7 @@ import Swal from 'sweetalert2';
   templateUrl: './diagnostico-view.component.html',
   styleUrls: ['./diagnostico-view.component.scss']
 })
+
 export class DiagnosticoViewComponent {
   clinics:any = [
   
@@ -29,6 +30,8 @@ export class DiagnosticoViewComponent {
 
   public motivo_rechazo = new FormControl('');
   public isRechazado: boolean = false;
+
+  textoVisible = false;
 
   public usuarioLogeado:any;
   constructor(
@@ -135,6 +138,8 @@ export class DiagnosticoViewComponent {
   }
 
 
+
+
   public async aprobarTratamiento() {
     const result = await Swal.fire({
       title: `Yo, ${this.usuarioLogeado.fullName} Apruebo este tratamiento para que se realize.`,
@@ -192,5 +197,9 @@ export class DiagnosticoViewComponent {
         console.error(error);
       }
     }
+  }
+
+  mostrarTexto() {
+    this.textoVisible = !this.textoVisible;
   }
 }

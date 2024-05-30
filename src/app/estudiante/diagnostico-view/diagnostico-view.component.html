@@ -412,6 +412,18 @@
           Crear nuevo tratamiento
         </button>
       </div>
+
+      <div class="container">
+        <div class="cuadro" (click)="mostrarTexto()">
+          <i class="fas fa-circle fa-lg"></i> <!-- Icono de círculo en la izquierda -->
+          <i class="fas" [ngClass]="{'fa-caret-up': textoVisible, 'fa-caret-down': !textoVisible}"></i> <!-- Icono de flecha hacia arriba o hacia abajo en la derecha -->
+        </div>
+        <div class="cuadro-oculto" [style.display]="textoVisible ? 'block' : 'none'">
+          <p>Arremangala arrempujala sí, arremangala arrempujala no, arremangala arrempujala arremangala arrempujala arremangala arrempujala arremangala arrempujala arremangala arrempujala arremangala arrempujala.</p>
+        </div>
+      </div>
+      
+
     </div>
   </form>
   <div></div>
