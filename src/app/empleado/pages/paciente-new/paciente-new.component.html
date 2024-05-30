@@ -4,13 +4,13 @@
   <div>
     <div class="contenedor_alerta">
       <div class="alert alert-warning" role="alert">
-        <strong>ATENCION!</strong> RECUERDA CAPTURAR BIEN LOS DATOS DEL PACIENTE.
+        <strong>Atención:</strong>  Por favor, asegúrate de capturar correctamente todos los datos del paciente.<br> Los campos obligatorios están indicados con un asterisco rojo <strong>(*)</strong>.
       </div>
     </div>
     <form class="login-form" [formGroup]="pacienteForm" (ngSubmit)="onSubmit()">
       <div class="contenedor_nombre">
         <label class="nombreLabel">
-          Nombre completo del paciente
+          Nombre completo del paciente   <span style="color: red">*</span>
         </label>
         <input
         class="form_input"
@@ -33,15 +33,19 @@
         <div class="contendor_camara">
         <div class="header-and-camera">
           <h3>Fotografia del Paciente</h3>
+          <span style="color: red">*</span>
         </div>
         <div class="camera-interface">
-          <button class="power-button" id="powerButton" type="button" [ngClass]="{'class_red_color':!isOnCamera, 'class_green_color':isOnCamera}" (click)="onCamera()">
-            <i class="fa fa-power-off"></i>
-          </button>
-          <div class="camera-view" *ngIf="isOnCamera">
-            <!--<webcam [trigger]="triggerObservable" (imageCapture)="handleImage($event)"></webcam>-->
+      
+            <button *ngIf="!credencialSrc"  class="power-button" id="powerButton" type="button" [ngClass]="{'class_red_color':!isOnCamera, 'class_green_color':isOnCamera}" (click)="onCamera()">
+              <i class="fa fa-power-off"></i>
+            </button>
+            <button *ngIf="credencialSrc" (click)="volverTomarFoto()" class="btn btn_primary">Volver a tomar foto </button>
+    
+          <div class="camera-view" id="camera-view" >
+            <webcam *ngIf="isOnCamera"  [trigger]="triggerObservable" (imageCapture)="handleImage($event)" [width]=300 [height]="300"  style=" border-radius: 10px!important;"></webcam>
           </div>
-          <button class="capture-button">
+          <button class="capture-button" (click)="triggerSnapshot()">
             <i class="fa fa-camera"></i>
           </button>
         </div>

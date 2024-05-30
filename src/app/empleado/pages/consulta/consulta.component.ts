@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { GeneralService } from 'src/app/general.service';
+import { LoadingService } from 'src/app/services/loading.service';
 
 @Component({
   selector: 'app-consulta',
@@ -8,9 +9,12 @@ import { GeneralService } from 'src/app/general.service';
   styleUrls: ['./consulta.component.scss']
 })
 export class ConsultaComponent implements OnInit{
-  constructor(public _general:GeneralService, private _router: Router){}
+  constructor(public _general:GeneralService, private _router: Router, private loadingService: LoadingService){}
 
   ngOnInit(): void {
-  
+    this.loadingService.show();
+    setTimeout(() => {
+      this.loadingService.hide();
+    }, 500);
   }
 }

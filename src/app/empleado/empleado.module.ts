@@ -8,6 +8,7 @@ import { ConsultaComponent } from './pages/consulta/consulta.component';
 import { ConsultaNewComponent } from './pages/consulta-new/consulta-new.component';
 import { PacienteNewComponent } from './pages/paciente-new/paciente-new.component';
 import { UppercaseDirective } from './pages/consulta-new/Uppercase.directive';
+import { WebcamModule } from 'ngx-webcam';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { UppercaseDirective } from './pages/consulta-new/Uppercase.directive';
   imports: [
     CommonModule,
     EmpleadoRoutingModule,
-    SharedModule
+    SharedModule,
+    WebcamModule
   ]
 })
 export class EmpleadoModule { }

@@ -294,7 +294,7 @@ export class DiagnosticoComponent implements OnInit {
     if (result.isConfirmed) {
       try {
       
-      
+        this.loadingService.show()
         const odontograma = this.canvas.nativeElement.toDataURL('image/png');
 
         const item = {
@@ -308,25 +308,24 @@ export class DiagnosticoComponent implements OnInit {
 
         this.apiSevice.createDiagnostico(item).subscribe(
           (response: any) => {
-            console.log('Diagnostico creado con exito', response);
             this.diagnosticoForm.reset();
-            Swal.fire(
-              'Diagnostico creado con exito',
-              'En breve seras redirigido a la historia clinica del paciente',
-              'success'
-            );
+            
+         
             setTimeout(() => {
               this._general.navigateBy(
                 `/estudiante/historia-clinica/edicion/${this.historia_clinica_id}`
               );
+              this.loadingService.hide()
             }, 3000);
           },
           (error: any) => {
             console.error('Error al guardar la historia clinica', error);
+            this.loadingService.hide()
           }
         );
       } catch (error) {
         console.error(error);
+        this.loadingService.hide()
       }
     }
   }

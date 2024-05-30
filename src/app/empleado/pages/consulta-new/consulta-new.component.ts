@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
 import { GeneralService } from 'src/app/general.service';
 import { ApiService } from 'src/app/api.service';
+import { LoadingService } from 'src/app/services/loading.service';
 
 @Component({
   selector: 'app-consulta-new',
@@ -29,12 +30,18 @@ export class ConsultaNewComponent implements OnInit {
     private _router: Router,
     private auth: AuthService,
     public _general: GeneralService,
-    public _api: ApiService
+    public _api: ApiService,
+    private loadingService: LoadingService
   ) {
     this.myAngularxQrCode = 'Your QR code data string';
   }
 
   async ngOnInit() {
+    this.loadingService.show();
+    setTimeout(() => {
+      this.loadingService.hide();
+    }, 500);
+    
     const user_json = localStorage.getItem('user');
     if (user_json) {
       this.userData = JSON.parse(user_json);
