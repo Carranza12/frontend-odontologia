@@ -30,7 +30,7 @@
         El nombre completo es requerido.
       </div>
       </div>
-      <div class="contendor_camara">
+        <div class="contendor_camara">
         <div class="header-and-camera">
           <h3>Fotografia del Paciente</h3>
         </div>
@@ -38,14 +38,17 @@
           <button class="power-button" id="powerButton" type="button" [ngClass]="{'class_red_color':!isOnCamera, 'class_green_color':isOnCamera}" (click)="onCamera()">
             <i class="fa fa-power-off"></i>
           </button>
-          <div class="camera-view"></div>
+          <div class="camera-view" *ngIf="isOnCamera">
+            <!--<webcam [trigger]="triggerObservable" (imageCapture)="handleImage($event)"></webcam>-->
+          </div>
           <button class="capture-button">
             <i class="fa fa-camera"></i>
           </button>
         </div>
       </div>
 
-
+     
+  
       <button type="button" (click)="onSubmit()" class="btn_primary">Crear</button>
     </form>
   </div>
