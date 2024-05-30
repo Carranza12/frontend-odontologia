@@ -232,7 +232,7 @@
           <div class="checkboxes">
             <label>¿Cómo fue el comportamiento del paciente?</label>
             <div class="checkbox-container checkbox-green">
-              <input type="checkbox" formControlName="conducta_agradable" /> Agradable
+              <input type="checkbox" formControlName="conducta_cooperativo" /> Cooperativo
             </div>
             <div class="checkbox-container checkbox-yellow">
               <input type="checkbox" formControlName="conducta_ansioso" /> Ansioso
@@ -247,10 +247,53 @@
               <input type="checkbox" formControlName="conducta_agresiva" /> Agresivo
             </div>
             <div class="checkbox-container checkbox-purple">
-              <input type="checkbox" formControlName="conducta_inapropiado" /> Comportamiento sexual inapropiado
+              <input type="checkbox" formControlName="conducta_acosador" /> Acosador
+            </div>
+          </div>
+          <div class="info-box">
+            <span (click)="toggleTableVisibility($event)" class="toggle-link">
+              {{ showTable ? 'Ocultar infografía' : '¿Cómo saber a que tipo pertenece mi paciente?' }}
+            </span>
+            <div *ngIf="showTable">
+              <table>
+                <tr class="table-green">
+                  <td>Cooperativo</td>
+                  <td>El paciente sigue las indicaciones del médico, cumple con el tratamiento prescrito y
+                    se comunica abierta y honestamente sobre sus síntomas y preocupaciones.</td>
+                </tr>
+                <tr class="table-yellow">
+                  <td>Ansioso</td>
+                  <td>El paciente muestra signos de preocupación excesiva sobre su salud, puede estar
+                    nervioso durante la consulta y a menudo busca garantías constantes sobre su diagnóstico y
+                    tratamiento.</td>
+                </tr>
+                <tr class="table-orange">
+                  <td>Reticente</td>
+                  <td>El paciente es reacio a proporcionar información completa sobre sus síntomas o
+                    historia médica, a menudo debido a la desconfianza o vergüenza.</td>
+                </tr>
+                <tr class="table-blue">
+                  <td>Desinformado</td>
+                  <td>El paciente tiene una comprensión limitada de su condición médica y tratamiento, lo
+                    que puede llevar a malentendidos y falta de adherencia a las indicaciones médicas.</td>
+                </tr>
+                <tr class="table-red">
+                  <td>Agresivo</td>
+                  <td>El paciente puede mostrar comportamientos hostiles o desafiantes hacia el personal
+                    médico, a menudo debido a frustraciones o malentendidos sobre su tratamiento o diagnóstico.</td>
+                </tr>
+                <tr class="table-purple">
+                  <td>Acosador</td>
+                  <td>El paciente acosador muestra comportamientos inapropiados hacia el personal médico,
+                    como comentarios personales, insinuaciones sexuales, contacto físico no deseado o comunicaciones
+                    repetidas y no solicitadas. Este comportamiento crea un entorno incómodo y hostil, afectando la
+                    relación médico-paciente y la calidad de la atención.</td>
+                </tr>
+              </table>
             </div>
           </div>
         </div>
+
 
 
 

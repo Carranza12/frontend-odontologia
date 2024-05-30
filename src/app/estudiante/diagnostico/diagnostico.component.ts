@@ -37,6 +37,7 @@ export class DiagnosticoComponent implements OnInit {
   selectedColor: string = '#000000';
   trazos: { color: string; grosor: number; trazo: Path2D }[] = [];
   backgroundImage: HTMLImageElement = new Image();
+  showTable: boolean = false;
 
   clinics: any = [];
 
@@ -66,12 +67,12 @@ export class DiagnosticoComponent implements OnInit {
     diagnostico: new FormControl(''),
     observaciones: new FormControl(''),
     paciente_referido_clinica: new FormControl(''),
-    conducta_agradable: [false],
+    conducta_cooperativo: [false],
     conducta_ansioso: [false],
     conducta_reticente: [false],
     conducta_hipocondriaco: [false],
     conducta_desinformado: [false],
-    conducta_inapropiado: [false],
+    conducta_acosador: [false],
   });
   public evidencias: any = [];
 
@@ -443,6 +444,11 @@ export class DiagnosticoComponent implements OnInit {
       },
 
     });
+  }
+
+  toggleTableVisibility(event: Event) {
+    event.preventDefault();
+    this.showTable = !this.showTable;
   }
 
 }
