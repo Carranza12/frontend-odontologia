@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from 'src/app/api.service';
 import { GeneralService } from 'src/app/general.service';
+import { Observable, Subject } from 'rxjs';
+import { WebcamImage, WebcamModule } from 'ngx-webcam';
+
 
 @Component({
   selector: 'app-paciente-new',
@@ -11,6 +14,7 @@ import { GeneralService } from 'src/app/general.service';
 export class PacienteNewComponent {
 
 public isOnCamera:boolean=false;
+private trigger: Subject<void> = new Subject<void>();
 
   public gender_options = [
     {
@@ -120,7 +124,7 @@ public isOnCamera:boolean=false;
     { value: "novia", text: "Novia" }
   ]
 
-  
+
 
   public pacienteForm = this.formBuilder.group({
     nombre_completo : ["", Validators.required],
@@ -140,9 +144,26 @@ public isOnCamera:boolean=false;
   })
 
   constructor(private formBuilder: FormBuilder, private apiSevice:ApiService, private _general:GeneralService){}
-
   public onCamera(){
     this.isOnCamera=!this.isOnCamera;
+  }
+  public triggerSnapshot(): void {
+    if (this.isOnCamera) {
+      this.trigger.next();
+    }
+  }
+
+  public handleImage(event: WebcamImage | Event): void {
+    if (event instanceof WebcamImage) {
+      console.log('Imagen recibida de la webcam', event);
+      // Haz lo que necesites con la imagen recibida
+    } else {
+      console.error('Evento recibido no es una imagen de webcam', event);
+    }
+  }
+
+  public get triggerObservable(): Observable<void> {
+    return this.trigger.asObservable();
   }
 
   public onSubmit(){
