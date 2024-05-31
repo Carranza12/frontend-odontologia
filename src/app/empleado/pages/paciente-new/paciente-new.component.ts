@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from 'src/app/api.service';
 import { GeneralService } from 'src/app/general.service';
@@ -14,7 +14,10 @@ import { LoadingService } from 'src/app/services/loading.service';
 export class PacienteNewComponent {
   public isOnCamera: boolean = false;
   private trigger: Subject<void> = new Subject<void>();
+
   public credencialSrc!:string
+
+
   public gender_options = [
     {
       value: 'm',
@@ -165,8 +168,10 @@ export class PacienteNewComponent {
       this.trigger.next();
     }
   }
-  volverTomarFoto(){
-    
+
+  public volverTomarFoto(): void{
+    this.credencialSrc = "";
+    this.onCamera(); 
   }
 
   public handleImage(event: WebcamImage | Event): void {
@@ -177,7 +182,7 @@ export class PacienteNewComponent {
       imgElement.src = event.imageAsDataUrl;
       imgElement.width = 300;
       imgElement.height = 300;
-      imgElement.style.objectFit = "cover";
+      imgElement.style.objectFit = "contain";
       imgElement.style.borderRadius = "10px"
 
       const cameraView = document.getElementById('camera-view');

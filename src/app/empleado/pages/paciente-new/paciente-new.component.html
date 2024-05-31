@@ -40,19 +40,17 @@
             <button *ngIf="!credencialSrc"  class="power-button" id="powerButton" type="button" [ngClass]="{'class_red_color':!isOnCamera, 'class_green_color':isOnCamera}" (click)="onCamera()">
               <i class="fa fa-power-off"></i>
             </button>
-            <button *ngIf="credencialSrc" (click)="volverTomarFoto()" class="btn btn_primary">Volver a tomar foto </button>
+
+            <button *ngIf="credencialSrc" (click)="volverTomarFoto()" class="btn btn_primary" type="button">Volver a tomar foto </button>
     
           <div class="camera-view" id="camera-view" >
-            <webcam *ngIf="isOnCamera"  [trigger]="triggerObservable" (imageCapture)="handleImage($event)" [width]=300 [height]="300"  style=" border-radius: 10px!important;"></webcam>
+            <webcam *ngIf="isOnCamera"  [trigger]="triggerObservable" (imageCapture)="handleImage($event)" class="camera-photo"></webcam>
           </div>
           <button class="capture-button" (click)="triggerSnapshot()">
             <i class="fa fa-camera"></i>
           </button>
         </div>
       </div>
-
-     
-  
       <button type="button" (click)="onSubmit()" class="btn_primary">Crear</button>
     </form>
   </div>
