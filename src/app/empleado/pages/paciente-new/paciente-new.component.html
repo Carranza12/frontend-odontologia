@@ -37,20 +37,31 @@
         </div>
         <div class="camera-interface">
       
-            <button *ngIf="!credencialSrc"  class="power-button" id="powerButton" type="button" [ngClass]="{'class_red_color':!isOnCamera, 'class_green_color':isOnCamera}" (click)="onCamera()">
+            <button  *ngIf="!credencialSrc" class="power-button" id="powerButton" type="button" [ngClass]="{'class_red_color':!isOnCamera, 'class_green_color':isOnCamera}" (click)="onCamera()">
               <i class="fa fa-power-off"></i>
             </button>
 
-            <button *ngIf="credencialSrc" (click)="volverTomarFoto()" class="btn btn_primary" type="button">Volver a tomar foto </button>
+           
     
           <div class="camera-view" id="camera-view" >
             <webcam *ngIf="isOnCamera"  [trigger]="triggerObservable" (imageCapture)="handleImage($event)" class="camera-photo"></webcam>
           </div>
-          <button class="capture-button" (click)="triggerSnapshot()">
+          <button *ngIf="isOnCamera && !credencialSrc" class="capture-button" (click)="capturarFoto()">
             <i class="fa fa-camera"></i>
           </button>
+
+         
         </div>
       </div>
+      <div
+      *ngIf="
+      pacienteForm.get('fotografia')?.hasError('required') &&
+      pacienteForm.get('fotografia')?.touched
+      "
+      class="error-message"
+    >
+      La fotografia es obligatoria
+    </div>
       <button type="button" (click)="onSubmit()" class="btn_primary">Crear</button>
     </form>
   </div>

@@ -8,9 +8,15 @@
     rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
   width: 70%;
   .item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
     padding: 10px;
     color: black;
     cursor: pointer;
+    img{
+      border-radius: 12px;
+    }
     span {
       color: #b21e36;
     }
