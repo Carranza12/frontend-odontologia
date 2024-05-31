@@ -8,7 +8,7 @@ import { AuthService } from 'src/app/auth/auth.service';
 import { GeneralService } from 'src/app/general.service';
 import { ApiService } from 'src/app/api.service';
 import { LoadingService } from 'src/app/services/loading.service';
-
+import { debounceTime } from 'rxjs/operators';
 @Component({
   selector: 'app-consulta-new',
   templateUrl: './consulta-new.component.html',
@@ -47,12 +47,15 @@ export class ConsultaNewComponent implements OnInit {
       this.userData = JSON.parse(user_json);
     }
 
-    this.nombre_paciente_autocomplete.valueChanges.subscribe((nombre) => {
+    this.nombre_paciente_autocomplete.valueChanges.pipe(
+      debounceTime(1000) 
+    ).subscribe((nombre) => {
       this.isKeywordAutocomplete = true;
-      this._paciente.getPacientes().subscribe((pacientes: any) => {
-        this.list_pacientes = pacientes.filter((paciente: any) =>
-          paciente.nombre_completo.toLowerCase().includes(nombre)
-        );
+      nombre = nombre.toUpperCase();
+      console.log("nombre:", nombre);
+      this._paciente.getPacientesAutocomplete(nombre).subscribe((pacientes: any) => {
+        console.log("resultados del backend:", pacientes);
+        this.list_pacientes = pacientes;
       });
     });
 
@@ -71,7 +74,7 @@ export class ConsultaNewComponent implements OnInit {
 
   public openAutocomplete() {
     this.isKeywordAutocomplete = true;
-    this._paciente.getPacientes().subscribe((pacientes: any) => {
+    this._paciente.getPacientesAutocomplete("todos").subscribe((pacientes: any) => {
       this.list_pacientes = pacientes;
     });
   }

@@ -29,6 +29,17 @@ export class PacienteService {
     return [];
   }
 
+  public getPacientesAutocomplete(nombre:string): any {
+    const token = localStorage.getItem('token');
+    if (token) {
+      const headers = new HttpHeaders({
+        Authorization: `Bearer ${token}`,
+      });
+      return this.http.get(`${this.PATIENTS_URL_API}/autocomplete/${nombre}`, { headers });
+    }
+    return [];
+  }
+
   public searchPatients(queries: string): any {
     const token = localStorage.getItem('token');
     if (token) {

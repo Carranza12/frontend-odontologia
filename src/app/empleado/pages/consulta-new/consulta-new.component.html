@@ -3,14 +3,21 @@
   <app-page-title [title]="'Nueva consulta'"></app-page-title>
   <div>
     <form >
-     
-      <div class="autocomplete" *ngIf="showAutocomplete" (click)="closeAutocomplete()">
+      <div class="contenedor_alerta">
+        <div class="alert alert-warning" role="alert">
+          <strong>Atención:</strong>  En el siguiente campo escriba el nombre del pacienta <strong>YA EXISTENTE</strong>, en caso de no encontrarlo o si es la primera consulta, haga clic en <strong>Nuevo Paciente</strong>.
+        </div>
+      </div>
+      <label class="nombreLabel" style="margin-bottom: 10px;">
+        Nombre completo del paciente   <span style="color: red">*</span>
+      </label>
+      <div class="autocomplete" style="margin-bottom: 20px;" *ngIf="showAutocomplete" (click)="closeAutocomplete()">
+        
         <input
           (click)="openAutocomplete()"
           class="form_input"
           [formControl]="nombre_paciente_autocomplete"
           type="text"
-          placeholder="Busca el nombre del paciente..."
           appUppercase
         />
         <div class="list-group" >
