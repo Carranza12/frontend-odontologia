@@ -31,7 +31,7 @@ export class TratamientosComponent {
   public async onSubmit() {
     this.loadingService.show()
     console.log("this.tratamientoForm.invalid:", this.tratamientoForm.invalid)
-    console.log("this.tratamientoForm.value:", this.tratamientoForm.value)
+    console.log("this.tratamientoForm.value:", this.tratamientoForm)
     if(this.tratamientoForm.invalid){
       this.tratamientoForm.markAllAsTouched()
       this.loadingService.hide()

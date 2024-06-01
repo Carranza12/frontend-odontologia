@@ -68,6 +68,7 @@ export class LoginComponent implements OnInit {
               'error'
             )
           }
+          this.loadingService.hide()
           console.error('Error:', error);
         }
       );
