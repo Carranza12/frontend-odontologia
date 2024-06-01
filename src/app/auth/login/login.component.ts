@@ -49,6 +49,8 @@ export class LoginComponent implements OnInit {
         'Por favor rellena los campos vacios.',
         'error'
       )
+      this.loadingService.hide()
+      return;
     }
   
     if (this.loginForm.valid) {
