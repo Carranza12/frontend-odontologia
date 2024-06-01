@@ -189,6 +189,7 @@
                   <th></th>
                 </tr>
               </thead>
+              
               <tbody>
                 <tr *ngFor="let tratamiento of tratamientosList">
                   <td>{{tratamiento.fecha_tratamiento }}</td>
@@ -197,11 +198,11 @@
                   <td *ngIf="tratamiento.maestro_id && tratamiento.maestro_id !== 'RECHAZADO' ">REVISADO por {{ tratamiento.maestroData.name}}  {{tratamiento.maestroData.last_name}}
                   <br/><img [src]="'http://'+tratamiento.maestroData.firma" width="120px" height="60px" alt="">
                   </td>
-                  <td *ngIf="!tratamiento.maestro_id ">SIN REVISAR</td>
-                  <td *ngIf="tratamiento.maestro_id && tratamiento.maestro_id === 'RECHAZADO' ">RECHAZADO por: {{tratamiento.motivo_rechazo}}</td>
-                  <td>{{tratamiento.diagnosticoItem.diagnostico}}</td>
+                  <td *ngIf="!tratamiento?.maestro_id ">SIN REVISAR</td>
+                  <td *ngIf="tratamiento?.maestro_id && tratamiento.maestro_id === 'RECHAZADO' ">RECHAZADO por: {{tratamiento.motivo_rechazo}}</td>
+                  <td>{{tratamiento.diagnosticoItem?.diagnostico}}</td>
                   <td>{{tratamiento.observaciones}}</td>
-                  <td><input (click)="OpenDiagnosticoViewForm(tratamiento.diagnosticoItem._id, tratamiento._id)" type="button" class="" value="Ver"></td>
+                  <td><input (click)="OpenDiagnosticoViewForm(tratamiento.diagnostico_id, tratamiento?._id)" type="button" class="" value="Ver"></td>
                 </tr>
                
               </tbody>
