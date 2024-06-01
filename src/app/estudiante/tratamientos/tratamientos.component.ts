@@ -30,14 +30,18 @@ export class TratamientosComponent {
   });
   public async onSubmit() {
     this.loadingService.show()
-    console.log("this.tratamientoForm.invalid:", this.tratamientoForm.invalid)
-    console.log("this.tratamientoForm.value:", this.tratamientoForm)
-    if(this.tratamientoForm.invalid){
+    const alumno = this.tratamientoForm.controls.alumno.value
+    const matricula = this.tratamientoForm.controls.matricula.value
+    const expediente = this.tratamientoForm.controls.expediente.value
+    const fecha_tratamiento = this.tratamientoForm.controls.fecha_tratamiento.value
+    const observaciones = this.tratamientoForm.controls.observaciones.value
+    if(!alumno || !matricula || !expediente || !fecha_tratamiento || !observaciones){
       this.tratamientoForm.markAllAsTouched()
       this.loadingService.hide()
       return;
     }
 
+    this.loadingService.hide()
     const result = await Swal.fire({
       title: '¿Estás seguro de crear? Una vez creado, NO podra ser editado.',
       showCancelButton: true,

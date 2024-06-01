@@ -2811,11 +2811,15 @@ export class HistoriaClinicaEditComponent implements OnInit {
         this._router.navigateByUrl(
           `estudiante/diagnostico-view/${diagnostico_id}`
         );
+        this.loadingService.hide();
+        return;
       }
       if (tratamiento_id) {
         this._router.navigateByUrl(
           `estudiante/diagnostico-view/${diagnostico_id}?tratamiento=${tratamiento_id}`
         );
+        this.loadingService.hide();
+        return;
       }
       this.loadingService.hide();
     }, 500);
