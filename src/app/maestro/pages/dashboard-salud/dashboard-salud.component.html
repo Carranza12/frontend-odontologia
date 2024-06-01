@@ -34,6 +34,7 @@
       <thead>
         <tr>
           <th>Nombre Completo</th>
+          <th>Fotografia</th>
           <th>Fecha de Nacimiento</th>
           <th>Género</th>
           <th>Estado Civil</th>
@@ -53,19 +54,22 @@
       <tbody>
         <tr *ngFor="let patient of data.pacientesRecientes">
           <td>{{patient.nombre_completo}}</td>
-          <td>{{patient.fecha_de_nacimiento}}</td>
-          <td>{{patient.genero}}</td>
-          <td>{{patient.estado_civil}}</td>
-          <td>{{patient.ocupacion}}</td>
-          <td>{{patient.domicilio}}</td>
-          <td>{{patient.telefono}}</td>
-          <td>{{patient.ciudad_origen}}</td>
-          <td>{{patient.estado_origen}}</td>
-          <td>{{patient.pais_origen}}</td>
-          <td>{{patient.ciudad_Actual}}</td>
-          <td>{{patient.nombre_contacto_emergencia}}</td>
-          <td>{{patient.parentesco_contacto_emergencia}}</td>
-          <td>{{patient.telefono_contacto_emergencia}}</td>
+          <td>
+            <img style="object-fit: cover;" [src]="patient.fotografia ? patient.fotografia: './../../assets/logos/user_Desconocido.jpg'" width="80px" height="80px" alt="">
+          </td>
+          <td>{{patient.fecha_de_nacimiento ? patient.fecha_de_nacimiento : '- -'}}</td>
+          <td>{{patient.genero ? patient.genero: '- -'}}</td>
+          <td>{{patient.estado_civil ? patient.estado_civil: '- -'}}</td>
+          <td>{{patient.ocupacion ? patient.ocupacion: '- -'}}</td>
+          <td>{{patient.domicilio ? patient.domicilio: '- -'}}</td>
+          <td>{{patient.telefono ? patient.telefono: '- -'}}</td>
+          <td>{{patient.ciudad_origen ? patient.ciudad_origen : '- -'}}</td>
+          <td>{{patient.estado_origen ? patient.estado_origen: '- -'}}</td>
+          <td>{{patient.pais_origen ? patient.pais_origen: '- -'}}</td>
+          <td>{{patient.ciudad_Actual ? patient.ciudad_Actual: '- -'}}</td>
+          <td>{{patient.nombre_contacto_emergencia ? patient.nombre_contacto_emergencia : '- -'}}</td>
+          <td>{{patient.parentesco_contacto_emergencia ? patient.parentesco_contacto_emergencia : '- -'}}</td>
+          <td>{{patient.telefono_contacto_emergencia ? patient.telefono_contacto_emergencia: '- -'}}</td>
           <td><button class="btn_primary" type="button" (click)="openHistorialClinico(patient.historia_clinica_id)">VER</button></td>
         </tr>
         <!-- Aquí van los datos de los otros pacientes -->
