@@ -98,16 +98,20 @@ export class PacienteNewComponent {
   }
 
   public async onSubmit() {
+    console.log("Loading service show");
     this.loadingService.show()
     if (this.pacienteForm.invalid) {
       this.pacienteForm.markAllAsTouched()
       this.loadingService.hide()
       return;
     }
+    console.log("paciente form get");
     let nombre_completo = this.pacienteForm.get('nombre_completo')?.value || ""
     nombre_completo = nombre_completo.trim();
     try {
+      console.log("paciente valide unique pacient");
       const data = await this.paciente.validateUniquePatient(nombre_completo).toPromise();
+      console.log("if data && data nombre completo");
       if (data && data.nombre_completo) {
         Swal.fire({
           icon: 'warning',
@@ -115,27 +119,29 @@ export class PacienteNewComponent {
           text: 'Este paciente ya está registrado en el sistema, intenta con otro nombre.',
           confirmButtonText: 'Aceptar',
         });
+        console.log("loading service hide");
         this.loadingService.hide();
         return;
       }
     } catch (error) {
+      console.log("catch");
       console.log('Error:', error);
       this.loadingService.hide();
       return;
     }
-  
+    console.log("item");
     const item = {
       nombre_completo,
       fotografia: this.pacienteForm.get('fotografia')?.value,
       historia_clinica_id: '',
     };
-
+    console.log("create paciente and historia clinica");
     this.apiSevice.createPacienteAndHistoriaClinica(item).subscribe(
       (response: any) => {
         this.loadingService.hide()
         this.pacienteForm.reset();
         this._general.navigateBy(
-          `/trabajador/consultas/nuevo?patientCreated=true&nombre=${item.nombre_completo}&historia_id=${response.item.historia_clinica_id}&fotografia=${item.fotografia}`
+          `/trabajador/consultas/nuevo?patientCreated=true&nombre=${item.nombre_completo}&historia_id=${response.item.historia_clinica_id}`
         );
       },
       (error: any) => {
