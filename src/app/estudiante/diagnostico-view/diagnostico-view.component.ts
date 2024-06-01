@@ -6,6 +6,7 @@ import { asignaturaService } from 'src/app/asignatura.service';
 import { PacienteService } from 'src/app/empleado/services/paciente.service';
 import { PerfilEstudiantesService } from 'src/app/empleado/services/perfil_estudiantes.service';
 import { GeneralService } from 'src/app/general.service';
+import { LoadingService } from 'src/app/services/loading.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -41,10 +42,16 @@ export class DiagnosticoViewComponent {
     private _general: GeneralService,
     private route: ActivatedRoute,
     private _router: Router,
-    private pacienteService: PacienteService
+    private pacienteService: PacienteService,
+    private loadingService: LoadingService
   ) {}
 
   ngOnInit(): void {
+    this.loadingService.show();
+    setTimeout(() => {
+      this.loadingService.hide();
+    }, 500);
+
     let user: any = localStorage.getItem('user');
     user = JSON.parse(user);
     this.usuarioLogeado = user;
