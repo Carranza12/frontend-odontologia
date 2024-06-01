@@ -1,32 +1,26 @@
 <app-sidebar></app-sidebar>
-<main class="main_container" >
+<main class="main_container">
   <app-page-title [title]="'Nueva consulta'"></app-page-title>
   <div>
-    <form >
+    <form>
       <div class="contenedor_alerta" *ngIf="!showPatientDetail">
         <div class="alert alert-warning" role="alert">
-          <strong>Atención:</strong>  En el siguiente campo escriba el nombre del pacienta <strong>YA EXISTENTE</strong>, en caso de no encontrarlo o si es la primera consulta, haga clic en <strong>Nuevo Paciente</strong>.
+          <strong>Atención:</strong> En el siguiente campo escriba el nombre del pacienta <strong>YA EXISTENTE</strong>,
+          en caso de no encontrarlo o si es la primera consulta, haga clic en <strong>Nuevo Paciente</strong>.
         </div>
       </div>
       <label *ngIf="!showPatientDetail" class="nombreLabel" style="margin-bottom: 10px;">
-        Nombre completo del paciente   <span style="color: red">*</span>
+        Nombre completo del paciente <span style="color: red">*</span>
       </label>
       <div class="autocomplete" style="margin-bottom: 20px;" *ngIf="showAutocomplete" (click)="closeAutocomplete()">
-        
-        <input
-          (click)="openAutocomplete()"
-          class="form_input"
-          [formControl]="nombre_paciente_autocomplete"
-          type="text"
-          appUppercase
-        />
-        <div class="list-group" >
-          <div
-            class="item"
-            *ngFor="let paciente of list_pacientes"
-            (click)="selectPatient(paciente)"
-          >
-            <img style="object-fit: cover;" [src]="paciente.fotografia ? paciente.fotografia: './../../assets/logos/user_Desconocido.jpg'" width="80px" height="80px" alt="">
+
+        <input (click)="openAutocomplete()" class="form_input" [formControl]="nombre_paciente_autocomplete" type="text"
+          appUppercase />
+        <div class="list-group">
+          <div class="item" *ngFor="let paciente of list_pacientes" (click)="selectPatient(paciente)">
+            <img style="object-fit: cover;"
+              [src]="paciente.fotografia ? paciente.fotografia: './../../assets/logos/user_Desconocido.jpg'"
+              width="80px" height="80px" alt="">
             <p>{{ paciente.nombre_completo }}</p>
           </div>
           <div class="item" *ngIf="list_pacientes.length === 0 && isKeywordAutocomplete">
@@ -37,52 +31,46 @@
           </div>
         </div>
       </div>
-      <button
-      *ngIf="!showPatientDetail"
-      type="button"
-      class="btn_primary"
-      (click)="_general.navigateBy('/trabajador/pacientes/nuevo')"
-    >
-      Nuevo Paciente
-    </button>
+      <button *ngIf="!showPatientDetail" type="button" class="btn_primary"
+        (click)="_general.navigateBy('/trabajador/pacientes/nuevo')">
+        Nuevo Paciente
+      </button>
       <div *ngIf="showPatientDetail" class="patient_container" id="htmlData">
         <div class="patient_header">
-          <img src="../../../../assets/logos/logo.jpeg.png" alt="logo_facultad">
           <div class="header_childs">
             <p><strong>Dirección de la Facultad de Odontología UT</strong></p>
-            <p>Tel.  (871) 713-59-04 |  (871) 7224499 | (871) 134197 | (871) 7187814 | (871) 7133648</p>
-            <p class="direccion">Avenida Juárez y calle 17. 
+            <p>Tel. (871) 713-59-04 | (871) 7224499 | (871) 134197 | (871) 7187814 | (871) 7133648</p>
+            <p class="direccion">Avenida Juárez y calle 17.
               Col. Centro
               C.P. 27000. Torreón, Coahuila.</p>
           </div>
+          <img src="../../../../assets/logos/logo.jpeg.png" alt="logo_facultad">
         </div>
-        <div class="patient_section" >
-          <img style="object-fit: cover;" [src]="patient.fotografia" alt="logo_facultad" width="100px" height="100px">
-          <div class="patient_section_child">
-            <p><strong>Nombre del paciente:</strong></p>
-            <p>{{ patient.nombre_completo }}</p>
-          </div>
-          <div class="patient_section_child">
-            <p><strong>Fecha de consulta:</strong></p>
-            <p>{{ patient.fecha_consulta }}</p>
+        <div class="patient_section">
+          <img style="object-fit: cover;" [src]="patient.fotografia" alt="foto_paciente" width="150px" height="150px">
+          <div class="patient_info">
+            <div class="patient_section_child">
+              <p><strong>Nombre del paciente:</strong></p>
+              <p>{{ patient.nombre_completo }}</p>
+            </div>
+            <div class="patient_section_child">
+              <p><strong>Fecha de consulta:</strong></p>
+              <p>{{ patient.fecha_consulta }}</p>
+            </div>
           </div>
           <div class="patient_section_child">
             <p><strong>Consulta generada por:</strong></p>
             <p>{{ patient.consulta_generada }}</p>
           </div>
-          
         </div>
-        <qrcode
-          [qrdata]="myAngularxQrCode"
-          [width]="256"
-          [errorCorrectionLevel]="'M'"
-        ></qrcode>
-       <h4 *ngIf = "codigo">Codigo de acceso: {{codigo}}</h4>
+        <qrcode [qrdata]="myAngularxQrCode" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
+        <h4 *ngIf="codigo">Codigo de acceso: {{codigo}}</h4>
       </div>
+      
 
 
       <div *ngIf="showPatientDetail" style="margin-top: 15px;">
-        <button type="button" class="btn_primary" (click)="openPDF()" >Imprimir consulta</button>
+        <button type="button" class="btn_primary" (click)="openPDF()">Imprimir consulta</button>
       </div>
     </form>
   </div>

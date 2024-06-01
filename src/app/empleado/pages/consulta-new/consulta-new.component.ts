@@ -41,14 +41,14 @@ export class ConsultaNewComponent implements OnInit {
     setTimeout(() => {
       this.loadingService.hide();
     }, 500);
-    
+
     const user_json = localStorage.getItem('user');
     if (user_json) {
       this.userData = JSON.parse(user_json);
     }
 
     this.nombre_paciente_autocomplete.valueChanges.pipe(
-      debounceTime(1000) 
+      debounceTime(1000)
     ).subscribe((nombre) => {
       this.isKeywordAutocomplete = true;
       nombre = nombre.toUpperCase();
@@ -60,18 +60,27 @@ export class ConsultaNewComponent implements OnInit {
     });
 
     let urlTree = this._router.parseUrl(this._router.url);
+    console.log(urlTree);
     let patientCreated = urlTree.queryParams['patientCreated'];
+    console.log(patientCreated);
     let nombre_completo = urlTree.queryParams['nombre'];
+    console.log(nombre_completo);
     let historia_clinica_id = urlTree.queryParams['historia_id'];
-    let fotografia = urlTree.queryParams['fotografia'];
-    if (patientCreated && nombre_completo && historia_clinica_id && fotografia) {
-      const patient = {
-        nombre_completo,
-        historia_clinica_id,
-        fotografia
+    console.log(historia_clinica_id);
+    this._paciente.validateUniquePatient(nombre_completo).subscribe((response: any) => {
+      let fotografia = response.fotografia;
+      console.log(fotografia);
+      if (patientCreated && nombre_completo && historia_clinica_id && fotografia) {
+        const patient = {
+          nombre_completo,
+          historia_clinica_id,
+          fotografia
+        }
+        this.selectPatient(patient)
       }
-      this.selectPatient(patient)
-    }
+    }, (error: any) => {
+      console.error(error);
+    });
   }
 
   public openAutocomplete() {
