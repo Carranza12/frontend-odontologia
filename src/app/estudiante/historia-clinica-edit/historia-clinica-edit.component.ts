@@ -22,6 +22,11 @@ import Swal from 'sweetalert2';
 export class HistoriaClinicaEditComponent implements OnInit {
   public esMayorDeEdad: boolean = false;
   public esMenordeEdad: boolean = false;
+  showCredential: boolean = false;
+  toggleDropdown() {
+    this.showCredential = !this.showCredential;
+  }
+
 
   public isBlockedHistoriaInfo: boolean = false;
   public conductasRecibidas:any[] = [];
