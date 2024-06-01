@@ -88,25 +88,21 @@
         </div> -->
 
         <div class="credential-header">
-          <div>
-            <button class="dropdown-button">
-              Desplegar
-              <span class="dropdown-icon">&#9662;</span>
-          </button>
-            <h5 style="margin-left:30px;margin-bottom: 20px;">DATOS GENERALES DEL PACIENTE:</h5>
-          <div class="credential-container">
-    
+          <div class="header-content">
+            <button class="dropdown-button" (click)="toggleDropdown()" type="button">
+              <i class="fas" [ngClass]="{'fa-caret-up': showCredential, 'fa-caret-down': !showCredential}"></i> 
+            </button>
+            <h5 class="header-title">DATOS GENERALES DEL PACIENTE:</h5>
+          </div>
+          <div class="credential-container" [ngStyle]="{ display: showCredential ? 'flex' : 'none' }">
             <img [src]="fotografia" class="patient-photo" alt="Foto del Paciente" />
-            
             <div class="patient-info">
-              
               <div class="info-group">
                 <label for="nombre"><strong>Nombre: </strong>{{historiaClinicaForm.controls.nombre_completo.value}}</label>
               </div>
               <div class="info-group">
                 <label *ngIf="historiaClinicaForm.controls.genero.value" for="genero"><strong>Género: </strong>{{historiaClinicaForm.controls.genero.value === 'm' ? 'Masculino' : 'Femenino'}}</label>
                 <label *ngIf="!historiaClinicaForm.controls.genero.value" for="genero"><strong>Género: </strong>- -</label>
-
               </div>
               <div class="info-group">
                 <label for="telefono"><strong>Teléfono: </strong>{{historiaClinicaForm.controls.telefono.value || '- -'}}</label>
@@ -116,14 +112,12 @@
               </div>
             </div>
           </div>
-          
-          </div>
         </div>
        
       </div> 
 <!--Contenido de Diagnosticos-->
       <div class="tabs__content">
-        <div *ngIf="showDiagnosticosInfoTab && !isFirmadaAutorizacion" class="carta_bloqueada" style="margin-top:180px" >
+        <div *ngIf="showDiagnosticosInfoTab && !isFirmadaAutorizacion" class="carta_bloqueada">
           <div class="lock-icon">🔒</div>
           <div class="message">Para poder crear un diagnostico es necesario que firmes la carta de autorizacion</div>
           <div class="sub-message"><strong>*Autorizacion Requerida*</strong></div>
@@ -133,7 +127,7 @@
 
           
 
-          <div class="encabezado-container" style="margin-top: 120px;">
+          <div class="encabezado-container">
           <h3>Diagnosticos del Paciente:</h3>
           <input *ngIf="usuarioLogeado.role_default ==='estudiante'" type="button" value="Nuevo Diagnostico" class="btn_primary" (click)="OpenDiagnosticoForm()">
           </div>
@@ -215,7 +209,7 @@
       <div class="tabs__content">
         <div *ngIf="showPacienteInfoTab" class="informacion_general_paciente">
           <h3>HISTORIA CLINICA - INFORMACION GENERAL DEL PACIENTE</h3>
-          <div style="display: flex;justify-content:space-around">
+          <div style="display: flex;justify-content:space-between; flex-wrap: wrap;">
             <div class="form_container">
               <div class="form_control">
                 <label for="" class="label_input">Nombre Completo:</label>
