@@ -58,6 +58,7 @@ export class LoginComponent implements OnInit {
           const userString = localStorage.getItem('user');
           this.redirectToDashboard(userString);
           this.loadingService.hide()
+          return;
         },
         (error) => {
           this.loadingService.hide()
@@ -67,6 +68,8 @@ export class LoginComponent implements OnInit {
               'Las credenciales son incorrectas. Favor de hablar con un administrador.',
               'error'
             )
+            this.loadingService.hide()
+            return;
           }
           this.loadingService.hide()
           console.error('Error:', error);
