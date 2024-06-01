@@ -27,6 +27,7 @@ export class DiagnosticoViewComponent {
   public diagnosticoItem:any;
   public haveTratamiento: boolean = false;
   public tratamientoItem!:any;
+  public conductasRecibidas:any[] = [];
 
   public motivo_rechazo = new FormControl('');
   public isRechazado: boolean = false;
@@ -73,6 +74,25 @@ export class DiagnosticoViewComponent {
           for(const clinica of clinicas){
             this.toggleSelection(clinica)
           }
+          
+          if(this.diagnosticoItem.conducta_acosador){
+            this.conductasRecibidas.push("conducta_acosador")
+          }
+          if(this.diagnosticoItem.conducta_agresiva){
+            this.conductasRecibidas.push("conducta_agresiva")
+          }
+          if(this.diagnosticoItem.conducta_ansioso){
+            this.conductasRecibidas.push("conducta_ansioso")
+          }
+          if(this.diagnosticoItem.conducta_cooperativo){
+            this.conductasRecibidas.push("conducta_cooperativo")
+          }
+          if(this.diagnosticoItem.conducta_desinformado){
+            this.conductasRecibidas.push("conducta_desinformado")
+          }
+          if(this.diagnosticoItem.conducta_reticente){
+            this.conductasRecibidas.push("conducta_reticente")
+          }
          
           let idParaAPi = this.diagnosticoItem.tratamiento_id;
           if(this.diagnosticoItem.tratamiento_id){
@@ -84,7 +104,6 @@ export class DiagnosticoViewComponent {
                idParaAPi = tratamiento;
               } 
             });
-            console.log("idParaAPi:", idParaAPi)
             this.apiSevice.getTratamiento(idParaAPi).subscribe((tratamientoRes:any) => {
               this.tratamientoItem = tratamientoRes.item;
               this.evidenciasTratamiento = this.tratamientoItem.evidencias

@@ -63,10 +63,12 @@ export class ConsultaNewComponent implements OnInit {
     let patientCreated = urlTree.queryParams['patientCreated'];
     let nombre_completo = urlTree.queryParams['nombre'];
     let historia_clinica_id = urlTree.queryParams['historia_id'];
-    if (patientCreated && nombre_completo && historia_clinica_id) {
+    let fotografia = urlTree.queryParams['fotografia'];
+    if (patientCreated && nombre_completo && historia_clinica_id && fotografia) {
       const patient = {
         nombre_completo,
-        historia_clinica_id
+        historia_clinica_id,
+        fotografia
       }
       this.selectPatient(patient)
     }

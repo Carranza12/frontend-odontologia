@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/api.service';
 import { GeneralService } from 'src/app/general.service';
 import { EvidenciaModalService } from 'src/app/services/evidencia-modal.service';
+import { LoadingService } from 'src/app/services/loading.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -28,6 +29,15 @@ export class TratamientosComponent {
     motivo_rechazo: new FormControl('')
   });
   public async onSubmit() {
+    this.loadingService.show()
+    console.log("this.tratamientoForm.invalid:", this.tratamientoForm.invalid)
+    console.log("this.tratamientoForm.value:", this.tratamientoForm.value)
+    if(this.tratamientoForm.invalid){
+      this.tratamientoForm.markAllAsTouched()
+      this.loadingService.hide()
+      return;
+    }
+
     const result = await Swal.fire({
       title: '¿Estás seguro de crear? Una vez creado, NO podra ser editado.',
       showCancelButton: true,
@@ -37,47 +47,7 @@ export class TratamientosComponent {
     });
     if (result.isConfirmed) {
       try {
-        if(!this.tratamientoForm.controls.tratamiento.value){
-          Swal.fire(
-            'Oops...',
-            'El campo tratamiento es obligatorio...',
-            'error'
-          )
-          return;
-        }
-        if(!this.tratamientoForm.controls.matricula.value){
-          Swal.fire(
-            'Oops...',
-            'El campo matricula es obligatorio...',
-            'error'
-          )
-          return;
-        }
-        if(!this.tratamientoForm.controls.expediente.value){
-          Swal.fire(
-            'Oops...',
-            'El campo expediente es obligatorio...',
-            'error'
-          )
-          return;
-        }
-        if(!this.tratamientoForm.controls.fecha_tratamiento.value){
-          Swal.fire(
-            'Oops...',
-            'El campo Fecha de tratamiento es obligatorio...',
-            'error'
-          )
-          return;
-        }
-        if(!this.tratamientoForm.controls.observaciones.value){
-          Swal.fire(
-            'Oops...',
-            'El campo Observaciones es obligatorio...',
-            'error'
-          )
-          return;
-        }
-        
+       
         const item = {
           ...this.tratamientoForm.value,
           historia_clinica_id: this.historia_clinica_id,
@@ -90,7 +60,7 @@ export class TratamientosComponent {
 
         this.apiSevice.createTratamiento(item).subscribe(
           (response: any) => {
-            console.log('Tratamiento creado con exito', response);
+            this.loadingService.hide()
             this.tratamientoForm.reset();
             Swal.fire(
               'Tratamiento creado con exito',
@@ -104,6 +74,7 @@ export class TratamientosComponent {
             }, 3000);
           },
           (error: any) => {
+            this.loadingService.hide()
             console.error('Error al guardar la historia clinica', error);
           }
         );
@@ -120,9 +91,15 @@ export class TratamientosComponent {
     private _general: GeneralService,
     private route: ActivatedRoute,
     private evidenciaModal: EvidenciaModalService,
+    private loadingService: LoadingService
   ) {}
 
   ngOnInit(): void {
+    this.loadingService.show();
+    setTimeout(() => {
+      this.loadingService.hide();
+    }, 500);
+
     let user: any = localStorage.getItem('user');
     user = JSON.parse(user);
     if(user){

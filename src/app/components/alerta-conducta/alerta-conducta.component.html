@@ -1,0 +1,14 @@
+<div class="container">
+    <p>{{titleHeader}}:</p>
+  <div *ngFor="let conducta of conductasAMostrar">
+    <div class="cuadro" [style]="'background-color: '+ conducta.color +';color:white;'" (click)="mostrarTexto(conducta)">
+        <i [class]="conducta.icon"></i>
+        <!-- Icono de círculo en la izquierda -->
+      <i class="fas" [ngClass]="{'fa-caret-up': conducta.textoVisible, 'fa-caret-down': !conducta.textoVisible}"></i> <!-- Icono de flecha hacia arriba o hacia abajo en la derecha -->
+    </div>
+    <div class="cuadro-oculto" [style]="'background-color: '+ conducta.color +';color:white;margin-bottom:10px;'" [style.display]="conducta.textoVisible ? 'block' : 'none'">
+      <p><strong>{{conducta.title}}</strong></p>
+      <p>{{ conducta.description}}</p>
+    </div>
+  </div>
+  </div>

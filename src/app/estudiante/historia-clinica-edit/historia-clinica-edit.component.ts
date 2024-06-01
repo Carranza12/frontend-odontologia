@@ -24,7 +24,7 @@ export class HistoriaClinicaEditComponent implements OnInit {
   public esMenordeEdad: boolean = false;
 
   public isBlockedHistoriaInfo: boolean = false;
-
+  public conductasRecibidas:any[] = [];
   public diagnosticosList: any[] = [];
   public tratamientosList: any[] = [];
   /*Elementos de la firma*/
@@ -1487,7 +1487,7 @@ export class HistoriaClinicaEditComponent implements OnInit {
   public showExploracionInfoTab: boolean = false;
   public showAutorizacionInfoTab: boolean = false;
   public showDiagnosticosInfoTab: boolean = false;
-
+  public fotografia!:string;
   public showDigestivoOtroTextarea: boolean = false;
   public showRespiratorioOtroTextarea: boolean = false;
   public showCirculatorioOtroTextarea: boolean = false;
@@ -1662,6 +1662,11 @@ export class HistoriaClinicaEditComponent implements OnInit {
       if (this.historia_clinica_id) {
         this.apiSevice.getHistoriaClinica(this.historia_clinica_id).subscribe(
           (response: any) => {
+            if(response?.item?.paciente?.fotografia){
+              this.fotografia = response?.item?.paciente?.fotografia
+            }else{
+              this.fotografia = "./../../assets/logos/user_Desconocido.jpg"
+            }
             this.isFirmadaAutorizacion = response?.item?.historia_clinica
               ?.isFirmadaAutorizacion
               ? response?.item?.historia_clinica?.isFirmadaAutorizacion
@@ -2305,9 +2310,25 @@ export class HistoriaClinicaEditComponent implements OnInit {
               .getDiagnosticosByHistoriaClinicaID(this.historia_clinica_id)
               .subscribe((respuesta: any) => {
                 this.diagnosticosList = respuesta.items;
-                /* if(this.diagnosticosList.length > 0){
-              this.isAprobadoAnyConsulta = true;
-            } */
+
+                if(this.diagnosticosList[this.diagnosticosList.length - 1].conducta_acosador){
+                  this.conductasRecibidas.push("conducta_acosador")
+                }
+                if(this.diagnosticosList[this.diagnosticosList.length - 1].conducta_agresiva){
+                  this.conductasRecibidas.push("conducta_agresiva")
+                }
+                if(this.diagnosticosList[this.diagnosticosList.length - 1].conducta_ansioso){
+                  this.conductasRecibidas.push("conducta_ansioso")
+                }
+                if(this.diagnosticosList[this.diagnosticosList.length - 1].conducta_cooperativo){
+                  this.conductasRecibidas.push("conducta_cooperativo")
+                }
+                if(this.diagnosticosList[this.diagnosticosList.length - 1].conducta_desinformado){
+                  this.conductasRecibidas.push("conducta_desinformado")
+                }
+                if(this.diagnosticosList[this.diagnosticosList.length - 1].conducta_reticente){
+                  this.conductasRecibidas.push("conducta_reticente")
+                }
               });
 
             this.apiSevice

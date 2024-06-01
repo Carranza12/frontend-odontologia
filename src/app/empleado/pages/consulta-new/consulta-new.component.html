@@ -26,7 +26,7 @@
             *ngFor="let paciente of list_pacientes"
             (click)="selectPatient(paciente)"
           >
-            <img [src]="paciente.fotografia ? paciente.fotografia: './../../assets/logos/user_Desconocido.jpg'" width="80px" height="80px" alt="">
+            <img style="object-fit: cover;" [src]="paciente.fotografia ? paciente.fotografia: './../../assets/logos/user_Desconocido.jpg'" width="80px" height="80px" alt="">
             <p>{{ paciente.nombre_completo }}</p>
           </div>
           <div class="item" *ngIf="list_pacientes.length === 0 && isKeywordAutocomplete">
@@ -57,7 +57,7 @@
           </div>
         </div>
         <div class="patient_section" >
-          <img [src]="patient.fotografia" alt="logo_facultad" width="100px" height="100px">
+          <img style="object-fit: cover;" [src]="patient.fotografia" alt="logo_facultad" width="100px" height="100px">
           <div class="patient_section_child">
             <p><strong>Nombre del paciente:</strong></p>
             <p>{{ patient.nombre_completo }}</p>

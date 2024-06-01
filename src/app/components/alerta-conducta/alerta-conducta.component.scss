@@ -1,0 +1,35 @@
+.container {
+    width: 300px;
+    margin: 50px auto;
+    text-align: center;
+  }
+  
+  .cuadro {
+    height: 50px;
+    padding: 20px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    position: relative;
+  }
+
+  
+  .cuadro i {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  
+  .cuadro i:first-child {
+    left: 10px; /* Ajuste de la posición del icono de círculo */
+  }
+  
+  .cuadro i:last-child {
+    right: 10px; /* Ajuste de la posición del icono de flecha */
+  }
+  
+  .cuadro-oculto {
+    display: none;
+    background-color: lightgreen;
+    padding: 20px;
+  }
+  

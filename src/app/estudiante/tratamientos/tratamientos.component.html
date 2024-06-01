@@ -50,7 +50,7 @@
       <label for=""><strong>Telefono:</strong> {{item.paciente.telefono}}</label>
     </div>
     <div>
-      <label for=""><strong>Fecha de nacimiento:</strong> {{item.paciente.fecha_de_nacimiento}}</label>
+      <label for=""><strong>Fecha de nacimiento:</strong> {{item.paciente.fecha_de_nacimiento}} </label>
     </div>
     <div>
       <label for=""><strong>Domicilio:</strong> {{item.paciente.domicilio}}</label>
@@ -69,7 +69,7 @@
     (ngSubmit)="onSubmit()"
     >
     <div>
-      <label class="label_input" for="fecha_tratamiento">Fecha del tratamiento:</label><br>
+      <label class="label_input" for="fecha_tratamiento">Fecha del tratamiento: <span style="color: red;">*</span> </label><br>
       <input class="form_input" type="date" id="fecha_tratamiento" formControlName="fecha_tratamiento">
       <div
       *ngIf="
@@ -84,7 +84,7 @@
     </div>
     </div>    
       <div>
-        <label class="label_input" for="tratamiento">Tratamiento:</label><br>
+        <label class="label_input" for="tratamiento">Tratamiento: <span style="color: red;">*</span></label><br>
         <textarea class="form_input form_textarea" id="tratamiento" formControlName="tratamiento" rows="4" cols="50"
           style="resize: none;"></textarea>
           <div
@@ -104,7 +104,7 @@
         <input class="form_input" type="text" id="alumno" formControlName="alumno" maxlength="50" readonly autocomplete="on">
       </div>
       <div>
-        <label class="label_input" for="matricula">Matrícula:</label><br>
+        <label class="label_input" for="matricula">Matrícula: <span style="color: red;">*</span></label><br>
         <input class="form_input" type="text" id="matricula" formControlName="matricula" maxlength="8" pattern="[0-9]*">
         <div
         *ngIf="
@@ -119,7 +119,7 @@
       </div>
       </div>
       <div>
-        <label class="label_input" for="expediente">No. de expediente:</label><br>
+        <label class="label_input" for="expediente">No. de expediente: <span style="color: red;">*</span></label><br>
         <input class="form_input" type="text" id="expediente" formControlName="expediente" maxlength="50">
         <div
         *ngIf="
@@ -134,7 +134,7 @@
       </div>
       </div>
       <div>
-        <label class="label_input" for="observaciones">Observaciones:</label><br>
+        <label class="label_input" for="observaciones">Observaciones: <span style="color: red;">*</span></label><br>
         <textarea class="form_input form_textarea" id="observaciones" formControlName="observaciones" rows="4" cols="50"
           style="resize: none;"></textarea>
           <div

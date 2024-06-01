@@ -101,6 +101,7 @@ export class AbrirHistoriaEstudianteComponent {
 
     this.patientService.searchPatients(query).subscribe((value: any) => {
       this.patientsResults = value;
+      console.log("this.patientsResults:", this.patientsResults)
       if (this.patientsResults.length === 0) {
         this.searchPatientsResultsMesagges = 'No se encontraron resultados.';
       }

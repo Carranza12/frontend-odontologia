@@ -8,6 +8,7 @@ import { AlertComponent } from './components/alert/alert.component';
 import { PaginatorComponent } from './components/paginator/paginator.component';
 import { EvidenciaModalComponent } from './components/evidencia-modal/evidencia-modal.component';
 import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
+import { AlertaConductaComponent } from './components/alerta-conducta/alerta-conducta.component';
 @NgModule({
   declarations: [
     SidebarComponent,
@@ -16,6 +17,7 @@ import { LoadingSpinnerComponent } from './components/loading-spinner/loading-sp
     PaginatorComponent,
     EvidenciaModalComponent,
     LoadingSpinnerComponent,
+    AlertaConductaComponent,
   ],
   imports: [CommonModule, ReactiveFormsModule, FormsModule, QRCodeModule],
   exports: [
@@ -27,6 +29,7 @@ import { LoadingSpinnerComponent } from './components/loading-spinner/loading-sp
     AlertComponent,
     PaginatorComponent,
     LoadingSpinnerComponent,
+    AlertaConductaComponent
   ],
 })
 export class SharedModule {}

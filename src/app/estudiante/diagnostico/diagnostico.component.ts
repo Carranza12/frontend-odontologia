@@ -197,7 +197,7 @@ export class DiagnosticoComponent implements OnInit {
   seleccionarGrosor(grosor: number): void {
     this.cambiarGrosor(grosor);
   }
-
+  atLeastOneTrue:boolean = true;
   cambiarColor(nuevoColor: string): void {
     this.selectedColor = nuevoColor;
     this.ctx.strokeStyle = this.penColor;
@@ -264,8 +264,19 @@ export class DiagnosticoComponent implements OnInit {
   }
 
   public async onSubmit() {
+    const conductas = [
+      this.diagnosticoForm.get('conducta_cooperativo')?.value,
+      this.diagnosticoForm.get('conducta_ansioso')?.value,
+      this.diagnosticoForm.get('conducta_reticente')?.value,
+      this.diagnosticoForm.get('conducta_agresiva')?.value,
+      this.diagnosticoForm.get('conducta_desinformado')?.value,
+      this.diagnosticoForm.get('conducta_acosador')?.value
+    ];
+
+    this.atLeastOneTrue = conductas.some(value => value === true);
+    console.log("this.atLeastOneTrue:", this.atLeastOneTrue)
     this.loadingService.show()
-    if(this.diagnosticoForm.invalid){
+    if(this.diagnosticoForm.invalid || !this.atLeastOneTrue){
       Swal.fire({
         title: 'Campos requeridos',
         text: 'Es necesario rellenar los campos en rojo.',

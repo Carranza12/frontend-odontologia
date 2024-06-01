@@ -65,13 +65,15 @@
     
         </div>
         <!--Datos del paciente siempr en pantalla-->
-        <div class="filtros">
-          <h3>Historia Clinica</h3>
+      <!--   <div class="filtros">
+          <img [src]="fotografia" width="80px" height="80px" style="object-fit:cover;" />
       <hr>
       <div class="inputs-container">
-          <div class="input-group">
+          <div class="input-group" style="display:flex;flex-direction: column;justify-content: center;align-items: center;gap:8px">
               <label for="nombre"><strong>Nombre: </strong>{{historiaClinicaForm.controls.nombre_completo.value}}</label>
+           
           </div>
+ 
           <div class="input-group">
               <label for="apellido"><strong>Genero: </strong>{{historiaClinicaForm.controls.genero.value ==='m'?'Masculino':'Femenino'}}</label>
           </div>
@@ -83,11 +85,41 @@
             <label for="correo"><strong>Ciudad: </strong>{{historiaClinicaForm.controls.ciudad_origen.value}}</label>
         </div>
          </div>
+        </div> -->
+
+        <div class="credential-header">
+          <div>
+            <h5 style="margin-left:30px;margin-bottom: 20px;">DATOS GENERALES DEL PACIENTE:</h5>
+          <div class="credential-container">
+    
+            <img [src]="fotografia" class="patient-photo" alt="Foto del Paciente" />
+            
+            <div class="patient-info">
+              
+              <div class="info-group">
+                <label for="nombre"><strong>Nombre: </strong>{{historiaClinicaForm.controls.nombre_completo.value}}</label>
+              </div>
+              <div class="info-group">
+                <label *ngIf="historiaClinicaForm.controls.genero.value" for="genero"><strong>Género: </strong>{{historiaClinicaForm.controls.genero.value === 'm' ? 'Masculino' : 'Femenino'}}</label>
+                <label *ngIf="!historiaClinicaForm.controls.genero.value" for="genero"><strong>Género: </strong>- -</label>
+
+              </div>
+              <div class="info-group">
+                <label for="telefono"><strong>Teléfono: </strong>{{historiaClinicaForm.controls.telefono.value || '- -'}}</label>
+              </div>
+              <div class="info-group">
+                <label for="ciudad"><strong>Ciudad: </strong>{{historiaClinicaForm.controls.ciudad_origen.value || '- -'}}</label>
+              </div>
+            </div>
+          </div>
+          
+          </div>
         </div>
+       
       </div> 
 <!--Contenido de Diagnosticos-->
       <div class="tabs__content">
-        <div *ngIf="showDiagnosticosInfoTab && !isFirmadaAutorizacion" class="carta_bloqueada" style="margin-top:150px" >
+        <div *ngIf="showDiagnosticosInfoTab && !isFirmadaAutorizacion" class="carta_bloqueada" style="margin-top:180px" >
           <div class="lock-icon">🔒</div>
           <div class="message">Para poder crear un diagnostico es necesario que firmes la carta de autorizacion</div>
           <div class="sub-message"><strong>*Autorizacion Requerida*</strong></div>
@@ -177,386 +209,389 @@
 
       <div class="tabs__content">
         <div *ngIf="showPacienteInfoTab" class="informacion_general_paciente">
-          <h3>INFORMACION GENERAL DEL PACIENTE</h3>
-          <div class="form_container">
-            <div class="form_control">
-              <label for="" class="label_input">Nombre Completo:</label>
-              <input
-                class="form_input"
-                type="text"
-                placeholder="Nombre completo"
-                formControlName="nombre_completo"
-                name="nombre_completo"
-                autocomplete="off"
-                [readonly]="isFirmadaAutorizacion"
-                style="width: 440px!important;"
-              />
-              <div
-                *ngIf="
-                  historiaClinicaForm
-                    .get('nombre_completo')
-                    ?.hasError('required') &&
-                  historiaClinicaForm.get('nombre_completo')?.touched
-                "
-                class="error-message"
-              >
-                El nombre completo es requerido.
-              </div>
-            </div>
-            <br>
-            <div class="form_control">
-              <label for="" class="label_input">Fecha de nacimiento:</label>
-              <input
-                class="form_input"
-                type="date"
-                placeholder="Fecha de nacimiento"
-                formControlName="fecha_de_nacimiento"
-                name="fecha_de_nacimiento"
-                autocomplete="off"
-                [readonly]="isFirmadaAutorizacion"
-              />
-              <div
-                *ngIf="
-                  historiaClinicaForm
-                    .get('fecha_de_nacimiento')
-                    ?.hasError('required') &&
-                  historiaClinicaForm.get('fecha_de_nacimiento')?.touched
-                "
-                class="error-message"
-              >
-                La fecha de nacimiento es requerida.
-              </div>
-            </div>
-
-            <div class="form_control">
-              <label for="" class="label_input">Genero:</label>
-              <select
-                class="form_input"
-                formControlName="genero"
-                name="genero"
-                [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
-              >
-                <option value="">Selecciona el genero</option>
-                <option
-                  [value]="gender.value"
-                  *ngFor="let gender of gender_options"
+          <h3>HISTORIA CLINICA - INFORMACION GENERAL DEL PACIENTE</h3>
+          <div style="display: flex;justify-content:space-around">
+            <div class="form_container">
+              <div class="form_control">
+                <label for="" class="label_input">Nombre Completo:</label>
+                <input
+                  class="form_input"
+                  type="text"
+                  placeholder="Nombre completo"
+                  formControlName="nombre_completo"
+                  name="nombre_completo"
+                  autocomplete="off"
+                  [readonly]="isFirmadaAutorizacion"
+                  style="width: 440px!important;"
+                />
+                <div
+                  *ngIf="
+                    historiaClinicaForm
+                      .get('nombre_completo')
+                      ?.hasError('required') &&
+                    historiaClinicaForm.get('nombre_completo')?.touched
+                  "
+                  class="error-message"
                 >
-                  {{ gender.text }}
-                </option>
-              </select>
-              <div
-                *ngIf="
-                  historiaClinicaForm.get('genero')?.hasError('required') &&
-                  historiaClinicaForm.get('genero')?.touched
-                "
-                class="error-message"
-              >
-                El genero es requerido.
+                  El nombre completo es requerido.
+                </div>
               </div>
-            </div>
-
-            <div class="form_control">
-              <label for="" class="label_input">Estado civil:</label>
-              <select
-                [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
-                class="form_input"
-                formControlName="estado_civil"
-                name="estado_civil"
-              >
-                <option value="">Selecciona el Estado civil</option>
-                <option
-                  [value]="status.value"
-                  *ngFor="let status of status_options"
+              <br>
+              <div class="form_control">
+                <label for="" class="label_input">Fecha de nacimiento:</label>
+                <input
+                  class="form_input"
+                  type="date"
+                  placeholder="Fecha de nacimiento"
+                  formControlName="fecha_de_nacimiento"
+                  name="fecha_de_nacimiento"
+                  autocomplete="off"
+                  [readonly]="isFirmadaAutorizacion"
+                />
+                <div
+                  *ngIf="
+                    historiaClinicaForm
+                      .get('fecha_de_nacimiento')
+                      ?.hasError('required') &&
+                    historiaClinicaForm.get('fecha_de_nacimiento')?.touched
+                  "
+                  class="error-message"
                 >
-                  {{ status.text }}
-                </option>
-              </select>
-              <div
-                *ngIf="
-                  historiaClinicaForm
-                    .get('estado_civil')
-                    ?.hasError('required') &&
-                  historiaClinicaForm.get('estado_civil')?.touched
-                "
-                class="error-message"
-              >
-                El Estado civil es requerido.
+                  La fecha de nacimiento es requerida.
+                </div>
               </div>
-            </div>
-
-            <div class="form_control">
-              <label for="" class="label_input">Domicilio:</label>
-              <input
-                [readonly]="isFirmadaAutorizacion"
-                class="form_input"
-                type="text"
-                placeholder="Domicilio"
-                formControlName="domicilio"
-                name="domicilio"
-                autocomplete="off"
-              />
-              <div
-                *ngIf="
-                  historiaClinicaForm.get('domicilio')?.hasError('required') &&
-                  historiaClinicaForm.get('domicilio')?.touched
-                "
-                class="error-message"
-              >
-                El domicilio es requerido.
-              </div>
-            </div>
-
-            <div class="form_control">
-              <label for="" class="label_input">Telefono:</label>
-              <input
-                [readonly]="isFirmadaAutorizacion"
-                class="form_input"
-                type="number"
-                placeholder="Telefono"
-                formControlName="telefono"
-                name="telefono"
-                autocomplete="off"
-              />
-              <div
-                *ngIf="
-                  historiaClinicaForm.get('telefono')?.hasError('required') &&
-                  historiaClinicaForm.get('telefono')?.touched
-                "
-                class="error-message"
-              >
-                El Telefono es requerido.
-              </div>
-            </div>
-
-
-            <div class="form_control">
-              <label for="" class="label_input">Pais:</label>
-              <select
-                class="form_input"
-                formControlName="pais_origen"
-                name="pais_origen"
-                [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
-              >
-                <option value="">Selecciona el pais</option>
-                <option
-                  [value]="country.value"
-                  *ngFor="let country of paises"
+  
+              <div class="form_control">
+                <label for="" class="label_input">Genero:</label>
+                <select
+                  class="form_input"
+                  formControlName="genero"
+                  name="genero"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                 >
-                  {{ country.text }}
-                </option>
-              </select>
-              <div
-                *ngIf="
-                  historiaClinicaForm.get('pais_origen')?.hasError('required') &&
-                  historiaClinicaForm.get('pais_origen')?.touched
-                "
-                class="error-message"
-              >
-                El pais es requerido.
-              </div>
-            </div>
-
-            <div class="form_control">
-              <label for="" class="label_input">Estado de origen:</label>
-              <select
-                class="form_input"
-                formControlName="estado_origen"
-                name="estado_origen"
-                [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
-              >
-                <option value="">Selecciona el Estado</option>
-                <option
-                  [value]="country.value"
-                  *ngFor="let country of estadosMexico"
+                  <option value="">Selecciona el genero</option>
+                  <option
+                    [value]="gender.value"
+                    *ngFor="let gender of gender_options"
+                  >
+                    {{ gender.text }}
+                  </option>
+                </select>
+                <div
+                  *ngIf="
+                    historiaClinicaForm.get('genero')?.hasError('required') &&
+                    historiaClinicaForm.get('genero')?.touched
+                  "
+                  class="error-message"
                 >
-                  {{ country.text }}
-                </option>
-              </select>
-              <div
-                *ngIf="
-                  historiaClinicaForm.get('estado_origen')?.hasError('required') &&
-                  historiaClinicaForm.get('estado_origen')?.touched
-                "
-                class="error-message"
-              >
-                El Estado es requerido.
+                  El genero es requerido.
+                </div>
               </div>
-            </div>
-
-
-            <div class="form_control">
-              <label for="" class="label_input">Ciudad de origen:</label>
-              <select
-                class="form_input"
-                formControlName="ciudad_origen"
-                name="ciudad_origen"
-                [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
-              >
-                <option value="">Selecciona la ciudad de origen</option>
-                <option
-                  [value]="country"
-                  *ngFor="let country of ciudades"
+  
+              <div class="form_control">
+                <label for="" class="label_input">Estado civil:</label>
+                <select
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
+                  class="form_input"
+                  formControlName="estado_civil"
+                  name="estado_civil"
                 >
-                  {{ country}}
-                </option>
-              </select>
-              <div
-                *ngIf="
-                  historiaClinicaForm.get('ciudad_origen')?.hasError('required') &&
-                  historiaClinicaForm.get('ciudad_origen')?.touched
-                "
-                class="error-message"
-              >
-                La  ciudad es requerida.
-              </div>
-            </div>
-         
-
-
-           <!--  <div class="form_control">
-              <label for="" class="label_input">Ciudad actual:</label>
-              <select
-                class="form_input"
-                formControlName="ciudad_Actual"
-                name="ciudad_Actual"
-                [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
-              >
-                <option value="">Selecciona la ciudad actual</option>
-                <option
-                  [value]="country"
-                  *ngFor="let country of ciudades"
+                  <option value="">Selecciona el Estado civil</option>
+                  <option
+                    [value]="status.value"
+                    *ngFor="let status of status_options"
+                  >
+                    {{ status.text }}
+                  </option>
+                </select>
+                <div
+                  *ngIf="
+                    historiaClinicaForm
+                      .get('estado_civil')
+                      ?.hasError('required') &&
+                    historiaClinicaForm.get('estado_civil')?.touched
+                  "
+                  class="error-message"
                 >
-                  {{ country}}
-                </option>
-              </select>
-              <div
-                *ngIf="
-                  historiaClinicaForm.get('ciudad_Actual')?.hasError('required') &&
-                  historiaClinicaForm.get('ciudad_Actual')?.touched
-                "
-                class="error-message"
-              >
-                La  ciudad es requerida.
+                  El Estado civil es requerido.
+                </div>
               </div>
-            </div>
-           -->
-
+  
+              <div class="form_control">
+                <label for="" class="label_input">Domicilio:</label>
+                <input
+                  [readonly]="isFirmadaAutorizacion"
+                  class="form_input"
+                  type="text"
+                  placeholder="Domicilio"
+                  formControlName="domicilio"
+                  name="domicilio"
+                  autocomplete="off"
+                />
+                <div
+                  *ngIf="
+                    historiaClinicaForm.get('domicilio')?.hasError('required') &&
+                    historiaClinicaForm.get('domicilio')?.touched
+                  "
+                  class="error-message"
+                >
+                  El domicilio es requerido.
+                </div>
+              </div>
+  
+              <div class="form_control">
+                <label for="" class="label_input">Telefono:</label>
+                <input
+                  [readonly]="isFirmadaAutorizacion"
+                  class="form_input"
+                  type="number"
+                  placeholder="Telefono"
+                  formControlName="telefono"
+                  name="telefono"
+                  autocomplete="off"
+                />
+                <div
+                  *ngIf="
+                    historiaClinicaForm.get('telefono')?.hasError('required') &&
+                    historiaClinicaForm.get('telefono')?.touched
+                  "
+                  class="error-message"
+                >
+                  El Telefono es requerido.
+                </div>
+              </div>
+  
+  
+              <div class="form_control">
+                <label for="" class="label_input">Pais:</label>
+                <select
+                  class="form_input"
+                  formControlName="pais_origen"
+                  name="pais_origen"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
+                >
+                  <option value="">Selecciona el pais</option>
+                  <option
+                    [value]="country.value"
+                    *ngFor="let country of paises"
+                  >
+                    {{ country.text }}
+                  </option>
+                </select>
+                <div
+                  *ngIf="
+                    historiaClinicaForm.get('pais_origen')?.hasError('required') &&
+                    historiaClinicaForm.get('pais_origen')?.touched
+                  "
+                  class="error-message"
+                >
+                  El pais es requerido.
+                </div>
+              </div>
+  
+              <div class="form_control">
+                <label for="" class="label_input">Estado de origen:</label>
+                <select
+                  class="form_input"
+                  formControlName="estado_origen"
+                  name="estado_origen"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
+                >
+                  <option value="">Selecciona el Estado</option>
+                  <option
+                    [value]="country.value"
+                    *ngFor="let country of estadosMexico"
+                  >
+                    {{ country.text }}
+                  </option>
+                </select>
+                <div
+                  *ngIf="
+                    historiaClinicaForm.get('estado_origen')?.hasError('required') &&
+                    historiaClinicaForm.get('estado_origen')?.touched
+                  "
+                  class="error-message"
+                >
+                  El Estado es requerido.
+                </div>
+              </div>
+  
+  
+              <div class="form_control">
+                <label for="" class="label_input">Ciudad de origen:</label>
+                <select
+                  class="form_input"
+                  formControlName="ciudad_origen"
+                  name="ciudad_origen"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
+                >
+                  <option value="">Selecciona la ciudad de origen</option>
+                  <option
+                    [value]="country"
+                    *ngFor="let country of ciudades"
+                  >
+                    {{ country}}
+                  </option>
+                </select>
+                <div
+                  *ngIf="
+                    historiaClinicaForm.get('ciudad_origen')?.hasError('required') &&
+                    historiaClinicaForm.get('ciudad_origen')?.touched
+                  "
+                  class="error-message"
+                >
+                  La  ciudad es requerida.
+                </div>
+              </div>
            
-
-            <div class="form_control">
-              <label for="" class="label_input">Ocupacion:</label>
-              <input
-                [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
-                class="form_input"
-                type="text"
-                placeholder="Ocupacion"
-                formControlName="ocupacion"
-                name="ocupacion"
-                autocomplete="off"
-              />
-              <div
-                *ngIf="
-                  historiaClinicaForm.get('ocupacion')?.hasError('required') &&
-                  historiaClinicaForm.get('ocupacion')?.touched
-                "
-                class="error-message"
-              >
-                La ocupacion es requerida.
-              </div>
-            </div>
-            <br>
-            <div class="form_control">
-              <label for="" class="label_input"
-                >Nombre del contacto de emergencia:</label
-              >
-              <input
-                class="form_input"
-                [readonly]="isFirmadaAutorizacion"
-                type="text"
-                placeholder="Nombre contacto de emergencia"
-                formControlName="nombre_contacto_emergencia"
-                name="nombre_contacto_emergencia"
-                autocomplete="off"
-                style="width: 440px!important;"
-              />
-              <div
-                *ngIf="
-                  historiaClinicaForm
-                    .get('nombre_contacto_emergencia')
-                    ?.hasError('required') &&
-                  historiaClinicaForm.get('nombre_contacto_emergencia')?.touched
-                "
-                class="error-message"
-              >
-                El Nombre contacto de emergencia es requerido.
-              </div>
-            </div>
-            <br>
-            <div class="form_control">
-              <label for="" class="label_input"
-                >Parentesco del contacto de emergencia:</label
-              >
-              <select
-                [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
-                class="form_input"
-                formControlName="parentesco_contacto_emergencia"
-                name="parentesco_contacto_emergencia"
-              >
-                <option value="">Selecciona la Parentesco</option>
-                <option
-                  [value]="parentesco.value"
-                  *ngFor="let parentesco of parentescos_options"
+  
+  
+             <!--  <div class="form_control">
+                <label for="" class="label_input">Ciudad actual:</label>
+                <select
+                  class="form_input"
+                  formControlName="ciudad_Actual"
+                  name="ciudad_Actual"
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                 >
-                  {{ parentesco.text }}
-                </option>
-              </select>
-              <div
-                *ngIf="
-                  historiaClinicaForm
-                    .get('parentesco_contacto_emergencia')
-                    ?.hasError('required') &&
-                  historiaClinicaForm.get('parentesco_contacto_emergencia')
-                    ?.touched
-                "
-                class="error-message"
-              >
-                El parentesco es requerido.
+                  <option value="">Selecciona la ciudad actual</option>
+                  <option
+                    [value]="country"
+                    *ngFor="let country of ciudades"
+                  >
+                    {{ country}}
+                  </option>
+                </select>
+                <div
+                  *ngIf="
+                    historiaClinicaForm.get('ciudad_Actual')?.hasError('required') &&
+                    historiaClinicaForm.get('ciudad_Actual')?.touched
+                  "
+                  class="error-message"
+                >
+                  La  ciudad es requerida.
+                </div>
+              </div>
+             -->
+  
+             
+  
+              <div class="form_control">
+                <label for="" class="label_input">Ocupacion:</label>
+                <input
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
+                  class="form_input"
+                  type="text"
+                  placeholder="Ocupacion"
+                  formControlName="ocupacion"
+                  name="ocupacion"
+                  autocomplete="off"
+                />
+                <div
+                  *ngIf="
+                    historiaClinicaForm.get('ocupacion')?.hasError('required') &&
+                    historiaClinicaForm.get('ocupacion')?.touched
+                  "
+                  class="error-message"
+                >
+                  La ocupacion es requerida.
+                </div>
+              </div>
+              <br>
+              <div class="form_control">
+                <label for="" class="label_input"
+                  >Nombre del contacto de emergencia:</label
+                >
+                <input
+                  class="form_input"
+                  [readonly]="isFirmadaAutorizacion"
+                  type="text"
+                  placeholder="Nombre contacto de emergencia"
+                  formControlName="nombre_contacto_emergencia"
+                  name="nombre_contacto_emergencia"
+                  autocomplete="off"
+                  style="width: 440px!important;"
+                />
+                <div
+                  *ngIf="
+                    historiaClinicaForm
+                      .get('nombre_contacto_emergencia')
+                      ?.hasError('required') &&
+                    historiaClinicaForm.get('nombre_contacto_emergencia')?.touched
+                  "
+                  class="error-message"
+                >
+                  El Nombre contacto de emergencia es requerido.
+                </div>
+              </div>
+              <br>
+              <div class="form_control">
+                <label for="" class="label_input"
+                  >Parentesco del contacto de emergencia:</label
+                >
+                <select
+                  [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
+                  class="form_input"
+                  formControlName="parentesco_contacto_emergencia"
+                  name="parentesco_contacto_emergencia"
+                >
+                  <option value="">Selecciona la Parentesco</option>
+                  <option
+                    [value]="parentesco.value"
+                    *ngFor="let parentesco of parentescos_options"
+                  >
+                    {{ parentesco.text }}
+                  </option>
+                </select>
+                <div
+                  *ngIf="
+                    historiaClinicaForm
+                      .get('parentesco_contacto_emergencia')
+                      ?.hasError('required') &&
+                    historiaClinicaForm.get('parentesco_contacto_emergencia')
+                      ?.touched
+                  "
+                  class="error-message"
+                >
+                  El parentesco es requerido.
+                </div>
+              </div>
+  
+              <div class="form_control">
+                <label for="" class="label_input"
+                  >Telefono del contacto de emergencia:</label
+                >
+                <input
+                  class="form_input"
+                  [readonly]="isFirmadaAutorizacion"
+                  type="number"
+                  placeholder="Telefono Contacto de emergencia"
+                  formControlName="telefono_contacto_emergencia"
+                  name="telefono_contacto_emergencia"
+                  autocomplete="off"
+                />
+                <div
+                  *ngIf="
+                    historiaClinicaForm
+                      .get('telefono_contacto_emergencia')
+                      ?.hasError('required') &&
+                    historiaClinicaForm.get('telefono_contacto_emergencia')
+                      ?.touched
+                  "
+                  class="error-message"
+                >
+                  El Telefono del contacto de emergencia es requerido.
+                </div>
               </div>
             </div>
-
-            <div class="form_control">
-              <label for="" class="label_input"
-                >Telefono del contacto de emergencia:</label
-              >
-              <input
-                class="form_input"
-                [readonly]="isFirmadaAutorizacion"
-                type="number"
-                placeholder="Telefono Contacto de emergencia"
-                formControlName="telefono_contacto_emergencia"
-                name="telefono_contacto_emergencia"
-                autocomplete="off"
-              />
-              <div
-                *ngIf="
-                  historiaClinicaForm
-                    .get('telefono_contacto_emergencia')
-                    ?.hasError('required') &&
-                  historiaClinicaForm.get('telefono_contacto_emergencia')
-                    ?.touched
-                "
-                class="error-message"
-              >
-                El Telefono del contacto de emergencia es requerido.
-              </div>
-            </div>
+            <app-alerta-conducta *ngIf="conductasRecibidas.length > 0" [titleHeader]="'Esta fue la conducta del paciente en su ultima consulta'" [conductas]="conductasRecibidas"></app-alerta-conducta>
           </div>
           <button type="button" class="btn_primary" (click)="nextPaso2()">
             Siguiente paso
           </button>
         </div>
         <div *ngIf="showAntecedentesInfoTab">
-          <h3>ANTECEDENTES</h3>
+          <h3>HISTORIA CLINICA - ANTECEDENTES</h3>
           <div class="form_control">
             <label for="" class="label_input">Antecedentes hereditarios:</label>
             <p>Padres, Hermanos,Conyuge,Hijos,Colaterales.</p>
@@ -873,7 +908,7 @@
           </button>
         </div>
         <div *ngIf="showAparatosInfoTab" class="aparatos_y_sistemas">
-          <h3>APARATOS Y SISTEMAS</h3>
+          <h3>HISTORIA CLINICA - APARATOS Y SISTEMAS</h3>
           <div class="digestivo_container" style="margin-top: 20px">
             <h3 style="margin-bottom: 10px; color: #b21e36">Digestivo:</h3>
             <div class="form_control_check">
@@ -1495,7 +1530,7 @@
           </button>
         </div>
         <div *ngIf="showExploracionInfoTab">
-          <h3>EXPLORACION FISICA</h3>
+          <h3>HISTORIA CLINICA - EXPLORACION FISICA</h3>
           <div class="habitus_exterior_container" style="margin-top: 20px">
             <h3 style="margin-bottom: 10px; color: #b21e36">
               Habitus Exterior:

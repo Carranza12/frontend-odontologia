@@ -336,7 +336,14 @@
             </div>
           </div>
         </div>
-
+        <div
+        *ngIf="
+          !atLeastOneTrue
+        "
+        class="error-message"
+      >
+      Al menos una conducta debe ser seleccionada.
+      </div>
 
 
 

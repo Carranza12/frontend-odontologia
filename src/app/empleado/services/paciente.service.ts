@@ -136,6 +136,19 @@ export class PacienteService {
     return false;
   }
 
+  validateUniquePatient(nombre_completo: string): any {
+    const token = localStorage.getItem('token');
+    if (token) {
+      const headers = new HttpHeaders({
+        Authorization: `Bearer ${token}`,
+      });
+      console.log("RUTA:", `${this.PATIENTS_URL_API}/validate/${nombre_completo}`)
+     return this.http.get(`${this.PATIENTS_URL_API}/validate/${nombre_completo}`, { headers });
+    }
+    return false;
+  }
+
+
   EditClinica(user: any, id: string): any {
     const token = localStorage.getItem('token');
     if (token) {

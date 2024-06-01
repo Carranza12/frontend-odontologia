@@ -5,6 +5,8 @@ import { GeneralService } from 'src/app/general.service';
 import { Observable, Subject } from 'rxjs';
 import { WebcamImage, WebcamModule } from 'ngx-webcam';
 import { LoadingService } from 'src/app/services/loading.service';
+import { PacienteService } from '../../services/paciente.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-paciente-new',
@@ -27,7 +29,8 @@ export class PacienteNewComponent {
     private apiSevice: ApiService,
     private _general: GeneralService,
     private loadingService: LoadingService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private paciente: PacienteService,
   ) {}
   public onCamera() {
     this.isOnCamera = !this.isOnCamera;
@@ -94,27 +97,49 @@ export class PacienteNewComponent {
     }, 500);
   }
 
-  public onSubmit() {
+  public async onSubmit() {
+    this.loadingService.show()
     if (this.pacienteForm.invalid) {
       this.pacienteForm.markAllAsTouched()
+      this.loadingService.hide()
       return;
     }
-
+    let nombre_completo = this.pacienteForm.get('nombre_completo')?.value || ""
+    nombre_completo = nombre_completo.trim();
+    try {
+      const data = await this.paciente.validateUniquePatient(nombre_completo).toPromise();
+      if (data && data.nombre_completo) {
+        Swal.fire({
+          icon: 'warning',
+          title: 'Paciente registrado',
+          text: 'Este paciente ya está registrado en el sistema, intenta con otro nombre.',
+          confirmButtonText: 'Aceptar',
+        });
+        this.loadingService.hide();
+        return;
+      }
+    } catch (error) {
+      console.log('Error:', error);
+      this.loadingService.hide();
+      return;
+    }
+  
     const item = {
-      nombre_completo: this.pacienteForm.get('nombre_completo')?.value,
+      nombre_completo,
       fotografia: this.pacienteForm.get('fotografia')?.value,
       historia_clinica_id: '',
     };
 
     this.apiSevice.createPacienteAndHistoriaClinica(item).subscribe(
       (response: any) => {
-        console.log('Usuario registrado con éxito', response);
+        this.loadingService.hide()
         this.pacienteForm.reset();
         this._general.navigateBy(
           `/trabajador/consultas/nuevo?patientCreated=true&nombre=${item.nombre_completo}&historia_id=${response.item.historia_clinica_id}&fotografia=${item.fotografia}`
         );
       },
       (error: any) => {
+        this.loadingService.hide()
         console.error('Error al registrar el usuario', error);
       }
     );

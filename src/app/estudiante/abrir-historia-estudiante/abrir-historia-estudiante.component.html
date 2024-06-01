@@ -118,6 +118,7 @@
               <thead>
                 <tr>
                   <th scope="col">Nombre Completo</th>
+                  <th scope="col">Fotografia</th>
                   <th scope="col">Telefono</th>
                   <th scope="col">Genero</th>
                   <th scope="col">Opciones</th>
@@ -126,8 +127,11 @@
               <tbody id="bodyEmpleados" *ngIf="patientsResults">
                 <tr *ngFor="let patient of patientsResults">
                   <td>{{patient.nombre_completo}}</td>
-                  <td>{{patient.telefono}}</td>
-                  <td>{{patient.genero}}</td>
+                  <td> 
+                    <img [src]="patient.fotografia ? patient.fotografia : './../../assets/logos/user_Desconocido.jpg'" width="60px" height="60px" style="object-fit: cover;" alt="">
+                  </td>
+                  <td>{{patient.telefono ? patient.telefono : "- -"}}</td>
+                  <td>{{patient.genero ? patient.genero : "- -"}}</td>
                   <td><button class="btn_primary" (click)="openHistorialClinico(patient.historia_clinica_id)">Ver historia clinica</button></td>
                 </tr>
               </tbody>
