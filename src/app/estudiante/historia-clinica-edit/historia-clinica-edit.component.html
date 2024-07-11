@@ -5,9 +5,6 @@
     [formGroup]="historiaClinicaForm"
     (ngSubmit)="onSubmit()"
   >
- 
-  
-  
     <div class="tabs">
       <div class="componente_fijo">
         <div class="tabs__nav">
@@ -43,7 +40,7 @@
           >
             Exploracion Fisica
           </button>
-    
+
           <button
             class="tabs__nav-btn"
             [ngClass]="{ active: showAutorizacionInfoTab }"
@@ -52,7 +49,7 @@
           >
             Carta de Consentimiento
           </button>
-    <!--Nuevo apartado en historia clinica "Diagnosticos y tratamientos"-->
+          <!--Nuevo apartado en historia clinica "Diagnosticos y tratamientos"-->
           <button
             class="tabs__nav-btn"
             [ngClass]="{ active: showDiagnosticosInfoTab }"
@@ -61,11 +58,9 @@
           >
             Diagnosticos y Tratamientos
           </button>
-    
-    
         </div>
         <!--Datos del paciente siempr en pantalla-->
-      <!--   <div class="filtros">
+        <!--   <div class="filtros">
           <img [src]="fotografia" width="80px" height="80px" style="object-fit:cover;" />
       <hr>
       <div class="inputs-container">
@@ -89,54 +84,117 @@
 
         <div class="credential-header">
           <div class="header-content">
-            <button class="dropdown-button" (click)="toggleDropdown()" type="button">
-              <i class="fas" [ngClass]="{'fa-caret-up': showCredential, 'fa-caret-down': !showCredential}"></i> 
+            <button
+              class="dropdown-button"
+              (click)="toggleDropdown()"
+              type="button"
+            >
+              <i
+                class="fas"
+                [ngClass]="{
+                  'fa-caret-up': showCredential,
+                  'fa-caret-down': !showCredential
+                }"
+              ></i>
             </button>
             <h5 class="header-title">DATOS GENERALES DEL PACIENTE:</h5>
           </div>
-          <div class="credential-container" [ngStyle]="{ display: showCredential ? 'flex' : 'none' }">
-            <img [src]="fotografia" class="patient-photo" alt="Foto del Paciente" />
+          <div
+            class="credential-container"
+            [ngStyle]="{ display: showCredential ? 'flex' : 'none' }"
+          >
+            <img
+              [src]="fotografia"
+              class="patient-photo"
+              alt="Foto del Paciente"
+            />
             <div class="patient-info">
               <div class="info-group">
-                <label for="nombre"><strong>Nombre: </strong>{{historiaClinicaForm.controls.nombre_completo.value}}</label>
+                <label for="nombre"
+                  ><strong>Nombre: </strong
+                  >{{
+                    historiaClinicaForm.controls.nombre_completo.value
+                  }}</label
+                >
               </div>
               <div class="info-group">
-                <label *ngIf="historiaClinicaForm.controls.genero.value" for="genero"><strong>Género: </strong>{{historiaClinicaForm.controls.genero.value === 'm' ? 'Masculino' : 'Femenino'}}</label>
-                <label *ngIf="!historiaClinicaForm.controls.genero.value" for="genero"><strong>Género: </strong>- -</label>
+                <label
+                  *ngIf="historiaClinicaForm.controls.genero.value"
+                  for="genero"
+                  ><strong>Género: </strong
+                  >{{
+                    historiaClinicaForm.controls.genero.value === "m"
+                      ? "Masculino"
+                      : "Femenino"
+                  }}</label
+                >
+                <label
+                  *ngIf="!historiaClinicaForm.controls.genero.value"
+                  for="genero"
+                  ><strong>Género: </strong>- -</label
+                >
               </div>
               <div class="info-group">
-                <label for="telefono"><strong>Teléfono: </strong>{{historiaClinicaForm.controls.telefono.value || '- -'}}</label>
+                <label for="telefono"
+                  ><strong>Teléfono: </strong
+                  >{{
+                    historiaClinicaForm.controls.telefono.value || "- -"
+                  }}</label
+                >
               </div>
               <div class="info-group">
-                <label for="ciudad"><strong>Ciudad: </strong>{{historiaClinicaForm.controls.ciudad_origen.value || '- -'}}</label>
+                <label for="ciudad"
+                  ><strong>Ciudad: </strong
+                  >{{
+                    historiaClinicaForm.controls.ciudad_origen.value || "- -"
+                  }}</label
+                >
               </div>
             </div>
           </div>
         </div>
-       
-      </div> 
-<!--Contenido de Diagnosticos-->
+      </div>
+      <!--Contenido de Diagnosticos-->
       <div class="tabs__content">
-        <div *ngIf="showDiagnosticosInfoTab && !isFirmadaAutorizacion" class="carta_bloqueada">
+        <div
+          *ngIf="showDiagnosticosInfoTab && !isFirmadaAutorizacion"
+          class="carta_bloqueada"
+        >
           <div class="lock-icon">🔒</div>
-          <div class="message">Para poder crear un diagnostico es necesario que firmes la carta de autorizacion</div>
-          <div class="sub-message"><strong>*Autorizacion Requerida*</strong></div>
-          <button class="button" (click)="changeTab('carta')">Ir a la carta de autorizacion</button>
+          <div class="message">
+            Para poder crear un diagnostico es necesario que firmes la carta de
+            autorizacion
+          </div>
+          <div class="sub-message">
+            <strong>*Autorizacion Requerida*</strong>
+          </div>
+          <button class="button" (click)="changeTab('carta')">
+            Ir a la carta de autorizacion
+          </button>
         </div>
-        <div *ngIf="showDiagnosticosInfoTab && isFirmadaAutorizacion" class="tablas_diagnostico">
-
-          
-
+        <div
+          *ngIf="showDiagnosticosInfoTab && isFirmadaAutorizacion"
+          class="tablas_diagnostico"
+        >
           <div class="encabezado-container">
-          <h3>Diagnosticos del Paciente:</h3>
-          <input *ngIf="usuarioLogeado.role_default ==='estudiante'" type="button" value="Nuevo Diagnostico" class="btn_primary" (click)="OpenDiagnosticoForm()">
+            <h3>Diagnosticos del Paciente:</h3>
+            <input
+              *ngIf="usuarioLogeado.role_default === 'estudiante'"
+              type="button"
+              value="Nuevo Diagnostico"
+              class="btn_primary"
+              (click)="OpenDiagnosticoForm()"
+            />
           </div>
 
-          <div class="alert alert-warning custom-alert" role="alert" *ngIf="diagnosticosList.length == 0">
-            No se han creado diagnosticos aun, crea uno presionando el boton <strong>"Nuevo Diagnostico"</strong>
+          <div
+            class="alert alert-warning custom-alert"
+            role="alert"
+            *ngIf="diagnosticosList.length == 0"
+          >
+            No se han creado diagnosticos aun, crea uno presionando el boton
+            <strong>"Nuevo Diagnostico"</strong>
           </div>
-
-         
 
           <table class="mi-tabla" *ngIf="diagnosticosList.length > 0">
             <thead>
@@ -151,65 +209,116 @@
             </thead>
             <tbody>
               <tr *ngFor="let diagnostico of diagnosticosList">
-                <td>{{diagnostico.fecha_de_la_consulta | date }}</td>
-                <td>{{diagnostico.motivos_de_la_consulta}}</td>
-                <td>{{diagnostico.diagnostico}}</td>
-                <td>{{diagnostico.tratamiento_id ? 'Ya cuenta con tratamiento': 'Aun no tiene tratamiento' }}</td>
-                <td>{{diagnostico.observaciones}}</td>
-                <td><input *ngIf="usuarioLogeado.role_default ==='estudiante'" (click)="OpenDiagnosticoViewForm(diagnostico._id)" type="button" class="" value="Ver"></td>
+                <td>{{ diagnostico.fecha_de_la_consulta | date }}</td>
+                <td>{{ diagnostico.motivos_de_la_consulta }}</td>
+                <td>{{ diagnostico.diagnostico }}</td>
+                <td>
+                  {{
+                    diagnostico.tratamiento_id
+                      ? "Ya cuenta con tratamiento"
+                      : "Aun no tiene tratamiento"
+                  }}
+                </td>
+                <td>{{ diagnostico.observaciones }}</td>
+                <td>
+                  <input
+                    *ngIf="usuarioLogeado.role_default === 'estudiante'"
+                    (click)="OpenDiagnosticoViewForm(diagnostico._id)"
+                    type="button"
+                    class=""
+                    value="Ver"
+                  />
+                </td>
               </tr>
               <!-- Puedes agregar más filas si es necesario -->
             </tbody>
           </table>
 
-
           <div class="encabezado-container">
             <h3>Hoja de Observaciones y Evolucion:</h3>
-            </div>
+          </div>
 
-            <div class="alert alert-warning custom-alert" role="alert" *ngIf="tratamientosList.length == 0">
-              No se han creado tratamientos aun, crea uno desde el detalle del diagnostico.
-            </div>
+          <div
+            class="alert alert-warning custom-alert"
+            role="alert"
+            *ngIf="tratamientosList.length == 0"
+          >
+            No se han creado tratamientos aun, crea uno desde el detalle del
+            diagnostico.
+          </div>
 
-            <table class="mi-tabla"  *ngIf="tratamientosList.length > 0">
-              <thead>
-                <tr>
-                  <th>Fecha de Tratamiento</th>
-                  <th>Tratamiento</th>
-                  <th>Quien lo elabora</th>
-                  <th>Quien lo revisa</th>
-                  <th>Diagnostico</th>
-                  <th>Obervaciones</th>
-                  <th></th>
-                </tr>
-              </thead>
-              
-              <tbody>
-                <tr *ngFor="let tratamiento of tratamientosList">
-                  <td>{{tratamiento.fecha_tratamiento }}</td>
-                  <td>{{tratamiento.tratamiento}}</td>
-                  <td>{{tratamiento.alumno}}</td>
-                  <td *ngIf="tratamiento.maestro_id && tratamiento.maestro_id !== 'RECHAZADO' ">REVISADO por {{ tratamiento.maestroData.name}}  {{tratamiento.maestroData.last_name}}
-                  <br/><img [src]="'http://'+tratamiento.maestroData.firma" width="120px" height="60px" alt="">
-                  </td>
-                  <td *ngIf="!tratamiento?.maestro_id ">SIN REVISAR</td>
-                  <td *ngIf="tratamiento?.maestro_id && tratamiento.maestro_id === 'RECHAZADO' ">RECHAZADO por: {{tratamiento.motivo_rechazo}}</td>
-                  <td>{{tratamiento.diagnosticoItem?.diagnostico}}</td>
-                  <td>{{tratamiento.observaciones}}</td>
-                  <td><input (click)="OpenDiagnosticoViewForm(tratamiento.diagnostico_id, tratamiento?._id)" type="button" class="" value="Ver"></td>
-                </tr>
-               
-              </tbody>
-            </table>
+          <table class="mi-tabla" *ngIf="tratamientosList.length > 0">
+            <thead>
+              <tr>
+                <th>Fecha de Tratamiento</th>
+                <th>Tratamiento</th>
+                <th>Quien lo elabora</th>
+                <th>Quien lo revisa</th>
+                <th>Diagnostico</th>
+                <th>Obervaciones</th>
+                <th></th>
+              </tr>
+            </thead>
 
-
+            <tbody>
+              <tr *ngFor="let tratamiento of tratamientosList">
+                <td>{{ tratamiento.fecha_tratamiento }}</td>
+                <td>{{ tratamiento.tratamiento }}</td>
+                <td>{{ tratamiento.alumno }}</td>
+                <td
+                  *ngIf="
+                    tratamiento.maestro_id &&
+                    tratamiento.maestro_id !== 'RECHAZADO'
+                  "
+                >
+                  REVISADO por {{ tratamiento.maestroData.name }}
+                  {{ tratamiento.maestroData.last_name }} <br /><img
+                    [src]="'http://' + tratamiento.maestroData.firma"
+                    width="120px"
+                    height="60px"
+                    alt=""
+                  />
+                </td>
+                <td *ngIf="!tratamiento?.maestro_id">SIN REVISAR</td>
+                <td
+                  *ngIf="
+                    tratamiento?.maestro_id &&
+                    tratamiento.maestro_id === 'RECHAZADO'
+                  "
+                >
+                  RECHAZADO por: {{ tratamiento.motivo_rechazo }}
+                </td>
+                <td>{{ tratamiento.diagnosticoItem?.diagnostico }}</td>
+                <td>{{ tratamiento.observaciones }}</td>
+                <td>
+                  <input
+                    (click)="
+                      OpenDiagnosticoViewForm(
+                        tratamiento.diagnostico_id,
+                        tratamiento?._id
+                      )
+                    "
+                    type="button"
+                    class=""
+                    value="Ver"
+                  />
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
 
       <div class="tabs__content">
         <div *ngIf="showPacienteInfoTab" class="informacion_general_paciente">
           <h3>HISTORIA CLINICA - INFORMACION GENERAL DEL PACIENTE</h3>
-          <div style="display: flex;justify-content:space-between; flex-wrap: wrap;">
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              flex-wrap: wrap;
+            "
+          >
             <div class="form_container">
               <div class="form_control">
                 <label for="" class="label_input">Nombre Completo:</label>
@@ -221,7 +330,7 @@
                   name="nombre_completo"
                   autocomplete="off"
                   [readonly]="isFirmadaAutorizacion"
-                  style="width: 440px!important;"
+                  style="width: 440px !important"
                 />
                 <div
                   *ngIf="
@@ -235,7 +344,7 @@
                   El nombre completo es requerido.
                 </div>
               </div>
-              <br>
+              <br />
               <div class="form_control">
                 <label for="" class="label_input">Fecha de nacimiento:</label>
                 <input
@@ -259,9 +368,9 @@
                   La fecha de nacimiento es requerida.
                 </div>
               </div>
-  
+
               <div class="form_control">
-                <label for="" class="label_input">Genero:</label>
+                <label for="" class="label_input">género:</label>
                 <select
                   class="form_input"
                   formControlName="genero"
@@ -286,7 +395,7 @@
                   El genero es requerido.
                 </div>
               </div>
-  
+
               <div class="form_control">
                 <label for="" class="label_input">Estado civil:</label>
                 <select
@@ -315,7 +424,7 @@
                   El Estado civil es requerido.
                 </div>
               </div>
-  
+
               <div class="form_control">
                 <label for="" class="label_input">Domicilio:</label>
                 <input
@@ -329,7 +438,9 @@
                 />
                 <div
                   *ngIf="
-                    historiaClinicaForm.get('domicilio')?.hasError('required') &&
+                    historiaClinicaForm
+                      .get('domicilio')
+                      ?.hasError('required') &&
                     historiaClinicaForm.get('domicilio')?.touched
                   "
                   class="error-message"
@@ -337,9 +448,9 @@
                   El domicilio es requerido.
                 </div>
               </div>
-  
+
               <div class="form_control">
-                <label for="" class="label_input">Telefono:</label>
+                <label for="" class="label_input">Teléfono:</label>
                 <input
                   [readonly]="isFirmadaAutorizacion"
                   class="form_input"
@@ -359,10 +470,9 @@
                   El Telefono es requerido.
                 </div>
               </div>
-  
-  
+
               <div class="form_control">
-                <label for="" class="label_input">Pais:</label>
+                <label for="" class="label_input">país:</label>
                 <select
                   class="form_input"
                   formControlName="pais_origen"
@@ -379,7 +489,9 @@
                 </select>
                 <div
                   *ngIf="
-                    historiaClinicaForm.get('pais_origen')?.hasError('required') &&
+                    historiaClinicaForm
+                      .get('pais_origen')
+                      ?.hasError('required') &&
                     historiaClinicaForm.get('pais_origen')?.touched
                   "
                   class="error-message"
@@ -387,7 +499,7 @@
                   El pais es requerido.
                 </div>
               </div>
-  
+
               <div class="form_control">
                 <label for="" class="label_input">Estado de origen:</label>
                 <select
@@ -406,7 +518,9 @@
                 </select>
                 <div
                   *ngIf="
-                    historiaClinicaForm.get('estado_origen')?.hasError('required') &&
+                    historiaClinicaForm
+                      .get('estado_origen')
+                      ?.hasError('required') &&
                     historiaClinicaForm.get('estado_origen')?.touched
                   "
                   class="error-message"
@@ -414,8 +528,7 @@
                   El Estado es requerido.
                 </div>
               </div>
-  
-  
+
               <div class="form_control">
                 <label for="" class="label_input">Ciudad de origen:</label>
                 <select
@@ -425,27 +538,24 @@
                   [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                 >
                   <option value="">Selecciona la ciudad de origen</option>
-                  <option
-                    [value]="country"
-                    *ngFor="let country of ciudades"
-                  >
-                    {{ country}}
+                  <option [value]="country" *ngFor="let country of ciudades">
+                    {{ country }}
                   </option>
                 </select>
                 <div
                   *ngIf="
-                    historiaClinicaForm.get('ciudad_origen')?.hasError('required') &&
+                    historiaClinicaForm
+                      .get('ciudad_origen')
+                      ?.hasError('required') &&
                     historiaClinicaForm.get('ciudad_origen')?.touched
                   "
                   class="error-message"
                 >
-                  La  ciudad es requerida.
+                  La ciudad es requerida.
                 </div>
               </div>
-           
-  
-  
-             <!--  <div class="form_control">
+
+              <!--  <div class="form_control">
                 <label for="" class="label_input">Ciudad actual:</label>
                 <select
                   class="form_input"
@@ -472,11 +582,9 @@
                 </div>
               </div>
              -->
-  
-             
-  
+
               <div class="form_control">
-                <label for="" class="label_input">Ocupacion:</label>
+                <label for="" class="label_input">ocupación:</label>
                 <input
                   [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   class="form_input"
@@ -488,7 +596,9 @@
                 />
                 <div
                   *ngIf="
-                    historiaClinicaForm.get('ocupacion')?.hasError('required') &&
+                    historiaClinicaForm
+                      .get('ocupacion')
+                      ?.hasError('required') &&
                     historiaClinicaForm.get('ocupacion')?.touched
                   "
                   class="error-message"
@@ -496,7 +606,7 @@
                   La ocupacion es requerida.
                 </div>
               </div>
-              <br>
+              <br />
               <div class="form_control">
                 <label for="" class="label_input"
                   >Nombre del contacto de emergencia:</label
@@ -509,21 +619,22 @@
                   formControlName="nombre_contacto_emergencia"
                   name="nombre_contacto_emergencia"
                   autocomplete="off"
-                  style="width: 440px!important;"
+                  style="width: 440px !important"
                 />
                 <div
                   *ngIf="
                     historiaClinicaForm
                       .get('nombre_contacto_emergencia')
                       ?.hasError('required') &&
-                    historiaClinicaForm.get('nombre_contacto_emergencia')?.touched
+                    historiaClinicaForm.get('nombre_contacto_emergencia')
+                      ?.touched
                   "
                   class="error-message"
                 >
                   El Nombre contacto de emergencia es requerido.
                 </div>
               </div>
-              <br>
+              <br />
               <div class="form_control">
                 <label for="" class="label_input"
                   >Parentesco del contacto de emergencia:</label
@@ -555,10 +666,10 @@
                   El parentesco es requerido.
                 </div>
               </div>
-  
+
               <div class="form_control">
                 <label for="" class="label_input"
-                  >Telefono del contacto de emergencia:</label
+                  >Teléfono del contacto de emergencia:</label
                 >
                 <input
                   class="form_input"
@@ -579,11 +690,17 @@
                   "
                   class="error-message"
                 >
-                  El Telefono del contacto de emergencia es requerido.
+                  El Teléfono del contacto de emergencia es requerido.
                 </div>
               </div>
             </div>
-            <app-alerta-conducta *ngIf="conductasRecibidas.length > 0" [titleHeader]="'Esta fue la conducta del paciente en su ultima consulta'" [conductas]="conductasRecibidas"></app-alerta-conducta>
+            <app-alerta-conducta
+              *ngIf="conductasRecibidas && conductasRecibidas.length > 0"
+              [titleHeader]="
+                'Esta fue la conducta del paciente en su ultima consulta'
+              "
+              [conductas]="conductasRecibidas"
+            ></app-alerta-conducta>
           </div>
           <button type="button" class="btn_primary" (click)="nextPaso2()">
             Siguiente paso
@@ -921,7 +1038,7 @@
                 />
               </div>
               <div>
-                <label for="" class="form_label">Masticacion:</label>
+                <label for="" class="form_label">Masticación:</label>
                 <input
                   [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
@@ -930,7 +1047,7 @@
                 />
               </div>
               <div>
-                <label for="" class="form_label">Deglucion:</label>
+                <label for="" class="form_label">Deglución:</label>
                 <input
                   [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
@@ -948,7 +1065,7 @@
                 />
               </div>
               <div>
-                <label for="" class="form_label">Nuaseas:</label>
+                <label for="" class="form_label">Nauseas:</label>
                 <input
                   [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
@@ -957,7 +1074,7 @@
                 />
               </div>
               <div>
-                <label for="" class="form_label">Vomito:</label>
+                <label for="" class="form_label">Vómito:</label>
                 <input
                   [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
@@ -975,7 +1092,7 @@
                 />
               </div>
               <div>
-                <label for="" class="form_label">Hematemsis:</label>
+                <label for="" class="form_label">Hematemesis:</label>
                 <input
                   [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
@@ -1011,7 +1128,7 @@
                 />
               </div>
               <div>
-                <label for="" class="form_label">Estrenimiento:</label>
+                <label for="" class="form_label">Estreñimiento:</label>
                 <input
                   [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
@@ -1048,20 +1165,21 @@
                 />
               </div>
             </div>
-    <!--Area de comentarios para aparatos y sistemas-->
+            <!--Area de comentarios para aparatos y sistemas-->
             <div class="comentario_aparatos">
-              <textarea placeholder="Coloque sus comentarios de ser necesario"
-              formControlName="aparatos_sistemas_digestivo_Otros_textarea"
-                  name="aparatos_sistemas_digestivo_Otros_textarea"
-                  autocomplete="off"></textarea>
+              <textarea
+                placeholder="Coloque sus comentarios de ser necesario"
+                formControlName="aparatos_sistemas_digestivo_Otros_textarea"
+                name="aparatos_sistemas_digestivo_Otros_textarea"
+                autocomplete="off"
+              ></textarea>
             </div>
-
           </div>
           <div class="respiratorio_container" style="margin-top: 20px">
             <h3 style="margin-bottom: 10px; color: #b21e36">Respiratorio:</h3>
             <div class="form_control_check">
               <div>
-                <label for="" class="form_label">Epistasis:</label>
+                <label for="" class="form_label">Epistaxis:</label>
                 <input
                   [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
@@ -1088,7 +1206,7 @@
                 />
               </div>
               <div>
-                <label for="" class="form_label">Expectoracion:</label>
+                <label for="" class="form_label">Expectoración:</label>
                 <input
                   [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
@@ -1115,7 +1233,7 @@
                 />
               </div>
               <div>
-                <label for="" class="form_label">Disfonia:</label>
+                <label for="" class="form_label">Disfonía:</label>
                 <input
                   [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
@@ -1145,10 +1263,12 @@
               </div>
             </div>
             <div class="comentario_aparatos">
-              <textarea placeholder="Coloque sus comentarios de ser necesario"
-              formControlName="aparatos_sistemas_respiratorio_Otros_textarea"
-                  name="aparatos_sistemas_respiratorio_Otros_textarea"
-                  autocomplete="off"></textarea>
+              <textarea
+                placeholder="Coloque sus comentarios de ser necesario"
+                formControlName="aparatos_sistemas_respiratorio_Otros_textarea"
+                name="aparatos_sistemas_respiratorio_Otros_textarea"
+                autocomplete="off"
+              ></textarea>
             </div>
           </div>
           <div class="circulatorio_container" style="margin-top: 20px">
@@ -1247,10 +1367,12 @@
               </div>
             </div>
             <div class="comentario_aparatos">
-              <textarea placeholder="Coloque sus comentarios de ser necesario"
-              formControlName="aparatos_sistemas_circulatorio_Otros_textarea"
-                  name="aparatos_sistemas_circulatorio_Otros_textarea"
-                  autocomplete="off"></textarea>
+              <textarea
+                placeholder="Coloque sus comentarios de ser necesario"
+                formControlName="aparatos_sistemas_circulatorio_Otros_textarea"
+                name="aparatos_sistemas_circulatorio_Otros_textarea"
+                autocomplete="off"
+              ></textarea>
             </div>
           </div>
           <div class="genito_urinario_container" style="margin-top: 20px">
@@ -1326,10 +1448,12 @@
               </div>
             </div>
             <div class="comentario_aparatos">
-              <textarea placeholder="Coloque sus comentarios de ser necesario"
-              formControlName="aparatos_sistemas_genito_urinario_Otros_textarea"
-                  name="aparatos_sistemas_genito_urinario_Otros_textarea"
-                  autocomplete="off"></textarea>
+              <textarea
+                placeholder="Coloque sus comentarios de ser necesario"
+                formControlName="aparatos_sistemas_genito_urinario_Otros_textarea"
+                name="aparatos_sistemas_genito_urinario_Otros_textarea"
+                autocomplete="off"
+              ></textarea>
             </div>
           </div>
           <div class="sistema_nervioso_container" style="margin-top: 20px">
@@ -1356,7 +1480,7 @@
                 />
               </div>
               <div>
-                <label for="" class="form_label">Convulciones:</label>
+                <label for="" class="form_label">Convulsiones:</label>
                 <input
                   [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
@@ -1365,7 +1489,7 @@
                 />
               </div>
               <div>
-                <label for="" class="form_label">Paralisis:</label>
+                <label for="" class="form_label">Parálisis:</label>
                 <input
                   [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
@@ -1401,7 +1525,7 @@
                 />
               </div>
               <div>
-                <label for="" class="form_label">Oido:</label>
+                <label for="" class="form_label">Oído:</label>
                 <input
                   [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
@@ -1430,19 +1554,21 @@
               </div>
             </div>
             <div class="comentario_aparatos">
-              <textarea placeholder="Coloque sus comentarios de ser necesario"
-              formControlName="aparatos_sistemas_sist_nervioso_Otros_textarea"
-                  name="aparatos_sistemas_sist_nervioso_Otros_textarea"
-                  autocomplete="off"></textarea>
+              <textarea
+                placeholder="Coloque sus comentarios de ser necesario"
+                formControlName="aparatos_sistemas_sist_nervioso_Otros_textarea"
+                name="aparatos_sistemas_sist_nervioso_Otros_textarea"
+                autocomplete="off"
+              ></textarea>
             </div>
           </div>
           <div class="sintomas_generales_container" style="margin-top: 20px">
             <h3 style="margin-bottom: 10px; color: #b21e36">
-              Sintomas Generales:
+              Síntomas Generales:
             </h3>
             <div class="form_control_check">
               <div>
-                <label for="" class="form_label">Variacion de peso:</label>
+                <label for="" class="form_label">Variación de peso:</label>
                 <input
                   [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
@@ -1478,7 +1604,7 @@
                 />
               </div>
               <div>
-                <label for="" class="form_label">Escalofrios:</label>
+                <label for="" class="form_label">Escalofríos:</label>
                 <input
                   [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
                   type="checkbox"
@@ -1488,7 +1614,7 @@
               </div>
               <div>
                 <label for="" class="form_label"
-                  >Cambio de coloracion en piel y mucosa:</label
+                  >Cambio de coloración en piel y mucosa:</label
                 >
                 <input
                   [ngClass]="{ deshabilitado: isFirmadaAutorizacion }"
@@ -1518,10 +1644,12 @@
               </div>
             </div>
             <div class="comentario_aparatos">
-              <textarea placeholder="Coloque sus comentarios de ser necesario"
-              formControlName="aparatos_sistemas_sintomas_generales_otros_textarea"
-                  name="aparatos_sistemas_sintomas_generales_otros_textarea"
-                  autocomplete="off"></textarea>
+              <textarea
+                placeholder="Coloque sus comentarios de ser necesario"
+                formControlName="aparatos_sistemas_sintomas_generales_otros_textarea"
+                name="aparatos_sistemas_sintomas_generales_otros_textarea"
+                autocomplete="off"
+              ></textarea>
             </div>
           </div>
           <button type="button" class="btn_primary" (click)="nextPaso4()">
@@ -1547,7 +1675,7 @@
             </div>
             <div class="form_control">
               <label for="" class="label_input"
-                >Actitud, Constitucion, Conformacion, Marcha, Movimientos
+                >Actitud, Constitución, Conformación, Marcha, Movimientos
                 Anormales:</label
               >
               <textarea
@@ -1582,7 +1710,7 @@
               />
             </div>
             <div class="form_control">
-              <label for="" class="label_input">Frec Respiratoria:</label>
+              <label for="" class="label_input">Frecuencia Respiratoria:</label>
               <input
                 [readonly]="isFirmadaAutorizacion"
                 class="form_input"
@@ -1618,119 +1746,153 @@
               />
             </div>
           </div>
-         
+
           <button type="button" class="btn_primary" (click)="nextPaso5()">
             Siguiente paso
           </button>
         </div>
-        
 
         <!--Carta de autorizacion-->
-      <div  class="contenedor_carta" *ngIf="historiaClinicaForm.controls.fecha_de_nacimiento.value && showAutorizacionInfoTab">
-        <div class="carta_autorizacion">
-          <h3>AUTORIZACION PARA TRATAMIENTO DENTAL</h3>
-          <p>Por medio de la presente concedo autorizacion al Personal Medico Odontologico y Asistente Dental
-          de esta Facultad de Odontologia para administrar anestesicos y otros medicamentos, asi como emplear 
-          metodos tecnicos y quirurgicos considerados necesarios o aconsejables en el diagnostico y para el 
-          Tratamiento de mi problema de salud oral.</p>
-          <br>
-          <p>Estoy consciente de que dichos procedimientos pueden causar reacciones que sean leves,
-            moderadas o graves, y que en casos extremos pueden ser fatales.
-          </p>
+        <div
+          class="contenedor_carta"
+          *ngIf="
+            historiaClinicaForm.controls.fecha_de_nacimiento.value &&
+            showAutorizacionInfoTab
+          "
+        >
+          <div class="carta_autorizacion">
+            <h3>AUTORIZACION PARA TRATAMIENTO DENTAL</h3>
+            <p>
+              Por medio de la presente concedo autorización al Personal Médico
+              Odontológico y Asistente Dental de esta Facultad de Odontología
+              para administrar anestésicos y otros medicamentos, así como
+              emplear métodos técnicos y quirúrgicos considerados necesarios o
+              aconsejables en el diagnóstico y para el Tratamiento de mi
+              problema de salud oral.
+            </p>
+            <br />
+            <p>
+              Estoy consciente de que dichos procedimientos pueden causar
+              reacciones que sean leves, moderadas o graves, y que en casos
+              extremos pueden ser fatales.
+            </p>
 
-
-            <div class="concentimiento" *ngIf="esMayorDeEdad && !isEditHistoria">
+            <div
+              class="concentimiento"
+              *ngIf="esMayorDeEdad && !isEditHistoria"
+            >
               <div class="nombre">
                 <label for="nombrePaciente">NOMBRE DEL PACIENTE:</label>
-                <label>{{this.historiaClinicaForm.controls.nombre_completo.value}}</label>
+                <label>{{
+                  this.historiaClinicaForm.controls.nombre_completo.value
+                }}</label>
               </div>
-              
+
               <div class="firma-placeholder">
                 <label>FIRMA DEL PACIENTE:</label>
                 <ngx-signature-pad
-              #signature
-              [options]="options"
-              (beginSign)="onBeginSign()"
-              (endSign)="onEndSign()"
-              >
-              </ngx-signature-pad>
+                  #signature
+                  [options]="options"
+                  (beginSign)="onBeginSign()"
+                  (endSign)="onEndSign()"
+                >
+                </ngx-signature-pad>
               </div>
             </div>
 
             <div class="concentimiento" *ngIf="esMayorDeEdad && isEditHistoria">
               <div class="nombre">
                 <label for="nombrePaciente">NOMBRE DEL PACIENTE:</label>
-                <label>{{this.historiaClinicaForm.controls.nombre_completo.value}}</label>
+                <label>{{
+                  this.historiaClinicaForm.controls.nombre_completo.value
+                }}</label>
               </div>
-              
+
               <div class="firma-placeholder">
                 <label>FIRMA DEL PACIENTE:</label>
-                <div  *ngIf="firmaImagenShow && !showEditFirma">
-                  <img
-                  class="firma_img"
-                 
-                    [src]="firmaImagenShow"
-                    alt="Firma"
-                   
-                  />
+                <div *ngIf="firmaImagenShow && !showEditFirma">
+                  <img class="firma_img" [src]="firmaImagenShow" alt="Firma" />
                 </div>
               </div>
             </div>
 
-            <div class="concentimiento" *ngIf="esMenordeEdad && !isEditHistoria">
+            <div
+              class="concentimiento"
+              *ngIf="esMenordeEdad && !isEditHistoria"
+            >
               <div class="nombre">
                 <label for="nombrePaciente">NOMBRE DEL PADRE O TUTOR:</label>
-                <input type="text" formControlName="nombre_tutor" class="form_input"  [readonly]="isFirmadaAutorizacion">
+                <input
+                  type="text"
+                  formControlName="nombre_tutor"
+                  class="form_input"
+                  [readonly]="isFirmadaAutorizacion"
+                />
               </div>
-              
+
               <div class="firma-placeholder">
                 <label>FIRMA DEL PADRE O TUTOR:</label>
                 <ngx-signature-pad
-              #signature
-              [options]="options"
-              (beginSign)="onBeginSign()"
-              (endSign)="onEndSign()"
-              >
-              </ngx-signature-pad>
+                  #signature
+                  [options]="options"
+                  (beginSign)="onBeginSign()"
+                  (endSign)="onEndSign()"
+                >
+                </ngx-signature-pad>
               </div>
             </div>
-     
-              <div class="concentimiento" *ngIf="esMenordeEdad && isEditHistoria">
-                <div class="nombre">
-                  <label for="nombrePaciente">NOMBRE DEL PADRE O TUTOR:</label>
-                  <input type="text" formControlName="nombre_tutor" class="form_input"  [readonly]="isFirmadaAutorizacion">
-                </div>
 
-                <div class="firma-placeholder">
-                  <label>FIRMA DEL PADRE O TUTOR</label>
-                  <div  *ngIf="firmaImagenShow && !showEditFirma">
-                    <img
-                    class="firma_img"
-                   
-                      [src]="firmaImagenShow"
-                      alt="Firma"
-                     
-                    />
-                  </div>
+            <div class="concentimiento" *ngIf="esMenordeEdad && isEditHistoria">
+              <div class="nombre">
+                <label for="nombrePaciente">NOMBRE DEL PADRE O TUTOR:</label>
+                <input
+                  type="text"
+                  formControlName="nombre_tutor"
+                  class="form_input"
+                  [readonly]="isFirmadaAutorizacion"
+                />
+              </div>
+
+              <div class="firma-placeholder">
+                <label>FIRMA DEL PADRE O TUTOR</label>
+                <div *ngIf="firmaImagenShow && !showEditFirma">
+                  <img class="firma_img" [src]="firmaImagenShow" alt="Firma" />
                 </div>
               </div>
             </div>
-            <button type="button" class="btn_firma" (click)="firma_showConfirmDialog()" *ngIf="!isFirmadaAutorizacion">
-              FIRMAR CARTA DE AUTORIZACION Y GUARDAR DATOS
-            </button>
-           
-        </div> 
-        
-        <div class="carta_bloqueada" *ngIf="!historiaClinicaForm.controls.fecha_de_nacimiento.value && showAutorizacionInfoTab">
-          <div class="lock-icon">🔒</div>
-          <div class="message">Para poder firmar la carta de autorización es necesario que contestes los siguientes campos.</div>
-          <div class="sub-message"><strong>*Fecha de Nacimiento*</strong></div>
-          <button class="button"  (click)="changeTab('informacion_general_del_paciente')">Ir a información general</button>
+          </div>
+          <button
+            type="button"
+            class="btn_firma"
+            (click)="firma_showConfirmDialog()"
+            *ngIf="!isFirmadaAutorizacion"
+          >
+            FIRMAR CARTA DE AUTORIZACION Y GUARDAR DATOS
+          </button>
         </div>
 
+        <div
+          class="carta_bloqueada"
+          *ngIf="
+            !historiaClinicaForm.controls.fecha_de_nacimiento.value &&
+            showAutorizacionInfoTab
+          "
+        >
+          <div class="lock-icon">🔒</div>
+          <div class="message">
+            Para poder firmar la carta de autorización es necesario que
+            contestes los siguientes campos.
+          </div>
+          <div class="sub-message"><strong>*Fecha de Nacimiento*</strong></div>
+          <button
+            class="button"
+            (click)="changeTab('informacion_general_del_paciente')"
+          >
+            Ir a información general
+          </button>
+        </div>
       </div>
     </div>
-    
   </form>
   <div></div>
 </main>
