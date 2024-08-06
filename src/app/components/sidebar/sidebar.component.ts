@@ -41,11 +41,13 @@ export class SidebarComponent implements OnInit {
       }
     });
 
+    //Aqui se controla el tiempo para que la sesion expire, guarda el token en el localstorage.
     const token = localStorage.getItem('token');
     if (token) {
       try {
         const decodedToken: any = jwtDecode(token);
         const expirationTimestamp = decodedToken.exp;
+        //este apartado selecciona el tiempo que se asigna a la sesion.
         const expirationDate = new Date(expirationTimestamp * 1000);
         this.sessionExpirationTime = expirationDate.toLocaleTimeString();
       } catch (error) {
