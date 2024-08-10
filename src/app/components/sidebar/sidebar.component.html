@@ -12,7 +12,20 @@
       
       <!--Aqui se muestra ek tiempo en el que la sesion expira-->
       <div class="session-expiration">
-        Tu sesión expirará a las {{ sessionExpirationTime }}
+       !!Recuerda Tu sesion puede expirar por una inactividad prolongada.
+      </div>
+    </div>
+
+    <!--Modal de inactividad-->
+    <div id="inactivityModal" class="modal" style="display:none;">
+      <div class="modal-content">
+        <h2>Sesión Expirada</h2>
+        <p>Su sesión ha expirado debido a inactividad. Para continuar, por favor ingrese el correo electrónico con el que inició sesión.</p>
+        <input type="text" id="emailField" class="modal-input" placeholder="Ingresa tu Correo" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false">
+        <div class="modal-buttons">
+          <input type="button" id="logoutButton" class="modal-button" value="Volver al Inicio">
+          <input type="button" id="extendSessionButton" class="modal-button" value="Extender la Sesión">
+        </div>
       </div>
     </div>
 

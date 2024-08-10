@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
       } else {
         this.router.navigate(['/auth/login']);
       }
-    }
+    } 
   }
 
   onSubmit() {
@@ -57,10 +57,13 @@ export class LoginComponent implements OnInit {
       const formData: any = this.loginForm.value;
       this.authService.login(formData).subscribe(
         (token) => {
+
+          localStorage.setItem('loginEmail', formData.email); // Guarda el correo
           const userString = localStorage.getItem('user');
           this.redirectToDashboard(userString);
           this.loadingService.hide()
           return;
+          
         },
         (error) => {
           this.loadingService.hide()
@@ -80,4 +83,5 @@ export class LoginComponent implements OnInit {
     } else {
     }
   }
+
 }
