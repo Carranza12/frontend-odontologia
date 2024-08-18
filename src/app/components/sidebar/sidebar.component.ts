@@ -41,7 +41,7 @@ export class SidebarComponent implements OnInit {
       }
     });
 
-    const INACTIVITY_LIMIT = 1 * 60 * 1000; // 1 minuto en milisegundos
+const INACTIVITY_LIMIT = 30 * 60 * 1000; // 30 minuto en milisegundos
 let inactivityTimeout: number | undefined;
 let sessionExpired = false;
 
@@ -111,7 +111,7 @@ const checkTokenExpiration = (): void => {
       const expirationTimestamp = decodedToken.exp;
       const currentTime = new Date().getTime();
       
-      if (currentTime >= expirationTimestamp * 1000) {
+      if (currentTime >= expirationTimestamp * 30 * 60 * 1000) {
         console.log('Token ha expirado, eliminando token...');
         showInactivityModal();
       } else {
@@ -126,102 +126,6 @@ const checkTokenExpiration = (): void => {
 // Llama a checkTokenExpiration al cargar la página
 checkTokenExpiration();
 resetInactivityTimeout();
-
-    //Aqui se controla el tiempo para que la sesion expire, guarda el token en el localstorage.
-   /* const token = localStorage.getItem('token');
-    if (token) {
-      try {
-        const decodedToken: any = jwtDecode(token);
-        const expirationTimestamp = decodedToken.exp;
-        //este apartado selecciona el tiempo que se asigna a la sesion.
-        const expirationDate = new Date(expirationTimestamp * 1000);
-        this.sessionExpirationTime = expirationDate.toLocaleTimeString();
-      } catch (error) {
-        console.error('Error al decodificar el token:', error);
-      }
-    }*/
-      
-      
-
-          /*
-      const INACTIVITY_LIMIT = 1 * 60 * 1000; // 5 minutos en milisegundos
-      let inactivityTimeout: any;
-      let sessionExpired = false;
-      
-      const resetInactivityTimeout = () => {
-        if (sessionExpired) return;
-        
-        clearTimeout(inactivityTimeout);
-        inactivityTimeout = setTimeout(() => {
-          showInactivityAlert();
-        }, INACTIVITY_LIMIT);
-      };
-      
-      const showInactivityAlert = () => {
-        sessionExpired = true;
-      
-        // Mostrar la alerta de inactividad utilizando SweetAlert2
-        Swal.fire({
-          title: 'Sesión Expirada',
-          text: 'Su sesión ha expirado debido a inactividad. Por favor, vuelva a iniciar sesión.',
-          html: `<p>Su sesión ha expirado debido a inactividad. Por favor, ingrese su correo electrónico para extender la sesión.</p>
-                <input type="text" id="emailField" class="swal2-input" placeholder="Ingresa tu Correo">`,
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonText: 'Volver al Inicio',
-          cancelButtonText: 'Extender la Sesion',
-          allowOutsideClick: false,
-          allowEscapeKey: false,
-        }).then((result) => {
-          if (result.isConfirmed) {
-            // Limpiar el token del localStorage y redirigir al usuario a la página de inicio de sesión
-            localStorage.removeItem('token');
-            window.location.href = 'auth/login';
-          }else if (result.dismiss) {
-            const email = (document.getElementById('emailField') as HTMLInputElement).value;
-               sessionExpired = false; 
-              resetInactivityTimeout();     
-          }
-        });
-      };
-      
-      
-      // Eventos que resetean el temporizador de inactividad
-      document.addEventListener('mousemove', resetInactivityTimeout);
-      document.addEventListener('keydown', resetInactivityTimeout);
-      document.addEventListener('scroll', resetInactivityTimeout);
-      
-      const checkTokenExpiration = () => {
-        // Aquí se controla el tiempo para que la sesión expire, guarda el token en el localStorage.
-        const token = localStorage.getItem('token');
-        if (token) {
-          try {
-            const decodedToken: any = jwtDecode(token);
-            const expirationTimestamp = decodedToken.exp;
-            // Este apartado selecciona el tiempo que se asigna a la sesión.
-            const expirationDate = new Date(expirationTimestamp * 1000);
-            this.sessionExpirationTime = expirationDate.toLocaleTimeString();
-      
-            // Verificar si el token ha expirado
-            const currentTime = new Date().getTime();
-            if (currentTime >= expirationTimestamp * 1000) {
-              console.log('Token ha expirado, eliminando token...');
-              showInactivityAlert();
-            } else {
-              // Reiniciar el temporizador de inactividad si el token sigue siendo válido
-              resetInactivityTimeout();
-            }
-          } catch (error) {
-            console.error('Error al decodificar el token:', error);
-          }
-        }
-      };
-      
-      // Llama a checkTokenExpiration al cargar la página
-      checkTokenExpiration();
-      resetInactivityTimeout();*/
-      
-
   }
 
   async logout(): Promise<void> {

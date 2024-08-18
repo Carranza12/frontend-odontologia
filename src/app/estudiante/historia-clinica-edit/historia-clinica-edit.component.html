@@ -222,7 +222,7 @@
                 <td>{{ diagnostico.observaciones }}</td>
                 <td>
                   <input
-                    *ngIf="usuarioLogeado.role_default === 'estudiante'"
+                    *ngIf="usuarioLogeado.role_default === 'estudiante' || usuarioLogeado.role_default === 'maestro'"
                     (click)="OpenDiagnosticoViewForm(diagnostico._id)"
                     type="button"
                     class=""

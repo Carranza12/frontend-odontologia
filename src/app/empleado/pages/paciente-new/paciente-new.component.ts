@@ -20,7 +20,9 @@ export class PacienteNewComponent {
   public credencialSrc!: string;
 
   public pacienteForm = this.formBuilder.group({
-    nombre_completo: ['', Validators.required],
+    apellido_paterno: ['', Validators.required],
+  apellido_materno: ['', Validators.required],
+  nombre: ['', Validators.required],
     fotografia:  ["", Validators.required], 
   });
 
@@ -106,8 +108,12 @@ export class PacienteNewComponent {
       return;
     }
     console.log("paciente form get");
-    let nombre_completo = this.pacienteForm.get('nombre_completo')?.value || ""
-    nombre_completo = nombre_completo.trim();
+    let apellido_paterno = this.pacienteForm.get('apellido_paterno')?.value || "";
+    let apellido_materno = this.pacienteForm.get('apellido_materno')?.value || "";
+    let nombre = this.pacienteForm.get('nombre')?.value || "";
+    
+    let nombre_completo = `${apellido_paterno.trim()} ${apellido_materno.trim()} ${nombre.trim()}`.trim();
+    
     try {
       console.log("paciente valide unique pacient");
       const data = await this.paciente.validateUniquePatient(nombre_completo).toPromise();
