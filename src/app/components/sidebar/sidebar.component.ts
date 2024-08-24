@@ -41,7 +41,7 @@ export class SidebarComponent implements OnInit {
       }
     });
 
-const INACTIVITY_LIMIT = 30 * 60 * 1000; // 30 minuto en milisegundos
+const INACTIVITY_LIMIT = 40 * 60 * 1000; // 30 minuto en milisegundos
 let inactivityTimeout: number | undefined;
 let sessionExpired = false;
 
@@ -111,7 +111,7 @@ const checkTokenExpiration = (): void => {
       const expirationTimestamp = decodedToken.exp;
       const currentTime = new Date().getTime();
       
-      if (currentTime >= expirationTimestamp * 30 * 60 * 1000) {
+      if (currentTime >= expirationTimestamp * 40 * 60 * 1000) {
         console.log('Token ha expirado, eliminando token...');
         showInactivityModal();
       } else {
