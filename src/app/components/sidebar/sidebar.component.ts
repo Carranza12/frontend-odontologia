@@ -40,7 +40,7 @@ export class SidebarComponent implements OnInit {
         this.actual_path = urlSegments[0].path;
       }
     });
-
+/*
 const INACTIVITY_LIMIT = 40 * 60 * 1000; // 30 minuto en milisegundos
 let inactivityTimeout: number | undefined;
 let sessionExpired = false;
@@ -126,6 +126,7 @@ const checkTokenExpiration = (): void => {
 // Llama a checkTokenExpiration al cargar la página
 checkTokenExpiration();
 resetInactivityTimeout();
+*/
   }
 
   async logout(): Promise<void> {
