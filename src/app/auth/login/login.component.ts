@@ -58,7 +58,7 @@ export class LoginComponent implements OnInit {
       this.authService.login(formData).subscribe(
         (token) => {
 
-          //localStorage.setItem('loginEmail', formData.email); // Guarda el correo
+          //localStorage.setItem('loginEmail', formData.email); Guarda el correo
           const userString = localStorage.getItem('user');
           this.redirectToDashboard(userString);
           this.loadingService.hide()
